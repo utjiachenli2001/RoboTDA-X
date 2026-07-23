@@ -88,7 +88,13 @@ def fresh_masks():
 
 
 def fresh_truth(campaign="B", weighting="plain", targets=D.ALL_TARGETS):
-    """-> (masks, {target: {mask: seed-mean outcome}}, {target: ceiling}) from campaign B."""
+    """-> (masks, {target: {mask: seed-mean outcome}}, {target: ceiling}) from campaign B.
+
+    Keyed by WEIGHTING. A hypothesis about a redesigned target functional must be scored
+    against that functional's own outcome and its own ceiling; scoring it against the plain
+    outcome measures the mismatch between two functionals, which is precisely the error B2
+    exists to avoid (and which this file's smoke check caught).
+    """
     raw = F.campaign_outcomes(campaign, weighting, targets=targets)
     obs = {t: F.seed_mean(raw[t]) for t in raw}
     ceil = {t: F.split_half_ceiling(raw[t])["ceiling"] for t in raw}
@@ -170,9 +176,11 @@ def _datamodel_loo(model, target, masks, obs_t):
     return rho, spearman_p_onesided(rho, len(pred)), len(pred), alpha
 
 
-def evaluate_spec(name, spec, masks, obs, ceil):
+def evaluate_spec(name, spec, masks, truth):
+    """truth: {weighting: (obs, ceil)}. The spec's own weighting selects the ground truth."""
     t = spec.get("target")
     kind = spec["kind"]
+    obs, ceil = truth[spec.get("weighting", "plain")]
     extra = {}
     if kind == "datamodel_loo":
         rho, p, n, alpha = _datamodel_loo(spec["model"], t, masks, obs[t])
@@ -202,30 +210,37 @@ def main():
     a = ap.parse_args()
 
     targets = sorted({s["target"] for s in PREREG.values()} | set(D.DEV_TARGETS))
-    masks, obs, ceil = fresh_truth(a.campaign, targets=tuple(targets))
+    wneeded = sorted({s.get("weighting", "plain") for s in PREREG.values()} | {"plain"})
+    truth = {}
+    for w in wneeded:
+        masks, obs, ceil = fresh_truth(a.campaign, weighting=w, targets=tuple(targets))
+        truth[w] = (obs, ceil)
 
     print("=" * 104)
     print(f"PASS 3 -- FRESH-MASK CONFIRMATORY FAMILY ({len(PREREG)} hypotheses, "
           f"Bonferroni alpha = {BONF:.4f}), computed once")
     print("=" * 104)
     print(f"masks: {len(masks)} fresh (seed 4711), outcomes: campaign {a.campaign}")
-    print("\nceilings of the fresh outcome (gate: a hypothesis on a target below "
-          f"{F.GATE} is unadjudicable):")
-    for t in targets:
-        flag = "" if ceil[t] >= F.GATE else "   <-- BELOW GATE"
-        print(f"  {t}: {ceil[t]:.4f}{flag}")
+    print("\nceilings of the fresh outcome, per functional (a hypothesis on a target whose "
+          f"ceiling is below {F.GATE} is unadjudicable):")
+    for w in wneeded:
+        row = "  ".join(f"{t}={truth[w][1][t]:.3f}"
+                        + ("!" if truth[w][1][t] < F.GATE else "") for t in targets)
+        print(f"  {w:12s} {row}")
 
     rows = []
     for name, spec in PREREG.items():
-        r = evaluate_spec(name, spec, masks, obs, ceil)
+        r = evaluate_spec(name, spec, masks, truth)
         r["family"] = "prereg"; r["alpha"] = BONF
+        r["weighting"] = spec.get("weighting", "plain")
         r["PASS"] = bool(np.isfinite(r["lds"]) and r["ratio"] >= 0.5 and r["p"] < BONF)
         rows.append(r)
     for name, spec in REFERENCE.items():
         for t in targets:
             s = dict(spec); s["target"] = t
-            r = evaluate_spec(name, s, masks, obs, ceil)
+            r = evaluate_spec(name, s, masks, truth)
             r["family"] = "reference"; r["alpha"] = ALPHA
+            r["weighting"] = "plain"
             r["PASS"] = bool(np.isfinite(r["lds"]) and r["ratio"] >= 0.5 and r["p"] < ALPHA)
             rows.append(r)
 
@@ -233,8 +248,9 @@ def main():
     os.makedirs(RESULTS, exist_ok=True)
     df.to_csv(os.path.join(RESULTS, "confirm3_fresh_masks.csv"), index=False)
     print("\n--- preregistered family ---")
-    print(df[df.family == "prereg"][["name", "target", "lds", "ceiling", "ratio", "bar",
-                                     "p", "alpha", "PASS"]].to_string(index=False))
+    print(df[df.family == "prereg"][["name", "target", "weighting", "lds", "ceiling",
+                                     "ratio", "bar", "p", "alpha",
+                                     "PASS"]].to_string(index=False))
     print("\n--- reference (not in the family, uncorrected alpha) ---")
     print(df[df.family == "reference"][["name", "target", "lds", "ceiling", "ratio", "p",
                                         "PASS"]].to_string(index=False))
