@@ -1,0 +1,68 @@
+[train] ep 0 step 42/8000 loss 4.8550 (3s)
+[train] ep 50 step 2142/8000 loss -13.2973 (35s)
+[train] ep 100 step 4242/8000 loss -16.6910 (69s)
+[train] ep 150 step 6342/8000 loss -18.9244 (102s)
+[train] ep 190 step 8000/8000 loss -19.6880 (128s)
+[train] DONE /mnt/sdb/ljc/RoboTDA-X/phase4/runs/P12/G011_s409 wall=128s windows=10824 loss=-19.7065
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[probe] /mnt/sdb/ljc/RoboTDA-X/phase4/runs/P12/G011_s409 wall=336s
+  C1: succ=0.0 (30 eps) plain=0.887 transp=0.731 inter=1.210
+  C2: succ=0.3333333333333333 (30 eps) plain=0.747 transp=0.551 inter=1.157
+  C3: succ=0.2 (30 eps) plain=1.031 transp=0.931 inter=1.245
+  C4: succ=0.0 (30 eps) plain=0.981 transp=0.971 inter=1.012
+  C5: succ=0.26666666666666666 (30 eps) plain=0.535 transp=0.278 inter=1.018
+  C6: succ=0.0 (30 eps) plain=0.373 transp=0.262 inter=0.750
+  C7: succ=0.1 (30 eps) plain=0.491 transp=0.359 inter=0.894
+  C8: succ=0.1 (30 eps) plain=0.428 transp=0.231 inter=0.876
+  C9: succ=0.0 (30 eps) plain=0.518 transp=0.375 inter=0.838

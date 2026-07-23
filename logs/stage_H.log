@@ -1,0 +1,49 @@
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+
+==============================================================================
+STAGE H -- CLUSTER-GRAIN CONDITIONAL LDS (outcome = logit success, functional = plain)
+==============================================================================
+target    attr      LDS           95% CI         p  ceiling  sig(Bonf)
+    C1  TracIn   -0.370 [-0.65,-0.04]    0.9905    0.465      False
+    C1    TRAK   +0.498 [+0.22,+0.70]    0.0005    0.465       True
+    C1      IF   -0.002 [-0.34,+0.34]    0.5039    0.465      False
+    C2  TracIn   -0.350 [-0.60,-0.04]    0.9866    0.078      False
+    C2    TRAK   -0.036 [-0.35,+0.30]    0.5863    0.078      False
+    C2      IF   -0.126 [-0.42,+0.19]    0.7799    0.078      False
+    C3  TracIn   +0.458 [+0.15,+0.68]    0.0015    0.527       True
+    C3    TRAK   -0.202 [-0.53,+0.17]    0.8948    0.527      False
+    C3      IF   +0.305 [+0.01,+0.54]    0.0279    0.527      False
+    C4  TracIn   -0.026 [-0.39,+0.34]    0.5641    0.380      False
+    C4    TRAK   +0.247 [-0.11,+0.55]    0.0623    0.380      False
+    C4      IF   -0.101 [-0.41,+0.23]    0.7332    0.380      False
+    C5  TracIn   -0.305 [-0.58,+0.01]    0.9721    0.455      False
+    C5    TRAK   +0.231 [-0.11,+0.52]    0.0762    0.455      False
+    C5      IF   +0.137 [-0.20,+0.45]    0.2004    0.455      False
+    C6  TracIn   +0.067 [-0.27,+0.41]    0.3416    0.562      False
+    C6    TRAK   -0.008 [-0.38,+0.34]    0.5195    0.562      False
+    C6      IF   +0.592 [+0.32,+0.79]    0.0000    0.562       True
+    C7  TracIn   +0.074 [-0.32,+0.42]    0.3256    0.117      False
+    C7    TRAK   -0.343 [-0.60,-0.05]    0.9848    0.117      False
+    C7      IF   -0.040 [-0.33,+0.27]    0.5962    0.117      False
+    C8  TracIn   +0.341 [+0.04,+0.61]    0.0157   -0.095      False
+    C8    TRAK   -0.341 [-0.56,-0.08]    0.9842   -0.095      False
+    C8      IF   +0.141 [-0.14,+0.42]    0.1925   -0.095      False
+    C9  TracIn   +0.125 [-0.20,+0.41]    0.2214    0.383      False
+    C9    TRAK   +0.235 [-0.08,+0.51]    0.0721    0.383      False
+    C9      IF   -0.093 [-0.40,+0.21]    0.7159    0.383      False
+
+Bonferroni alpha = 0.00556 (9 targets, one-sided)
+best attributor per target: {'C1': 'TRAK', 'C2': 'TRAK', 'C3': 'TRAK', 'C4': 'IF', 'C5': 'TRAK', 'C6': 'TRAK', 'C7': 'TracIn', 'C8': 'TRAK', 'C9': 'TracIn'}
+
+headline intrusion (best attributor, plain functional):
+  C1: above-median 0.192 (jk SE 0.125), above-p75 0.033, top15 outsiders 9/15, AUC 0.705
+  C2: above-median 0.550 (jk SE 0.316), above-p75 0.108, top15 outsiders 11/15, AUC 0.458
+  C3: above-median 0.033 (jk SE 0.075), above-p75 0.008, top15 outsiders 7/15, AUC 0.588
+  C4: above-median 0.158 (jk SE 0.185), above-p75 0.033, top15 outsiders 9/15, AUC 0.702
+  C5: above-median 0.100 (jk SE 0.081), above-p75 0.033, top15 outsiders 9/15, AUC 0.654
+  C6: above-median 0.567 (jk SE 0.272), above-p75 0.158, top15 outsiders 12/15, AUC 0.509
+  C7: above-median 0.358 (jk SE 0.079), above-p75 0.125, top15 outsiders 12/15, AUC 0.721
+  C8: above-median 0.733 (jk SE 0.457), above-p75 0.075, top15 outsiders 11/15, AUC 0.487
+  C9: above-median 0.383 (jk SE 0.113), above-p75 0.192, top15 outsiders 15/15, AUC 0.584
+
+demo-grain verdict: {'focal_targets': ['C1', 'C5'], 'focal_pass': {'C1': False, 'C5': False}, 'both_focal_failed': True, 'downgrade_rule': 'if BOTH focal targets fail, all per-demo claims downgrade to cluster grain'}

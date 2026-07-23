@@ -1,0 +1,76 @@
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[download] 70 files across ['libero_goal', 'libero_spatial', 'libero_object', 'libero_10', 'libero_90']
+[dl 1/70] libero_goal/open_the_middle_drawer_of_the_cabinet_demo.hdf5 702MB 9s
+[dl 2/70] libero_goal/open_the_top_drawer_and_put_the_bowl_inside_demo.hdf5 1018MB 10s
+[dl 3/70] libero_goal/push_the_plate_to_the_front_of_the_stove_demo.hdf5 763MB 8s
+[dl 4/70] libero_goal/put_the_bowl_on_the_plate_demo.hdf5 468MB 8s
+[dl 5/70] libero_goal/put_the_bowl_on_the_stove_demo.hdf5 509MB 8s
+[dl 6/70] libero_goal/put_the_bowl_on_top_of_the_cabinet_demo.hdf5 510MB 7s
+[dl 7/70] libero_goal/put_the_cream_cheese_in_the_bowl_demo.hdf5 536MB 8s
+[dl 8/70] libero_goal/put_the_wine_bottle_on_the_rack_demo.hdf5 879MB 9s
+[dl 9/70] libero_goal/put_the_wine_bottle_on_top_of_the_cabinet_demo.hdf5 540MB 7s
+[dl 10/70] libero_goal/turn_on_the_stove_demo.hdf5 448MB 5s
+[dl 11/70] libero_spatial/pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate_demo.hdf5 509MB 7s
+[dl 12/70] libero_spatial/pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate_demo.hdf5 590MB 6s
+[dl 13/70] libero_spatial/pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate_demo.hdf5 748MB 9s
+[dl 14/70] libero_spatial/pick_up_the_black_bowl_next_to_the_cookie_box_and_place_it_on_the_plate_demo.hdf5 632MB 8s
+[dl 15/70] libero_spatial/pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate_demo.hdf5 598MB 7s
+[dl 16/70] libero_spatial/pick_up_the_black_bowl_next_to_the_ramekin_and_place_it_on_the_plate_demo.hdf5 672MB 8s
+[dl 17/70] libero_spatial/pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate_demo.hdf5 507MB 7s
+[dl 18/70] libero_spatial/pick_up_the_black_bowl_on_the_ramekin_and_place_it_on_the_plate_demo.hdf5 581MB 7s
+[dl 19/70] libero_spatial/pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate_demo.hdf5 712MB 8s
+[dl 20/70] libero_spatial/pick_up_the_black_bowl_on_the_wooden_cabinet_and_place_it_on_the_plate_demo.hdf5 689MB 8s
+[symlink] libero_object/pick_up_the_alphabet_soup_and_place_it_in_the_basket_demo.hdf5
+[symlink] libero_object/pick_up_the_bbq_sauce_and_place_it_in_the_basket_demo.hdf5
+[symlink] libero_object/pick_up_the_butter_and_place_it_in_the_basket_demo.hdf5
+[symlink] libero_object/pick_up_the_chocolate_pudding_and_place_it_in_the_basket_demo.hdf5
+[symlink] libero_object/pick_up_the_cream_cheese_and_place_it_in_the_basket_demo.hdf5
+[symlink] libero_object/pick_up_the_ketchup_and_place_it_in_the_basket_demo.hdf5
+[symlink] libero_object/pick_up_the_milk_and_place_it_in_the_basket_demo.hdf5
+[symlink] libero_object/pick_up_the_orange_juice_and_place_it_in_the_basket_demo.hdf5
+[symlink] libero_object/pick_up_the_salad_dressing_and_place_it_in_the_basket_demo.hdf5
+[symlink] libero_object/pick_up_the_tomato_sauce_and_place_it_in_the_basket_demo.hdf5
+[dl 31/70] libero_10/KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it_demo.hdf5 1320MB 11s
+[dl 32/70] libero_10/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it_demo.hdf5 1235MB 11s
+[dl 33/70] libero_10/KITCHEN_SCENE6_put_the_yellow_and_white_mug_in_the_microwave_and_close_it_demo.hdf5 1511MB 12s
+[dl 34/70] libero_10/KITCHEN_SCENE8_put_both_moka_pots_on_the_stove_demo.hdf5 2061MB 14s
+[dl 35/70] libero_10/LIVING_ROOM_SCENE1_put_both_the_alphabet_soup_and_the_cream_cheese_box_in_the_basket_demo.hdf5 1341MB 14s
+[dl 36/70] libero_10/LIVING_ROOM_SCENE2_put_both_the_alphabet_soup_and_the_tomato_sauce_in_the_basket_demo.hdf5 1468MB 14s
+[dl 37/70] libero_10/LIVING_ROOM_SCENE2_put_both_the_cream_cheese_box_and_the_butter_in_the_basket_demo.hdf5 1300MB 13s
+[dl 38/70] libero_10/LIVING_ROOM_SCENE5_put_the_white_mug_on_the_left_plate_and_put_the_yellow_and_white_mug_on_the_right_plate_demo.hdf5 1285MB 12s
+[dl 39/70] libero_10/LIVING_ROOM_SCENE6_put_the_white_mug_on_the_plate_and_put_the_chocolate_pudding_to_the_right_of_the_plate_demo.hdf5 1268MB 12s
+[dl 40/70] libero_10/STUDY_SCENE1_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy_demo.hdf5 941MB 9s
+[dl 41/70] libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it_demo.hdf5 1062MB 9s
+[dl 42/70] libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet_demo.hdf5 384MB 4s
+[dl 43/70] libero_90/KITCHEN_SCENE10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet_demo.hdf5 620MB 6s
+[dl 44/70] libero_90/KITCHEN_SCENE10_put_the_butter_at_the_back_in_the_top_drawer_of_the_cabinet_and_close_it_demo.hdf5 941MB 9s
+[dl 45/70] libero_90/KITCHEN_SCENE10_put_the_butter_at_the_front_in_the_top_drawer_of_the_cabinet_and_close_it_demo.hdf5 904MB 7s
+[dl 46/70] libero_90/KITCHEN_SCENE10_put_the_chocolate_pudding_in_the_top_drawer_of_the_cabinet_and_close_it_demo.hdf5 894MB 7s
+[dl 47/70] libero_90/KITCHEN_SCENE1_open_the_bottom_drawer_of_the_cabinet_demo.hdf5 713MB 7s
+[dl 48/70] libero_90/KITCHEN_SCENE1_open_the_top_drawer_of_the_cabinet_and_put_the_bowl_in_it_demo.hdf5 995MB 8s
+[dl 49/70] libero_90/KITCHEN_SCENE1_open_the_top_drawer_of_the_cabinet_demo.hdf5 473MB 6s
+[dl 50/70] libero_90/KITCHEN_SCENE1_put_the_black_bowl_on_the_plate_demo.hdf5 660MB 6s
+[dl 51/70] libero_90/KITCHEN_SCENE1_put_the_black_bowl_on_top_of_the_cabinet_demo.hdf5 678MB 6s
+[dl 52/70] libero_90/KITCHEN_SCENE2_open_the_top_drawer_of_the_cabinet_demo.hdf5 379MB 5s
+[dl 53/70] libero_90/KITCHEN_SCENE2_put_the_black_bowl_at_the_back_on_the_plate_demo.hdf5 555MB 8s
+[dl 54/70] libero_90/KITCHEN_SCENE2_put_the_black_bowl_at_the_front_on_the_plate_demo.hdf5 691MB 7s
+[dl 55/70] libero_90/KITCHEN_SCENE2_put_the_middle_black_bowl_on_the_plate_demo.hdf5 540MB 6s
+[dl 56/70] libero_90/KITCHEN_SCENE2_put_the_middle_black_bowl_on_top_of_the_cabinet_demo.hdf5 682MB 6s
+[dl 57/70] libero_90/KITCHEN_SCENE2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle_demo.hdf5 642MB 7s
+[dl 58/70] libero_90/KITCHEN_SCENE2_stack_the_middle_black_bowl_on_the_back_black_bowl_demo.hdf5 574MB 6s
+[dl 59/70] libero_90/KITCHEN_SCENE4_close_the_bottom_drawer_of_the_cabinet_and_open_the_top_drawer_demo.hdf5 1170MB 9s
+[dl 60/70] libero_90/KITCHEN_SCENE4_close_the_bottom_drawer_of_the_cabinet_demo.hdf5 582MB 6s
+[dl 61/70] libero_90/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_demo.hdf5 662MB 6s
+[dl 62/70] libero_90/KITCHEN_SCENE4_put_the_black_bowl_on_top_of_the_cabinet_demo.hdf5 788MB 8s
+[dl 63/70] libero_90/KITCHEN_SCENE4_put_the_wine_bottle_in_the_bottom_drawer_of_the_cabinet_demo.hdf5 636MB 7s
+[dl 64/70] libero_90/KITCHEN_SCENE4_put_the_wine_bottle_on_the_wine_rack_demo.hdf5 1202MB 9s
+[dl 65/70] libero_90/KITCHEN_SCENE9_put_the_frying_pan_on_the_cabinet_shelf_demo.hdf5 940MB 8s
+[dl 66/70] libero_90/KITCHEN_SCENE9_put_the_frying_pan_on_top_of_the_cabinet_demo.hdf5 922MB 9s
+[dl 67/70] libero_90/KITCHEN_SCENE9_put_the_frying_pan_under_the_cabinet_shelf_demo.hdf5 856MB 10s
+[dl 68/70] libero_90/KITCHEN_SCENE9_put_the_white_bowl_on_top_of_the_cabinet_demo.hdf5 748MB 7s
+[dl 69/70] libero_90/KITCHEN_SCENE9_turn_on_the_stove_and_put_the_frying_pan_on_it_demo.hdf5 1295MB 12s
+[dl 70/70] libero_90/KITCHEN_SCENE9_turn_on_the_stove_demo.hdf5 585MB 6s
+[download] DONE 70/70

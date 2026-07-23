@@ -1,0 +1,181 @@
+{
+ "stage": "P8a seed-noise factorial decomposition",
+ "n_retrains": 48,
+ "n_missing": 0,
+ "missing": [],
+ "masks": [
+  "G000",
+  "G002",
+  "G004",
+  "G007",
+  "G009",
+  "G012",
+  "G014",
+  "G016",
+  "G018",
+  "G020",
+  "G021",
+  "G023"
+ ],
+ "init_seeds": [
+  701,
+  702
+ ],
+ "order_seeds": [
+  801,
+  802
+ ],
+ "design": "12 masks x 2 init x 2 order, fully crossed (48 retrains)",
+ "factor_definitions": {
+  "INIT": "torch.manual_seed / np.random.seed -> parameter initialization AND the dropout mask stream. DISCLOSED CONFOUND: dropout rides on this RNG, so the factor is 'init + dropout', not init alone. Preregistered, not discovered.",
+  "ORDER": "the CPU torch.Generator that draws the per-epoch batch permutation, only."
+ },
+ "interaction_note": "With ONE replicate per (init, order) cell, the interaction and the residual are confounded. They are reported as a single INTERACTION+RESIDUAL term. Declared in advance.",
+ "instrument_check": "phase3/results/p8_bitcheck.json -- the factorial trainer is bit-identical to src/train.py when init == order",
+ "results": {
+  "neg_plain_loss": {
+   "n_cells": 108,
+   "variance_fraction": {
+    "INIT": 0.7182042631077284,
+    "ORDER": 0.15137597352481716,
+    "INTERACTION_PLUS_RESIDUAL": 0.13041976336745434
+   },
+   "bootstrap_ci95_over_masks": {
+    "INIT": [
+     0.5702907019786947,
+     0.8163043659490778
+    ],
+    "ORDER": [
+     0.09018558628792277,
+     0.2518225724644317
+    ],
+    "INTERACTION_PLUS_RESIDUAL": [
+     0.0836989816494079,
+     0.19859705048079962
+    ]
+   },
+   "per_target_variance_fraction": {
+    "C1": {
+     "ss_init": 0.7646549091760098,
+     "ss_order": 0.1582732461181091,
+     "ss_inter_resid": 0.07707184470588105
+    },
+    "C2": {
+     "ss_init": 0.7044333597646112,
+     "ss_order": 0.12966894202268442,
+     "ss_inter_resid": 0.16589769821270448
+    },
+    "C3": {
+     "ss_init": 0.8259013600107269,
+     "ss_order": 0.08847070428159598,
+     "ss_inter_resid": 0.08562793570767722
+    },
+    "C4": {
+     "ss_init": 0.7579113340902897,
+     "ss_order": 0.1354896233153019,
+     "ss_inter_resid": 0.10659904259440843
+    },
+    "C5": {
+     "ss_init": 0.5928093011365622,
+     "ss_order": 0.27222497798751366,
+     "ss_inter_resid": 0.134965720875924
+    },
+    "C6": {
+     "ss_init": 0.4019678095254642,
+     "ss_order": 0.5307023569394226,
+     "ss_inter_resid": 0.06732983353511325
+    },
+    "C7": {
+     "ss_init": 0.3959823572462899,
+     "ss_order": 0.2849895094217036,
+     "ss_inter_resid": 0.31902813333200664
+    },
+    "C8": {
+     "ss_init": 0.5990710044293249,
+     "ss_order": 0.22296956246875563,
+     "ss_inter_resid": 0.17795943310191958
+    },
+    "C9": {
+     "ss_init": 0.7258164144438759,
+     "ss_order": 0.12353795206085243,
+     "ss_inter_resid": 0.1506456334952716
+    }
+   },
+   "DOMINANCE_THRESHOLD": 0.7,
+   "DOMINANT_FACTOR": "INIT (parameter initialization + dropout stream)",
+   "READOUT": "INIT (parameter initialization + dropout stream) exceeds 70% of the seed variance and is NAMED the dominant source."
+  },
+  "logit_success": {
+   "n_cells": 108,
+   "variance_fraction": {
+    "INIT": 0.453749831077888,
+    "ORDER": 0.22216734722283107,
+    "INTERACTION_PLUS_RESIDUAL": 0.32408282169928093
+   },
+   "bootstrap_ci95_over_masks": {
+    "INIT": [
+     0.37670841484037626,
+     0.5373854776690443
+    ],
+    "ORDER": [
+     0.17490534966007615,
+     0.2773424948349309
+    ],
+    "INTERACTION_PLUS_RESIDUAL": [
+     0.2371810739815649,
+     0.4080760852027118
+    ]
+   },
+   "per_target_variance_fraction": {
+    "C1": {
+     "ss_init": 0.3103948090345079,
+     "ss_order": 0.34284837380559413,
+     "ss_inter_resid": 0.3467568171598978
+    },
+    "C2": {
+     "ss_init": 0.596382723504036,
+     "ss_order": 0.12697815549433583,
+     "ss_inter_resid": 0.27663912100162824
+    },
+    "C3": {
+     "ss_init": 0.49166170133982895,
+     "ss_order": 0.2630362872151714,
+     "ss_inter_resid": 0.2453020114449996
+    },
+    "C4": {
+     "ss_init": 0.3864872383682449,
+     "ss_order": 0.247717775958499,
+     "ss_inter_resid": 0.3657949856732561
+    },
+    "C5": {
+     "ss_init": 0.546019136477618,
+     "ss_order": 0.26228101425341493,
+     "ss_inter_resid": 0.1916998492689671
+    },
+    "C6": {
+     "ss_init": 0.4421705067763187,
+     "ss_order": 0.15355177943584714,
+     "ss_inter_resid": 0.40427771378783417
+    },
+    "C7": {
+     "ss_init": 0.5138535534554234,
+     "ss_order": 0.16834921639596145,
+     "ss_inter_resid": 0.3177972301486151
+    },
+    "C8": {
+     "ss_init": 0.27656135661245934,
+     "ss_order": 0.19364863627697018,
+     "ss_inter_resid": 0.5297900071105704
+    },
+    "C9": {
+     "ss_init": 0.4229434859216814,
+     "ss_order": 0.32343347724102384,
+     "ss_inter_resid": 0.2536230368372946
+    }
+   },
+   "DOMINANCE_THRESHOLD": 0.7,
+   "DOMINANT_FACTOR": null,
+   "READOUT": "NEITHER factor exceeds 70% of the seed variance: seed noise is NOT attributable to a single RNG factor."
+  }
+ }
+}

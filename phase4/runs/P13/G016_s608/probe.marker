@@ -1,0 +1,1 @@
+{"ckpt": "final.pt", "policy": "diffusion", "n_rollouts": 10, "horizon": 600, "n_ddim_steps": 10, "rollout_wall_s": 709.3160209655762, "n_errors": 0, "total_wall_s": 715.2188565731049}

@@ -1,0 +1,15 @@
+[train] ep 0 step 27 loss 4.1743 (3s)
+[train] ep 50 step 1377 loss -10.0558 (24s)
+[train] ep 100 step 2727 loss -13.3121 (47s)
+[train] ep 150 step 4077 loss -11.3194 (70s)
+[train] ep 200 step 5427 loss -19.5345 (94s)
+[train] ep 250 step 6777 loss -20.9966 (115s)
+[train] ep 299 step 8100 loss -7.0933 (137s)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[calib] singletask50_e300_s101: demos=50 ep=300 loss=-7.093 success=0.7 train=137s roll=58s

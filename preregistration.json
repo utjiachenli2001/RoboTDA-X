@@ -1,0 +1,388 @@
+{
+ "frozen_at": "before Stage B (Gate 0); after Stage-A synthetic tests and C1-only policy calibration, neither of which is a study result",
+ "seeds": {
+  "corpus_seed": 0,
+  "heldout_seed": 1,
+  "cluster_mask_seed": 7,
+  "demo_mask_seed": 11,
+  "noise_ceiling_subset_seed": 13,
+  "stage_B_gate0": [
+   101,
+   102,
+   103,
+   104,
+   105
+  ],
+  "stage_C_quantity": [
+   101,
+   102,
+   103
+  ],
+  "stage_D_gate1": [
+   101,
+   102
+  ],
+  "stage_E_ensemble": [
+   201,
+   202,
+   203,
+   204,
+   205,
+   206,
+   207,
+   208,
+   209,
+   210
+  ],
+  "stage_F_cluster_masks": [
+   301,
+   302
+  ],
+  "stage_F_noise_ceiling_extra": [
+   303,
+   304
+  ],
+  "stage_G_demo_masks": [
+   401,
+   402
+  ],
+  "stage_I_rq4": [
+   501,
+   502,
+   503
+  ]
+ },
+ "corpus": {
+  "M_clusters": 9,
+  "clusters": {
+   "C1": {
+    "suite": "libero_goal",
+    "scene": null,
+    "n_tasks": 10
+   },
+   "C2": {
+    "suite": "libero_spatial",
+    "scene": null,
+    "n_tasks": 10
+   },
+   "C3": {
+    "suite": "libero_object",
+    "scene": null,
+    "n_tasks": 10
+   },
+   "C4": {
+    "suite": "libero_10",
+    "scene": null,
+    "n_tasks": 10
+   },
+   "C5": {
+    "suite": "libero_90",
+    "scene": "KITCHEN_SCENE2",
+    "n_tasks": 7
+   },
+   "C6": {
+    "suite": "libero_90",
+    "scene": "KITCHEN_SCENE10",
+    "n_tasks": 6
+   },
+   "C7": {
+    "suite": "libero_90",
+    "scene": "KITCHEN_SCENE4",
+    "n_tasks": 6
+   },
+   "C8": {
+    "suite": "libero_90",
+    "scene": "KITCHEN_SCENE9",
+    "n_tasks": 6
+   },
+   "C9": {
+    "suite": "libero_90",
+    "scene": "KITCHEN_SCENE1",
+    "n_tasks": 5
+   }
+  },
+  "n_train_per_cluster": 15,
+  "N_train_total": 135,
+  "n_heldout_per_cluster": 10,
+  "n_heldout_total": 90,
+  "state_dim": 128,
+  "obj_pad_dim": 112,
+  "action_dim": 7,
+  "probe_tasks": {
+   "C1": [
+    "open_the_middle_drawer_of_the_cabinet",
+    "open_the_top_drawer_and_put_the_bowl_inside",
+    "push_the_plate_to_the_front_of_the_stove"
+   ],
+   "C2": [
+    "pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate",
+    "pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate",
+    "pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate"
+   ],
+   "C3": [
+    "pick_up_the_alphabet_soup_and_place_it_in_the_basket",
+    "pick_up_the_bbq_sauce_and_place_it_in_the_basket",
+    "pick_up_the_butter_and_place_it_in_the_basket"
+   ],
+   "C4": [
+    "KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it",
+    "LIVING_ROOM_SCENE2_put_both_the_alphabet_soup_and_the_tomato_sauce_in_the_basket",
+    "LIVING_ROOM_SCENE6_put_the_white_mug_on_the_plate_and_put_the_chocolate_pudding_to_the_right_of_the_plate"
+   ],
+   "C5": [
+    "KITCHEN_SCENE2_open_the_top_drawer_of_the_cabinet",
+    "KITCHEN_SCENE2_put_the_black_bowl_at_the_back_on_the_plate",
+    "KITCHEN_SCENE2_put_the_black_bowl_at_the_front_on_the_plate"
+   ],
+   "C6": [
+    "KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet",
+    "KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it",
+    "KITCHEN_SCENE10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet"
+   ],
+   "C7": [
+    "KITCHEN_SCENE4_close_the_bottom_drawer_of_the_cabinet",
+    "KITCHEN_SCENE4_close_the_bottom_drawer_of_the_cabinet_and_open_the_top_drawer",
+    "KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet"
+   ],
+   "C8": [
+    "KITCHEN_SCENE9_put_the_frying_pan_on_the_cabinet_shelf",
+    "KITCHEN_SCENE9_put_the_frying_pan_on_top_of_the_cabinet",
+    "KITCHEN_SCENE9_put_the_frying_pan_under_the_cabinet_shelf"
+   ],
+   "C9": [
+    "KITCHEN_SCENE1_open_the_bottom_drawer_of_the_cabinet",
+    "KITCHEN_SCENE1_open_the_top_drawer_of_the_cabinet",
+    "KITCHEN_SCENE1_open_the_top_drawer_of_the_cabinet_and_put_the_bowl_in_it"
+   ]
+  },
+  "corpus_manifest_sha256_16": "eeb238cbc021eac8"
+ },
+ "phase_segmentation": {
+  "rule": "interaction = within +-WINDOW steps of a gripper open/close midpoint crossing, OR (gripper closed AND ee speed < PERCENTILE-th pct of that demo's speeds); transport = complement",
+  "frozen": {
+   "window": 10,
+   "percentile": 30.0
+  },
+  "sensitivity_variants": {
+   "low": {
+    "window": 8,
+    "percentile": 22.5
+   },
+   "high": {
+    "window": 12,
+    "percentile": 37.5
+   }
+  },
+  "under_identification_flag_if_transport_frac_std_below": 0.05
+ },
+ "policy_and_training": {
+  "arch": "state-based BC-Transformer, causal, CTX=10, GMM(5) action head",
+  "params_M": 19.22,
+  "loss": "GMM negative log-likelihood (frozen choice; the alternative L2 was not used)",
+  "config": {
+   "d_model": 512,
+   "n_layer": 6,
+   "n_head": 8,
+   "n_modes": 5,
+   "dropout": 0.1,
+   "batch_size": 256,
+   "lr": 0.0001,
+   "weight_decay": 0.01,
+   "betas": [
+    0.9,
+    0.95
+   ],
+   "warmup_frac": 0.05,
+   "lr_min": 1e-05,
+   "grad_clip": 1.0,
+   "total_steps": 8000,
+   "n_ckpt": 5,
+   "amp": "bf16"
+  },
+  "budget_convention": "FIXED TOTAL GRADIENT STEPS for every run in the study (not fixed epochs): Gate 0 and Stage C compare datasets of different size, and fixed epochs would give the larger dataset proportionally more optimization, confounding 'more data helps' with 'more steps'.",
+  "n_checkpoints": 5
+ },
+ "evaluation": {
+  "probe_battery": "3 probe tasks/cluster x 10 rollouts = 30 episodes/cluster, plus held-out plain/transport/interaction losses on the cluster's 10 held-out demos",
+  "rollout_horizon": 600,
+  "init_states": "LIBERO's own fixed per-task init states, indices 0..R-1 -- identical initial conditions for every model in the study",
+  "logit_transform": "logit(clamp(p, 1/(2n), 1-1/(2n))); n=30 -> clamp [1/60,59/60]"
+ },
+ "gates": {
+  "gate0_stage_B": {
+   "design": "target-only (C1's 15 demos) vs co-train (all 135), 5 seeds, paired by seed; evaluate on the FULL libero_goal suite (10 tasks x 20 rollouts = 200 episodes/model)",
+   "criterion": "mean paired margin (co-train - target-only, averaged over the 10 tasks) >= +5 success points AND one-sided paired t-test p < 0.05 (df=4, t > 2.132)",
+   "on_fail": "run the same paired design for TWO more targets (C2, C5). If no target passes -> write GATE0_FAIL.md and HALT the pipeline. If some pass -> proceed, noting heterogeneity is itself a finding."
+  },
+  "gate1_stage_D": {
+   "design": "C1 only; K=12 fixed-size masks (each exactly 8 of C1's 15 demos; each demo in 6 or 7 masks) x 2 seeds = 24 retrains",
+   "criterion": "PASS iff ANY attributor (TracIn, TRAK, EK-FAC IF) reaches Spearman > 0.50 vs retrained outcome (held-out plain loss primary, success secondary) over the 12 masks",
+   "on_fail": "complete Stages E-G anyway (retrains are attribution-agnostic ground truth) but STOP before Stage H conclusions and write GATE1_FAIL.md; report 'attribution too unfaithful to decompose'"
+  }
+ },
+ "attribution": {
+  "attributors": [
+   "TracIn",
+   "TRAK(E=10)",
+   "EK-FAC IF"
+  ],
+  "functionals": [
+   "plain",
+   "transport_masked",
+   "interaction_masked"
+  ],
+  "targets": [
+   "C1",
+   "C2",
+   "C3",
+   "C4",
+   "C5",
+   "C6",
+   "C7",
+   "C8",
+   "C9"
+  ],
+  "grain": "per-demo scores over all 135 training demos; mask score = sum over the mask's demos"
+ },
+ "lds": {
+  "primary": "CONDITIONAL LDS -- Spearman(predicted, outcome) over ONLY the 40 target-included masks; outcome = seed-mean logit-success on the target",
+  "secondary": "full-72-mask LDS, labelled 'inflated by target inclusion'",
+  "noise_ceiling": "12 replicate masks x 4 seeds; all 3 disjoint seed pairings; Spearman between pair-mean outcome vectors; averaged; bootstrap CI over masks. LDS is judged against the ceiling, never against 1.0.",
+  "headline_significance": "9 per-target conditional LDS on success; one-sided Bonferroni alpha = 0.05/9 = 0.00556 (critical rho ~ 0.41 at n=40)",
+  "demo_grain": {
+   "focal_targets": [
+    "C1",
+    "C5"
+   ],
+   "focal_rule": "PRE-REGISTERED as confirmatory at Bonferroni-2 (alpha = 0.025 one-sided, critical rho ~ 0.41 at n=24); the other 7 targets are exploratory",
+   "downgrade_rule": "if demo-grain LDS fails on BOTH focal targets, ALL per-demo claims downgrade to cluster grain and this is stated plainly in the report",
+   "partial_spearman_control": "in-target demo count (7 vs 8)"
+  }
+ },
+ "mask_designs": {
+  "stage_F": {
+   "K": 72,
+   "clusters_per_mask": 5,
+   "demos_per_mask": 75,
+   "inclusions_per_cluster": 40,
+   "coinclusion_range": [
+    17,
+    23
+   ],
+   "noise_ceiling_masks": [
+    "F011",
+    "F012",
+    "F014",
+    "F019",
+    "F026",
+    "F034",
+    "F050",
+    "F051",
+    "F058",
+    "F064",
+    "F067",
+    "F071"
+   ],
+   "sha256_16": "8137d5449209b750"
+  },
+  "stage_G": {
+   "K": 24,
+   "demos_per_mask": 68,
+   "per_demo_inclusion_range": [
+    12,
+    13
+   ],
+   "sha256_16": "da26a6711562a8e5"
+  }
+ },
+ "budget_cut_order": [
+  "1. rollouts 10 -> 7 per probe task",
+  "2. demo-corpus probes restricted to C1+C5 only",
+  "3. noise-ceiling replicates 12 -> 8 masks",
+  "4. K 72 -> 63 (keeps balance at 35 inclusions/cluster)"
+ ],
+ "budget_ledger": {
+  "B_gate0": {
+   "retrains": "10-20",
+   "gpu_h": "4-8",
+   "episodes": "2000-4000"
+  },
+  "C_quantity": {
+   "retrains": 18,
+   "gpu_h": 18,
+   "episodes": 3600
+  },
+  "D_gate1": {
+   "retrains": 24,
+   "gpu_h": 4,
+   "episodes": 2400
+  },
+  "E_ensemble": {
+   "retrains": 10,
+   "gpu_h": 7,
+   "episodes": 2700
+  },
+  "F_cluster": {
+   "retrains": 168,
+   "gpu_h": 84,
+   "episodes": 45360
+  },
+  "G_demo": {
+   "retrains": 48,
+   "gpu_h": 23,
+   "episodes": 12960
+  },
+  "I_rq4": {
+   "retrains": 24,
+   "gpu_h": 9,
+   "episodes": 1440
+  },
+  "H_attribution": {
+   "retrains": 0,
+   "gpu_h": "5-10",
+   "episodes": 0
+  },
+  "total": {
+   "retrains": 302,
+   "gpu_h": 154,
+   "episodes": 70500
+  },
+  "pause_rule": "if a 75-demo retrain exceeds 0.8 GPU-h, or a stage's projected total exceeds 1.5x this ledger, PAUSE and write BUDGET_ALERT.md"
+ },
+ "rq4_stage_I": {
+  "budget_B": 15,
+  "targets": [
+   "C1",
+   "C5"
+  ],
+  "conditions": [
+   "target_only",
+   "influence_top15",
+   "random15",
+   "similarity_top15"
+  ],
+  "seeds": [
+   501,
+   502,
+   503
+  ],
+  "eval": "target's 3 probe tasks x 20 rollouts",
+  "note": "a negative result (influence <= similarity) is reported plainly"
+ },
+ "moderators_rq2": {
+  "similarity": [
+   "DTW over ee_states (position+gripper)",
+   "object-state MMD (RBF kernel)",
+   "bddl object/primitive overlap"
+  ],
+  "regression": "target's insider-advantage AUC ~ similarity + within-target redundancy (mean pairwise in-target DTW)",
+  "forbidden": "NO image/DINO similarity anywhere"
+ },
+ "deviations_from_spec": [
+  "Python 3.12 (not 3.10): pre-existing env, all packages verified working.",
+  "LIBERO installed as the hf_libero pip package rather than a repo clone; benchmark membership resolved from the installed benchmark at load time.",
+  "MATERIAL: the policy is conditioned on a FROZEN task-language embedding (MiniLM, 384-D) of the LIBERO task string. The 10 libero_goal tasks share one scene and byte-identical reset states, so an unconditioned state policy provably cannot represent them and every arm of the study would measure label noise. The encoder is frozen; no image features are used anywhere.",
+  "object-state is reconstructed by replaying each demo's stored sim states through the env (LIBERO hdf5 files do not store object-state), which also makes the offline and online featurizations byte-identical.",
+  "Training budget is a fixed number of GRADIENT STEPS rather than fixed epochs (see policy_and_training.budget_convention)."
+ ]
+}

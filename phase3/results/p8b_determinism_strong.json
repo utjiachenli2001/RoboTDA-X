@@ -1,0 +1,87 @@
+{
+ "stage": "P8b determinism gate -- STRENGTHENED on a discriminating task",
+ "why": "The first-pass gate matched on a DEGENERATE case: all C1 episodes failed at the full 600-step horizon, so identical step counts ([600,600,600]) proved nothing. A determinism check is only informative on a task the policy sometimes SOLVES, because then the step count at which each success occurs is a real quantity.",
+ "task": "C7/KITCHEN_SCENE4_close_the_bottom_drawer_of_the_cabinet",
+ "task_success_rate": 1.0,
+ "arm_i_checkpoint_average": {
+  "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P8b/ckptavg_G002_s401",
+  "run1_success": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "run1_steps": [
+   105,
+   103,
+   100,
+   106,
+   105,
+   112
+  ],
+  "run2_success": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "run2_steps": [
+   105,
+   103,
+   100,
+   106,
+   105,
+   112
+  ],
+  "bit_identical": true,
+  "discriminating": true
+ },
+ "arm_ii_action_ensemble": {
+  "mask": "G002",
+  "members": [
+   401,
+   402,
+   403
+  ],
+  "run1_success": [
+   false,
+   true,
+   true,
+   true,
+   true,
+   false
+  ],
+  "run1_steps": [
+   600,
+   111,
+   103,
+   241,
+   114,
+   600
+  ],
+  "run2_success": [
+   false,
+   true,
+   true,
+   true,
+   true,
+   false
+  ],
+  "run2_steps": [
+   600,
+   111,
+   103,
+   241,
+   114,
+   600
+  ],
+  "bit_identical": true,
+  "discriminating": true
+ },
+ "GATE": true,
+ "GATE_IS_INFORMATIVE": true
+}

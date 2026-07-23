@@ -1,0 +1,56 @@
+{
+ "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_B/C2_target_s102",
+ "seed": 102,
+ "n_demos": 15,
+ "n_windows": 1864,
+ "steps": 8000,
+ "epochs_run": 1143,
+ "steps_per_epoch": 7,
+ "ckpts": [
+  "ckpt_0.pt",
+  "ckpt_1.pt",
+  "ckpt_2.pt",
+  "ckpt_3.pt",
+  "ckpt_4.pt"
+ ],
+ "wall_s": 142.5145332813263,
+ "cfg": {
+  "d_model": 512,
+  "n_layer": 6,
+  "n_head": 8,
+  "n_modes": 5,
+  "dropout": 0.1,
+  "batch_size": 256,
+  "lr": 0.0001,
+  "weight_decay": 0.01,
+  "betas": [
+   0.9,
+   0.95
+  ],
+  "warmup_frac": 0.05,
+  "lr_min": 1e-05,
+  "grad_clip": 1.0,
+  "total_steps": 8000,
+  "n_ckpt": 5,
+  "amp": "bf16"
+ },
+ "demos": [
+  "libero_spatial/pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate/demo_0",
+  "libero_spatial/pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate/demo_0",
+  "libero_spatial/pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate/demo_0",
+  "libero_spatial/pick_up_the_black_bowl_next_to_the_cookie_box_and_place_it_on_the_plate/demo_0",
+  "libero_spatial/pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate/demo_0",
+  "libero_spatial/pick_up_the_black_bowl_next_to_the_ramekin_and_place_it_on_the_plate/demo_0",
+  "libero_spatial/pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate/demo_0",
+  "libero_spatial/pick_up_the_black_bowl_on_the_ramekin_and_place_it_on_the_plate/demo_0",
+  "libero_spatial/pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate/demo_0",
+  "libero_spatial/pick_up_the_black_bowl_on_the_wooden_cabinet_and_place_it_on_the_plate/demo_0",
+  "libero_spatial/pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate/demo_1",
+  "libero_spatial/pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate/demo_1",
+  "libero_spatial/pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate/demo_1",
+  "libero_spatial/pick_up_the_black_bowl_next_to_the_cookie_box_and_place_it_on_the_plate/demo_1",
+  "libero_spatial/pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate/demo_1"
+ ],
+ "final_loss": -23.391296295892626,
+ "params_M": 19.222091
+}

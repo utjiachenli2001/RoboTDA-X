@@ -1,0 +1,177 @@
+{
+  "study": "RoboTDA-X",
+  "phase": 5,
+  "title": "PRE-PAPER DE-RISK — deepen the two sentences the paper leans on hardest, and nothing else",
+  "locked_before": [
+    "any Phase-5 training",
+    "any Phase-5 attribution computation",
+    "any Phase-5 verdict computation",
+    "any execution of p15_*/p16_*/p17_* analysis code on real data (P16 is zero-retrain and reads existing artifacts, so this lock explicitly precedes writing AND running any p16 analysis against real data)"
+  ],
+  "date_locked": "2026-07-16",
+  "provenance_of_every_frozen_choice": "Phase-1/2/3/4 artifacts ONLY. No Phase-5 number exists at lock time. Champions, gates, criteria, and interpretation sentences are frozen HERE. Where a definition had to be made concrete, it is made concrete HERE and is binding.",
+
+  "what_phase5_is": "Phase 4 flipped the study's conclusion: demo-grain attribution IS achievable on target C1, in BOTH policy classes, with qualifiers. Phase 5 de-risks EXACTLY the two Phase-4 results the paper now leans on hardest, and one exploratory cross-check. (1) P13's diffusion C1 PASS rested on an instrument that passed its usability gate by only 0.003; P15 replicates it at deeper S with a STRICTER gate. (2) P11's GradDot secondary PASS on C1 is the paper's strongest positive sentence and rests on ONE target; P16 measures its breadth on the 7 non-focal BC targets. (3) P17 is an exploratory cross-check of the policy-class-by-estimator hypothesis.",
+
+  "hard_rules_inherited": {
+    "gpus": "4,5,6,7 only; idle <=> mem < 1000 MiB AND util < 10%, re-verified immediately before EVERY launch; else sleep 300 s and re-check (src/gpu.py, orch5.py)",
+    "readers": "marker-gated atomic reads (phase5/src/p5lib.py, a re-export of the phase4/phase3 hardened readers). NEVER existence-only.",
+    "probe_leak": "p5lib.assert_no_probe_leak() before ANY attribution computation (P16 all 20 BC members; P17 all 5 diffusion members)",
+    "logit_clamp": "reads the row's own n_episodes",
+    "frozen_configs": "configs/policy.yaml (BC) and phase3/results/p10_config_frozen.json (diffusion, sha fac011e6...) are NOT retuned",
+    "norm_stats": "reuse the frozen norm_stats.npz",
+    "frozen_noise_bank": "phase3/results/p10_noise_bank.json (sha 61aadccfef2fb45300d611f262bdc285c6a8f9888ed907a1c48b112d8405bc17) untouched; verified by sha before any diffusion attribution",
+    "writes": "only under phase5/; Phase-1/2/3/4 artifacts are READ-ONLY",
+    "arithmetic": "exact rational arithmetic (fractions.Fraction) for every criterion comparison (ratio >= 1/2)",
+    "determinism_gate": "any new rollout determinism check must run on a DISCRIMINATING checkpoint (Phase-3 incident 3)",
+    "no_fabrication": "every reported number read from an artifact file; SYNTHETIC tests labelled and never mixed; failed runs reported as failed",
+    "defects": "any defect goes to phase5/PHASE5_DEFECT.md BEFORE anything is touched",
+    "no_post_hoc": "ZERO post-hoc criterion changes. If a preregistered gate fails, the stage REPORTS and STOPS; it does not improvise.",
+    "resumability": "every training job marker-gated; re-running the chain skips completed jobs"
+  },
+
+  "shared_definitions": {
+    "outcome_diffusion": "neg_plain_loss = -(held-out executed-action L2 on the target cluster's held-out demos), computed by phase3/src/evaluate_diffusion.py:heldout_losses (a forward pass; NO closed-loop simulation). This is the outcome the P13 verdict used and is UNCHANGED.",
+    "outcome_BC": "neg_plain_loss = -(held-out executed-action L2) on the target cluster's 10 held-out demos, seed MEAN (BC's mean instrument is sound: P12 gate 9/9 pass). UNCHANGED from P11/P12.",
+    "spearman": "src/lds.py:spearman (scipy spearmanr)",
+    "p_onesided": "src/lds.py:spearman_p_onesided (t approximation, H1: rho > 0)",
+    "spearman_brown": "r_k = k*r_1 / (1 + (k-1)*r_1); half-to-full correction r_2h = 2*r_h/(1+r_h)",
+    "single_seed_reliability_r1": "mean Spearman between every pair of SINGLE seeds over the named seed set (p5lib.mean_pairwise_1seed_r). Aggregator-free, so it is the correct SB base for extrapolation for BOTH the mean and the median arm.",
+    "demo_predictor": "predicted_mask_score(M) = sum over d in M of score_d (src/lds.py:mask_pred_score)",
+    "per_member_scale_normalization": "each ensemble member's per-demo score vector is divided by its own L2 norm (-> unit L2) BEFORE averaging over members. Rank-invariant to any per-member positive rescaling. (p5lib.normalized_ensemble_scores)",
+    "ratio_to_ceiling": "rho / measured_ceiling; the bar is ratio >= 1/2, compared with EXACT rational arithmetic (p5lib.meets_half_ceiling)",
+    "GradDot": "the exact lambda->infinity limit estimator: the RAW gradient dot product K_m[i,j] = <g_demo_i(theta_final), g_target_j(theta_final)> per member, at the FINAL checkpoint, per-member unit-L2 normalized, averaged over members. This is P11's SECONDARY estimator, frozen bit-for-bit.",
+    "GradDot_dmean": "the literal P6.5 form K_m / mean(diag(G_m)) averaged over members (the exact lambda->inf limit of the ensemble-MEAN score). This is P11's descriptive variant, promoted to a preregistered SECONDARY family in P16."
+  },
+
+  "P15": {
+    "name": "DIFFUSION C1 REPLICATION AT S=10 WITH A STRICTER INSTRUMENT GATE",
+    "retrains": 48,
+    "gpu_h_nominal": 15.5,
+    "episodes_nominal": 1440,
+    "purpose": "P13's diffusion C1 PASS rests on an instrument that passed its usability gate by only 0.003 (0.147 vs a 0.15 tolerance), and a descriptive variant of that gate would have failed. Phase 4 §8 says the result 'should be replicated at greater S before it carries weight.' P15 deepens the seeds to S=10, firms the gate, and gives the pass (or its failure) full weight. C5 is NOT re-tested: it FAILED on a SOUND instrument in P13 and is settled.",
+    "design": "the SAME 24 Stage-G demo masks (results/demo_mask_manifest.json) x 2 NEW diffusion seeds (609, 610), combined with the existing seeds 601-608 (phase4/results/p13_outcomes_S8.parquet) -> S = 10. Frozen config phase3/results/p10_config_frozen.json UNTOUCHED. Trainer phase3/src/train_diffusion.py in place; Phase 5 passes no hyperparameters. 48 retrains.",
+    "EVALUATION_ECONOMY": {
+      "status": "PREREGISTERED and DISCLOSED. The P13 verdict outcome is held-out executed-action L2, computed by a forward pass (evaluate_diffusion.heldout_losses); it needs NO closed-loop rollouts. This economy touches NOTHING the verdict uses.",
+      "a_held_out_L2_all_9_targets": "held-out executed-action L2 (plain_loss) AND the phase-masked L2 (transport_loss, interaction_loss) for ALL 9 targets, via heldout_losses. NO simulation.",
+      "b_success_rollouts_C1_only": "closed-loop success rollouts for C1's 3 probe tasks ONLY (30 episodes per model = 3 tasks x 10 rollouts; 48 models x 30 = 1,440 episodes total), as a DESCRIPTIVE success record. This cuts eval cost ~9x vs the full 27-task battery.",
+      "what_the_verdict_uses": "ONLY (a). The success record (b) is descriptive and never enters any gate or verdict."
+    },
+    "PREREGISTERED_AGGREGATOR": "MEDIAN over seeds of the held-out executed-action L2 per mask (the heavy-tail remedy, unchanged from P13).",
+    "STRICTER_INSTRUMENT_GATE": {
+      "when": "computed BEFORE any LDS, for C1 only",
+      "conditions_ALL_required": [
+        "(i) median SB-corrected ceiling >= 0.40. The ceiling is the mean Spearman over ALL 126 distinct 5v5 seed split-halves of the 10 seeds, between the two half-MEDIAN outcome vectors across the 24 masks, SB-corrected x2.",
+        "(ii) S=4 -> 10 SB-consistency check within 0.15: r1_S4 = single-seed reliability over the C(4,2)=6 pairs of the ORIGINAL preregistered seeds 601-604; predicted_10 = SB(r1_S4, 10); |predicted_10 - measured_median_SB_ceiling| <= 0.15.",
+        "(iii) S=8 -> 10 SB-consistency check within 0.10: r1_S8 = single-seed reliability over the C(8,2)=28 pairs of seeds 601-608; predicted_10 = SB(r1_S8, 10); |predicted_10 - measured_median_SB_ceiling| <= 0.10."
+      ],
+      "strictness_note": "This is STRICTER than P13's C1 gate in two ways: the ceiling is deeper (126 5v5 splits vs 35 4v4), and it adds a THIRD condition (iii) with a TIGHTER 0.10 tolerance on the S=8->10 extrapolation. The gate is computed BEFORE any LDS.",
+      "SB_caveat": "Spearman-Brown is EXACT for means and only APPROXIMATE for medians. Disclosed here; both the uncorrected 5v5 and the SB-corrected value are reported; the bar uses the SB-corrected (higher, conservative-for-passing) value.",
+      "on_failure": "C1 is INSTRUMENT-UNUSABLE. The preregistered consequence is the DOWNGRADE (below): P13's C1 PASS is downgraded in the paper to 'instrument-marginal, unresolved' -- reported, not celebrated. No LDS is reported as a verdict.",
+      "also_reported_descriptively": "the same SB check based on r1 over all C(10,2)=45 seed pairs."
+    },
+    "VERDICT": {
+      "target": "C1 ONLY. C5 is settled (sound-instrument FAIL in P13); re-testing it would be a second bite and is OUT OF SCOPE.",
+      "champion": "IDENTICAL to P13's, bit-for-bit: TracIn, E=5 diffusion ensemble (dpens_s621-625, phase3/results/p10_influence_per_member.parquet, test-side = denoise functional, which is what the P13 champion used), frozen paired (t,eps) bank (sha 61aadccfef2f...), per-member unit-L2 normalization, MEAN over the 5 members.",
+      "criterion": "rho >= 0.5 * the S=10 median SB-corrected ceiling AND one-sided p < 0.025, n = 24 masks, exact rational comparison of the ratio.",
+      "one_shot": "one verdict, C1 only. No sweeps, no alternative banks, no alternative aggregators."
+    },
+    "PREREGISTERED_SYMMETRIC_INTERPRETATION": {
+      "PASS_with_sound_gate": "the diffusion C1 result carries full weight: demo-grain faithfulness is policy-class-dependent and the BC null does not generalize -- now replicated at two seed depths on a sound instrument.",
+      "FAIL_with_sound_gate": "P13's C1 PASS did not replicate at deeper S and is reported as fragile; the external-validity question re-opens.",
+      "GATE_FAILURE_downgrade": "P13's C1 PASS is downgraded in the paper to 'instrument-marginal, unresolved' -- reported, not celebrated."
+    },
+    "ALSO_REPORT_DESCRIPTIVE": "whether the seed-MEAN ceilings remain broken at S=10 (Phase 3 found them negative at S=6, Phase 4 at S=8: C1 -0.113). One line extending the S=6/8/10 series. The MEAN ceiling is computed with the identical 126-split estimator, mean aggregator.",
+    "ordering_constraint": "P15's verdict is computed AFTER the 48 retrains complete and the eval has produced held-out L2 for all 9 targets. P17 depends on P15's S=10 median ground truth."
+  },
+
+  "P16": {
+    "name": "GRADDOT BREADTH TEST ON THE 7 NON-FOCAL BC TARGETS",
+    "retrains": 0,
+    "gpu_h_nominal": 0.2,
+    "purpose": "The paper's strongest positive sentence (GradDot demo-grain faithfulness on C1) rests on ONE target. P16 measures its breadth. Either way the sentence gets sharper.",
+    "ground_truth": "the EXISTING S=10 BC outcomes (phase4/results/p12_outcomes_S10.parquet), held-out L2, seed MEAN. Ceilings: the per-target S=10 ceilings from phase4/results/p12_ceilings.json (ceiling_10seed_SB). No retrains, no new ground truth.",
+    "targets": ["C2", "C3", "C4", "C6", "C7", "C8", "C9"],
+    "targets_excluded": "C1 and C5 are EXCLUDED as spent: P11 tested both confirmatorily at demo grain with GradDot (C1 PASS, C5 fail). Re-testing them would be a second bite.",
+    "PRIMARY_estimator": {
+      "id": "GradDot_E20_normalized",
+      "definition": "FROZEN bit-for-bit to P11's SECONDARY: GradDot = the raw gradient dot product K toward each target's plain (held-out L2) functional, E=20 members (ens_s201-220), per-member unit-L2 normalization, MEAN over members.",
+      "gram_caches": "phase3/results/p6_gram_cache.npz (members 201-210) + phase4/results/p11_gram_cache_new_members.npz (members 211-220) -- the IDENTICAL two caches P11's graddot_frame read.",
+      "family": "PRIMARY",
+      "correction": "Bonferroni-7 across the 7 targets: one-sided p < 0.05/7 = 0.007142857..."
+    },
+    "SECONDARY_estimator": {
+      "id": "GradDot_E20_dmean",
+      "definition": "the literal lambda->infinity ensemble-MEAN form K_m / mean(diag(G_m)) averaged over the SAME E=20 members (P11's descriptive variant, descriptively stronger on C1: ratio 0.62 vs 0.54). Promoted here to a preregistered SECONDARY family.",
+      "family": "SECONDARY",
+      "correction": "Bonferroni-14 across the 2 families x 7 targets: one-sided p < 0.05/14 = 0.003571428..."
+    },
+    "CRITERION": {
+      "per_target": "rho >= 0.5 * that target's S=10 ceiling (EXACT rational) AND one-sided p < the family's Bonferroni threshold. n = 24 masks per target.",
+      "commensurate_bar_note": "REPORT THIS explicitly: at n=24 and one-sided p<0.007142857 the critical rho is ~0.50, so the half-ceiling bar and the significance threshold are COMMENSURATE. A target can EXCEED half-ceiling while FAILING significance (or vice-versa). Both components (meets_half_ceiling and p_lt_alpha) are reported per target; a PASS requires BOTH.",
+      "count_definition": "k = number of the 7 targets that PASS the PRIMARY family (both components)."
+    },
+    "PREREGISTERED_SYMMETRIC_INTERPRETATION": {
+      "k_ge_2": "GradDot demo-grain faithfulness is not C1-specific; the paper may state that attribution-done-right works on a minority-to-plurality of targets, WITH THE COUNT.",
+      "k_eq_0": "the achievability result is C1-specific on this corpus; the paper must scope it that way.",
+      "k_eq_1": "report the count plainly; no stronger sentence than the count supports."
+    },
+    "SELF_VALIDATION_before_verdict": {
+      "reproduce_C1": "recompute P11's C1 GradDot number from the cache path used here and confirm it reproduces rho = +0.5130434782608695 EXACTLY (the P11 archived value). If it does not, STOP -- the cache is a different estimator.",
+      "probe_leak": "confirm p5lib.assert_no_probe_leak() passes for all 20 members (201-210 in runs/stage_E, 211-220 in phase3/runs/P9) against the 90-demo held-out pool."
+    }
+  },
+
+  "P17": {
+    "name": "EXPLORATORY CROSS-CHECK -- GradDot for the DIFFUSION policy",
+    "status": "EXPLORATORY. Labelled EXPLORATORY in every artifact and every report mention. NEVER a verdict. No criterion, no gate, no pass/fail.",
+    "retrains": 0,
+    "gpu_h_nominal": 0.2,
+    "purpose": "one data point on Phase 4's OPEN hypothesis that the winning estimator differs by policy class (BC -> GradDot, diffusion -> TracIn).",
+    "computation": "GradDot for the DIFFUSION policy = the raw gradient dot product K = PHI @ TG.T at each member's FINAL checkpoint, using the frozen (t,eps)-bank DENOISE functional (the same test side the P13/P15 diffusion champion used), E=5 members (dpens_s621-625), per-member unit-L2 normalization, MEAN over members. Requires ONE gradient pass over the 5 members (~0.2 GPU-h); the probe-leak guard runs first.",
+    "ground_truth": "the S=10 diffusion MEDIAN ground truth from P15, targets C1 and C5.",
+    "reported_alongside": "the archived TracIn numbers (P13 champion at S=8, and P15 champion at S=10) for C1 and C5.",
+    "output": "a descriptive table, EXPLORATORY-labelled. No interpretation sentence is licensed."
+  },
+
+  "OUT_OF_SCOPE_phase5_does_NOT": [
+    "no C5 re-tests (settled on a sound instrument)",
+    "no P14 re-litigation (heterogeneity closed as exploration noise)",
+    "no estimator sweeps or new estimator variants beyond the two frozen families (GradDot, GradDot_dmean)",
+    "no new masks, corpora, policies, or benchmarks",
+    "no re-touching of any Phase-1..4 verdict",
+    "if a gate fails, the stage REPORTS and STOPS; it does not improvise"
+  ],
+
+  "BUDGET_LEDGER": {
+    "stages": [
+      {"stage": "P15 diffusion S=10 + verdict", "retrains": 48, "gpu_h": 15.5, "episodes": 1440},
+      {"stage": "P16 GradDot breadth", "retrains": 0, "gpu_h": 0.2, "episodes": 0},
+      {"stage": "P17 exploratory cross-check", "retrains": 0, "gpu_h": 0.2, "episodes": 0}
+    ],
+    "total_retrains": 48,
+    "total_gpu_h_nominal": 16,
+    "ALERT_THRESHOLD_gpu_h": 25,
+    "total_episodes": 1440,
+    "per_stage_guard": ">1.5x a stage line => phase5/BUDGET_ALERT.md, PAUSE, decide, document",
+    "CUT_ORDER": ["P17", "P15 success rollouts (keep the L2 verdict path)"],
+    "P16_never_cut": "P16 is zero-retrain (free) and is NEVER cut",
+    "never_cut_silently": true
+  },
+
+  "REPORTING": {
+    "per_stage": "phase5/STATUS.md updated per stage",
+    "final": "phase5/PHASE5_REPORT.md",
+    "verification": "EVERY report number machine-verified into phase5/results/report_verification.json",
+    "required_sections": [
+      "the P15 gate (all three checks, with margins) and verdict with its preregistered interpretation VERBATIM",
+      "the P16 per-target table (rho, ratio, p, pass/fail per family) and the preregistered count-based interpretation",
+      "the P17 exploratory table WITH its EXPLORATORY label",
+      "the seed-mean brokenness series (S=6/8/10)",
+      "actual-vs-ledger budget",
+      "every deviation",
+      "every incident",
+      "the FINAL update of the 'may claim / may not claim' list -- the version the paper will be written from, each licensed sentence stated exactly as the paper should print it, with numbers and qualifiers inline"
+    ]
+  }
+}

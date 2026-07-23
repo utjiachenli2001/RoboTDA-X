@@ -1,0 +1,36 @@
+{
+ "outcomes": {
+  "C2": {
+   "success_rate": 0.16666666666666666,
+   "n_episodes": 30,
+   "per_task_success": {
+    "pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate": 0.0,
+    "pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate": 0.0,
+    "pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate": 0.5
+   },
+   "plain_loss": 0.5730083392617359,
+   "transport_loss": 0.41255410839809015,
+   "interaction_loss": 0.9094061945624982
+  },
+  "C9": {
+   "success_rate": 0.23333333333333334,
+   "n_episodes": 30,
+   "per_task_success": {
+    "KITCHEN_SCENE1_open_the_bottom_drawer_of_the_cabinet": 0.0,
+    "KITCHEN_SCENE1_open_the_top_drawer_of_the_cabinet": 0.7,
+    "KITCHEN_SCENE1_open_the_top_drawer_of_the_cabinet_and_put_the_bowl_in_it": 0.0
+   },
+   "plain_loss": 0.6368170794329554,
+   "transport_loss": 0.42438757543301714,
+   "interaction_loss": 1.109977923609152
+  }
+ },
+ "meta": {
+  "ckpt": "final.pt",
+  "n_rollouts": 10,
+  "horizon": 600,
+  "rollout_wall_s": 143.91229557991028,
+  "n_errors": 0,
+  "total_wall_s": 145.42387223243713
+ }
+}

@@ -1,0 +1,78 @@
+{
+ "outcomes": {
+  "C1": {
+   "success_rate": 0.03333333333333333,
+   "n_episodes": 30,
+   "plain_loss": 0.7257797301884754,
+   "transport_loss": 0.5138280409859901,
+   "interaction_loss": 1.1618481062077166
+  },
+  "C2": {
+   "success_rate": 0.1,
+   "n_episodes": 30,
+   "plain_loss": 0.6465637022004032,
+   "transport_loss": 0.42961321089970916,
+   "interaction_loss": 1.1014079252986404
+  },
+  "C3": {
+   "success_rate": 0.06666666666666667,
+   "n_episodes": 30,
+   "plain_loss": 0.6851432108306146,
+   "transport_loss": 0.574238357943763,
+   "interaction_loss": 0.9225902602868458
+  },
+  "C4": {
+   "success_rate": 0.16666666666666666,
+   "n_episodes": 30,
+   "plain_loss": 0.8493163551894047,
+   "transport_loss": 0.7697899920591417,
+   "interaction_loss": 1.121725706991163
+  },
+  "C5": {
+   "success_rate": 0.1,
+   "n_episodes": 30,
+   "plain_loss": 0.5475460934213046,
+   "transport_loss": 0.29377638066281003,
+   "interaction_loss": 1.0266076209978143
+  },
+  "C6": {
+   "success_rate": 0.1,
+   "n_episodes": 30,
+   "plain_loss": 0.4037839998284376,
+   "transport_loss": 0.28958609356350445,
+   "interaction_loss": 0.7905426547477968
+  },
+  "C7": {
+   "success_rate": 0.13333333333333333,
+   "n_episodes": 30,
+   "plain_loss": 0.5302139644778662,
+   "transport_loss": 0.3795148022183497,
+   "interaction_loss": 0.9902629145917169
+  },
+  "C8": {
+   "success_rate": 0.2,
+   "n_episodes": 30,
+   "plain_loss": 0.37160860499967996,
+   "transport_loss": 0.2798561908182446,
+   "interaction_loss": 0.5806274736696877
+  },
+  "C9": {
+   "success_rate": 0.3,
+   "n_episodes": 30,
+   "plain_loss": 0.45767605808944495,
+   "transport_loss": 0.27374037264720147,
+   "interaction_loss": 0.8673703922531427
+  }
+ },
+ "meta": {
+  "arm": "action_ensemble",
+  "n_members": 3,
+  "members": [
+   "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G000_s404/final.pt",
+   "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G000_s405/final.pt",
+   "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G000_s406/final.pt"
+  ],
+  "n_rollouts": 10,
+  "total_wall_s": 477.75868105888367
+ }
+}

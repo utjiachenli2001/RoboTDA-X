@@ -1,0 +1,43 @@
+{
+ "stage": "P8b variance-reduction probe",
+ "n_retrains": 0,
+ "masks": [
+  "G000",
+  "G002",
+  "G004",
+  "G007",
+  "G009",
+  "G012",
+  "G014",
+  "G016",
+  "G018",
+  "G020",
+  "G021",
+  "G023"
+ ],
+ "n_masks": 12,
+ "arm_i": "checkpoint-averaged policy: mean of the WEIGHTS of ckpt_2/3/4 of each existing run. FREE -- the checkpoints already exist because TracIn needed them.",
+ "arm_ii": "action-ensemble policy: the MEAN ACTION of S models, stepped in lockstep through one env. Costs S trained models -- the same as seed-ensembling.",
+ "n_ckptavg_evals": 36,
+ "n_actens_evals": 24,
+ "determinism_gate": "phase3/results/p8b_determinism.json",
+ "results": {
+  "neg_plain_loss": {
+   "baseline_S1_single_seed": 0.5925925925925926,
+   "arm_i_S1_checkpoint_averaged": 0.5957005957005959,
+   "arm_i_gain": 0.003108003108003299,
+   "baseline_S3_outcome_mean": 0.8189588189588191,
+   "arm_ii_S3_action_ensemble": 0.7987567987567988,
+   "arm_ii_gain": -0.02020202020202022
+  },
+  "logit_success": {
+   "baseline_S1_single_seed": 0.3363614350059725,
+   "arm_i_S1_checkpoint_averaged": 0.2377902582214969,
+   "arm_i_gain": -0.09857117678447558,
+   "baseline_S3_outcome_mean": 0.49505814214585747,
+   "arm_ii_S3_action_ensemble": 0.4969945370853157,
+   "arm_ii_gain": 0.0019363949394582414
+  }
+ },
+ "reading": "arm (i) is compared to the S=1 baseline because it is free; arm (ii) is compared to the S=3 outcome-mean baseline because it spends the same 3 seeds -- so it isolates WHERE the averaging happens (action space vs outcome space), not how much it costs."
+}

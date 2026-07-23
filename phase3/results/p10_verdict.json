@@ -1,0 +1,1614 @@
+{
+ "stage": "P10 diffusion-policy replication",
+ "policy": "state-based diffusion policy, DDPM training, deterministic DDIM (eta=0) eval",
+ "n_retrains_P10b": 96,
+ "n_missing": 0,
+ "seeds": [
+  601,
+  602,
+  603,
+  604
+ ],
+ "S": 4,
+ "n_masks": 24,
+ "masks": "the EXISTING 24 Stage-G demo masks, NOT resampled",
+ "PRIMARY_OUTCOME": "neg_plain_loss",
+ "primary_outcome_rationale": "L2 on the EXECUTED action -- the SAME outcome on which the BC-Transformer null was established. A diffusion-native outcome would have made the two policy classes incomparable.",
+ "preregistered_attributors": [
+  "TracIn",
+  "TRAK"
+ ],
+ "descriptive_attributors_not_in_criterion": [
+  "IF"
+ ],
+ "CRITERION": "focal C1/C5, 4-seed mean held-out L2: any preregistered attributor rho >= 0.5 x measured 4-seed ceiling AND one-sided p < 0.025 (Bonferroni-2)",
+ "focal_verdict": {
+  "C1": {
+   "ceiling_4seed_measured": 0.03977272727272726,
+   "bar_half_ceiling": 0.01988636363636363,
+   "best_attributor": "TracIn",
+   "best_rho": -0.054782608695652164,
+   "best_ratio": -1.3773913043478263,
+   "best_p_onesided": 0.6003458782558679,
+   "any_preregistered_attributor_PASS": false,
+   "per_attributor": {
+    "TracIn": {
+     "rho": -0.054782608695652164,
+     "n": 24,
+     "p_onesided": 0.6003458782558679,
+     "ci95": [
+      -0.39776657777423974,
+      0.3205605407306411
+     ],
+     "ratio_to_ceiling": -1.3773913043478263,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "TRAK": {
+     "rho": -0.1226086956521739,
+     "n": 24,
+     "p_onesided": 0.7159163671489746,
+     "ci95": [
+      -0.5033119249617356,
+      0.32403957744949974
+     ],
+     "ratio_to_ceiling": -3.082732919254659,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "IF": {
+     "rho": -0.042608695652173914,
+     "n": 24,
+     "p_onesided": 0.5783543120111561,
+     "ci95": [
+      -0.4614957046654938,
+      0.4055691403862969
+     ],
+     "ratio_to_ceiling": -1.0713043478260873,
+     "PASS": false,
+     "in_preregistered_criterion": false
+    }
+   },
+   "seed_ladder": {
+    "S1_measured": 0.2398550724637681,
+    "S2_measured": 0.02028985507246376,
+    "S4_SB_from_S2": 0.03977272727272726,
+    "S4_SB_from_S1": 0.5579435313948589
+   }
+  },
+  "C5": {
+   "ceiling_4seed_measured": 0.08120133481646272,
+   "bar_half_ceiling": 0.04060066740823136,
+   "best_attributor": "TracIn",
+   "best_rho": -0.16173913043478258,
+   "best_ratio": -1.9918284693269805,
+   "best_p_onesided": 0.7748905575768146,
+   "any_preregistered_attributor_PASS": false,
+   "per_attributor": {
+    "TracIn": {
+     "rho": -0.16173913043478258,
+     "n": 24,
+     "p_onesided": 0.7748905575768146,
+     "ci95": [
+      -0.5164370757459928,
+      0.22803063457330403
+     ],
+     "ratio_to_ceiling": -1.9918284693269805,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "TRAK": {
+     "rho": -0.2052173913043478,
+     "n": 24,
+     "p_onesided": 0.8319695551627235,
+     "ci95": [
+      -0.5688782803642248,
+      0.20806068931068922
+     ],
+     "ratio_to_ceiling": -2.5272662298987494,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "IF": {
+     "rho": -0.20173913043478262,
+     "n": 24,
+     "p_onesided": 0.827753484296301,
+     "ci95": [
+      -0.5919011090113387,
+      0.20822442268149186
+     ],
+     "ratio_to_ceiling": -2.4844312090530085,
+     "PASS": false,
+     "in_preregistered_criterion": false
+    }
+   },
+   "seed_ladder": {
+    "S1_measured": 0.2081159420289855,
+    "S2_measured": 0.04231884057971014,
+    "S4_SB_from_S2": 0.08120133481646272,
+    "S4_SB_from_S1": 0.5124910778015703
+   }
+  }
+ },
+ "PASS": false,
+ "PREREGISTERED_SYMMETRIC_INTERPRETATION": "FAIL again => the null generalizes across policy class; PASS => faithfulness is policy-class-dependent -- report symmetrically.",
+ "VERDICT_TEXT": "FAIL: demo-grain attribution is unfaithful for the diffusion policy too. The null GENERALIZES ACROSS POLICY CLASS -- it is not an artifact of the BC-Transformer's GMM head or of its training objective.",
+ "all_targets": {
+  "C1": {
+   "neg_plain_loss": {
+    "ceiling_2seed_splithalf": 0.02028985507246376,
+    "ceiling_4seed_SB": 0.03977272727272726,
+    "per_pairing": [
+     0.07130434782608694,
+     -0.025217391304347827,
+     0.014782608695652172
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.2398550724637681,
+     "S2_measured": 0.02028985507246376,
+     "S4_SB_from_S2": 0.03977272727272726,
+     "S4_SB_from_S1": 0.5579435313948589
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.054782608695652164,
+      "n": 24,
+      "p_onesided": 0.6003458782558679,
+      "ci95": [
+       -0.39776657777423974,
+       0.3205605407306411
+      ],
+      "ratio_to_ceiling": -1.3773913043478263,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.1226086956521739,
+      "n": 24,
+      "p_onesided": 0.7159163671489746,
+      "ci95": [
+       -0.5033119249617356,
+       0.32403957744949974
+      ],
+      "ratio_to_ceiling": -3.082732919254659,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": -0.042608695652173914,
+      "n": 24,
+      "p_onesided": 0.5783543120111561,
+      "ci95": [
+       -0.4614957046654938,
+       0.4055691403862969
+      ],
+      "ratio_to_ceiling": -1.0713043478260873,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "neg_denoise_loss": {
+    "ceiling_2seed_splithalf": 0.15159420289855072,
+    "ceiling_4seed_SB": 0.2632771205638057,
+    "per_pairing": [
+     0.2582608695652174,
+     -0.046956521739130425,
+     0.2434782608695652
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.31217391304347825,
+     "S2_measured": 0.15159420289855072,
+     "S4_SB_from_S2": 0.2632771205638057,
+     "S4_SB_from_S1": 0.6448136506511001
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": 0.46434782608695646,
+      "n": 24,
+      "p_onesided": 0.011129926756996847,
+      "ci95": [
+       0.09375141374199392,
+       0.7351488856047291
+      ],
+      "ratio_to_ceiling": 1.7637226702136501,
+      "PASS": true,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": 0.2869565217391304,
+      "n": 24,
+      "p_onesided": 0.0869871209518322,
+      "ci95": [
+       -0.15513974182180196,
+       0.6709233192650627
+      ],
+      "ratio_to_ceiling": 1.0899409759747276,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": 0.3321739130434782,
+      "n": 24,
+      "p_onesided": 0.056386395147848385,
+      "ci95": [
+       -0.02242105787151422,
+       0.643521130808673
+      ],
+      "ratio_to_ceiling": 1.2616892509768058,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "logit_success": {
+    "ceiling_2seed_splithalf": -0.2679248718188698,
+    "ceiling_4seed_SB": -0.7319600448236504,
+    "per_pairing": [
+     -0.18219423536644203,
+     -0.2957961298659949,
+     -0.32578425022417257
+    ],
+    "seed_ladder": {
+     "S1_measured": -0.10075843155545432,
+     "S2_measured": -0.2679248718188698,
+     "S4_SB_from_S2": -0.7319600448236504,
+     "S4_SB_from_S1": -0.5776400393176492
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.07652173913043478,
+      "n": 24,
+      "p_onesided": 0.6388504483935906,
+      "ci95": [
+       -0.4320892521932602,
+       0.2979848790415375
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": 0.14956521739130432,
+      "n": 24,
+      "p_onesided": 0.242732166127091,
+      "ci95": [
+       -0.2848957839039953,
+       0.5329091778878446
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": -0.05565217391304347,
+      "n": 24,
+      "p_onesided": 0.6019062502372243,
+      "ci95": [
+       -0.5017788964802212,
+       0.4064436520467503
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   }
+  },
+  "C2": {
+   "neg_plain_loss": {
+    "ceiling_2seed_splithalf": 0.0918840579710145,
+    "ceiling_4seed_SB": 0.16830368993894346,
+    "per_pairing": [
+     0.2417391304347826,
+     -0.02434782608695652,
+     0.05826086956521739
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.3288405797101449,
+     "S2_measured": 0.0918840579710145,
+     "S4_SB_from_S2": 0.16830368993894346,
+     "S4_SB_from_S1": 0.6621434303640475
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.1652173913043478,
+      "n": 24,
+      "p_onesided": 0.7797985384358452,
+      "ci95": [
+       -0.49389648632961053,
+       0.20269259314661786
+      ],
+      "ratio_to_ceiling": -0.9816623234124261,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.10434782608695652,
+      "n": 24,
+      "p_onesided": 0.6862457096379757,
+      "ci95": [
+       -0.5646099055346756,
+       0.3292538983881579
+      ],
+      "ratio_to_ceiling": -0.6199972568920586,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": -0.21478260869565213,
+      "n": 24,
+      "p_onesided": 0.8432415692485782,
+      "ci95": [
+       -0.6312530431325734,
+       0.2478187598940721
+      ],
+      "ratio_to_ceiling": -1.276161020436154,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "neg_denoise_loss": {
+    "ceiling_2seed_splithalf": 0.056811594202898545,
+    "ceiling_4seed_SB": 0.10751508502468457,
+    "per_pairing": [
+     0.1643478260869565,
+     -0.1217391304347826,
+     0.12782608695652173
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.15347826086956523,
+     "S2_measured": 0.056811594202898545,
+     "S4_SB_from_S2": 0.10751508502468457,
+     "S4_SB_from_S1": 0.42036320333432575
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": 0.3695652173913043,
+      "n": 24,
+      "p_onesided": 0.03775302257584289,
+      "ci95": [
+       -0.051737379104664874,
+       0.6947401878215926
+      ],
+      "ratio_to_ceiling": 3.437333629103816,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.02695652173913043,
+      "n": 24,
+      "p_onesided": 0.5497508655485589,
+      "ci95": [
+       -0.3994908226338594,
+       0.4159406267987703
+      ],
+      "ratio_to_ceiling": -0.2507231588287489,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": 0.36347826086956525,
+      "n": 24,
+      "p_onesided": 0.040414351299443305,
+      "ci95": [
+       -0.04206483542025769,
+       0.6716394901663786
+      ],
+      "ratio_to_ceiling": 3.380718722271518,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "logit_success": {
+    "ceiling_2seed_splithalf": 0.3663642905408849,
+    "ceiling_4seed_SB": 0.5362615125075568,
+    "per_pairing": [
+     0.32055797775592304,
+     0.3080611191559477,
+     0.47047377471078394
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.2861360323760674,
+     "S2_measured": 0.3663642905408849,
+     "S4_SB_from_S2": 0.5362615125075568,
+     "S4_SB_from_S1": 0.6158734086839879
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.09043478260869564,
+      "n": 24,
+      "p_onesided": 0.6628486208719451,
+      "ci95": [
+       -0.47743459544032785,
+       0.3333406496927128
+      ],
+      "ratio_to_ceiling": -0.1686393308104901,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.42173913043478256,
+      "n": 24,
+      "p_onesided": 0.9799481624986165,
+      "ci95": [
+       -0.6659653108681806,
+       -0.10498002886792923
+      ],
+      "ratio_to_ceiling": -0.7864430331066125,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": -0.4269565217391304,
+      "n": 24,
+      "p_onesided": 0.9812738430623503,
+      "ci95": [
+       -0.6859211244791954,
+       -0.07100007512192896
+      ],
+      "ratio_to_ceiling": -0.7961722252687561,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   }
+  },
+  "C3": {
+   "neg_plain_loss": {
+    "ceiling_2seed_splithalf": -0.006956521739130437,
+    "ceiling_4seed_SB": -0.014010507880910687,
+    "per_pairing": [
+     0.02260869565217391,
+     -0.06434782608695652,
+     0.020869565217391303
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.1831884057971014,
+     "S2_measured": -0.006956521739130437,
+     "S4_SB_from_S2": -0.014010507880910687,
+     "S4_SB_from_S1": 0.47287691732136167
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.1695652173913043,
+      "n": 24,
+      "p_onesided": 0.7858523747982054,
+      "ci95": [
+       -0.5298893819987359,
+       0.22293245052008379
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": 0.004347826086956522,
+      "n": 24,
+      "p_onesided": 0.4919567283675179,
+      "ci95": [
+       -0.42297637417400474,
+       0.3867785037201028
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": -0.15826086956521737,
+      "n": 24,
+      "p_onesided": 0.7699255436359469,
+      "ci95": [
+       -0.5702484863943295,
+       0.24301033428683563
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "neg_denoise_loss": {
+    "ceiling_2seed_splithalf": 0.12463768115942027,
+    "ceiling_4seed_SB": 0.22164948453608244,
+    "per_pairing": [
+     0.22347826086956518,
+     0.009565217391304347,
+     0.1408695652173913
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.22507246376811593,
+     "S2_measured": 0.12463768115942027,
+     "S4_SB_from_S2": 0.22164948453608244,
+     "S4_SB_from_S1": 0.5374167315511722
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": 0.19217391304347822,
+      "n": 24,
+      "p_onesided": 0.18416024437781375,
+      "ci95": [
+       -0.20907951415961898,
+       0.5441551153451628
+      ],
+      "ratio_to_ceiling": 0.8670171890798787,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.27391304347826084,
+      "n": 24,
+      "p_onesided": 0.902374059462792,
+      "ci95": [
+       -0.6368562971525602,
+       0.1707108380868801
+      ],
+      "ratio_to_ceiling": -1.2357937310414562,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": 0.03826086956521739,
+      "n": 24,
+      "p_onesided": 0.42955879516094964,
+      "ci95": [
+       -0.38793113533134954,
+       0.5273275765649241
+      ],
+      "ratio_to_ceiling": 0.17261880687563197,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "logit_success": {
+    "ceiling_2seed_splithalf": 0.2328068459162781,
+    "ceiling_4seed_SB": 0.3776858421697772,
+    "per_pairing": [
+     0.24983654787399454,
+     0.1023296344741429,
+     0.3462543554006968
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.26998399226504594,
+     "S2_measured": 0.2328068459162781,
+     "S4_SB_from_S2": 0.3776858421697772,
+     "S4_SB_from_S1": 0.5966655374870302
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.09652173913043478,
+      "n": 24,
+      "p_onesided": 0.6731634140026547,
+      "ci95": [
+       -0.49035837564055607,
+       0.3260853092578604
+      ],
+      "ratio_to_ceiling": -0.25556091426653577,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": 0.23913043478260865,
+      "n": 24,
+      "p_onesided": 0.13021396840146346,
+      "ci95": [
+       -0.2342140057939437,
+       0.6175180085232054
+      ],
+      "ratio_to_ceiling": 0.6331464092188948,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": -0.11217391304347826,
+      "n": 24,
+      "p_onesided": 0.6991137733663885,
+      "ci95": [
+       -0.5975599182138355,
+       0.3401801840622146
+      ],
+      "ratio_to_ceiling": -0.29700322468813617,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   }
+  },
+  "C4": {
+   "neg_plain_loss": {
+    "ceiling_2seed_splithalf": 0.25101449275362314,
+    "ceiling_4seed_SB": 0.4012974976830398,
+    "per_pairing": [
+     0.2782608695652174,
+     0.17391304347826084,
+     0.3008695652173913
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.30449275362318834,
+     "S2_measured": 0.25101449275362314,
+     "S4_SB_from_S2": 0.4012974976830398,
+     "S4_SB_from_S1": 0.6365220025751722
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.01217391304347826,
+      "n": 24,
+      "p_onesided": 0.5225114576751078,
+      "ci95": [
+       -0.3824949989653032,
+       0.35779896778957676
+      ],
+      "ratio_to_ceiling": -0.03033637915453359,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.04,
+      "n": 24,
+      "p_onesided": 0.5736097802830049,
+      "ci95": [
+       -0.44064971455356455,
+       0.3648514669996672
+      ],
+      "ratio_to_ceiling": -0.09967667436489609,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": -0.049565217391304345,
+      "n": 24,
+      "p_onesided": 0.5909531051984646,
+      "ci95": [
+       -0.4324908479159434,
+       0.31204954261131257
+      ],
+      "ratio_to_ceiling": -0.12351240084345819,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "neg_denoise_loss": {
+    "ceiling_2seed_splithalf": 0.08000000000000002,
+    "ceiling_4seed_SB": 0.14814814814814817,
+    "per_pairing": [
+     0.13304347826086957,
+     -0.07478260869565216,
+     0.18173913043478263
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.22797101449275362,
+     "S2_measured": 0.08000000000000002,
+     "S4_SB_from_S2": 0.14814814814814817,
+     "S4_SB_from_S1": 0.5415268095361045
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": 0.40347826086956523,
+      "n": 24,
+      "p_onesided": 0.025282957823212927,
+      "ci95": [
+       0.0061091439961536926,
+       0.6973697155547373
+      ],
+      "ratio_to_ceiling": 2.723478260869565,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.17130434782608694,
+      "n": 24,
+      "p_onesided": 0.7882484316077977,
+      "ci95": [
+       -0.564030224927547,
+       0.3067589819712471
+      ],
+      "ratio_to_ceiling": -1.1563043478260868,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": 0.17913043478260868,
+      "n": 24,
+      "p_onesided": 0.20115171591803,
+      "ci95": [
+       -0.21345400073679313,
+       0.5164272418507545
+      ],
+      "ratio_to_ceiling": 1.2091304347826084,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "logit_success": {
+    "ceiling_2seed_splithalf": 0.39586801830695756,
+    "ceiling_4seed_SB": 0.5671997826658486,
+    "per_pairing": [
+     0.562302004153968,
+     0.15560098705249004,
+     0.4697010637144146
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.18639625156575804,
+     "S2_measured": 0.39586801830695756,
+     "S4_SB_from_S2": 0.5671997826658486,
+     "S4_SB_from_S1": 0.47818777811015695
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.07363851898986232,
+      "n": 24,
+      "p_onesided": 0.6338094974632815,
+      "ci95": [
+       -0.4968922060059499,
+       0.379512044406201
+      ],
+      "ratio_to_ceiling": -0.1298281861882246,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.000871461763193637,
+      "n": 24,
+      "p_onesided": 0.5016122603514596,
+      "ci95": [
+       -0.45439556770129463,
+       0.4355799954803771
+      ],
+      "ratio_to_ceiling": -0.0015364282389139009,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": -0.18039258498108285,
+      "n": 24,
+      "p_onesided": 0.8005295732656117,
+      "ci95": [
+       -0.5604184259334811,
+       0.22646380247786274
+      ],
+      "ratio_to_ceiling": -0.31804064545517746,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   }
+  },
+  "C5": {
+   "neg_plain_loss": {
+    "ceiling_2seed_splithalf": 0.04231884057971014,
+    "ceiling_4seed_SB": 0.08120133481646272,
+    "per_pairing": [
+     0.15478260869565216,
+     -0.10695652173913042,
+     0.07913043478260869
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.2081159420289855,
+     "S2_measured": 0.04231884057971014,
+     "S4_SB_from_S2": 0.08120133481646272,
+     "S4_SB_from_S1": 0.5124910778015703
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.16173913043478258,
+      "n": 24,
+      "p_onesided": 0.7748905575768146,
+      "ci95": [
+       -0.5164370757459928,
+       0.22803063457330403
+      ],
+      "ratio_to_ceiling": -1.9918284693269805,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.2052173913043478,
+      "n": 24,
+      "p_onesided": 0.8319695551627235,
+      "ci95": [
+       -0.5688782803642248,
+       0.20806068931068922
+      ],
+      "ratio_to_ceiling": -2.5272662298987494,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": -0.20173913043478262,
+      "n": 24,
+      "p_onesided": 0.827753484296301,
+      "ci95": [
+       -0.5919011090113387,
+       0.20822442268149186
+      ],
+      "ratio_to_ceiling": -2.4844312090530085,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "neg_denoise_loss": {
+    "ceiling_2seed_splithalf": -0.08840579710144925,
+    "ceiling_4seed_SB": -0.19395866454689978,
+    "per_pairing": [
+     0.09913043478260869,
+     -0.30347826086956514,
+     -0.0608695652173913
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.026956521739130438,
+     "S2_measured": -0.08840579710144925,
+     "S4_SB_from_S2": -0.19395866454689978,
+     "S4_SB_from_S1": 0.0997586484312148
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": 0.33652173913043476,
+      "n": 24,
+      "p_onesided": 0.0539281005963737,
+      "ci95": [
+       -0.050374274402662275,
+       0.6206040834875186
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.19652173913043475,
+      "n": 24,
+      "p_onesided": 0.8213129652420481,
+      "ci95": [
+       -0.5517561803737923,
+       0.21767542769047135
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": 0.15826086956521737,
+      "n": 24,
+      "p_onesided": 0.23007445636405308,
+      "ci95": [
+       -0.31118060535238456,
+       0.5541949295752886
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "logit_success": {
+    "ceiling_2seed_splithalf": 0.027690385000233395,
+    "ceiling_4seed_SB": 0.05388857462206792,
+    "per_pairing": [
+     0.11004582692405014,
+     -0.10651274484865353,
+     0.07953807292530357
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.054476541055891774,
+     "S2_measured": 0.027690385000233395,
+     "S4_SB_from_S2": 0.05388857462206792,
+     "S4_SB_from_S1": 0.1872963863772636
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.12915851577343376,
+      "n": 24,
+      "p_onesided": 0.7262447830031753,
+      "ci95": [
+       -0.5010045187612845,
+       0.2637297770004368
+      ],
+      "ratio_to_ceiling": -2.396769940182126,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": 0.2504892427121139,
+      "n": 24,
+      "p_onesided": 0.1188867995770567,
+      "ci95": [
+       -0.14150454666365295,
+       0.5501483485242281
+      ],
+      "ratio_to_ceiling": 4.648281096110789,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": 0.02304848934677437,
+      "n": 24,
+      "p_onesided": 0.45743410330143464,
+      "ci95": [
+       -0.4014193527436026,
+       0.43275075576763783
+      ],
+      "ratio_to_ceiling": 0.4277064203018608,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   }
+  },
+  "C6": {
+   "neg_plain_loss": {
+    "ceiling_2seed_splithalf": -0.05971014492753623,
+    "ceiling_4seed_SB": -0.12700369913686807,
+    "per_pairing": [
+     0.05565217391304347,
+     -0.14956521739130432,
+     -0.08521739130434783
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.2736231884057971,
+     "S2_measured": -0.05971014492753623,
+     "S4_SB_from_S2": -0.12700369913686807,
+     "S4_SB_from_S1": 0.6010824578159821
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.08,
+      "n": 24,
+      "p_onesided": 0.6449019739021205,
+      "ci95": [
+       -0.44677546676955776,
+       0.27493542827778356
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.0826086956521739,
+      "n": 24,
+      "p_onesided": 0.6494185077764083,
+      "ci95": [
+       -0.4785765743442908,
+       0.39429632867132836
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": -0.13652173913043478,
+      "n": 24,
+      "p_onesided": 0.7376451902760786,
+      "ci95": [
+       -0.4886419486476826,
+       0.22894930411050218
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "neg_denoise_loss": {
+    "ceiling_2seed_splithalf": 0.1507246376811594,
+    "ceiling_4seed_SB": 0.2619647355163728,
+    "per_pairing": [
+     0.2008695652173913,
+     -0.03913043478260869,
+     0.2904347826086956
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.26942028985507244,
+     "S2_measured": 0.1507246376811594,
+     "S4_SB_from_S2": 0.2619647355163728,
+     "S4_SB_from_S1": 0.5959765969383666
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": 0.5365217391304348,
+      "n": 24,
+      "p_onesided": 0.003437265296666415,
+      "ci95": [
+       0.16864050137251735,
+       0.7713678908177144
+      ],
+      "ratio_to_ceiling": 2.0480685618729098,
+      "PASS": true,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": 0.13826086956521738,
+      "n": 24,
+      "p_onesided": 0.25969557472957305,
+      "ci95": [
+       -0.3104164596335016,
+       0.5873198755482918
+      ],
+      "ratio_to_ceiling": 0.5277842809364548,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": 0.19391304347826085,
+      "n": 24,
+      "p_onesided": 0.1819594279646856,
+      "ci95": [
+       -0.2313325651155286,
+       0.5572652487564622
+      ],
+      "ratio_to_ceiling": 0.7402257525083612,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "logit_success": {
+    "ceiling_2seed_splithalf": 0.1505800800822402,
+    "ceiling_4seed_SB": 0.2617463707028148,
+    "per_pairing": [
+     0.2063112518054105,
+     -0.008926629380771196,
+     0.2543556178220812
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.2284413452180741,
+     "S2_measured": 0.1505800800822402,
+     "S4_SB_from_S2": 0.2617463707028148,
+     "S4_SB_from_S1": 0.5421897282308584
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.19826086956521738,
+      "n": 24,
+      "p_onesided": 0.823475282378798,
+      "ci95": [
+       -0.5494078526176984,
+       0.20740035918379884
+      ],
+      "ratio_to_ceiling": -0.7574541302439739,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.07304347826086956,
+      "n": 24,
+      "p_onesided": 0.6327664329115854,
+      "ci95": [
+       -0.5249011942050191,
+       0.3605543337300196
+      ],
+      "ratio_to_ceiling": -0.279062047984622,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": -0.1408695652173913,
+      "n": 24,
+      "p_onesided": 0.7442688590576625,
+      "ci95": [
+       -0.5024720912565168,
+       0.23419532664382572
+      ],
+      "ratio_to_ceiling": -0.538191092541771,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   }
+  },
+  "C7": {
+   "neg_plain_loss": {
+    "ceiling_2seed_splithalf": 0.05826086956521739,
+    "ceiling_4seed_SB": 0.11010682004930156,
+    "per_pairing": [
+     0.02869565217391304,
+     -0.003478260869565217,
+     0.14956521739130432
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.24492753623188404,
+     "S2_measured": 0.05826086956521739,
+     "S4_SB_from_S2": 0.11010682004930156,
+     "S4_SB_from_S1": 0.5647451963241437
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": 0.10086956521739131,
+      "n": 24,
+      "p_onesided": 0.319542965954539,
+      "ci95": [
+       -0.27507514402163297,
+       0.48213903120188556
+      ],
+      "ratio_to_ceiling": 0.9161064243997405,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.09999999999999999,
+      "n": 24,
+      "p_onesided": 0.6790033851966056,
+      "ci95": [
+       -0.45744620079668435,
+       0.2665905598574547
+      ],
+      "ratio_to_ceiling": -0.9082089552238806,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": 0.05391304347826086,
+      "n": 24,
+      "p_onesided": 0.40121598554224436,
+      "ci95": [
+       -0.32940024231237863,
+       0.4312350443814454
+      ],
+      "ratio_to_ceiling": 0.4896430889033095,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "neg_denoise_loss": {
+    "ceiling_2seed_splithalf": 0.15739130434782608,
+    "ceiling_4seed_SB": 0.27197595792637114,
+    "per_pairing": [
+     0.2826086956521739,
+     -0.005217391304347826,
+     0.19478260869565217
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.3340579710144927,
+     "S2_measured": 0.15739130434782608,
+     "S4_SB_from_S2": 0.27197595792637114,
+     "S4_SB_from_S1": 0.667390517553384
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": 0.46173913043478254,
+      "n": 24,
+      "p_onesided": 0.011562029635097568,
+      "ci95": [
+       0.05994215223713636,
+       0.7607183251809218
+      ],
+      "ratio_to_ceiling": 1.697720393946673,
+      "PASS": true,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": 0.1434782608695652,
+      "n": 24,
+      "p_onesided": 0.2517963231087682,
+      "ci95": [
+       -0.2987767435947321,
+       0.6009711927320215
+      ],
+      "ratio_to_ceiling": 0.5275402354071582,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": 0.2678260869565217,
+      "n": 24,
+      "p_onesided": 0.10288195254782327,
+      "ci95": [
+       -0.17381194663675337,
+       0.6368834570056743
+      ],
+      "ratio_to_ceiling": 0.9847417727600288,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "logit_success": {
+    "ceiling_2seed_splithalf": -0.009421023416489233,
+    "ceiling_4seed_SB": -0.019021246441110983,
+    "per_pairing": [
+     0.09118609125154746,
+     -0.12990440621168717,
+     0.010455244710672008
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.03175970210461173,
+     "S2_measured": -0.009421023416489233,
+     "S4_SB_from_S2": -0.019021246441110983,
+     "S4_SB_from_S1": 0.11598761236850064
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.3539130434782608,
+      "n": 24,
+      "p_onesided": 0.9551207719550887,
+      "ci95": [
+       -0.6690052103678369,
+       0.07276673278287733
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.3069565217391304,
+      "n": 24,
+      "p_onesided": 0.9277160659474132,
+      "ci95": [
+       -0.6565022388889569,
+       0.10836244541484681
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": -0.20956521739130432,
+      "n": 24,
+      "p_onesided": 0.8371519142142891,
+      "ci95": [
+       -0.5944094299732737,
+       0.23532245434073384
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   }
+  },
+  "C8": {
+   "neg_plain_loss": {
+    "ceiling_2seed_splithalf": -0.09333333333333331,
+    "ceiling_4seed_SB": -0.2058823529411764,
+    "per_pairing": [
+     -0.004347826086956522,
+     -0.18521739130434778,
+     -0.09043478260869564
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.20782608695652172,
+     "S2_measured": -0.09333333333333331,
+     "S4_SB_from_S2": -0.2058823529411764,
+     "S4_SB_from_S1": 0.5120514193893948
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.1026086956521739,
+      "n": 24,
+      "p_onesided": 0.6833565917180124,
+      "ci95": [
+       -0.4464874987071382,
+       0.3052146598429812
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.19043478260869565,
+      "n": 24,
+      "p_onesided": 0.8136236110786434,
+      "ci95": [
+       -0.57343503396594,
+       0.24412919077050121
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": -0.22434782608695653,
+      "n": 24,
+      "p_onesided": 0.8540383970273799,
+      "ci95": [
+       -0.6028722379192308,
+       0.17949164512780819
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "neg_denoise_loss": {
+    "ceiling_2seed_splithalf": 0.11188405797101449,
+    "ceiling_4seed_SB": 0.20125130344108444,
+    "per_pairing": [
+     0.17739130434782607,
+     -0.021739130434782605,
+     0.18
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.24550724637681157,
+     "S2_measured": 0.11188405797101449,
+     "S4_SB_from_S2": 0.20125130344108444,
+     "S4_SB_from_S1": 0.5655149390752795
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": 0.35739130434782607,
+      "n": 24,
+      "p_onesided": 0.04321487841069335,
+      "ci95": [
+       -0.029886064855390006,
+       0.6720849029632369
+      ],
+      "ratio_to_ceiling": 1.7758459112412706,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": 0.08782608695652173,
+      "n": 24,
+      "p_onesided": 0.3416076346074026,
+      "ci95": [
+       -0.3441688401329493,
+       0.5111440598539131
+      ],
+      "ratio_to_ceiling": 0.4364000901103853,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": 0.3121739130434782,
+      "n": 24,
+      "p_onesided": 0.06875901479607179,
+      "ci95": [
+       -0.12989204057824788,
+       0.6744574920375751
+      ],
+      "ratio_to_ceiling": 1.5511646767289928,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "logit_success": {
+    "ceiling_2seed_splithalf": 0.04506220778244682,
+    "ceiling_4seed_SB": 0.08623832619125299,
+    "per_pairing": [
+     0.1679039941664065,
+     -0.05364152276354126,
+     0.02092415194447523
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.12906967664205962,
+     "S2_measured": 0.04506220778244682,
+     "S4_SB_from_S2": 0.08623832619125299,
+     "S4_SB_from_S1": 0.3721708087466188
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.02434782608695652,
+      "n": 24,
+      "p_onesided": 0.5449562899605231,
+      "ci95": [
+       -0.46353245559683703,
+       0.38584869514454784
+      ],
+      "ratio_to_ceiling": -0.2823318489850987,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": 0.13043478260869562,
+      "n": 24,
+      "p_onesided": 0.27176298760879264,
+      "ci95": [
+       -0.33539871249591036,
+       0.5402153717912666
+      ],
+      "ratio_to_ceiling": 1.512492048134457,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": 0.07391304347826086,
+      "n": 24,
+      "p_onesided": 0.36570958969620176,
+      "ci95": [
+       -0.38675756235036024,
+       0.48737308140025787
+      ],
+      "ratio_to_ceiling": 0.8570788272761923,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   }
+  },
+  "C9": {
+   "neg_plain_loss": {
+    "ceiling_2seed_splithalf": -0.1489855072463768,
+    "ceiling_4seed_SB": -0.3501362397820163,
+    "per_pairing": [
+     -0.1252173913043478,
+     -0.20956521739130432,
+     -0.11217391304347826
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.1546376811594203,
+     "S2_measured": -0.1489855072463768,
+     "S4_SB_from_S2": -0.3501362397820163,
+     "S4_SB_from_S1": 0.4225324225324226
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.08086956521739129,
+      "n": 24,
+      "p_onesided": 0.6464096247658809,
+      "ci95": [
+       -0.46760228002061816,
+       0.3050048117196535
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.2904347826086956,
+      "n": 24,
+      "p_onesided": 0.9157082056322584,
+      "ci95": [
+       -0.644642835947476,
+       0.14282630830359846
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": 0.02434782608695652,
+      "n": 24,
+      "p_onesided": 0.4550437100394768,
+      "ci95": [
+       -0.38381877990430624,
+       0.436703745359186
+      ],
+      "ratio_to_ceiling": NaN,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "neg_denoise_loss": {
+    "ceiling_2seed_splithalf": 0.12028985507246377,
+    "ceiling_4seed_SB": 0.2147477360931436,
+    "per_pairing": [
+     0.21652173913043476,
+     -0.03739130434782608,
+     0.18173913043478263
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.19231884057971013,
+     "S2_measured": 0.12028985507246377,
+     "S4_SB_from_S2": 0.2147477360931436,
+     "S4_SB_from_S1": 0.48782281040345554
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": 0.29913043478260865,
+      "n": 24,
+      "p_onesided": 0.0778097772313975,
+      "ci95": [
+       -0.11736954247414225,
+       0.6394973407929272
+      ],
+      "ratio_to_ceiling": 1.3929387113672078,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": 0.06173913043478261,
+      "n": 24,
+      "p_onesided": 0.3872147877452896,
+      "ci95": [
+       -0.3930913860953214,
+       0.49303829846068736
+      ],
+      "ratio_to_ceiling": 0.2874960712414877,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": 0.22869565217391302,
+      "n": 24,
+      "p_onesided": 0.14121160381815823,
+      "ci95": [
+       -0.18949671772428883,
+       0.5719423585523907
+      ],
+      "ratio_to_ceiling": 1.0649502357255107,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   },
+   "logit_success": {
+    "ceiling_2seed_splithalf": 0.02503224779770342,
+    "ceiling_4seed_SB": 0.04884187370979902,
+    "per_pairing": [
+     0.03571428910169963,
+     -0.15595734107298329,
+     0.19533979536439391
+    ],
+    "seed_ladder": {
+     "S1_measured": 0.12425558491069826,
+     "S2_measured": 0.02503224779770342,
+     "S4_SB_from_S2": 0.04884187370979902,
+     "S4_SB_from_S1": 0.3620588406074785
+    },
+    "n_masks": 24,
+    "attributors": {
+     "TracIn": {
+      "rho": -0.12608695652173912,
+      "n": 24,
+      "p_onesided": 0.7214227961655157,
+      "ci95": [
+       -0.4907921688466589,
+       0.261914423735171
+      ],
+      "ratio_to_ceiling": -2.5815339778097544,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "TRAK": {
+      "rho": -0.1243478260869565,
+      "n": 24,
+      "p_onesided": 0.7186756291558418,
+      "ci95": [
+       -0.5660408638870301,
+       0.3207782877438996
+      ],
+      "ratio_to_ceiling": -2.5459266125985853,
+      "PASS": false,
+      "in_preregistered_criterion": true
+     },
+     "IF": {
+      "rho": -0.13043478260869562,
+      "n": 24,
+      "p_onesided": 0.7282370123912074,
+      "ci95": [
+       -0.5431174228200846,
+       0.3225517589631374
+      ],
+      "ratio_to_ceiling": -2.6705523908376763,
+      "PASS": false,
+      "in_preregistered_criterion": false
+     }
+    }
+   }
+  }
+ }
+}

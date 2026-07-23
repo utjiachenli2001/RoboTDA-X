@@ -1,0 +1,163 @@
+{
+ "SYNTHETIC": true,
+ "n_tests": 31,
+ "n_pass": 31,
+ "all_pass": true,
+ "tests": [
+  {
+   "test": "phases: gripper-event window is exactly +-10 around the crossing",
+   "pass": true,
+   "detail": "inter[39]=False inter[40..60]=allTrue inter[61]=False"
+  },
+  {
+   "test": "phases: transport is the exact complement of interaction",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "phases: rule (b) marks closed+slow frames outside the event window",
+   "pass": true,
+   "detail": "event_window=True closed_fast_is_transport=True closed_slow_is_interaction=True"
+  },
+  {
+   "test": "phases: +-25% threshold variants widen/narrow interaction monotonically",
+   "pass": true,
+   "detail": "low(w=8)=17 base(w=10)=21 high(w=12)=25"
+  },
+  {
+   "test": "windowing: window t ends at frame t",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "windowing: demo start is left-padded by repeating frame 0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "windowing: interior window is the true contiguous history",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "masks F: 72 masks, each exactly 5 clusters / 75 demos",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "masks F: every cluster included in exactly 40 masks",
+   "pass": true,
+   "detail": "{'C1': 40, 'C2': 40, 'C3': 40, 'C4': 40, 'C5': 40, 'C6': 40, 'C7': 40, 'C8': 40, 'C9': 40}"
+  },
+  {
+   "test": "masks F: pairwise co-inclusion within [17,23]",
+   "pass": true,
+   "detail": "[17,23]"
+  },
+  {
+   "test": "masks F: 12 noise-ceiling masks, each cluster in 6-8 of them",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "masks G: 24 masks, each exactly 68 demos",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "masks G: every demo appears in 11-13 masks",
+   "pass": true,
+   "detail": "[12,13]"
+  },
+  {
+   "test": "masks G: within-cluster stratification is 8 or 7 demos per cluster",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "masks: construction is deterministic under the frozen seed",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "trainer: overfits a synthetic fixture (NLL drops)",
+   "pass": true,
+   "detail": "NLL 9.65 -> -3.13"
+  },
+  {
+   "test": "trainer: act() returns in-range 7-D actions",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "rollout: first window is frame0 repeated CTX times",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "rollout: window at t ends at frame t",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "rollout: window at t is the last CTX frames",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "LDS: recovers a planted signal (true utilities -> rho > 0.9)",
+   "pass": true,
+   "detail": "rho=0.996 n=72"
+  },
+  {
+   "test": "LDS: random scores find no signal (|rho| < 0.3)",
+   "pass": true,
+   "detail": "rho=-0.095"
+  },
+  {
+   "test": "LDS: planted-signal CI excludes 0",
+   "pass": true,
+   "detail": "CI=(0.9888974526883502, 0.998004957840543)"
+  },
+  {
+   "test": "LDS: planted-signal p < 1e-6",
+   "pass": true,
+   "detail": "p=2.12e-76"
+  },
+  {
+   "test": "LDS: a noisy attributor scores between random and perfect",
+   "pass": true,
+   "detail": "rand=-0.095 noisy=0.761 true=0.996"
+  },
+  {
+   "test": "LDS: logit clamps 0 and 1 at 1/(2n) (n=30)",
+   "pass": true,
+   "detail": "[-4.078  0.     4.078]"
+  },
+  {
+   "test": "noise ceiling: 3 disjoint seed pairings averaged, in (0,1)",
+   "pass": true,
+   "detail": "ceiling=0.883 sb=0.938 pairings=[0.825 0.958 0.867]"
+  },
+  {
+   "test": "noise ceiling: noiseless replicates -> ceiling ~= 1.0",
+   "pass": true,
+   "detail": "ceiling=1.000"
+  },
+  {
+   "test": "noise ceiling: pure noise outcomes -> ceiling ~ 0",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "test": "attribution: exact TRAK dual == primal (p x p) form",
+   "pass": true,
+   "detail": "max|diff| = 4.57e-15"
+  },
+  {
+   "test": "attribution: Woodbury IF == dense empirical-Fisher inverse",
+   "pass": true,
+   "detail": "max|diff| = 5.05e-15"
+  }
+ ]
+}

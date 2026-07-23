@@ -1,0 +1,112 @@
+{
+ "stage": "P6.5 IF/TRAK ridge sweep",
+ "closes": "audit MAJOR-2 (untuned lambda)",
+ "n_retrains": 0,
+ "method": "G = PHI PHI^T and K = PHI TG^T do not depend on lambda, so ONE gradient pass over the E=10 ensemble yields the EXACT IF and TRAK scores at every lambda in the grid in closed form.",
+ "ridge_rel_grid": [
+  1e-06,
+  1e-05,
+  0.0001,
+  0.001,
+  0.01,
+  0.1,
+  1.0,
+  10.0
+ ],
+ "default_ridge_rel": 0.01,
+ "grid_span_note": "The grid spans 1e-6..1e+1, i.e. 1e-4x .. 1e+3x the default 1e-2 -- strictly containing the 1e-4..1e+1 x default span the brief asks for.",
+ "self_validation_reproduces_archived_table_at_default_ridge": {
+  "IF": {
+   "min_spearman_vs_archived": 1.0,
+   "max_rel_abs_diff": 6.790008960494164e-06
+  },
+  "TRAK": {
+   "min_spearman_vs_archived": 0.9999951224270804,
+   "max_rel_abs_diff": 4.756731812616758e-05
+  }
+ },
+ "ground_truth_demo": "phase2/results/stage_G6_outcomes.parquet, 6-seed mean, neg_plain_loss (the Phase-2 P1 primary), n=24 masks",
+ "ceilings_reused_unchanged": {
+  "demo_6seed_SB": {
+   "C1": 0.9327641408751334,
+   "C2": 0.9115002366303833,
+   "C3": 0.6441876915821739,
+   "C4": 0.7945492662473793,
+   "C5": 0.9177998400225849,
+   "C6": 0.940385146963973,
+   "C7": 0.9151966795585321,
+   "C8": 0.9097459233978006,
+   "C9": 0.8945496491396712
+  },
+  "cluster": {
+   "C1": 0.5079365079365079,
+   "C2": 0.27450980392156865,
+   "C3": 0.8424242424242424,
+   "C4": 0.27450980392156865,
+   "C5": 0.5636363636363636,
+   "C6": 0.12380952380952381,
+   "C7": 0.8431372549019609,
+   "C8": 0.8253968253968255,
+   "C9": 0.2380952380952381
+  }
+ },
+ "PREREGISTERED_READOUT_oracle_tuned_max_over_lambda": {
+  "C1": {
+   "oracle_tuned_best_ridge_rel": 10.0,
+   "oracle_tuned_best_attributor": "IF",
+   "oracle_tuned_best_demo_lds": 0.4982608695652173,
+   "ceiling_6seed": 0.9327641408751334,
+   "bar_half_ceiling": 0.4663820704375667,
+   "oracle_tuned_ratio": 0.5341766988359367,
+   "oracle_tuned_p_onesided": 0.006606012812902796,
+   "oracle_tuned_CROSSES_HALF_CEILING": true,
+   "oracle_tuned_PASS_ratio_AND_p": true,
+   "LABEL": "ORACLE-TUNED UPPER BOUND -- lambda chosen on this same target. NOT held-out."
+  },
+  "C5": {
+   "oracle_tuned_best_ridge_rel": 0.1,
+   "oracle_tuned_best_attributor": "IF",
+   "oracle_tuned_best_demo_lds": 0.4321739130434783,
+   "ceiling_6seed": 0.9177998400225849,
+   "bar_half_ceiling": 0.45889992001129243,
+   "oracle_tuned_ratio": 0.47088035342525614,
+   "oracle_tuned_p_onesided": 0.017470768313848938,
+   "oracle_tuned_CROSSES_HALF_CEILING": false,
+   "oracle_tuned_PASS_ratio_AND_p": false,
+   "LABEL": "ORACLE-TUNED UPPER BOUND -- lambda chosen on this same target. NOT held-out."
+  }
+ },
+ "MANDATORY_CROSS_VALIDATION": {
+  "tune_on_C1__evaluate_on_C5": {
+   "frozen_ridge_rel": 10.0,
+   "frozen_attributor": "IF",
+   "heldout_demo_lds": 0.40347826086956523,
+   "heldout_ceiling": 0.9177998400225849,
+   "heldout_ratio": 0.4396146559141224,
+   "heldout_bar_half_ceiling": 0.45889992001129243,
+   "heldout_p_onesided": 0.025282957823212927,
+   "heldout_CROSSES_HALF_CEILING": false,
+   "heldout_PASS_ratio_AND_p": false,
+   "LABEL": "CROSS-VALIDATED -- lambda and attributor frozen on the OTHER focal target."
+  },
+  "tune_on_C5__evaluate_on_C1": {
+   "frozen_ridge_rel": 0.1,
+   "frozen_attributor": "IF",
+   "heldout_demo_lds": 0.3408695652173913,
+   "heldout_ceiling": 0.9327641408751334,
+   "heldout_ratio": 0.3654402547010248,
+   "heldout_bar_half_ceiling": 0.4663820704375667,
+   "heldout_p_onesided": 0.051549603055612646,
+   "heldout_CROSSES_HALF_CEILING": false,
+   "heldout_PASS_ratio_AND_p": false,
+   "LABEL": "CROSS-VALIDATED -- lambda and attributor frozen on the OTHER focal target."
+  }
+ },
+ "demo_lds_at_default_ridge": {
+  "C1": 0.25565217391304346,
+  "C5": 0.38
+ },
+ "TracIn_control": "ridge-invariant by construction; reported unchanged in the CSV.",
+ "VERDICT": "ORACLE_TUNED_ONLY__NOT_HELD_OUT",
+ "VERDICT_TEXT": "An oracle-tuned lambda crosses half-ceiling on at least one focal target, but the CROSS-VALIDATED (held-out) lambda does NOT. Tuning lambda on the target it is scored against is not a method; it is a multiple comparison over 8 grid points. Phase 2's conclusion stands, and the oracle-tuned value is reported as an upper bound."
+}

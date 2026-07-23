@@ -1,0 +1,1 @@
+{"ckpt": "final.pt", "n_rollouts": 20, "horizon": 600, "rollout_wall_s": 243.14143443107605, "n_errors": 0, "total_wall_s": 244.7044849395752}

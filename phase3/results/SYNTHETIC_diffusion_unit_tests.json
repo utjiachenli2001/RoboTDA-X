@@ -1,0 +1,38 @@
+{
+ "1_cosine_schedule_monotone": {
+  "pass": true,
+  "alpha_bar_0": 1.0,
+  "alpha_bar_T": 2.428572258850181e-07
+ },
+ "2_qsample_closed_form": {
+  "pass": true,
+  "max_abs_diff": 0.0
+ },
+ "3_signal_destroyed_at_T_preserved_at_1": {
+  "pass": true,
+  "corr_xT_x0": 0.00039276137010520017,
+  "corr_x1_x0": 0.9996872034261857
+ },
+ "4_ddim_deterministic": {
+  "pass": true,
+  "max_abs_diff_between_two_calls": 0.0
+ },
+ "5_ddim_is_a_function_of_the_observation": {
+  "pass": true,
+  "std_of_actions_across_8_distinct_obs": 0.10558158904314041,
+  "note": "a fixed initial latent must NOT collapse the policy to a constant action"
+ },
+ "6_exact_denoiser_recovers_x0_under_ddim": {
+  "pass": true,
+  "max_abs_diff_vs_x0_float64": 4.4525494402591903e-13,
+  "note": "float64: tests the DDIM update rule itself. The float32 x0-estimate at t=T is ill-conditioned by construction (1/sqrt(alpha_bar_T) ~ 2e3) in ANY DDIM, which is why x0 is clamped to the action range.",
+  "alpha_bar_T_after_beta_clip": 2.428572258850181e-07
+ },
+ "7_bank_loss_K1_equals_ddpm_loss": {
+  "pass": true,
+  "max_abs_diff": 0.0
+ },
+ "_params_M": 18.251911,
+ "_LABEL": "SYNTHETIC -- correctness tests of the DDPM/DDIM algebra on FABRICATED inputs. NEVER mixed with study results.",
+ "_ALL_PASS": true
+}

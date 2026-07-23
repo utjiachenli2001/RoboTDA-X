@@ -1,0 +1,13 @@
+[P9] 10 new ensemble members: ['ens_s211', 'ens_s212', 'ens_s213', 'ens_s214', 'ens_s215', 'ens_s216', 'ens_s217', 'ens_s218', 'ens_s219', 'ens_s220']
+[P9] probe-leak guard PASSED
+[P9] ens_s211 done (27s)
+[P9] ens_s212 done (53s)
+[P9] ens_s213 done (79s)
+[P9] ens_s214 done (105s)
+[P9] ens_s215 done (132s)
+[P9] ens_s216 done (158s)
+[P9] ens_s217 done (184s)
+[P9] ens_s218 done (211s)
+[P9] ens_s219 done (237s)
+[P9] ens_s220 done (264s)
+[P9] wrote /mnt/sdb/ljc/RoboTDA-X/phase3/results/p9_influence_new_members.parquet: 36450 rows, 10 members (264s)

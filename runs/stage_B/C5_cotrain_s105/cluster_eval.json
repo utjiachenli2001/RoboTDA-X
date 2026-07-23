@@ -1,0 +1,20 @@
+{
+ "cluster": "C5",
+ "suite": "libero_90",
+ "n_tasks": 7,
+ "n_rollouts": 20,
+ "per_task_success": {
+  "KITCHEN_SCENE2_open_the_top_drawer_of_the_cabinet": 0.7,
+  "KITCHEN_SCENE2_put_the_black_bowl_at_the_back_on_the_plate": 0.25,
+  "KITCHEN_SCENE2_put_the_black_bowl_at_the_front_on_the_plate": 0.0,
+  "KITCHEN_SCENE2_put_the_middle_black_bowl_on_the_plate": 0.0,
+  "KITCHEN_SCENE2_put_the_middle_black_bowl_on_top_of_the_cabinet": 0.4,
+  "KITCHEN_SCENE2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle": 0.0,
+  "KITCHEN_SCENE2_stack_the_middle_black_bowl_on_the_back_black_bowl": 0.05
+ },
+ "cluster_success": 0.2,
+ "n_episodes": 140,
+ "horizon": 600,
+ "wall_s": 273.2332866191864,
+ "n_errors": 0
+}

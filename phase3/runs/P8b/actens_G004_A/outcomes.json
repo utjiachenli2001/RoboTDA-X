@@ -1,0 +1,78 @@
+{
+ "outcomes": {
+  "C1": {
+   "success_rate": 0.06666666666666667,
+   "n_episodes": 30,
+   "plain_loss": 0.5451093772867533,
+   "transport_loss": 0.39954111222120287,
+   "interaction_loss": 0.8446008188785702
+  },
+  "C2": {
+   "success_rate": 0.5,
+   "n_episodes": 30,
+   "plain_loss": 0.47099696973636135,
+   "transport_loss": 0.25907542741180695,
+   "interaction_loss": 0.9152978270356128
+  },
+  "C3": {
+   "success_rate": 0.3,
+   "n_episodes": 30,
+   "plain_loss": 0.6039393232895437,
+   "transport_loss": 0.470107128644096,
+   "interaction_loss": 0.890473761716999
+  },
+  "C4": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "plain_loss": 0.816228618245479,
+   "transport_loss": 0.7843674612137687,
+   "interaction_loss": 0.9253657243953692
+  },
+  "C5": {
+   "success_rate": 0.06666666666666667,
+   "n_episodes": 30,
+   "plain_loss": 0.37944521592159486,
+   "transport_loss": 0.23675517316678812,
+   "interaction_loss": 0.648812703117078
+  },
+  "C6": {
+   "success_rate": 0.36666666666666664,
+   "n_episodes": 30,
+   "plain_loss": 0.439104218307621,
+   "transport_loss": 0.42142089678648387,
+   "interaction_loss": 0.4989930364979915
+  },
+  "C7": {
+   "success_rate": 0.6333333333333333,
+   "n_episodes": 30,
+   "plain_loss": 0.4370177539132024,
+   "transport_loss": 0.2996825477193635,
+   "interaction_loss": 0.856269702469771
+  },
+  "C8": {
+   "success_rate": 0.36666666666666664,
+   "n_episodes": 30,
+   "plain_loss": 0.3842523603816833,
+   "transport_loss": 0.29440849244937806,
+   "interaction_loss": 0.5889234178103573
+  },
+  "C9": {
+   "success_rate": 0.16666666666666666,
+   "n_episodes": 30,
+   "plain_loss": 0.3635803450392405,
+   "transport_loss": 0.24012987120222534,
+   "interaction_loss": 0.6385512380404809
+  }
+ },
+ "meta": {
+  "arm": "action_ensemble",
+  "n_members": 3,
+  "members": [
+   "/mnt/sdb/ljc/RoboTDA-X/runs/stage_G/G004_s401/final.pt",
+   "/mnt/sdb/ljc/RoboTDA-X/runs/stage_G/G004_s402/final.pt",
+   "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G004_s403/final.pt"
+  ],
+  "n_rollouts": 10,
+  "total_wall_s": 418.9665160179138
+ }
+}

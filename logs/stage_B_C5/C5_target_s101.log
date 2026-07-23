@@ -1,0 +1,65 @@
+[train] ep 0 step 6/8000 loss 6.8103 (2s)
+[train] ep 50 step 306/8000 loss -5.7545 (7s)
+[train] ep 100 step 606/8000 loss -9.2946 (12s)
+[train] ep 150 step 906/8000 loss -11.5598 (17s)
+[train] ep 200 step 1206/8000 loss -11.9495 (21s)
+[train] ep 250 step 1506/8000 loss -13.9511 (26s)
+[train] ep 300 step 1806/8000 loss -14.7791 (31s)
+[train] ep 350 step 2106/8000 loss -15.6081 (36s)
+[train] ep 400 step 2406/8000 loss -16.9831 (40s)
+[train] ep 450 step 2706/8000 loss -17.1470 (45s)
+[train] ep 500 step 3006/8000 loss -17.1476 (50s)
+[train] ep 550 step 3306/8000 loss -18.3335 (55s)
+[train] ep 600 step 3606/8000 loss -18.5325 (60s)
+[train] ep 650 step 3906/8000 loss -19.5159 (65s)
+[train] ep 700 step 4206/8000 loss -20.0352 (71s)
+[train] ep 750 step 4506/8000 loss -20.3616 (76s)
+[train] ep 800 step 4806/8000 loss -20.8936 (81s)
+[train] ep 850 step 5106/8000 loss -21.4111 (86s)
+[train] ep 900 step 5406/8000 loss -21.5067 (92s)
+[train] ep 950 step 5706/8000 loss -22.1895 (97s)
+[train] ep 1000 step 6006/8000 loss -22.4554 (103s)
+[train] ep 1050 step 6306/8000 loss -22.5366 (108s)
+[train] ep 1100 step 6606/8000 loss -22.9737 (114s)
+[train] ep 1150 step 6906/8000 loss -23.1966 (119s)
+[train] ep 1200 step 7206/8000 loss -23.4063 (124s)
+[train] ep 1250 step 7506/8000 loss -23.4547 (129s)
+[train] ep 1300 step 7806/8000 loss -23.2236 (133s)
+[train] ep 1333 step 8000/8000 loss -23.5450 (136s)
+[train] DONE /mnt/sdb/ljc/RoboTDA-X/runs/stage_B/C5_target_s101 wall=136s windows=1696 loss=-23.7306
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[clustereval] /mnt/sdb/ljc/RoboTDA-X/runs/stage_B/C5_target_s101 C5 success=0.0786 (140 eps, 288s)

@@ -1,0 +1,52 @@
+[train] ep 0 step 6/8000 loss 6.6887 (2s)
+[train] ep 50 step 306/8000 loss -7.5999 (7s)
+[train] ep 100 step 606/8000 loss -9.5237 (13s)
+[train] ep 150 step 906/8000 loss -10.3209 (18s)
+[train] ep 200 step 1206/8000 loss -13.1246 (23s)
+[train] ep 250 step 1506/8000 loss -14.5244 (28s)
+[train] ep 300 step 1806/8000 loss -15.1695 (34s)
+[train] ep 350 step 2106/8000 loss -15.8825 (39s)
+[train] ep 400 step 2406/8000 loss -16.5498 (44s)
+[train] ep 450 step 2706/8000 loss -16.1163 (50s)
+[train] ep 500 step 3006/8000 loss -18.6429 (55s)
+[train] ep 550 step 3306/8000 loss -17.4800 (60s)
+[train] ep 600 step 3606/8000 loss -18.8957 (66s)
+[train] ep 650 step 3906/8000 loss -19.7710 (71s)
+[train] ep 700 step 4206/8000 loss -20.3735 (76s)
+[train] ep 750 step 4506/8000 loss -20.8823 (82s)
+[train] ep 800 step 4806/8000 loss -21.2628 (87s)
+[train] ep 850 step 5106/8000 loss -21.9915 (92s)
+[train] ep 900 step 5406/8000 loss -21.7821 (98s)
+[train] ep 950 step 5706/8000 loss -22.4583 (103s)
+[train] ep 1000 step 6006/8000 loss -22.9112 (108s)
+[train] ep 1050 step 6306/8000 loss -23.0201 (114s)
+[train] ep 1100 step 6606/8000 loss -23.3013 (119s)
+[train] ep 1150 step 6906/8000 loss -23.3685 (124s)
+[train] ep 1200 step 7206/8000 loss -23.8202 (130s)
+[train] ep 1250 step 7506/8000 loss -23.9223 (135s)
+[train] ep 1300 step 7806/8000 loss -23.9249 (140s)
+[train] ep 1333 step 8000/8000 loss -24.2616 (144s)
+[train] DONE /mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_similarity_top15_s503 wall=144s windows=1757 loss=-24.1492
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[probe] /mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_similarity_top15_s503 wall=245s
+  C1: succ=0.0 (60 eps) plain=1.394 transp=1.373 inter=1.437

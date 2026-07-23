@@ -1,0 +1,17 @@
+{
+ "name": "cotrain135_s20000_s101",
+ "n_demos": 135,
+ "steps": 20000,
+ "seed": 101,
+ "n_windows": 22180,
+ "train_s": 314.67472982406616,
+ "rollout_s": 113.99926733970642,
+ "final_loss": -20.819477773359576,
+ "per_task_success": {
+  "open_the_top_drawer_and_put_the_bowl_inside": 0.1,
+  "open_the_middle_drawer_of_the_cabinet": 0.1,
+  "push_the_plate_to_the_front_of_the_stove": 0.0
+ },
+ "mean_success": 0.06666666666666667,
+ "n_errors": 0
+}

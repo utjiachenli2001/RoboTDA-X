@@ -1,0 +1,23 @@
+{
+ "cluster": "C2",
+ "suite": "libero_spatial",
+ "n_tasks": 10,
+ "n_rollouts": 20,
+ "per_task_success": {
+  "pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate": 0.0,
+  "pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate": 0.0,
+  "pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate": 0.05,
+  "pick_up_the_black_bowl_next_to_the_cookie_box_and_place_it_on_the_plate": 0.55,
+  "pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate": 0.0,
+  "pick_up_the_black_bowl_next_to_the_ramekin_and_place_it_on_the_plate": 0.0,
+  "pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate": 0.0,
+  "pick_up_the_black_bowl_on_the_ramekin_and_place_it_on_the_plate": 0.0,
+  "pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate": 0.0,
+  "pick_up_the_black_bowl_on_the_wooden_cabinet_and_place_it_on_the_plate": 0.35
+ },
+ "cluster_success": 0.095,
+ "n_episodes": 200,
+ "horizon": 600,
+ "wall_s": 313.3688292503357,
+ "n_errors": 0
+}

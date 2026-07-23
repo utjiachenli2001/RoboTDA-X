@@ -1,0 +1,7 @@
+{
+ "total_steps": 24000,
+ "h_chunk": 8,
+ "n_train_steps": 100,
+ "n_ddim_steps": 10,
+ "lr": 0.001
+}

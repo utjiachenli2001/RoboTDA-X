@@ -1,0 +1,6 @@
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[fig] /mnt/sdb/ljc/RoboTDA-X/figures/fig1_transfer_matrix.png
+[fig] /mnt/sdb/ljc/RoboTDA-X/figures/fig2_insider_outsider.png
+[fig] /mnt/sdb/ljc/RoboTDA-X/figures/fig3_lds_vs_ceiling.png
+[fig] /mnt/sdb/ljc/RoboTDA-X/figures/fig4_quantity.png
+[fig] /mnt/sdb/ljc/RoboTDA-X/figures/fig7_influence_vs_dtw.png

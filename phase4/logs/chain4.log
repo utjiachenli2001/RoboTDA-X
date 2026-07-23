@@ -1,0 +1,430 @@
+=== PHASE 4 TRAINING CHAIN starting 2026-07-13T03:53:09+00:00 ===
+--- P12: BC ground truth S=10 (96 retrains) ---
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[P12] 96 jobs, 0 already complete, 96 to run
+[P12] launch G000_s407 on gpu4
+[P12] launch G000_s408 on gpu5
+[P12] launch G000_s409 on gpu6
+[P12] launch G000_s410 on gpu7
+[P12] OK   G000_s408 gpu5 429s (1/96)
+[P12] launch G001_s407 on gpu5
+[P12] OK   G000_s409 gpu6 460s (2/96)
+[P12] launch G001_s408 on gpu6
+[P12] OK   G000_s407 gpu4 479s (3/96)
+[P12] launch G001_s409 on gpu4
+[P12] OK   G000_s410 gpu7 514s (4/96)
+[P12] launch G001_s410 on gpu7
+[P12] OK   G001_s407 gpu5 450s (5/96)
+[P12] launch G002_s407 on gpu5
+[P12] OK   G001_s408 gpu6 430s (6/96)
+[P12] launch G002_s408 on gpu6
+[P12] OK   G001_s409 gpu4 430s (7/96)
+[P12] launch G002_s409 on gpu4
+[P12] OK   G001_s410 gpu7 460s (8/96)
+[P12] launch G002_s410 on gpu7
+[P12] OK   G002_s408 gpu6 441s (9/96)
+[P12] launch G003_s407 on gpu6
+[P12] OK   G002_s407 gpu5 468s (10/96)
+[P12] launch G003_s408 on gpu5
+[P12] OK   G002_s409 gpu4 475s (11/96)
+[P12] launch G003_s409 on gpu4
+[P12] OK   G002_s410 gpu7 455s (12/96)
+[P12] launch G003_s410 on gpu7
+[P12] OK   G003_s407 gpu6 451s (13/96)
+[P12] launch G004_s407 on gpu6
+[P12] OK   G003_s408 gpu5 451s (14/96)
+[P12] launch G004_s408 on gpu5
+[P12] OK   G003_s409 gpu4 430s (15/96)
+[P12] launch G004_s409 on gpu4
+[P12] OK   G003_s410 gpu7 460s (16/96)
+[P12] launch G004_s410 on gpu7
+[P12] OK   G004_s407 gpu6 452s (17/96)
+[P12] launch G005_s407 on gpu6
+[P12] OK   G004_s409 gpu4 439s (18/96)
+[P12] launch G005_s408 on gpu4
+[P12] OK   G004_s408 gpu5 465s (19/96)
+[P12] launch G005_s409 on gpu5
+[P12] OK   G004_s410 gpu7 453s (20/96)
+[P12] launch G005_s410 on gpu7
+[P12] OK   G005_s407 gpu6 422s (21/96)
+[P12] OK   G005_s408 gpu4 409s (22/96)
+[P12] launch G006_s407 on gpu4
+[P12] launch G006_s408 on gpu6
+[P12] OK   G005_s409 gpu5 453s (23/96)
+[P12] launch G006_s409 on gpu5
+[P12] OK   G005_s410 gpu7 453s (24/96)
+[P12] launch G006_s410 on gpu7
+[P12] OK   G006_s407 gpu4 422s (25/96)
+[P12] OK   G006_s408 gpu6 419s (26/96)
+[P12] launch G007_s407 on gpu4
+[P12] launch G007_s408 on gpu6
+[P12] OK   G006_s409 gpu5 402s (27/96)
+[P12] launch G007_s409 on gpu5
+[P12] OK   G006_s410 gpu7 430s (28/96)
+[P12] launch G007_s410 on gpu7
+[P12] OK   G007_s408 gpu6 459s (29/96)
+[P12] launch G008_s407 on gpu6
+[P12] OK   G007_s407 gpu4 485s (30/96)
+[P12] OK   G007_s409 gpu5 449s (31/96)
+[P12] launch G008_s408 on gpu4
+[P12] launch G008_s409 on gpu5
+[P12] OK   G007_s410 gpu7 461s (32/96)
+[P12] launch G008_s410 on gpu7
+[P12] OK   G008_s407 gpu6 464s (33/96)
+[P12] OK   G008_s408 gpu4 440s (34/96)
+[P12] launch G009_s407 on gpu4
+[P12] launch G009_s408 on gpu6
+[P12] OK   G008_s409 gpu5 453s (35/96)
+[P12] launch G009_s409 on gpu5
+[P12] OK   G008_s410 gpu7 433s (36/96)
+[P12] launch G009_s410 on gpu7
+[P12] OK   G009_s407 gpu4 420s (37/96)
+[P12] launch G010_s407 on gpu4
+[P12] OK   G009_s408 gpu6 461s (38/96)
+[P12] launch G010_s408 on gpu6
+[P12] OK   G009_s409 gpu5 471s (39/96)
+[P12] launch G010_s409 on gpu5
+[P12] OK   G009_s410 gpu7 451s (40/96)
+[P12] launch G010_s410 on gpu7
+[P12] OK   G010_s407 gpu4 463s (41/96)
+[P12] launch G011_s407 on gpu4
+[P12] OK   G010_s409 gpu5 440s (42/96)
+[P12] launch G011_s408 on gpu5
+[P12] OK   G010_s408 gpu6 476s (43/96)
+[P12] launch G011_s409 on gpu6
+[P12] OK   G010_s410 gpu7 474s (44/96)
+[P12] launch G011_s410 on gpu7
+[P12] OK   G011_s407 gpu4 484s (45/96)
+[P12] launch G012_s407 on gpu4
+[P12] OK   G011_s408 gpu5 474s (46/96)
+[P12] launch G012_s408 on gpu5
+[P12] OK   G011_s409 gpu6 474s (47/96)
+[P12] launch G012_s409 on gpu6
+[P12] OK   G011_s410 gpu7 484s (48/96)
+[P12] launch G012_s410 on gpu7
+[P12] OK   G012_s407 gpu4 452s (49/96)
+[P12] launch G013_s407 on gpu4
+[P12] OK   G012_s409 gpu6 439s (50/96)
+[P12] launch G013_s408 on gpu6
+[P12] OK   G012_s408 gpu5 465s (51/96)
+[P12] launch G013_s409 on gpu5
+[P12] OK   G012_s410 gpu7 473s (52/96)
+[P12] launch G013_s410 on gpu7
+[P12] OK   G013_s407 gpu4 463s (53/96)
+[P12] launch G014_s407 on gpu4
+[P12] OK   G013_s408 gpu6 442s (54/96)
+[P12] launch G014_s408 on gpu6
+[P12] OK   G013_s409 gpu5 442s (55/96)
+[P12] launch G014_s409 on gpu5
+[P12] OK   G013_s410 gpu7 431s (56/96)
+[P12] launch G014_s410 on gpu7
+[P12] OK   G014_s407 gpu4 451s (57/96)
+[P12] OK   G014_s408 gpu6 438s (58/96)
+[P12] launch G015_s407 on gpu4
+[P12] launch G015_s408 on gpu6
+[P12] OK   G014_s409 gpu5 462s (59/96)
+[P12] launch G015_s409 on gpu5
+[P12] OK   G014_s410 gpu7 463s (60/96)
+[P12] launch G015_s410 on gpu7
+[P12] OK   G015_s408 gpu6 452s (61/96)
+[P12] launch G016_s407 on gpu6
+[P12] OK   G015_s407 gpu4 468s (62/96)
+[P12] launch G016_s408 on gpu4
+[P12] OK   G015_s409 gpu5 444s (63/96)
+[P12] launch G016_s409 on gpu5
+[P12] OK   G015_s410 gpu7 452s (64/96)
+[P12] launch G016_s410 on gpu7
+[P12] OK   G016_s407 gpu6 421s (65/96)
+[P12] launch G017_s407 on gpu6
+[P12] OK   G016_s408 gpu4 441s (66/96)
+[P12] launch G017_s408 on gpu4
+[P12] OK   G016_s409 gpu5 441s (67/96)
+[P12] launch G017_s409 on gpu5
+[P12] OK   G016_s410 gpu7 464s (68/96)
+[P12] launch G017_s410 on gpu7
+[P12] OK   G017_s407 gpu6 433s (69/96)
+[P12] launch G018_s407 on gpu6
+[P12] OK   G017_s408 gpu4 443s (70/96)
+[P12] launch G018_s408 on gpu4
+[P12] OK   G017_s409 gpu5 453s (71/96)
+[P12] launch G018_s409 on gpu5
+[P12] OK   G017_s410 gpu7 472s (72/96)
+[P12] launch G018_s410 on gpu7
+[P12] OK   G018_s407 gpu6 432s (73/96)
+[P12] launch G019_s407 on gpu6
+[P12] OK   G018_s408 gpu4 422s (74/96)
+[P12] launch G019_s408 on gpu4
+[P12] OK   G018_s409 gpu5 412s (75/96)
+[P12] launch G019_s409 on gpu5
+[P12] OK   G018_s410 gpu7 433s (76/96)
+[P12] launch G019_s410 on gpu7
+[P12] OK   G019_s407 gpu6 432s (77/96)
+[P12] launch G020_s407 on gpu6
+[P12] OK   G019_s408 gpu4 472s (78/96)
+[P12] launch G020_s408 on gpu4
+[P12] OK   G019_s409 gpu5 472s (79/96)
+[P12] launch G020_s409 on gpu5
+[P12] OK   G019_s410 gpu7 452s (80/96)
+[P12] launch G020_s410 on gpu7
+[P12] OK   G020_s407 gpu6 433s (81/96)
+[P12] launch G021_s407 on gpu6
+[P12] OK   G020_s408 gpu4 423s (82/96)
+[P12] launch G021_s408 on gpu4
+[P12] OK   G020_s409 gpu5 423s (83/96)
+[P12] launch G021_s409 on gpu5
+[P12] OK   G020_s410 gpu7 453s (84/96)
+[P12] launch G021_s410 on gpu7
+[P12] OK   G021_s407 gpu6 442s (85/96)
+[P12] launch G022_s407 on gpu6
+[P12] OK   G021_s409 gpu5 409s (86/96)
+[P12] launch G022_s408 on gpu5
+[P12] OK   G021_s408 gpu4 456s (87/96)
+[P12] launch G022_s409 on gpu4
+[P12] OK   G021_s410 gpu7 451s (88/96)
+[P12] launch G022_s410 on gpu7
+[P12] OK   G022_s407 gpu6 400s (89/96)
+[P12] launch G023_s407 on gpu6
+[P12] OK   G022_s408 gpu5 421s (90/96)
+[P12] launch G023_s408 on gpu5
+[P12] OK   G022_s409 gpu4 452s (91/96)
+[P12] launch G023_s409 on gpu4
+[P12] OK   G022_s410 gpu7 422s (92/96)
+[P12] launch G023_s410 on gpu7
+[P12] OK   G023_s407 gpu6 440s (93/96)
+[P12] OK   G023_s408 gpu5 465s (94/96)
+[P12] OK   G023_s409 gpu4 440s (95/96)
+[P12] OK   G023_s410 gpu7 433s (96/96)
+[P12] COMPLETE: 96/96 ok, 0 FAILED, wall=182.6 min, gpu-h=11.95
+--- P13: diffusion ground truth S=8 (48 retrains) ---
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[P13] 48 jobs, 0 already complete, 48 to run
+[P13] launch G000_s607 on gpu4
+[P13] launch G000_s608 on gpu5
+[P13] launch G001_s607 on gpu6
+[P13] launch G001_s608 on gpu7
+[P13] OK   G001_s608 gpu7 1114s (1/48)
+[P13] launch G002_s607 on gpu7
+[P13] OK   G001_s607 gpu6 1151s (2/48)
+[P13] launch G002_s608 on gpu6
+[P13] OK   G000_s608 gpu5 1218s (3/48)
+[P13] launch G003_s607 on gpu5
+[P13] OK   G000_s607 gpu4 1387s (4/48)
+[P13] launch G003_s608 on gpu4
+[P13] OK   G002_s607 gpu7 1073s (5/48)
+[P13] launch G004_s607 on gpu7
+[P13] OK   G002_s608 gpu6 1165s (6/48)
+[P13] OK   G003_s607 gpu5 1101s (7/48)
+[P13] launch G004_s608 on gpu5
+[P13] launch G005_s607 on gpu6
+[P13] OK   G003_s608 gpu4 1145s (8/48)
+[P13] launch G005_s608 on gpu4
+[P13] OK   G004_s607 gpu7 1042s (9/48)
+[P13] launch G006_s607 on gpu7
+[P13] OK   G004_s608 gpu5 1104s (10/48)
+[P13] launch G006_s608 on gpu5
+[P13] OK   G005_s607 gpu6 1124s (11/48)
+[P13] launch G007_s607 on gpu6
+[P13] OK   G005_s608 gpu4 1073s (12/48)
+[P13] launch G007_s608 on gpu4
+[P13] OK   G006_s607 gpu7 1074s (13/48)
+[P13] launch G008_s607 on gpu7
+[P13] OK   G006_s608 gpu5 1114s (14/48)
+[P13] launch G008_s608 on gpu5
+[P13] OK   G007_s607 gpu6 1145s (15/48)
+[P13] launch G009_s607 on gpu6
+[P13] OK   G007_s608 gpu4 1136s (16/48)
+[P13] launch G009_s608 on gpu4
+[P13] OK   G008_s607 gpu7 1104s (17/48)
+[P13] launch G010_s607 on gpu7
+[P13] OK   G008_s608 gpu5 1022s (18/48)
+[P13] launch G010_s608 on gpu5
+[P13] OK   G009_s608 gpu4 1091s (19/48)
+[P13] launch G011_s607 on gpu4
+[P13] OK   G009_s607 gpu6 1403s (20/48)
+[P13] launch G011_s608 on gpu6
+[P13] OK   G010_s607 gpu7 1115s (21/48)
+[P13] launch G012_s607 on gpu7
+[P13] OK   G010_s608 gpu5 1065s (22/48)
+[P13] launch G012_s608 on gpu5
+[P13] OK   G011_s607 gpu4 1147s (23/48)
+[P13] launch G013_s607 on gpu4
+[P13] OK   G011_s608 gpu6 1159s (24/48)
+[P13] launch G013_s608 on gpu6
+[P13] OK   G012_s607 gpu7 1086s (25/48)
+[P13] launch G014_s607 on gpu7
+[P13] OK   G012_s608 gpu5 1422s (26/48)
+[P13] launch G014_s608 on gpu5
+[P13] OK   G013_s607 gpu4 1215s (27/48)
+[P13] launch G015_s607 on gpu4
+[P13] OK   G013_s608 gpu6 1123s (28/48)
+[P13] launch G015_s608 on gpu6
+[P13] OK   G014_s607 gpu7 1441s (29/48)
+[P13] launch G016_s607 on gpu7
+[P13] OK   G014_s608 gpu5 1114s (30/48)
+[P13] launch G016_s608 on gpu5
+[P13] OK   G015_s607 gpu4 1155s (31/48)
+[P13] launch G017_s607 on gpu4
+[P13] OK   G015_s608 gpu6 1094s (32/48)
+[P13] launch G017_s608 on gpu6
+[P13] OK   G016_s607 gpu7 1085s (33/48)
+[P13] launch G018_s607 on gpu7
+[P13] OK   G016_s608 gpu5 1095s (34/48)
+[P13] launch G018_s608 on gpu5
+[P13] OK   G017_s607 gpu4 1126s (35/48)
+[P13] launch G019_s607 on gpu4
+[P13] OK   G017_s608 gpu6 1146s (36/48)
+[P13] launch G019_s608 on gpu6
+[P13] OK   G018_s608 gpu5 1111s (37/48)
+[P13] launch G020_s607 on gpu5
+[P13] OK   G018_s607 gpu7 1423s (38/48)
+[P13] launch G020_s608 on gpu7
+[P13] OK   G019_s607 gpu4 1124s (39/48)
+[P13] launch G021_s607 on gpu4
+[P13] OK   G019_s608 gpu6 1104s (40/48)
+[P13] launch G021_s608 on gpu6
+[P13] OK   G020_s607 gpu5 1113s (41/48)
+[P13] launch G022_s607 on gpu5
+[P13] OK   G021_s607 gpu4 1059s (42/48)
+[P13] launch G022_s608 on gpu4
+[P13] OK   G020_s608 gpu7 1136s (43/48)
+[P13] launch G023_s607 on gpu7
+[P13] OK   G021_s608 gpu6 1164s (44/48)
+[P13] launch G023_s608 on gpu6
+[P13] OK   G022_s607 gpu5 1057s (45/48)
+[P13] OK   G022_s608 gpu4 1101s (46/48)
+[P13] OK   G023_s607 gpu7 1247s (47/48)
+[P13] OK   G023_s608 gpu6 1263s (48/48)
+[P13] COMPLETE: 48/48 ok, 0 FAILED, wall=234.4 min, gpu-h=15.35
+--- P14: fresh heterogeneity corpus (64 retrains) ---
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[P14] 64 jobs, 0 already complete, 64 to run
+[P14] launch H000_s411 on gpu4
+[P14] launch H000_s412 on gpu5
+[P14] launch H000_s413 on gpu6
+[P14] launch H000_s414 on gpu7
+[P14] OK   H000_s413 gpu6 281s (1/64)
+[P14] launch H001_s411 on gpu6
+[P14] OK   H000_s411 gpu4 301s (2/64)
+[P14] OK   H000_s412 gpu5 298s (3/64)
+[P14] launch H001_s412 on gpu4
+[P14] launch H001_s413 on gpu5
+[P14] OK   H000_s414 gpu7 308s (4/64)
+[P14] launch H001_s414 on gpu7
+[P14] OK   H001_s411 gpu6 307s (5/64)
+[P14] launch H002_s411 on gpu6
+[P14] OK   H001_s412 gpu4 318s (6/64)
+[P14] OK   H001_s413 gpu5 315s (7/64)
+[P14] launch H002_s412 on gpu4
+[P14] launch H002_s413 on gpu5
+[P14] OK   H001_s414 gpu7 318s (8/64)
+[P14] launch H002_s414 on gpu7
+[P14] OK   H002_s411 gpu6 277s (9/64)
+[P14] launch H003_s411 on gpu6
+[P14] OK   H002_s412 gpu4 287s (10/64)
+[P14] launch H003_s412 on gpu4
+[P14] OK   H002_s413 gpu5 297s (11/64)
+[P14] OK   H002_s414 gpu7 284s (12/64)
+[P14] launch H003_s413 on gpu5
+[P14] launch H003_s414 on gpu7
+[P14] OK   H003_s411 gpu6 307s (13/64)
+[P14] launch H004_s411 on gpu6
+[P14] OK   H003_s412 gpu4 287s (14/64)
+[P14] launch H004_s412 on gpu4
+[P14] OK   H003_s413 gpu5 297s (15/64)
+[P14] launch H004_s413 on gpu5
+[P14] OK   H003_s414 gpu7 307s (16/64)
+[P14] launch H004_s414 on gpu7
+[P14] OK   H004_s411 gpu6 317s (17/64)
+[P14] OK   H004_s412 gpu4 304s (18/64)
+[P14] launch H005_s411 on gpu4
+[P14] launch H005_s412 on gpu6
+[P14] OK   H004_s413 gpu5 307s (19/64)
+[P14] launch H005_s413 on gpu5
+[P14] OK   H004_s414 gpu7 307s (20/64)
+[P14] launch H005_s414 on gpu7
+[P14] OK   H005_s411 gpu4 277s (21/64)
+[P14] launch H006_s411 on gpu4
+[P14] OK   H005_s412 gpu6 287s (22/64)
+[P14] launch H006_s412 on gpu6
+[P14] OK   H005_s413 gpu5 287s (23/64)
+[P14] launch H006_s413 on gpu5
+[P14] OK   H005_s414 gpu7 287s (24/64)
+[P14] launch H006_s414 on gpu7
+[P14] OK   H006_s411 gpu4 297s (25/64)
+[P14] OK   H006_s412 gpu6 284s (26/64)
+[P14] launch H007_s411 on gpu4
+[P14] launch H007_s412 on gpu6
+[P14] OK   H006_s414 gpu7 274s (27/64)
+[P14] launch H007_s413 on gpu7
+[P14] OK   H006_s413 gpu5 300s (28/64)
+[P14] launch H007_s414 on gpu5
+[P14] OK   H007_s411 gpu4 266s (29/64)
+[P14] launch H008_s411 on gpu4
+[P14] OK   H007_s412 gpu6 276s (30/64)
+[P14] launch H008_s412 on gpu6
+[P14] OK   H007_s414 gpu5 273s (31/64)
+[P14] launch H008_s413 on gpu5
+[P14] OK   H007_s413 gpu7 300s (32/64)
+[P14] launch H008_s414 on gpu7
+[P14] OK   H008_s411 gpu4 277s (33/64)
+[P14] launch H009_s411 on gpu4
+[P14] OK   H008_s412 gpu6 307s (34/64)
+[P14] launch H009_s412 on gpu6
+[P14] OK   H008_s413 gpu5 287s (35/64)
+[P14] launch H009_s413 on gpu5
+[P14] OK   H008_s414 gpu7 287s (36/64)
+[P14] launch H009_s414 on gpu7
+[P14] OK   H009_s411 gpu4 308s (37/64)
+[P14] launch H010_s411 on gpu4
+[P14] OK   H009_s412 gpu6 298s (38/64)
+[P14] launch H010_s412 on gpu6
+[P14] OK   H009_s413 gpu5 298s (39/64)
+[P14] launch H010_s413 on gpu5
+[P14] OK   H009_s414 gpu7 298s (40/64)
+[P14] launch H010_s414 on gpu7
+[P14] OK   H010_s411 gpu4 278s (41/64)
+[P14] launch H011_s411 on gpu4
+[P14] OK   H010_s412 gpu6 278s (42/64)
+[P14] launch H011_s412 on gpu6
+[P14] OK   H010_s413 gpu5 288s (43/64)
+[P14] OK   H010_s414 gpu7 275s (44/64)
+[P14] launch H011_s413 on gpu5
+[P14] launch H011_s414 on gpu7
+[P14] OK   H011_s411 gpu4 277s (45/64)
+[P14] launch H012_s411 on gpu4
+[P14] OK   H011_s412 gpu6 277s (46/64)
+[P14] launch H012_s412 on gpu6
+[P14] OK   H011_s413 gpu5 278s (47/64)
+[P14] launch H012_s413 on gpu5
+[P14] OK   H011_s414 gpu7 288s (48/64)
+[P14] launch H012_s414 on gpu7
+[P14] OK   H012_s411 gpu4 298s (49/64)
+[P14] launch H013_s411 on gpu4
+[P14] OK   H012_s412 gpu6 298s (50/64)
+[P14] launch H013_s412 on gpu6
+[P14] OK   H012_s413 gpu5 287s (51/64)
+[P14] launch H013_s413 on gpu5
+[P14] OK   H012_s414 gpu7 297s (52/64)
+[P14] launch H013_s414 on gpu7
+[P14] OK   H013_s411 gpu4 298s (53/64)
+[P14] launch H014_s411 on gpu4
+[P14] OK   H013_s412 gpu6 298s (54/64)
+[P14] launch H014_s412 on gpu6
+[P14] OK   H013_s413 gpu5 298s (55/64)
+[P14] launch H014_s413 on gpu5
+[P14] OK   H013_s414 gpu7 298s (56/64)
+[P14] launch H014_s414 on gpu7
+[P14] OK   H014_s411 gpu4 277s (57/64)
+[P14] launch H015_s411 on gpu4
+[P14] OK   H014_s412 gpu6 287s (58/64)
+[P14] launch H015_s412 on gpu6
+[P14] OK   H014_s413 gpu5 297s (59/64)
+[P14] launch H015_s413 on gpu5
+[P14] OK   H014_s414 gpu7 287s (60/64)
+[P14] launch H015_s414 on gpu7
+[P14] OK   H015_s411 gpu4 253s (61/64)
+[P14] OK   H015_s412 gpu6 270s (62/64)
+[P14] OK   H015_s413 gpu5 296s (63/64)
+[P14] OK   H015_s414 gpu7 293s (64/64)
+[P14] COMPLETE: 64/64 ok, 0 FAILED, wall=78.9 min, gpu-h=5.18
+=== PHASE 4 TRAINING CHAIN done 2026-07-13T12:09:01+00:00 ===

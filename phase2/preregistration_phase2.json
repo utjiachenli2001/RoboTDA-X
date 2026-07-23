@@ -1,0 +1,206 @@
+{
+  "study": "RoboTDA-X Phase 2",
+  "written": "2026-07-11",
+  "status": "LOCKED before any Phase-2 training run. Zero post-hoc criterion or functional changes permitted.",
+  "central_question": "Is data attribution unfaithful at demo grain, or was Phase 1's measurement regime too noisy to detect faithfulness?",
+
+  "inherited_conventions_frozen_from_phase1": {
+    "evaluation_and_attribution_functional": "L2 on the executed action (policy.l2). GMM-NLL is NEVER used as an outcome (Phase-1 REPORT.md 10.2: unbounded/unreliable).",
+    "training_objective": "GMM NLL (model.nll)",
+    "total_gradient_steps_per_run": 8000,
+    "policy_config": "configs/policy.yaml, unchanged (19.2M params, d_model 512, 6 layers, 5 GMM modes, bs 256, lr 1e-4 cosine)",
+    "attribution_estimators": "exact only: TRAK N-by-N dual, Woodbury empirical-Fisher IF, TracIn over the 5 checkpoints. No dattri sketching.",
+    "success_transform": "logit(clamp(p, 1/(2n), 1-1/(2n))), n = episodes",
+    "gate_arithmetic": "exact rational arithmetic for all margin comparisons",
+    "language_conditioning": "kept (frozen MiniLM)",
+    "images": "none anywhere",
+    "gpus": "4,5,6,7 only; bootstrap.py structural pinning retained unchanged",
+    "resumability": "per-run dir + atomic marker; Phase 1's marker names are train.marker / probe.marker / clustereval.marker and are RETAINED (the Phase-2 brief said 'done.marker'; adopting Phase 1's existing names keeps the orchestrator's skip logic identical rather than regressing it). Orchestrator skips completed runs."
+  },
+
+  "P0_intake_audit": {
+    "status": "COMPLETE AND PASSED before this file was finalized",
+    "recomputed_from_raw_artifacts": {
+      "gate1_best_rho": {"recomputed": 0.2517482517482518, "attributor": "IF", "report": 0.252, "source": "runs/stage_D/*/outcomes.json + results/stage_D_influence_C1.parquet + results/stage_D_mask_manifest.json", "MATCH": true},
+      "stage_C_margins_pts": {"recomputed_exact": {"15": "7/3", "50": "5/6", "490": "-19/6"}, "recomputed_float": {"15": 2.3333, "50": 0.8333, "490": -3.1667}, "report": {"15": 2.3, "50": 0.8, "490": -3.2}, "source": "runs/stage_C/*/cluster_eval.json", "MATCH": true}
+    },
+    "checkpoints_verified": {"stage_B": 30, "stage_E": 10, "stage_F": 168, "stage_G": 48, "all_have_train_marker_and_final_pt": true},
+    "env_verified": {"open_loop_replay_1_demo": "SUCCESS at step 127/138", "tiny_50_step_train": "finite, loss -0.196 -> -2.388"}
+  },
+
+  "P1_seed_ensembled_demo_grain_LDS": {
+    "goal": "Raise the ground-truth ceiling, not the bar, and re-ask Gate 1.",
+    "masks": "the EXISTING 24 Stage-G demo masks in results/demo_mask_manifest.json (K=24, 68 demos/mask, manifest seed 11). NOT resampled.",
+    "new_seeds": [403, 404, 405, 406],
+    "n_new_retrains": 96,
+    "combined_seeds_per_mask": [401, 402, 403, 404, 405, 406],
+    "S": 6,
+    "probe_battery": "identical to Phase 1 Stage G: for each of the 9 clusters, its 3 probe tasks x 10 rollouts (270 episodes/model) + held-out L2 (plain) and the phase-masked transport/interaction losses on that cluster's 10 held-out demos.",
+    "merged_outcomes_artifact": "phase2/results/stage_G6_outcomes.parquet (Phase-1 seeds 401-402 merged with the 4 new seeds)",
+    "attribution": "REUSED unchanged from results/influence_table.parquet (ensemble-averaged per-demo scores). No new attribution computed for P1.",
+    "predicted_mask_score": "sum of the attributor's per-demo score over the 68 demos in the mask (lds.mask_pred_score), attributor x functional x target.",
+    "ceiling_estimator": {
+      "definition": "6-seed split-half reliability: over all 10 distinct 3-vs-3 seed splits of {401..406}, Spearman between the two half-mean outcome vectors across the 24 masks; average the 10 values (= reliability of a 3-seed mean); Spearman-Brown correct 3->6 as r6 = 2*r3/(1+r3).",
+      "computed_per": "outcome x target, on the SAME 24 masks the LDS is measured on (self-consistent; Phase-1's noise_ceilings.json used a different mask set and is NOT reused as the bar)"
+    },
+    "PRIMARY_OUTCOME": "neg_plain_loss (held-out L2), 6-seed mean",
+    "SECONDARY_OUTCOME": "logit_success (descriptive only; Phase 1 proved it unreliable at this grain)",
+    "confirmatory_targets": ["C1", "C5"],
+    "PREREGISTERED_CRITERION": "Attribution is USABLE at demo grain iff, for a focal target (C1 or C5), ANY attributor reaches rho >= 0.5 * (that target's measured 6-seed L2 ceiling) with one-sided p < 0.025 (Bonferroni-2 over the 2 focal targets).",
+    "predicted_score_functional_for_primary": "plain (matched to the L2 outcome). transport/interaction reported descriptively.",
+    "attributors_tested": ["IF", "TRAK", "TracIn"],
+    "multiplicity_note": "The criterion as specified takes the max over 3 attributors WITHOUT correcting for it, and applies Bonferroni-2 over the 2 focal targets. This is followed EXACTLY as written. A stricter Bonferroni-6 (2 targets x 3 attributors, alpha=0.05/6=0.00833) is ALSO reported as a robustness column, but the PASS/FAIL verdict is the criterion above.",
+    "all_9_targets_reported": true,
+    "prediction_to_check": "Spearman-Brown from Phase 1's 1-seed L2 reliability (~0.40) predicts a 6-seed ceiling ~= 0.80. Report predicted vs measured.",
+    "SYMMETRIC_INTERPRETATION": {
+      "PASS": "Phase 1's Gate-1 failure was the noise floor: attribution carries usable demo-grain signal once ground truth is seed-ensembled.",
+      "FAIL_at_high_ceiling": "attribution is genuinely unfaithful at demo grain in this regime - a clean, strong null."
+    }
+  },
+
+  "P2_per_task_transfer_sign_prediction": {
+    "goal": "Test whether attribution predicts WHICH tasks co-training helps and which it hurts, where the cluster mean cancels.",
+    "measured_margins": {
+      "source": "EXISTING Phase-1 Stage-B artifacts: runs/stage_B/{C1,C2,C5}_{target,cotrain}_s{101..105}/cluster_eval.json, which ALREADY store per_task_success (20 rollouts/task).",
+      "n_retrains": 0,
+      "n_new_episodes": 0,
+      "note": "The brief budgeted <=11k episodes to re-evaluate 30 checkpoints IF per-task rollouts had not been saved. They WERE saved. Re-evaluation is therefore unnecessary and is NOT run; this is a budget saving, not a cut.",
+      "margin_definition": "per task: mean over seeds 101-105 of (cotrain per_task_success - target-only per_task_success), in percentage points, exact rational arithmetic.",
+      "n_tasks": 27,
+      "task_counts": {"C1": 10, "C2": 10, "C5": 7}
+    },
+    "per_task_probe_sets": {
+      "size": "5 held-out demos per task, for each of the 27 tasks",
+      "selection_rule": "DETERMINISTIC: the 5 highest-indexed demos of each task, i.e. demo_45, demo_46, demo_47, demo_48, demo_49 (every LIBERO task has 50 demos).",
+      "disjointness_guaranteed_against": [
+        "the 135-demo training corpus (all 9 clusters' train pools) - which only ever uses demo_0/demo_1/demo_2",
+        "all 9 clusters' 10-demo held-out sets - which only ever use demo_1/demo_2",
+        "the Stage-C Q=50 and Q=150 / P3 quantity ladders (which fill from the LOW demo indices upward)"
+      ],
+      "DISCLOSED_SPEC_INTERPRETATION": "The brief asks for probe demos 'NEVER used in any Phase-1 training pool'. Taken to include Stage-C's Q=490 pool, this is UNSATISFIABLE: Q=490 is by construction every libero_goal demo except C1's 10 held-out, so C1 would have zero eligible probe demos. 'Training pool' is therefore scoped to the pools of the models whose gradients define the attribution (the 135-demo corpus: Stages B/E/F/G) plus every held-out set. Stage-C's Q=490 models are not used anywhere in P2. This interpretation is fixed HERE, before running, and the exact demo lists are written to phase2/results/per_task_probes.json with the disjointness assertions machine-checked.",
+      "artifact": "phase2/results/per_task_probes.json"
+    },
+    "attribution": {
+      "what": "per-demo attribution of all 135 training demos toward EACH of the 27 tasks' L2 (plain) functional",
+      "estimators": ["IF", "TRAK", "TracIn"],
+      "models": "the Stage-E 10-member ensemble (primary) and the Stage-B co-train checkpoints (secondary, reported separately)",
+      "artifact": "phase2/results/per_task_influence.parquet"
+    },
+    "predicted_benefit": {
+      "PRIMARY": "sum of OUTSIDER demo attributions toward that task (outsider = a demo whose cluster != the task's cluster)",
+      "SECONDARY": "mean(outsider attribution) - mean(insider attribution)"
+    },
+    "PREREGISTERED_TEST": {
+      "PRIMARY": "Spearman between predicted benefit and measured per-task margin, POOLED across all 27 tasks; one-sided alpha = 0.05 (H1: rho > 0). Critical rho ~ 0.32 at n=27.",
+      "SECONDARY": "the same Spearman within each of C1 / C5 / C2 separately (n = 10 / 7 / 10; low power, descriptive)",
+      "ALSO": "sign-agreement rate (does attribution get help-vs-hurt right?) over the 27 tasks, exact two-sided binomial test against p=0.5",
+      "attributor_multiplicity": "the primary test is run for each of the 3 attributors; the headline verdict uses the PRIMARY estimator declared here = IF on the Stage-E ensemble. The other two are reported as robustness."
+    }
+  },
+
+  "P3_regime_boundary": {
+    "goal": "Locate the data scale at which closed-loop ground truth and demo-level attribution become reliable.",
+    "design": "single-cluster in-task, C1's Goal suite (libero_goal)",
+    "Q_values": [15, 50, 150],
+    "Q_ladder": "DETERMINISTIC and NESTED, reusing Phase-1 stage_c.goal_demo_ladder() exactly: Q=15 IS C1's training pool; Q=50 and Q=150 extend it by round-robin over tasks (lowest demo index first), skipping C1's 10 held-out demos. Q15 subset Q50 subset Q150.",
+    "masks_per_Q": {
+      "K": 12,
+      "alpha": 0.6,
+      "demos_per_mask": {"15": 9, "50": 30, "150": 90},
+      "balance": "each demo appears in as close to K*alpha = 7.2 masks as balance allows (min/max inclusion recorded and asserted)",
+      "mask_seed": 77,
+      "artifact": "phase2/results/p3_mask_manifest.json"
+    },
+    "seeds_per_mask": [601, 602, 603, 604],
+    "S": 4,
+    "n_mask_retrains": 144,
+    "full_Q_ensemble": {"seeds": [611, 612, 613, 614, 615], "n_retrains": 15, "purpose": "the attribution ensemble AT THAT SCALE (5 models per Q)"},
+    "n_retrains_total": 159,
+    "outcomes_per_model": {
+      "held_out_L2": "C1's 10 held-out demos (plain / transport / interaction losses)",
+      "success": "the FULL Goal suite: 10 tasks x 20 rollouts = 200 episodes/model"
+    },
+    "per_Q_statistics": {
+      "ceiling": "4-seed split-half: all 3 disjoint 2-vs-2 seed pairings; Spearman between pair-mean outcome vectors over the 12 masks; average (= reliability of a 2-seed mean). Spearman-Brown 2->4 also reported. Computed for BOTH neg_plain_loss and logit_success.",
+      "LDS": "Spearman(predicted mask score, 4-seed-mean outcome) over the 12 masks, per attributor, with the attribution computed from that Q's OWN 5 full-Q models",
+      "ratio": "best LDS / ceiling, per outcome"
+    },
+    "PREREGISTERED_TEST": {
+      "statistic_i": "monotone INCREASE across Q of the SUCCESS-outcome ceiling. Page's trend test, blocks = the 3 disjoint 2-vs-2 seed pairings, treatments = Q in {15,50,150} (k=3, n=3), one-sided alpha = 0.05, H1: ceiling(15) <= ceiling(50) <= ceiling(150) with at least one strict.",
+      "statistic_ii": "monotone INCREASE across Q of the best LDS/ceiling ratio. Page's trend test, blocks = the 3 attributors {IF, TRAK, TracIn}, treatments = Q (k=3, n=3), one-sided alpha = 0.05.",
+      "power_disclosure": "With k=3, n=3 Page's L attains a minimum one-sided p of ~0.0079, so alpha=0.05 is reachable, but power is LOW. Bootstrap CIs over masks are reported alongside and the trend tests are NOT the only evidence presented; the figure carries the result.",
+      "also_reported": "Spearman of each statistic vs Q as a secondary trend summary."
+    },
+    "deliverable": "phase2/figures/regime_boundary.png - ceiling vs Q and LDS vs Q with per-Q bootstrap CIs",
+    "INTERPRETATION": {
+      "both_rise": "prescription: a minimum data scale exists below which demo-level attribution and closed-loop ground truth are untrustworthy.",
+      "flat": "the Phase-1 negative result generalizes beyond the 15-demo regime."
+    }
+  },
+
+  "P4_closed_loop_success_reliability": {
+    "goal": "Quantify what closed-loop success WOULD cost as demo-grain ground truth (the CUPID boundary). Purely descriptive instrumentation science - NO pass/fail criterion.",
+    "n_retrains": 0,
+    "arms": {
+      "P4a_core": {
+        "models": "the EXISTING 48 Stage-G models (24 masks x seeds 401,402)",
+        "clusters": ["C1 (near-floor success)", "C2 (mid-range, Gate-0 passer)"],
+        "rollouts": "90 per probe task (3 probe tasks/cluster) = 270 episodes/model/cluster",
+        "episodes": 25920
+      },
+      "P4b_conditional": {
+        "condition": "RUN ONLY IF P1+P3 complete under budget",
+        "models": "the 96 NEW P1 models (24 masks x seeds 403-406)",
+        "same_protocol": true,
+        "episodes": 51840,
+        "purpose": "completes the seeds axis at 90 rollouts EXACTLY rather than by extrapolation",
+        "if_not_run": "the S=6 column at 90 rollouts is filled by Spearman-Brown EXTRAPOLATION and LABELLED as an extrapolation"
+      }
+    },
+    "grid": "split-half reliability of the success outcome as a function of (episodes per estimate: 10 / 30 / 90 rollouts per probe task, by SUBSAMPLING the 90) x (seeds averaged: 1 / 2 / 6) x (cluster: C1 floor vs C2 mid-range)",
+    "seeds_axis_at_10_rollouts": "measured EXACTLY for S = 1/2/6 from the merged P1 S=6 probe battery, independent of P4b",
+    "deliverable": "reliability table + phase2/figures/success_reliability.png, plus the Spearman-Brown-EXTRAPOLATED episode/seed budget at which the success ceiling would reach 0.5 and 0.8. All extrapolations explicitly labelled EXTRAPOLATION."
+  },
+
+  "P5_optional_rq4_coverage_fix": {
+    "condition": "run ONLY if P1-P4 complete under budget",
+    "target": "C5 only",
+    "arms": {
+      "coverage_constrained": "top-15 by influence SUBJECT TO >= 1 training demo per C5 task (7 tasks); greedy: take influence-ranked demos, but reserve slots so every C5 task is covered",
+      "unconstrained_comparator": "the EXISTING Phase-1 runs runs/stage_I/C5_influence_top15_s{501,502,503} (no retrain needed)",
+      "target_only_comparator": "the EXISTING Phase-1 runs runs/stage_I/C5_target_only_s{501,502,503}"
+    },
+    "seeds": [501, 502, 503],
+    "n_new_retrains": 3,
+    "budget_note": "the brief budgeted 6 retrains assuming BOTH arms were new; the unconstrained arm already exists at the same seeds, so only 3 are run. Logged as a saving.",
+    "criterion": "paired margin (coverage-constrained - unconstrained), same seeds, on C5's probe tasks at 20 rollouts/task; also reported vs target-only.",
+    "scope_limit": "DIAGNOSTIC ONLY. n=1 target. Do NOT generalize beyond C5.",
+    "attributor": "the same best attributor Phase 1 used for C5's selection (read from results/best_attributor_by_target.json)"
+  },
+
+  "budget_ledger": {
+    "P1": {"retrains": 96, "gpu_h": 13, "episodes": 25920},
+    "P2": {"retrains": 0, "gpu_h": 4, "episodes": 0},
+    "P3": {"retrains": 159, "gpu_h": 30, "episodes": 31800},
+    "P4": {"retrains": 0, "gpu_h": 1, "episodes": 25920},
+    "P5": {"retrains": 3, "gpu_h": 0.5, "episodes": 360},
+    "total_retrains": 258,
+    "total_gpu_h_nominal": 48.5,
+    "ALERT_THRESHOLD_gpu_h": 75,
+    "per_stage_alert_rule": "time the first 3 retrains of each kind; if the projected stage cost exceeds 1.5x its ledger line, write phase2/BUDGET_ALERT.md and PAUSE that stage."
+  },
+
+  "cut_order_if_over_budget": [
+    "P5",
+    "P4's C1 arm (keep C2)",
+    "P3's Q=150 arm (keep 15/50)",
+    "P1 extra seeds 4 -> 2 (S=4 total)"
+  ],
+  "cut_policy": "Never cut silently. Every cut is logged in phase2/STATUS.md and reported in PHASE2_REPORT.md.",
+
+  "integrity_rules": {
+    "no_fabrication": "every reported number is read from an artifact file written by an actual run; failed runs are reported as failed; SYNTHETIC tests are labelled and never mixed with results.",
+    "no_post_hoc_changes": "zero post-hoc criterion or functional changes. If an instrument defect is found, STOP and document in phase2/PHASE2_DEFECT.md before touching anything.",
+    "phase1_artifacts": "READ-ONLY. Phase 2 writes only under /mnt/sdb/ljc/RoboTDA-X/phase2/."
+  }
+}

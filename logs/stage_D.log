@@ -1,0 +1,66 @@
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[stage_D] 24 jobs, 4 already complete, 20 to run
+[stage_D] launch D02_s101 on gpu4
+[stage_D] launch D02_s102 on gpu5
+[stage_D] launch D03_s101 on gpu6
+[stage_D] launch D03_s102 on gpu7
+[stage_D] OK  D02_s102 gpu5 253s (1/20 done)
+[stage_D] launch D04_s101 on gpu5
+[stage_D] OK  D02_s101 gpu4 269s (2/20 done)
+[stage_D] OK  D03_s101 gpu6 263s (3/20 done)
+[stage_D] OK  D03_s102 gpu7 260s (4/20 done)
+[stage_D] launch D04_s102 on gpu4
+[stage_D] launch D05_s101 on gpu6
+[stage_D] launch D05_s102 on gpu7
+[stage_D] OK  D04_s101 gpu5 256s (5/20 done)
+[stage_D] launch D06_s101 on gpu5
+[stage_D] OK  D04_s102 gpu4 256s (6/20 done)
+[stage_D] launch D06_s102 on gpu4
+[stage_D] OK  D05_s101 gpu6 266s (7/20 done)
+[stage_D] OK  D05_s102 gpu7 263s (8/20 done)
+[stage_D] launch D07_s101 on gpu6
+[stage_D] launch D07_s102 on gpu7
+[stage_D] OK  D06_s101 gpu5 256s (9/20 done)
+[stage_D] launch D08_s101 on gpu5
+[stage_D] OK  D06_s102 gpu4 267s (10/20 done)
+[stage_D] OK  D07_s101 gpu6 253s (11/20 done)
+[stage_D] launch D08_s102 on gpu4
+[stage_D] launch D09_s101 on gpu6
+[stage_D] OK  D07_s102 gpu7 267s (12/20 done)
+[stage_D] launch D09_s102 on gpu7
+[stage_D] OK  D08_s101 gpu5 267s (13/20 done)
+[stage_D] launch D10_s101 on gpu5
+[stage_D] OK  D08_s102 gpu4 256s (14/20 done)
+[stage_D] launch D10_s102 on gpu4
+[stage_D] OK  D09_s101 gpu6 266s (15/20 done)
+[stage_D] launch D11_s101 on gpu6
+[stage_D] OK  D09_s102 gpu7 266s (16/20 done)
+[stage_D] launch D11_s102 on gpu7
+[stage_D] OK  D10_s101 gpu5 263s (17/20 done)
+[stage_D] OK  D10_s102 gpu4 269s (18/20 done)
+[stage_D] OK  D11_s101 gpu6 266s (19/20 done)
+[stage_D] OK  D11_s102 gpu7 253s (20/20 done)
+[stage_D] COMPLETE: 20/20 ok, 0 failed, wall=22.3 min, gpu-h=1.45
+[stage_D] attribution from 5 full-C1 models: ['C1_target_s101', 'C1_target_s102', 'C1_target_s103', 'C1_target_s104', 'C1_target_s105']
+[attr] TracIn C1_target_s101: 5 ckpts (6s)
+[attr] TRAK+IF C1_target_s101 done (7s)
+[attr] TracIn C1_target_s102: 5 ckpts (11s)
+[attr] TRAK+IF C1_target_s102 done (12s)
+[attr] TracIn C1_target_s103: 5 ckpts (17s)
+[attr] TRAK+IF C1_target_s103 done (18s)
+[attr] TracIn C1_target_s104: 5 ckpts (23s)
+[attr] TRAK+IF C1_target_s104 done (24s)
+[attr] TracIn C1_target_s105: 5 ckpts (28s)
+[attr] TRAK+IF C1_target_s105 done (29s)
+[attr] wrote /mnt/sdb/ljc/RoboTDA-X/results/stage_D_influence_C1.parquet: 135 rows (5 ensemble members; per-member scores -> /mnt/sdb/ljc/RoboTDA-X/results/stage_D_influence_C1_per_member.parquet), 29s
+
+=== GATE 1: attributor sanity (C1, 12 masks x 8 demos, 2 seeds) ===
+attributor |   rho (held-out loss, PRIMARY) |    rho (success)
+        IF |   +0.077  (p=0.406, n=12)   |   -0.394
+      TRAK |   +0.105  (p=0.373, n=12)   |   -0.324
+    TracIn |   -0.210  (p=0.744, n=12)   |   +0.165
+
+  criterion: any attributor rho > 0.5 on the primary outcome
+  VERDICT: FAIL
+  -> Stages E-G still run (retrains are attribution-agnostic ground truth),
+     but Stage H conclusions STOP and GATE1_FAIL.md is written.

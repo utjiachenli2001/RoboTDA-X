@@ -1,0 +1,194 @@
+{
+ "stage": "P6.5-EXT -- extended ridge sweep with the analytic lambda -> inf limit",
+ "n_retrains": 0,
+ "n_gpu": 0,
+ "WHY": "The preregistered 8-point grid returned its maximum AT ITS RIGHT EDGE for C1 (+0.498 at ridge_rel=1e+1, still climbing). A boundary maximum is a truncation artifact, so the boundary is closed analytically. Disclosed as an EXTENSION; the preregistered 8-point read-out is preserved verbatim in p6_lambda_sweep.json.",
+ "extended_grid": [
+  1e-06,
+  1e-05,
+  0.0001,
+  0.001,
+  0.01,
+  0.1,
+  1.0,
+  10.0,
+  100.0,
+  1000.0,
+  10000.0,
+  100000.0
+ ],
+ "analytic_limit": "Per member, lam_m = ridge_rel * mean(diag(G_m)). As ridge_rel -> inf, IF_m and TRAK_m -> K_m / lam_m, so the ENSEMBLE-MEAN score tends to (1/ridge_rel) * mean_m [ K_m / mean(diag(G_m)) ]. Spearman kills the leading constant but NOT the per-member 1/mean(diag(G_m)) weights. The limit is therefore the PER-MEMBER SCALE-NORMALIZED gradient dot product ('GradDot_limit'), NOT the plain mean of K_m ('GradDot_unnorm', reported as a contrast: it scores materially worse, so per-member scale normalization matters more than the preconditioner does).",
+ "convergence_check": {
+  "C1": {
+   "analytic_limit_lds": 0.5043478260869565,
+   "unnormalized_variant_lds": 0.39652173913043476,
+   "lds_at_ridge_1e5": {
+    "IF": 0.5043478260869565,
+    "TRAK": 0.5043478260869565
+   },
+   "max_abs_gap_vs_limit": 0.0,
+   "converged": true
+  },
+  "C2": {
+   "analytic_limit_lds": 0.4026086956521739,
+   "unnormalized_variant_lds": 0.4382608695652173,
+   "lds_at_ridge_1e5": {
+    "IF": 0.4026086956521739,
+    "TRAK": 0.4026086956521739
+   },
+   "max_abs_gap_vs_limit": 0.0,
+   "converged": true
+  },
+  "C3": {
+   "analytic_limit_lds": -0.14608695652173911,
+   "unnormalized_variant_lds": -0.05826086956521739,
+   "lds_at_ridge_1e5": {
+    "IF": -0.14608695652173911,
+    "TRAK": -0.14608695652173911
+   },
+   "max_abs_gap_vs_limit": 0.0,
+   "converged": true
+  },
+  "C4": {
+   "analytic_limit_lds": 0.13826086956521738,
+   "unnormalized_variant_lds": 0.27391304347826084,
+   "lds_at_ridge_1e5": {
+    "IF": 0.13826086956521738,
+    "TRAK": 0.13826086956521738
+   },
+   "max_abs_gap_vs_limit": 0.0,
+   "converged": true
+  },
+  "C5": {
+   "analytic_limit_lds": 0.39999999999999997,
+   "unnormalized_variant_lds": 0.34521739130434775,
+   "lds_at_ridge_1e5": {
+    "IF": 0.39999999999999997,
+    "TRAK": 0.39999999999999997
+   },
+   "max_abs_gap_vs_limit": 0.0,
+   "converged": true
+  },
+  "C6": {
+   "analytic_limit_lds": -0.01217391304347826,
+   "unnormalized_variant_lds": 0.1869565217391304,
+   "lds_at_ridge_1e5": {
+    "IF": -0.01217391304347826,
+    "TRAK": -0.01217391304347826
+   },
+   "max_abs_gap_vs_limit": 0.0,
+   "converged": true
+  },
+  "C7": {
+   "analytic_limit_lds": 0.3008695652173913,
+   "unnormalized_variant_lds": 0.3017391304347826,
+   "lds_at_ridge_1e5": {
+    "IF": 0.3008695652173913,
+    "TRAK": 0.3008695652173913
+   },
+   "max_abs_gap_vs_limit": 0.0,
+   "converged": true
+  },
+  "C8": {
+   "analytic_limit_lds": -0.3834782608695652,
+   "unnormalized_variant_lds": -0.468695652173913,
+   "lds_at_ridge_1e5": {
+    "IF": -0.3834782608695652,
+    "TRAK": -0.3834782608695652
+   },
+   "max_abs_gap_vs_limit": 0.0,
+   "converged": true
+  },
+  "C9": {
+   "analytic_limit_lds": 0.15652173913043477,
+   "unnormalized_variant_lds": 0.46086956521739125,
+   "lds_at_ridge_1e5": {
+    "IF": 0.15652173913043477,
+    "TRAK": 0.15652173913043477
+   },
+   "max_abs_gap_vs_limit": 0.0,
+   "converged": true
+  }
+ },
+ "ORACLE_TUNED_MAX_extended": {
+  "C1": {
+   "best_ridge_rel": 100.0,
+   "best_attributor": "IF",
+   "best_demo_lds": 0.5043478260869565,
+   "ceiling": 0.9327641408751334,
+   "bar": 0.4663820704375667,
+   "ratio": 0.5407024176698836,
+   "p_onesided": 0.005982677588874792,
+   "CROSSES_HALF_CEILING": true,
+   "PASS_ratio_AND_p": true,
+   "LABEL": "ORACLE-TUNED UPPER BOUND on the EXTENDED grid. NOT held-out."
+  },
+  "C5": {
+   "best_ridge_rel": 0.1,
+   "best_attributor": "IF",
+   "best_demo_lds": 0.4321739130434783,
+   "ceiling": 0.9177998400225849,
+   "bar": 0.45889992001129243,
+   "ratio": 0.47088035342525614,
+   "p_onesided": 0.017470768313848938,
+   "CROSSES_HALF_CEILING": false,
+   "PASS_ratio_AND_p": false,
+   "LABEL": "ORACLE-TUNED UPPER BOUND on the EXTENDED grid. NOT held-out."
+  }
+ },
+ "MANDATORY_CROSS_VALIDATION_extended": {
+  "tune_on_C1__evaluate_on_C5": {
+   "frozen_ridge_rel": 100.0,
+   "frozen_attributor": "IF",
+   "heldout_demo_lds": 0.39739130434782605,
+   "heldout_ceiling": 0.9177998400225849,
+   "heldout_ratio": 0.4329825382602455,
+   "heldout_bar": 0.45889992001129243,
+   "heldout_p_onesided": 0.027244602072135662,
+   "heldout_CROSSES_HALF_CEILING": false,
+   "heldout_PASS_ratio_AND_p": false,
+   "LABEL": "CROSS-VALIDATED on the EXTENDED grid -- lambda + attributor frozen on the OTHER focal target. This is the number that licenses a claim."
+  },
+  "tune_on_C5__evaluate_on_C1": {
+   "frozen_ridge_rel": 0.1,
+   "frozen_attributor": "IF",
+   "heldout_demo_lds": 0.3408695652173913,
+   "heldout_ceiling": 0.9327641408751334,
+   "heldout_ratio": 0.3654402547010248,
+   "heldout_bar": 0.4663820704375667,
+   "heldout_p_onesided": 0.051549603055612646,
+   "heldout_CROSSES_HALF_CEILING": false,
+   "heldout_PASS_ratio_AND_p": false,
+   "LABEL": "CROSS-VALIDATED on the EXTENDED grid -- lambda + attributor frozen on the OTHER focal target. This is the number that licenses a claim."
+  }
+ },
+ "demo_lds_at_default_ridge_1e-2": {
+  "C1": 0.25565217391304346,
+  "C5": 0.38
+ },
+ "GradDot_limit_demo_lds_all_targets": {
+  "C1": 0.5043478260869565,
+  "C2": 0.4026086956521739,
+  "C3": -0.14608695652173911,
+  "C4": 0.13826086956521738,
+  "C5": 0.39999999999999997,
+  "C6": -0.01217391304347826,
+  "C7": 0.3008695652173913,
+  "C8": -0.3834782608695652,
+  "C9": 0.15652173913043477
+ },
+ "GradDot_limit_ratio_to_ceiling_all_targets": {
+  "C1": 0.5407024176698836,
+  "C2": 0.4416989480337713,
+  "C3": -0.22677700681138202,
+  "C4": 0.1740117012733739,
+  "C5": 0.4358248743976213,
+  "C6": -0.012945667084153397,
+  "C7": 0.3287485323510168,
+  "C8": -0.4215223734527067,
+  "C9": 0.1749726684046758
+ },
+ "THE_SUBSTANTIVE_FINDING": "Demo-grain LDS increases MONOTONICALLY with the ridge across ~7 orders of magnitude and is MAXIMIZED at the degenerate limit where the preconditioner is switched off entirely. The exact empirical-Fisher inverse (IF) and the exact Gram inverse (TRAK) -- the machinery the field considers principled, and which Phase 1 deliberately computed EXACTLY rather than approximately -- ACTIVELY HURT the ranking here. A raw gradient dot product beats both at their default lambda.",
+ "CONSEQUENCE_FOR_PHASE_2": "Phase 2's claim 'attribution was given its best shot' was, at the default lambda, FALSE: C1's demo-grain LDS nearly doubles (+0.256 -> +0.498) when lambda is tuned. The VERDICT (FAIL) nevertheless survives, because the cross-validated read-out -- the only one that licenses a claim -- still does not clear the half-ceiling bar. But the margin is much thinner than Phase 2 reported, and this must be stated plainly.",
+ "VERDICT": "PHASE_2_VERDICT_STANDS__BUT_MARGIN_IS_THINNER_THAN_REPORTED"
+}

@@ -1,0 +1,28 @@
+[chain] P8a orchestrator exited at 2026-07-12T09:11:55+00:00
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[drive] RUN /home/ljc/miniconda/envs/robotda_x/bin/python p9_attr.py  (gpu=4) -> /mnt/sdb/ljc/RoboTDA-X/phase3/logs/p9_attr.log
+[drive] rc=0
+[drive] RUN /home/ljc/miniconda/envs/robotda_x/bin/python p9_analyze.py  (gpu=4) -> /mnt/sdb/ljc/RoboTDA-X/phase3/logs/p9_analyze.log
+[drive] rc=0
+[drive] RUN /home/ljc/miniconda/envs/robotda_x/bin/python p8b_eval.py --gate  (gpu=4) -> /mnt/sdb/ljc/RoboTDA-X/phase3/logs/p8b_gate.log
+[drive] rc=0
+[drive] P8b determinism gate PASSED
+[drive] launched P8b shard 0/4 on gpu4
+[drive] launched P8b shard 1/4 on gpu5
+[drive] launched P8b shard 2/4 on gpu6
+[drive] launched P8b shard 3/4 on gpu7
+[drive] P8b shard 0 rc=0
+[drive] P8b shard 1 rc=0
+[drive] P8b shard 2 rc=0
+[drive] P8b shard 3 rc=0
+[drive] RUN /home/ljc/miniconda/envs/robotda_x/bin/python p8b_analyze.py  (gpu=4) -> /mnt/sdb/ljc/RoboTDA-X/phase3/logs/p8b_analyze.log
+[drive] rc=0
+[drive] RUN /home/ljc/miniconda/envs/robotda_x/bin/python p10_calibrate.py  (gpu=None) -> /mnt/sdb/ljc/RoboTDA-X/phase3/logs/p10_calibrate.log
+[drive] rc=1
+Traceback (most recent call last):
+  File "/mnt/sdb/ljc/RoboTDA-X/phase3/src/drive_rest.py", line 140, in <module>
+    main()
+  File "/mnt/sdb/ljc/RoboTDA-X/phase3/src/drive_rest.py", line 100, in main
+    c = json.load(open(cal))
+                  ^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/sdb/ljc/RoboTDA-X/phase3/results/p10_calibration.json'

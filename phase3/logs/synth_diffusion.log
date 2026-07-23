@@ -1,0 +1,14 @@
+  [PASS] t1_schedule
+  [PASS] t2_qsample_closed_form
+  [PASS] t3_signal_destroyed_at_T
+  [PASS] t4_ddim_deterministic
+  [PASS] t5_not_collapsed_to_constant
+  [FAIL] t6_exact_denoiser_recovers_x0
+/mnt/sdb/ljc/RoboTDA-X/phase3/src/test_diffusion_SYNTHETIC.py:138: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)
+  d = float((a - b).abs().max())
+  [PASS] t7_bank_loss_equals_ddpm_loss
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[])
+
+params: 18.25M (target 10-30M)
+ALL PASS: False

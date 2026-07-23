@@ -1,0 +1,12 @@
+{
+ "focal_targets": [
+  "C1",
+  "C5"
+ ],
+ "focal_pass": {
+  "C1": false,
+  "C5": false
+ },
+ "both_focal_failed": true,
+ "downgrade_rule": "if BOTH focal targets fail, all per-demo claims downgrade to cluster grain"
+}

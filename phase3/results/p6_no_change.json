@@ -1,0 +1,891 @@
+{
+ "stage": "P6 no-change proof",
+ "what_was_fixed": [
+  "P6.1 marker-gated + atomic ingestion (p3lib.read_outcomes refuses unmarked artifacts)",
+  "P6.2 probe-leak guard on every attribution entry point (p3lib.assert_no_probe_leak)",
+  "P6.3 logit clamp reads the row's n_episodes (p3lib.logit_success_rowwise)"
+ ],
+ "method": "Every table was RE-INGESTED from the raw per-run artifacts through the marker-gated reader (not read from the archived parquet), and every headline statistic was RECOMPUTED with the fixed row-wise transform, then diffed against the archived artifact.",
+ "tolerance": 1e-09,
+ "n_checks": 125,
+ "n_mismatches": 0,
+ "ALL_IDENTICAL": true,
+ "checks": [
+  {
+   "quantity": "stage_F re-ingest max|diff| success_rate",
+   "before_archived": 0.0,
+   "after_fixed_readers": 0.0,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "stage_F re-ingest max|diff| plain_loss",
+   "before_archived": 0.0,
+   "after_fixed_readers": 0.0,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "stage_F re-ingest max|diff| transport_loss",
+   "before_archived": 0.0,
+   "after_fixed_readers": 0.0,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "stage_F re-ingest max|diff| interaction_loss",
+   "before_archived": 0.0,
+   "after_fixed_readers": 0.0,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "stage_F n_rows",
+   "before_archived": 1512,
+   "after_fixed_readers": 1512,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "stage_G n_rows",
+   "before_archived": 432,
+   "after_fixed_readers": 432,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C1][logit_success]",
+   "before_archived": 0.4645002164288264,
+   "after_fixed_readers": 0.4645002164288264,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C1][neg_plain_loss]",
+   "before_archived": 0.5079365079365079,
+   "after_fixed_readers": 0.5079365079365079,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C2][logit_success]",
+   "before_archived": 0.0784313725490196,
+   "after_fixed_readers": 0.0784313725490196,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C2][neg_plain_loss]",
+   "before_archived": 0.27450980392156865,
+   "after_fixed_readers": 0.27450980392156865,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C3][logit_success]",
+   "before_archived": 0.5272727272727272,
+   "after_fixed_readers": 0.5272727272727272,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C3][neg_plain_loss]",
+   "before_archived": 0.8424242424242424,
+   "after_fixed_readers": 0.8424242424242424,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C4][logit_success]",
+   "before_archived": 0.3797315473507341,
+   "after_fixed_readers": 0.3797315473507341,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C4][neg_plain_loss]",
+   "before_archived": 0.27450980392156865,
+   "after_fixed_readers": 0.27450980392156865,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C5][logit_success]",
+   "before_archived": 0.4545035461247888,
+   "after_fixed_readers": 0.4545035461247888,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C5][neg_plain_loss]",
+   "before_archived": 0.5636363636363636,
+   "after_fixed_readers": 0.5636363636363636,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C6][logit_success]",
+   "before_archived": 0.5619047619047619,
+   "after_fixed_readers": 0.5619047619047619,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C6][neg_plain_loss]",
+   "before_archived": 0.12380952380952381,
+   "after_fixed_readers": 0.12380952380952381,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C7][logit_success]",
+   "before_archived": 0.11679208674433755,
+   "after_fixed_readers": 0.11679208674433755,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C7][neg_plain_loss]",
+   "before_archived": 0.8431372549019609,
+   "after_fixed_readers": 0.8431372549019609,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C8][logit_success]",
+   "before_archived": -0.09466437177280555,
+   "after_fixed_readers": -0.09466437177280555,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C8][neg_plain_loss]",
+   "before_archived": 0.8253968253968255,
+   "after_fixed_readers": 0.8253968253968255,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C9][logit_success]",
+   "before_archived": 0.3831770380787482,
+   "after_fixed_readers": 0.3831770380787482,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "ceiling[C9][neg_plain_loss]",
+   "before_archived": 0.2380952380952381,
+   "after_fixed_readers": 0.2380952380952381,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C1][TracIn]",
+   "before_archived": -0.3695698354417943,
+   "after_fixed_readers": -0.3695698354417943,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C1][TracIn]",
+   "before_archived": 0.9905378347327044,
+   "after_fixed_readers": 0.9905378347327043,
+   "abs_diff": 1.1102230246251565e-16,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C1][TRAK]",
+   "before_archived": 0.4984961062791224,
+   "after_fixed_readers": 0.49849610627912244,
+   "abs_diff": 5.551115123125783e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C1][TRAK]",
+   "before_archived": 0.0005306581258538,
+   "after_fixed_readers": 0.000530658125853806,
+   "abs_diff": 6.071532165918825e-18,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C1][IF]",
+   "before_archived": -0.0015986481431324,
+   "after_fixed_readers": -0.0015986481431324437,
+   "abs_diff": 4.358492733391728e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C1][IF]",
+   "before_archived": 0.5039056311079904,
+   "after_fixed_readers": 0.5039056311079904,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C2][TracIn]",
+   "before_archived": -0.3502676554734313,
+   "after_fixed_readers": -0.35026765547343136,
+   "abs_diff": 5.551115123125783e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C2][TracIn]",
+   "before_archived": 0.986646066947844,
+   "after_fixed_readers": 0.9866460669478441,
+   "abs_diff": 1.1102230246251565e-16,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C2][TRAK]",
+   "before_archived": -0.0355901987733057,
+   "after_fixed_readers": -0.03559019877330576,
+   "abs_diff": 6.245004513516506e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C2][TRAK]",
+   "before_archived": 0.5862945871441314,
+   "after_fixed_readers": 0.5862945871441314,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C2][IF]",
+   "before_archived": -0.1255517038520047,
+   "after_fixed_readers": -0.12555170385200476,
+   "abs_diff": 5.551115123125783e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C2][IF]",
+   "before_archived": 0.7799253565303417,
+   "after_fixed_readers": 0.7799253565303417,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C3][TracIn]",
+   "before_archived": 0.4576367215230272,
+   "after_fixed_readers": 0.45763672152302726,
+   "abs_diff": 5.551115123125783e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C3][TracIn]",
+   "before_archived": 0.0014932589296168,
+   "after_fixed_readers": 0.0014932589296168372,
+   "abs_diff": 3.729655473350135e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C3][TRAK]",
+   "before_archived": -0.2024234677508464,
+   "after_fixed_readers": -0.2024234677508464,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C3][TRAK]",
+   "before_archived": 0.8948349385887631,
+   "after_fixed_readers": 0.8948349385887631,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C3][IF]",
+   "before_archived": 0.3048093516712281,
+   "after_fixed_readers": 0.30480935167122813,
+   "abs_diff": 5.551115123125783e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C3][IF]",
+   "before_archived": 0.0279098523987682,
+   "after_fixed_readers": 0.027909852398768205,
+   "abs_diff": 3.469446951953614e-18,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C4][TracIn]",
+   "before_archived": -0.0263406072830208,
+   "after_fixed_readers": -0.026340607283020866,
+   "abs_diff": 6.591949208711867e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C4][TracIn]",
+   "before_archived": 0.564086338159339,
+   "after_fixed_readers": 0.564086338159339,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C4][TRAK]",
+   "before_archived": 0.2468491196808813,
+   "after_fixed_readers": 0.2468491196808813,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C4][TRAK]",
+   "before_archived": 0.0623209329174259,
+   "after_fixed_readers": 0.062320932917425985,
+   "abs_diff": 8.326672684688674e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C4][IF]",
+   "before_archived": -0.1014113380396303,
+   "after_fixed_readers": -0.10141133803963033,
+   "abs_diff": 2.7755575615628914e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C4][IF]",
+   "before_archived": 0.7332433650554561,
+   "after_fixed_readers": 0.7332433650554561,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C5][TracIn]",
+   "before_archived": -0.3049383916601053,
+   "after_fixed_readers": -0.30493839166010533,
+   "abs_diff": 5.551115123125783e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C5][TracIn]",
+   "before_archived": 0.9721446038855917,
+   "after_fixed_readers": 0.9721446038855917,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C5][TRAK]",
+   "before_archived": 0.2305127503057745,
+   "after_fixed_readers": 0.23051275030577453,
+   "abs_diff": 2.7755575615628914e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C5][TRAK]",
+   "before_archived": 0.076212957463301,
+   "after_fixed_readers": 0.07621295746330103,
+   "abs_diff": 2.7755575615628914e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C5][IF]",
+   "before_archived": 0.1365409809189932,
+   "after_fixed_readers": 0.13654098091899325,
+   "abs_diff": 5.551115123125783e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C5][IF]",
+   "before_archived": 0.2004198765557541,
+   "after_fixed_readers": 0.2004198765557541,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C6][TracIn]",
+   "before_archived": 0.0665665207491861,
+   "after_fixed_readers": 0.06656652074918613,
+   "abs_diff": 2.7755575615628914e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C6][TracIn]",
+   "before_archived": 0.34159762821664,
+   "after_fixed_readers": 0.34159762821664,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C6][TRAK]",
+   "before_archived": -0.0079804714579419,
+   "after_fixed_readers": -0.00798047145794192,
+   "abs_diff": 1.9081958235744878e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C6][TRAK]",
+   "before_archived": 0.5194898101235197,
+   "after_fixed_readers": 0.5194898101235197,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C6][IF]",
+   "before_archived": 0.5922448700787957,
+   "after_fixed_readers": 0.5922448700787957,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C6][IF]",
+   "before_archived": 2.8390792271747964e-05,
+   "after_fixed_readers": 2.8390792271747964e-05,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C7][TracIn]",
+   "before_archived": 0.0737296943175932,
+   "after_fixed_readers": 0.07372969431759324,
+   "abs_diff": 4.163336342344337e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C7][TracIn]",
+   "before_archived": 0.3255850769731032,
+   "after_fixed_readers": 0.3255850769731032,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C7][TRAK]",
+   "before_archived": -0.342537828250016,
+   "after_fixed_readers": -0.342537828250016,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C7][TRAK]",
+   "before_archived": 0.9847536826450004,
+   "after_fixed_readers": 0.9847536826450003,
+   "abs_diff": 1.1102230246251565e-16,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C7][IF]",
+   "before_archived": -0.0397295040717731,
+   "after_fixed_readers": -0.03972950407177317,
+   "abs_diff": 6.938893903907228e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C7][IF]",
+   "before_archived": 0.5961520907785876,
+   "after_fixed_readers": 0.5961520907785876,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C8][TracIn]",
+   "before_archived": 0.3407831736313937,
+   "after_fixed_readers": 0.34078317363139377,
+   "abs_diff": 5.551115123125783e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C8][TracIn]",
+   "before_archived": 0.015705314952518,
+   "after_fixed_readers": 0.015705314952518055,
+   "abs_diff": 5.551115123125783e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C8][TRAK]",
+   "before_archived": -0.3405953625684942,
+   "after_fixed_readers": -0.3405953625684942,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C8][TRAK]",
+   "before_archived": 0.9842448889558624,
+   "after_fixed_readers": 0.9842448889558623,
+   "abs_diff": 1.1102230246251565e-16,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C8][IF]",
+   "before_archived": 0.1411400137690782,
+   "after_fixed_readers": 0.14114001376907823,
+   "abs_diff": 2.7755575615628914e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C8][IF]",
+   "before_archived": 0.1925050052982856,
+   "after_fixed_readers": 0.19250500529828563,
+   "abs_diff": 2.7755575615628914e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C9][TracIn]",
+   "before_archived": 0.1248063273957273,
+   "after_fixed_readers": 0.1248063273957273,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C9][TracIn]",
+   "before_archived": 0.2214450681872401,
+   "after_fixed_readers": 0.22144506818724016,
+   "abs_diff": 5.551115123125783e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C9][TRAK]",
+   "before_archived": 0.2350566120929311,
+   "after_fixed_readers": 0.23505661209293116,
+   "abs_diff": 5.551115123125783e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C9][TRAK]",
+   "before_archived": 0.0721404255829019,
+   "after_fixed_readers": 0.07214042558290196,
+   "abs_diff": 5.551115123125783e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS[C9][IF]",
+   "before_archived": -0.092970853364763,
+   "after_fixed_readers": -0.09297085336476302,
+   "abs_diff": 1.3877787807814457e-17,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster p1[C9][IF]",
+   "before_archived": 0.7158618885313606,
+   "after_fixed_readers": 0.7158618885313606,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "Bonferroni-significant cluster-grain cells, logit_success (of 27)",
+   "before_archived": 3,
+   "after_fixed_readers": 3,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C1][TracIn]",
+   "before_archived": -0.06590311678558017,
+   "after_fixed_readers": -0.06590311678558017,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C1][TRAK]",
+   "before_archived": 0.24915508824633864,
+   "after_fixed_readers": 0.24915508824633864,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C1][IF]",
+   "before_archived": 0.003942921517085992,
+   "after_fixed_readers": 0.003942921517085992,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C2][TracIn]",
+   "before_archived": -0.1121749741856754,
+   "after_fixed_readers": -0.1121749741856754,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C2][TRAK]",
+   "before_archived": 0.11029756875997372,
+   "after_fixed_readers": 0.11029756875997372,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C2][IF]",
+   "before_archived": -0.18088801276635688,
+   "after_fixed_readers": -0.18088801276635688,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C3][TracIn]",
+   "before_archived": 0.19951178293118013,
+   "after_fixed_readers": 0.19951178293118013,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C3][TRAK]",
+   "before_archived": 0.4047507276312083,
+   "after_fixed_readers": 0.4047507276312083,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C3][IF]",
+   "before_archived": -0.1478734391136982,
+   "after_fixed_readers": -0.1478734391136982,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C4][TracIn]",
+   "before_archived": 0.040270346381301045,
+   "after_fixed_readers": 0.040270346381301045,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C4][TRAK]",
+   "before_archived": 0.11179949310053505,
+   "after_fixed_readers": 0.11179949310053505,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C4][IF]",
+   "before_archived": 0.3141837979911762,
+   "after_fixed_readers": 0.3141837979911762,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C5][TracIn]",
+   "before_archived": 0.469257486154135,
+   "after_fixed_readers": 0.469257486154135,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C5][TRAK]",
+   "before_archived": 0.5681967520886135,
+   "after_fixed_readers": 0.5681967520886135,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C5][IF]",
+   "before_archived": 0.36693889045339334,
+   "after_fixed_readers": 0.36693889045339334,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C6][TracIn]",
+   "before_archived": -0.05303670327607246,
+   "after_fixed_readers": -0.05303670327607246,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C6][TRAK]",
+   "before_archived": 0.4732000375481085,
+   "after_fixed_readers": 0.4732000375481085,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C6][IF]",
+   "before_archived": -0.04834318971181826,
+   "after_fixed_readers": -0.04834318971181826,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C7][TracIn]",
+   "before_archived": 0.6073608111914374,
+   "after_fixed_readers": 0.6073608111914374,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C7][TRAK]",
+   "before_archived": -0.011172659844146088,
+   "after_fixed_readers": -0.011172659844146088,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C7][IF]",
+   "before_archived": -0.3662566895127218,
+   "after_fixed_readers": -0.3662566895127218,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C8][TracIn]",
+   "before_archived": 0.4726760563380281,
+   "after_fixed_readers": 0.4726760563380281,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C8][TRAK]",
+   "before_archived": 0.6495774647887324,
+   "after_fixed_readers": 0.6495774647887324,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C8][IF]",
+   "before_archived": 0.5986854460093897,
+   "after_fixed_readers": 0.5986854460093897,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C9][TracIn]",
+   "before_archived": 0.23390275952693823,
+   "after_fixed_readers": 0.23390275952693823,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C9][TRAK]",
+   "before_archived": 0.17308053313309552,
+   "after_fixed_readers": 0.17308053313309552,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "cluster LDS L2 [C9][IF]",
+   "before_archived": -0.030598836117889994,
+   "after_fixed_readers": -0.030598836117889994,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "Bonferroni-significant cluster-grain cells, L2 outcome (of 27) [REPORT: 8]",
+   "before_archived": 8,
+   "after_fixed_readers": 8,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "Gate-1 rho (Stage D, neg_plain_loss) [TracIn]",
+   "before_archived": -0.04195804195804196,
+   "after_fixed_readers": -0.04195804195804196,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "Gate-1 rho (Stage D, neg_plain_loss) [TRAK]",
+   "before_archived": 0.18881118881118883,
+   "after_fixed_readers": 0.18881118881118883,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "Gate-1 rho (Stage D, neg_plain_loss) [IF]",
+   "before_archived": 0.2517482517482518,
+   "after_fixed_readers": 0.2517482517482518,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "stage_G6 n_rows (2 old seeds + 4 new)",
+   "before_archived": 1296,
+   "after_fixed_readers": 1296,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "P1 6-seed ceiling (SB) [C1]",
+   "before_archived": 0.9327641408751334,
+   "after_fixed_readers": 0.9327641408751334,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "P1 demo LDS [C1][TracIn]",
+   "before_archived": 0.368695652173913,
+   "after_fixed_readers": 0.368695652173913,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "P1 demo p1 [C1][TracIn]",
+   "before_archived": 0.03812484423954127,
+   "after_fixed_readers": 0.03812484423954127,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "P1 demo LDS [C1][TRAK]",
+   "before_archived": -0.07130434782608694,
+   "after_fixed_readers": -0.07130434782608694,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "P1 demo p1 [C1][TRAK]",
+   "before_archived": 0.6297126564116028,
+   "after_fixed_readers": 0.6297126564116028,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "P1 demo LDS [C1][IF]",
+   "before_archived": 0.25565217391304346,
+   "after_fixed_readers": 0.25565217391304346,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "P1 demo p1 [C1][IF]",
+   "before_archived": 0.11395917792752588,
+   "after_fixed_readers": 0.11395917792752588,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "P1 6-seed ceiling (SB) [C5]",
+   "before_archived": 0.9177998400225849,
+   "after_fixed_readers": 0.9177998400225849,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "P1 demo LDS [C5][TracIn]",
+   "before_archived": 0.24608695652173912,
+   "after_fixed_readers": 0.24608695652173912,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "P1 demo p1 [C5][TracIn]",
+   "before_archived": 0.12319732422242417,
+   "after_fixed_readers": 0.12319732422242417,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "P1 demo LDS [C5][TRAK]",
+   "before_archived": 0.03217391304347826,
+   "after_fixed_readers": 0.03217391304347826,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "P1 demo p1 [C5][TRAK]",
+   "before_archived": 0.4406808560142436,
+   "after_fixed_readers": 0.4406808560142436,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "P1 demo LDS [C5][IF]",
+   "before_archived": 0.38,
+   "after_fixed_readers": 0.38,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  },
+  {
+   "quantity": "P1 demo p1 [C5][IF]",
+   "before_archived": 0.0335028053149912,
+   "after_fixed_readers": 0.0335028053149912,
+   "abs_diff": 0.0,
+   "IDENTICAL": true
+  }
+ ],
+ "conclusion": "The three fixes close real traps and change ZERO reported numbers. Every Phase-1 and Phase-2 headline statistic recomputes bit-for-bit from the raw artifacts under the hardened readers."
+}

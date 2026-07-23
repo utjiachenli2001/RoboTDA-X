@@ -1,0 +1,61 @@
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[stage_C] 18 jobs, 0 already complete, 18 to run
+[stage_C] launch Q15_target_s101 on gpu4
+[stage_C] launch Q15_target_s102 on gpu5
+[stage_C] launch Q15_target_s103 on gpu6
+[stage_C] launch Q15_cotrain_s101 on gpu7
+[stage_C] OK  Q15_target_s102 gpu5 387s (1/18 done)
+[stage_C] OK  Q15_target_s103 gpu6 384s (2/18 done)
+[stage_C] launch Q15_cotrain_s102 on gpu5
+[stage_C] launch Q15_cotrain_s103 on gpu6
+[stage_C] OK  Q15_target_s101 gpu4 406s (3/18 done)
+[stage_C] OK  Q15_cotrain_s101 gpu7 397s (4/18 done)
+[stage_C] launch Q50_target_s101 on gpu7
+[stage_C] launch Q50_target_s102 on gpu4
+[stage_C] OK  Q15_cotrain_s102 gpu5 389s (5/18 done)
+[stage_C] OK  Q15_cotrain_s103 gpu6 386s (6/18 done)
+[stage_C] launch Q50_target_s103 on gpu5
+[stage_C] launch Q50_cotrain_s101 on gpu6
+[stage_C] OK  Q50_target_s101 gpu7 389s (7/18 done)
+[stage_C] launch Q50_cotrain_s102 on gpu7
+[stage_C] OK  Q50_target_s102 gpu4 504s (8/18 done)
+[stage_C] launch Q50_cotrain_s103 on gpu4
+[stage_C] OK  Q50_target_s103 gpu5 350s (9/18 done)
+[stage_C] launch Q490_target_s101 on gpu5
+[stage_C] OK  Q50_cotrain_s101 gpu6 381s (10/18 done)
+[stage_C] OK  Q50_cotrain_s102 gpu7 368s (11/18 done)
+[stage_C] launch Q490_target_s102 on gpu6
+[stage_C] launch Q490_target_s103 on gpu7
+[stage_C] OK  Q490_target_s101 gpu5 277s (12/18 done)
+[stage_C] launch Q490_cotrain_s101 on gpu5
+[stage_C] OK  Q490_target_s103 gpu7 254s (13/18 done)
+[stage_C] launch Q490_cotrain_s102 on gpu7
+[stage_C] OK  Q50_cotrain_s103 gpu4 480s (14/18 done)
+[stage_C] OK  Q490_target_s102 gpu6 270s (15/18 done)
+[stage_C] launch Q490_cotrain_s103 on gpu4
+[stage_C] OK  Q490_cotrain_s101 gpu5 259s (16/18 done)
+[stage_C] OK  Q490_cotrain_s102 gpu7 266s (17/18 done)
+[stage_C] OK  Q490_cotrain_s103 gpu4 363s (18/18 done)
+[stage_C] COMPLETE: 18/18 ok, 0 failed, wall=30.1 min, gpu-h=1.81
+
+=== STAGE C: co-train margin vs in-target quantity Q ===
+    Q   target-only %    co-train %   margin (pts)
+   15       21.0 +- 10.6     23.3          +2.3
+   50       48.5 +- 8.8      49.3          +0.8
+  490       93.8 +- 0.6      90.7          -3.2
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[stage_C] Q=15 seed=101: intrusion=0.500
+[stage_C] Q=15 seed=102: intrusion=0.542
+[stage_C] Q=15 seed=103: intrusion=0.692
+[stage_C] Q=50 seed=101: intrusion=0.525
+[stage_C] Q=50 seed=102: intrusion=0.492
+[stage_C] Q=50 seed=103: intrusion=0.225
+[stage_C] Q=490 seed=101: intrusion=0.625
+[stage_C] Q=490 seed=102: intrusion=0.358
+[stage_C] Q=490 seed=103: intrusion=0.642
+
+=== STAGE C: outsider intrusion vs Q (TracIn -> C1) ===
+  Q= 15: intrusion above median insider = 0.578 +- 0.101
+  Q= 50: intrusion above median insider = 0.414 +- 0.164
+  Q=490: intrusion above median insider = 0.542 +- 0.159

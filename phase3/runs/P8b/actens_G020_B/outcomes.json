@@ -1,0 +1,78 @@
+{
+ "outcomes": {
+  "C1": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "plain_loss": 0.8040461936921877,
+   "transport_loss": 0.6103501773550267,
+   "interaction_loss": 1.2025554370172076
+  },
+  "C2": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "plain_loss": 0.46540331670182117,
+   "transport_loss": 0.262923555017626,
+   "interaction_loss": 0.8899091536981413
+  },
+  "C3": {
+   "success_rate": 0.3333333333333333,
+   "n_episodes": 30,
+   "plain_loss": 0.9348719535211072,
+   "transport_loss": 0.8396788292397909,
+   "interaction_loss": 1.138680226114728
+  },
+  "C4": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "plain_loss": 0.7626528278466881,
+   "transport_loss": 0.6719813721286404,
+   "interaction_loss": 1.0732385444173973
+  },
+  "C5": {
+   "success_rate": 0.03333333333333333,
+   "n_episodes": 30,
+   "plain_loss": 0.3449488951175575,
+   "transport_loss": 0.19779589295060013,
+   "interaction_loss": 0.6227414702806167
+  },
+  "C6": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "plain_loss": 0.4615592249487034,
+   "transport_loss": 0.4344922071655143,
+   "interaction_loss": 0.5532281857282335
+  },
+  "C7": {
+   "success_rate": 0.3,
+   "n_episodes": 30,
+   "plain_loss": 0.5786545680060451,
+   "transport_loss": 0.3681052890954273,
+   "interaction_loss": 1.2214117888010214
+  },
+  "C8": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "plain_loss": 0.31296134960461386,
+   "transport_loss": 0.23642929221637524,
+   "interaction_loss": 0.48730710600776705
+  },
+  "C9": {
+   "success_rate": 0.16666666666666666,
+   "n_episodes": 30,
+   "plain_loss": 0.4759173903192141,
+   "transport_loss": 0.3218604398566337,
+   "interaction_loss": 0.8190604818367946
+  }
+ },
+ "meta": {
+  "arm": "action_ensemble",
+  "n_members": 3,
+  "members": [
+   "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G020_s404/final.pt",
+   "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G020_s405/final.pt",
+   "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G020_s406/final.pt"
+  ],
+  "n_rollouts": 10,
+  "total_wall_s": 507.95382952690125
+ }
+}

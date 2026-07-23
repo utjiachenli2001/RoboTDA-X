@@ -1,0 +1,100 @@
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[P10b-ext] 48 jobs (24 masks x seeds 605,606)
+[P10b_s56] 48 jobs, 0 already complete, 48 to run
+[P10b_s56] launch G000_s605 on gpu4
+[P10b_s56] launch G000_s606 on gpu5
+[P10b_s56] launch G001_s605 on gpu6
+[P10b_s56] launch G001_s606 on gpu7
+[P10b_s56] OK   G001_s605 gpu6 1079s (1/48)
+[P10b_s56] launch G002_s605 on gpu6
+[P10b_s56] OK   G000_s605 gpu4 1098s (2/48)
+[P10b_s56] launch G002_s606 on gpu4
+[P10b_s56] OK   G001_s606 gpu7 1102s (3/48)
+[P10b_s56] launch G003_s605 on gpu7
+[P10b_s56] OK   G000_s606 gpu5 1143s (4/48)
+[P10b_s56] launch G003_s606 on gpu5
+[P10b_s56] OK   G002_s606 gpu4 1070s (5/48)
+[P10b_s56] launch G004_s605 on gpu4
+[P10b_s56] OK   G003_s605 gpu7 1100s (6/48)
+[P10b_s56] launch G004_s606 on gpu7
+[P10b_s56] OK   G003_s606 gpu5 1151s (7/48)
+[P10b_s56] launch G005_s605 on gpu5
+[P10b_s56] OK   G002_s605 gpu6 1378s (8/48)
+[P10b_s56] launch G005_s606 on gpu6
+[P10b_s56] OK   G004_s605 gpu4 984s (9/48)
+[P10b_s56] launch G006_s605 on gpu4
+[P10b_s56] OK   G004_s606 gpu7 1014s (10/48)
+[P10b_s56] launch G006_s606 on gpu7
+[P10b_s56] OK   G005_s605 gpu5 1125s (11/48)
+[P10b_s56] launch G007_s605 on gpu5
+[P10b_s56] OK   G005_s606 gpu6 1136s (12/48)
+[P10b_s56] launch G007_s606 on gpu6
+[P10b_s56] OK   G006_s605 gpu4 1082s (13/48)
+[P10b_s56] launch G008_s605 on gpu4
+[P10b_s56] OK   G006_s606 gpu7 1082s (14/48)
+[P10b_s56] launch G008_s606 on gpu7
+[P10b_s56] OK   G007_s605 gpu5 1062s (15/48)
+[P10b_s56] launch G009_s605 on gpu5
+[P10b_s56] OK   G007_s606 gpu6 1450s (16/48)
+[P10b_s56] launch G009_s606 on gpu6
+[P10b_s56] OK   G008_s605 gpu4 1093s (17/48)
+[P10b_s56] launch G010_s605 on gpu4
+[P10b_s56] OK   G008_s606 gpu7 1103s (18/48)
+[P10b_s56] launch G010_s606 on gpu7
+[P10b_s56] OK   G009_s605 gpu5 1083s (19/48)
+[P10b_s56] launch G011_s605 on gpu5
+[P10b_s56] OK   G009_s606 gpu6 1041s (20/48)
+[P10b_s56] launch G011_s606 on gpu6
+[P10b_s56] OK   G010_s605 gpu4 1061s (21/48)
+[P10b_s56] launch G012_s605 on gpu4
+[P10b_s56] OK   G010_s606 gpu7 1061s (22/48)
+[P10b_s56] launch G012_s606 on gpu7
+[P10b_s56] OK   G011_s605 gpu5 1112s (23/48)
+[P10b_s56] launch G013_s605 on gpu5
+[P10b_s56] OK   G011_s606 gpu6 1144s (24/48)
+[P10b_s56] launch G013_s606 on gpu6
+[P10b_s56] OK   G012_s605 gpu4 1104s (25/48)
+[P10b_s56] launch G014_s605 on gpu4
+[P10b_s56] OK   G012_s606 gpu7 1074s (26/48)
+[P10b_s56] launch G014_s606 on gpu7
+[P10b_s56] OK   G013_s605 gpu5 1422s (27/48)
+[P10b_s56] launch G015_s605 on gpu5
+[P10b_s56] OK   G013_s606 gpu6 1155s (28/48)
+[P10b_s56] launch G015_s606 on gpu6
+[P10b_s56] OK   G014_s605 gpu4 1176s (29/48)
+[P10b_s56] launch G016_s605 on gpu4
+[P10b_s56] OK   G014_s606 gpu7 1165s (30/48)
+[P10b_s56] launch G016_s606 on gpu7
+[P10b_s56] OK   G015_s606 gpu6 1090s (31/48)
+[P10b_s56] launch G017_s605 on gpu6
+[P10b_s56] OK   G015_s605 gpu5 1432s (32/48)
+[P10b_s56] launch G017_s606 on gpu5
+[P10b_s56] OK   G016_s606 gpu7 1120s (33/48)
+[P10b_s56] launch G018_s605 on gpu7
+[P10b_s56] OK   G016_s605 gpu4 1412s (34/48)
+[P10b_s56] launch G018_s606 on gpu4
+[P10b_s56] OK   G017_s605 gpu6 1145s (35/48)
+[P10b_s56] launch G019_s605 on gpu6
+[P10b_s56] OK   G017_s606 gpu5 1176s (36/48)
+[P10b_s56] launch G019_s606 on gpu5
+[P10b_s56] OK   G018_s606 gpu4 1080s (37/48)
+[P10b_s56] launch G020_s605 on gpu4
+[P10b_s56] OK   G018_s605 gpu7 1433s (38/48)
+[P10b_s56] launch G020_s606 on gpu7
+[P10b_s56] OK   G019_s606 gpu5 1120s (39/48)
+[P10b_s56] launch G021_s605 on gpu5
+[P10b_s56] OK   G019_s605 gpu6 1432s (40/48)
+[P10b_s56] launch G021_s606 on gpu6
+[P10b_s56] OK   G020_s605 gpu4 1143s (41/48)
+[P10b_s56] launch G022_s605 on gpu4
+[P10b_s56] OK   G020_s606 gpu7 1194s (42/48)
+[P10b_s56] launch G022_s606 on gpu7
+[P10b_s56] OK   G021_s605 gpu5 1062s (43/48)
+[P10b_s56] launch G023_s605 on gpu5
+[P10b_s56] OK   G021_s606 gpu6 1052s (44/48)
+[P10b_s56] launch G023_s606 on gpu6
+[P10b_s56] OK   G022_s605 gpu4 1108s (45/48)
+[P10b_s56] OK   G022_s606 gpu7 1402s (46/48)
+[P10b_s56] OK   G023_s605 gpu5 1140s (47/48)
+[P10b_s56] OK   G023_s606 gpu6 1133s (48/48)
+[P10b_s56] COMPLETE: 48/48 ok, 0 FAILED, wall=237.6 min, gpu-h=15.42

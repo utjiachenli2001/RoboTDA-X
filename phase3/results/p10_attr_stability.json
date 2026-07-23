@@ -1,0 +1,53 @@
+{
+ "stage": "P10 attribution-side stability (diffusion), E=5, 2v2 split-half",
+ "diffusion": {
+  "TracIn": {
+   "split_half_2v2_over_5_members_per_target": {
+    "C1": 0.923545019998049,
+    "C2": 0.9242191005755537,
+    "C3": 0.9181455467759244,
+    "C4": 0.9349326894937082,
+    "C5": 0.9209018632328554,
+    "C6": 0.9303521607648035,
+    "C7": 0.9402863135303873,
+    "C8": 0.9348366013071896,
+    "C9": 0.9191176470588236
+   },
+   "mean_over_9_targets": 0.927370771415255
+  },
+  "TRAK": {
+   "split_half_2v2_over_5_members_per_target": {
+    "C1": 0.568202614379085,
+    "C2": 0.4990347283191884,
+    "C3": 0.5297590478977663,
+    "C4": 0.5167437323187982,
+    "C5": 0.43567700712125657,
+    "C6": 0.6058008974734175,
+    "C7": 0.5917193444541996,
+    "C8": 0.578663545019998,
+    "C9": 0.46120183396741793
+   },
+   "mean_over_9_targets": 0.531866972327903
+  },
+  "IF": {
+   "split_half_2v2_over_5_members_per_target": {
+    "C1": 0.49993220173641595,
+    "C2": 0.38516047214905874,
+    "C3": 0.44015413130426306,
+    "C4": 0.507382206613989,
+    "C5": 0.5250624329333723,
+    "C6": 0.6738669398107503,
+    "C7": 0.5347131987123207,
+    "C8": 0.5461208662569504,
+    "C9": 0.5760740415569213
+   },
+   "mean_over_9_targets": 0.5209407212304491
+  }
+ },
+ "bc_transformer_same_estimator_E5": {
+  "IF": 0.188,
+  "TRAK": 0.196,
+  "TracIn": 0.449
+ },
+ "finding": "The DIFFUSION attribution is FAR MORE reproducible than the BC-Transformer attribution at the same ensemble size: TracIn 0.927 vs 0.449, TRAK 0.532 vs 0.196, IF 0.521 vs 0.188. The fixed paired (t,eps) noise bank (32 stratified pairs, shared between train- and test-side gradients) is doing exactly the variance reduction it was preregistered to do. NOTE the two sides move in OPPOSITE directions: diffusion attribution is more stable, while diffusion GROUND TRUTH is much less stable (PHASE3_DEFECT.md)."
+}

@@ -1,0 +1,36 @@
+{
+ "stage": "P5",
+ "n_jobs": 3,
+ "n_skipped": 0,
+ "n_run": 3,
+ "n_ok": 3,
+ "n_fail": 0,
+ "wall_s": 1226.89475607872,
+ "gpu_h_est": 0.33788521554734974,
+ "results": [
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/P5/C5_influence_cov15_s501",
+   "seed": 501,
+   "gpu": 4,
+   "wall_s": 412.1856620311737,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/P5/C5_influence_cov15_s502",
+   "seed": 502,
+   "gpu": 4,
+   "wall_s": 391.19574332237244,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/P5/C5_influence_cov15_s503",
+   "seed": 503,
+   "gpu": 4,
+   "wall_s": 413.00537061691284,
+   "rc": 0,
+   "ok": true
+  }
+ ]
+}

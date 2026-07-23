@@ -1,0 +1,23 @@
+{
+ "cluster": "C1",
+ "suite": "libero_goal",
+ "n_tasks": 10,
+ "n_rollouts": 20,
+ "per_task_success": {
+  "open_the_middle_drawer_of_the_cabinet": 0.2,
+  "open_the_top_drawer_and_put_the_bowl_inside": 0.2,
+  "push_the_plate_to_the_front_of_the_stove": 0.3,
+  "put_the_bowl_on_the_plate": 0.7,
+  "put_the_bowl_on_the_stove": 0.8,
+  "put_the_bowl_on_top_of_the_cabinet": 0.75,
+  "put_the_cream_cheese_in_the_bowl": 0.6,
+  "put_the_wine_bottle_on_the_rack": 0.5,
+  "put_the_wine_bottle_on_top_of_the_cabinet": 1.0,
+  "turn_on_the_stove": 1.0
+ },
+ "cluster_success": 0.6050000000000001,
+ "n_episodes": 200,
+ "horizon": 600,
+ "wall_s": 221.12432074546814,
+ "n_errors": 0
+}

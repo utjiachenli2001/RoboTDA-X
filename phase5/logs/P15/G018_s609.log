@@ -1,0 +1,28 @@
+[trainDP] ep 0 step 40/16000 loss 1.00010 (3s)
+[trainDP] ep 50 step 2040/16000 loss 0.05173 (45s)
+[trainDP] ep 100 step 4040/16000 loss 0.03098 (85s)
+[trainDP] ep 150 step 6040/16000 loss 0.02363 (126s)
+[trainDP] ep 200 step 8040/16000 loss 0.01995 (166s)
+[trainDP] ep 250 step 10040/16000 loss 0.01526 (207s)
+[trainDP] ep 300 step 12040/16000 loss 0.01255 (247s)
+[trainDP] ep 350 step 14040/16000 loss 0.01086 (287s)
+[trainDP] ep 399 step 16000/16000 loss 0.00976 (327s)
+[trainDP] DONE /mnt/sdb/ljc/RoboTDA-X/phase5/runs/P15/G018_s609 wall=327s params=18.3M loss=0.00990
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[p15eval] /mnt/sdb/ljc/RoboTDA-X/phase5/runs/P15/G018_s609 wall=288s C1 succ=0.16666666666666666 C1 L2=0.649 C5 L2=0.392

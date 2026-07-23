@@ -1,0 +1,78 @@
+{
+ "outcomes": {
+  "C1": {
+   "success_rate": 0.23333333333333334,
+   "n_episodes": 30,
+   "plain_loss": 0.6386249419701426,
+   "transport_loss": 0.4780085421923139,
+   "interaction_loss": 0.969076342837552
+  },
+  "C2": {
+   "success_rate": 0.13333333333333333,
+   "n_episodes": 30,
+   "plain_loss": 0.610579153503493,
+   "transport_loss": 0.36911331631744626,
+   "interaction_loss": 1.1168206487920616
+  },
+  "C3": {
+   "success_rate": 0.06666666666666667,
+   "n_episodes": 30,
+   "plain_loss": 0.7634402112635746,
+   "transport_loss": 0.6804973661829741,
+   "interaction_loss": 0.9410206626617368
+  },
+  "C4": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "plain_loss": 0.8941939718166745,
+   "transport_loss": 0.8397893107610459,
+   "interaction_loss": 1.0805515250834148
+  },
+  "C5": {
+   "success_rate": 0.23333333333333334,
+   "n_episodes": 30,
+   "plain_loss": 0.4042897061071848,
+   "transport_loss": 0.21754642016955011,
+   "interaction_loss": 0.7568200488872083
+  },
+  "C6": {
+   "success_rate": 0.36666666666666664,
+   "n_episodes": 30,
+   "plain_loss": 0.5220062577880283,
+   "transport_loss": 0.47198417826159134,
+   "interaction_loss": 0.6914180519852983
+  },
+  "C7": {
+   "success_rate": 0.3333333333333333,
+   "n_episodes": 30,
+   "plain_loss": 0.5139807937201979,
+   "transport_loss": 0.4035134958597705,
+   "interaction_loss": 0.8512113638217538
+  },
+  "C8": {
+   "success_rate": 0.26666666666666666,
+   "n_episodes": 30,
+   "plain_loss": 0.36334549475465294,
+   "transport_loss": 0.23297992127099262,
+   "interaction_loss": 0.6603280311398899
+  },
+  "C9": {
+   "success_rate": 0.06666666666666667,
+   "n_episodes": 30,
+   "plain_loss": 0.5774736446156056,
+   "transport_loss": 0.45743245630316476,
+   "interaction_loss": 0.8448507693950562
+  }
+ },
+ "meta": {
+  "arm": "action_ensemble",
+  "n_members": 3,
+  "members": [
+   "/mnt/sdb/ljc/RoboTDA-X/runs/stage_G/G007_s401/final.pt",
+   "/mnt/sdb/ljc/RoboTDA-X/runs/stage_G/G007_s402/final.pt",
+   "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G007_s403/final.pt"
+  ],
+  "n_rollouts": 10,
+  "total_wall_s": 426.10537672042847
+ }
+}

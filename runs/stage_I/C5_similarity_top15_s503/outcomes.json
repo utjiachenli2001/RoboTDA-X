@@ -1,0 +1,24 @@
+{
+ "outcomes": {
+  "C5": {
+   "success_rate": 0.016666666666666666,
+   "n_episodes": 60,
+   "per_task_success": {
+    "KITCHEN_SCENE2_open_the_top_drawer_of_the_cabinet": 0.0,
+    "KITCHEN_SCENE2_put_the_black_bowl_at_the_back_on_the_plate": 0.0,
+    "KITCHEN_SCENE2_put_the_black_bowl_at_the_front_on_the_plate": 0.05
+   },
+   "plain_loss": 0.6979486299535929,
+   "transport_loss": 0.4119600054357063,
+   "interaction_loss": 1.2378323924474586
+  }
+ },
+ "meta": {
+  "ckpt": "final.pt",
+  "n_rollouts": 20,
+  "horizon": 600,
+  "rollout_wall_s": 255.52940201759338,
+  "n_errors": 0,
+  "total_wall_s": 257.16742396354675
+ }
+}

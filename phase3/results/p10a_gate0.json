@@ -1,0 +1,29 @@
+{
+ "stage": "P10a Gate-0 sanity (diffusion)",
+ "seeds": [
+  611,
+  612,
+  613
+ ],
+ "paired": true,
+ "results": {
+  "C1": {
+   "target_only": 44.666666666666664,
+   "cotrain": 54.333333333333336,
+   "margin_pts": 9.666666666666668,
+   "n_seeds": 3
+  },
+  "C5": {
+   "target_only": 19.523809523809526,
+   "cotrain": 27.142857142857142,
+   "margin_pts": 7.619047619047617,
+   "n_seeds": 3
+  }
+ },
+ "bc_reference_margins_pts": {
+  "C1": 1.0,
+  "C2": 14.1,
+  "C5": 5.0
+ },
+ "readout": "DESCRIPTIVE -- establishes whether the co-training phenomenon exists for this policy class. No pass/fail."
+}

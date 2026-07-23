@@ -1,0 +1,96 @@
+{
+ "stage": "P10a",
+ "n_jobs": 12,
+ "n_skipped": 0,
+ "n_run": 12,
+ "n_ok": 12,
+ "n_fail": 0,
+ "wall_s": 2964.613226413727,
+ "gpu_h": 3.2005912278095883,
+ "results": [
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10a/C1_target_s612",
+   "gpu": 5,
+   "wall_s": 918.201892375946,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10a/C1_target_s611",
+   "gpu": 4,
+   "wall_s": 954.7506959438324,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10a/C1_target_s613",
+   "gpu": 6,
+   "wall_s": 948.7487075328827,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10a/C1_cotrain_s611",
+   "gpu": 7,
+   "wall_s": 992.4680414199829,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10a/C1_cotrain_s613",
+   "gpu": 4,
+   "wall_s": 884.5912582874298,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10a/C1_cotrain_s612",
+   "gpu": 5,
+   "wall_s": 1002.5771071910858,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10a/C5_target_s611",
+   "gpu": 6,
+   "wall_s": 966.0139393806458,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10a/C5_target_s612",
+   "gpu": 7,
+   "wall_s": 999.5640141963959,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10a/C5_target_s613",
+   "gpu": 4,
+   "wall_s": 924.6833803653717,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10a/C5_cotrain_s612",
+   "gpu": 6,
+   "wall_s": 947.257994890213,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10a/C5_cotrain_s611",
+   "gpu": 5,
+   "wall_s": 1030.2600359916687,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10a/C5_cotrain_s613",
+   "gpu": 7,
+   "wall_s": 953.0113525390625,
+   "rc": 0,
+   "ok": true
+  }
+ ]
+}

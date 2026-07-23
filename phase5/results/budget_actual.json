@@ -1,0 +1,25 @@
+{
+  "phase": 5,
+  "stages": [
+    {"stage": "P15 diffusion S=10 + verdict", "retrains_ledger": 48, "retrains_actual": 48,
+     "n_ok": 48, "n_fail": 0, "gpu_h_ledger": 15.5, "gpu_h_actual": 8.35, "episodes": 1440,
+     "note": "under nominal: the preregistered eval economy (C1-only rollouts) cut sim cost ~9x"},
+    {"stage": "P16 GradDot breadth", "retrains_ledger": 0, "retrains_actual": 0,
+     "n_ok": 0, "n_fail": 0, "gpu_h_ledger": 0.2, "gpu_h_actual": 0.0, "episodes": 0,
+     "note": "zero-retrain: reads existing Gram caches (numpy on CPU)"},
+    {"stage": "P17 exploratory diffusion GradDot", "retrains_ledger": 0, "retrains_actual": 0,
+     "n_ok": 0, "n_fail": 0, "gpu_h_ledger": 0.2, "gpu_h_actual": 0.114, "episodes": 0,
+     "note": "one gradient pass over 5 diffusion members (412 s)"}
+  ],
+  "total_retrains": 48,
+  "total_ok": 48,
+  "total_fail": 0,
+  "total_gpu_h_ledger": 16,
+  "total_gpu_h_actual": 8.46,
+  "alert_threshold_gpu_h": 25,
+  "total_episodes": 1440,
+  "budget_alert_tripped": false,
+  "per_stage_guard_tripped": false,
+  "cuts": "NONE",
+  "incidents": "NONE (0 failed retrains, 0 harness failures, 0 corrupted artifacts, 0 marker-gate violations)"
+}

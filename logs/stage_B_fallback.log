@@ -1,0 +1,66 @@
+[stage_B_C2] 10 jobs, 0 already complete, 10 to run
+[stage_B_C2] launch C2_target_s101 on gpu4
+[stage_B_C2] launch C2_target_s102 on gpu5
+[stage_B_C2] launch C2_target_s103 on gpu6
+[stage_B_C2] launch C2_target_s104 on gpu7
+[stage_B_C2] OK  C2_target_s101 gpu4 432s (1/10 done)
+[stage_B_C2] launch C2_target_s105 on gpu4
+[stage_B_C2] OK  C2_target_s102 gpu5 473s (2/10 done)
+[stage_B_C2] OK  C2_target_s103 gpu6 470s (3/10 done)
+[stage_B_C2] OK  C2_target_s104 gpu7 467s (4/10 done)
+[stage_B_C2] launch C2_cotrain_s101 on gpu5
+[stage_B_C2] launch C2_cotrain_s102 on gpu6
+[stage_B_C2] launch C2_cotrain_s103 on gpu7
+[stage_B_C2] OK  C2_target_s105 gpu4 452s (5/10 done)
+[stage_B_C2] launch C2_cotrain_s104 on gpu4
+[stage_B_C2] OK  C2_cotrain_s103 gpu7 426s (6/10 done)
+[stage_B_C2] launch C2_cotrain_s105 on gpu7
+[stage_B_C2] OK  C2_cotrain_s101 gpu5 445s (7/10 done)
+[stage_B_C2] OK  C2_cotrain_s102 gpu6 442s (8/10 done)
+[stage_B_C2] OK  C2_cotrain_s104 gpu4 466s (9/10 done)
+[stage_B_C2] OK  C2_cotrain_s105 gpu7 483s (10/10 done)
+[stage_B_C2] COMPLETE: 10/10 ok, 0 failed, wall=23.4 min, gpu-h=1.27
+
+=== GATE 0 / target C2 ===
+  seed 101: target-only=50.0%  co-train=52.0%  margin=+2.0 pts
+  seed 102: target-only=20.5%  co-train=40.5%  margin=+20.0 pts
+  seed 103: target-only=15.5%  co-train=45.5%  margin=+30.0 pts
+  seed 104: target-only=41.5%  co-train=37.0%  margin=-4.5 pts
+  seed 105: target-only=9.5%  co-train=32.5%  margin=+23.0 pts
+  mean margin = +14.10 pts (SD 14.66), t=2.151, one-sided p=0.0489
+  criterion: margin >= +5.0 pts -> True; p < 0.05 -> True
+  VERDICT: PASS
+[stage_B_C5] 10 jobs, 0 already complete, 10 to run
+[stage_B_C5] launch C5_target_s101 on gpu4
+[stage_B_C5] launch C5_target_s102 on gpu5
+[stage_B_C5] launch C5_target_s103 on gpu6
+[stage_B_C5] launch C5_target_s104 on gpu7
+[stage_B_C5] OK  C5_target_s101 gpu4 430s (1/10 done)
+[stage_B_C5] OK  C5_target_s102 gpu5 427s (2/10 done)
+[stage_B_C5] OK  C5_target_s103 gpu6 424s (3/10 done)
+[stage_B_C5] OK  C5_target_s104 gpu7 421s (4/10 done)
+[stage_B_C5] launch C5_target_s105 on gpu4
+[stage_B_C5] launch C5_cotrain_s101 on gpu5
+[stage_B_C5] launch C5_cotrain_s102 on gpu6
+[stage_B_C5] launch C5_cotrain_s103 on gpu7
+[stage_B_C5] OK  C5_cotrain_s102 gpu6 413s (5/10 done)
+[stage_B_C5] launch C5_cotrain_s104 on gpu6
+[stage_B_C5] OK  C5_target_s105 gpu4 434s (6/10 done)
+[stage_B_C5] OK  C5_cotrain_s101 gpu5 431s (7/10 done)
+[stage_B_C5] OK  C5_cotrain_s103 gpu7 425s (8/10 done)
+[stage_B_C5] launch C5_cotrain_s105 on gpu4
+[stage_B_C5] OK  C5_cotrain_s104 gpu6 426s (9/10 done)
+[stage_B_C5] OK  C5_cotrain_s105 gpu4 413s (10/10 done)
+[stage_B_C5] COMPLETE: 10/10 ok, 0 failed, wall=21.5 min, gpu-h=1.18
+
+=== GATE 0 / target C5 ===
+  seed 101: target-only=7.9%  co-train=17.1%  margin=+9.3 pts
+  seed 102: target-only=13.6%  co-train=15.7%  margin=+2.1 pts
+  seed 103: target-only=17.9%  co-train=20.0%  margin=+2.1 pts
+  seed 104: target-only=10.7%  co-train=15.0%  margin=+4.3 pts
+  seed 105: target-only=12.9%  co-train=20.0%  margin=+7.1 pts
+  mean margin = +5.00 pts (SD 3.15), t=3.545, one-sided p=0.0120
+  criterion: margin >= +5.0 pts -> False; p < 0.05 -> True
+  VERDICT: FAIL
+
+[stage_B] any target passed: True

@@ -1,0 +1,12 @@
+[attr] TracIn Q150full_s611: 5 ckpts (16s)
+[attr] TRAK+IF Q150full_s611 done (19s)
+[attr] TracIn Q150full_s612: 5 ckpts (33s)
+[attr] TRAK+IF Q150full_s612 done (36s)
+[attr] TracIn Q150full_s613: 5 ckpts (50s)
+[attr] TRAK+IF Q150full_s613 done (53s)
+[attr] TracIn Q150full_s614: 5 ckpts (67s)
+[attr] TRAK+IF Q150full_s614 done (70s)
+[attr] TracIn Q150full_s615: 5 ckpts (84s)
+[attr] TRAK+IF Q150full_s615 done (87s)
+[attr] wrote /mnt/sdb/ljc/RoboTDA-X/phase2/results/p3_influence_Q150.parquet: 450 rows (5 ensemble members; per-member scores -> /mnt/sdb/ljc/RoboTDA-X/phase2/results/p3_influence_Q150_per_member.parquet), 87s
+[p3attr] Q=150: wrote /mnt/sdb/ljc/RoboTDA-X/phase2/results/p3_influence_Q150.parquet

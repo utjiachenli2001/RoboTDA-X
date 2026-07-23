@@ -1,0 +1,102 @@
+=== PHASE 5 TRAINING CHAIN starting 2026-07-16T17:03:19+00:00 ===
+--- P15: diffusion ground truth S=10 (48 retrains, C1-only rollouts + all-9 L2) ---
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[P15] 48 jobs, 0 already complete, 48 to run
+[P15] launch G000_s609 on gpu4
+[P15] launch G000_s610 on gpu5
+[P15] launch G001_s609 on gpu6
+[P15] launch G001_s610 on gpu7
+[P15] OK   G000_s610 gpu5 589s (1/48)
+[P15] launch G002_s609 on gpu5
+[P15] OK   G001_s609 gpu6 609s (2/48)
+[P15] launch G002_s610 on gpu6
+[P15] OK   G000_s609 gpu4 628s (3/48)
+[P15] OK   G001_s610 gpu7 619s (4/48)
+[P15] launch G003_s609 on gpu4
+[P15] launch G003_s610 on gpu7
+[P15] OK   G002_s609 gpu5 622s (5/48)
+[P15] launch G004_s609 on gpu5
+[P15] OK   G002_s610 gpu6 622s (6/48)
+[P15] launch G004_s610 on gpu6
+[P15] OK   G003_s609 gpu4 633s (7/48)
+[P15] OK   G003_s610 gpu7 630s (8/48)
+[P15] launch G005_s609 on gpu4
+[P15] launch G005_s610 on gpu7
+[P15] OK   G004_s609 gpu5 633s (9/48)
+[P15] launch G006_s609 on gpu5
+[P15] OK   G004_s610 gpu6 623s (10/48)
+[P15] launch G006_s610 on gpu6
+[P15] OK   G005_s609 gpu4 623s (11/48)
+[P15] OK   G005_s610 gpu7 620s (12/48)
+[P15] launch G007_s609 on gpu4
+[P15] launch G007_s610 on gpu7
+[P15] OK   G006_s609 gpu5 562s (13/48)
+[P15] launch G008_s609 on gpu5
+[P15] OK   G006_s610 gpu6 623s (14/48)
+[P15] launch G008_s610 on gpu6
+[P15] OK   G007_s610 gpu7 609s (15/48)
+[P15] launch G009_s609 on gpu7
+[P15] OK   G007_s609 gpu4 626s (16/48)
+[P15] launch G009_s610 on gpu4
+[P15] OK   G008_s609 gpu5 643s (17/48)
+[P15] launch G010_s609 on gpu5
+[P15] OK   G008_s610 gpu6 623s (18/48)
+[P15] OK   G009_s609 gpu7 609s (19/48)
+[P15] launch G010_s610 on gpu6
+[P15] launch G011_s609 on gpu7
+[P15] OK   G009_s610 gpu4 643s (20/48)
+[P15] launch G011_s610 on gpu4
+[P15] OK   G010_s609 gpu5 653s (21/48)
+[P15] launch G012_s609 on gpu5
+[P15] OK   G011_s609 gpu7 620s (22/48)
+[P15] launch G012_s610 on gpu7
+[P15] OK   G010_s610 gpu6 636s (23/48)
+[P15] launch G013_s609 on gpu6
+[P15] OK   G011_s610 gpu4 633s (24/48)
+[P15] launch G013_s610 on gpu4
+[P15] OK   G012_s609 gpu5 612s (25/48)
+[P15] launch G014_s609 on gpu5
+[P15] OK   G012_s610 gpu7 623s (26/48)
+[P15] launch G014_s610 on gpu7
+[P15] OK   G013_s609 gpu6 633s (27/48)
+[P15] launch G015_s609 on gpu6
+[P15] OK   G013_s610 gpu4 612s (28/48)
+[P15] launch G015_s610 on gpu4
+[P15] OK   G014_s609 gpu5 633s (29/48)
+[P15] launch G016_s609 on gpu5
+[P15] OK   G014_s610 gpu7 622s (30/48)
+[P15] launch G016_s610 on gpu7
+[P15] OK   G015_s609 gpu6 633s (31/48)
+[P15] launch G017_s609 on gpu6
+[P15] OK   G015_s610 gpu4 633s (32/48)
+[P15] launch G017_s610 on gpu4
+[P15] OK   G016_s609 gpu5 653s (33/48)
+[P15] OK   G016_s610 gpu7 630s (34/48)
+[P15] launch G018_s609 on gpu5
+[P15] launch G018_s610 on gpu7
+[P15] OK   G017_s610 gpu4 589s (35/48)
+[P15] launch G019_s609 on gpu4
+[P15] OK   G017_s609 gpu6 625s (36/48)
+[P15] launch G019_s610 on gpu6
+[P15] OK   G018_s609 gpu5 623s (37/48)
+[P15] launch G020_s609 on gpu5
+[P15] OK   G019_s609 gpu4 620s (38/48)
+[P15] launch G020_s610 on gpu4
+[P15] OK   G019_s610 gpu6 630s (39/48)
+[P15] launch G021_s609 on gpu6
+[P15] OK   G018_s610 gpu7 700s (40/48)
+[P15] launch G021_s610 on gpu7
+[P15] OK   G020_s609 gpu5 643s (41/48)
+[P15] OK   G020_s610 gpu4 630s (42/48)
+[P15] launch G022_s609 on gpu4
+[P15] launch G022_s610 on gpu5
+[P15] OK   G021_s610 gpu7 640s (43/48)
+[P15] launch G023_s609 on gpu7
+[P15] OK   G021_s609 gpu6 697s (44/48)
+[P15] launch G023_s610 on gpu6
+[P15] OK   G022_s609 gpu4 503s (45/48)
+[P15] OK   G022_s610 gpu5 620s (46/48)
+[P15] OK   G023_s609 gpu7 626s (47/48)
+[P15] OK   G023_s610 gpu6 683s (48/48)
+[P15] COMPLETE: 48/48 ok, 0 FAILED, wall=127.6 min, gpu-h=8.35
+=== PHASE 5 TRAINING CHAIN done 2026-07-16T19:10:55+00:00 ===

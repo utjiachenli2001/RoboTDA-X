@@ -1,0 +1,502 @@
+{
+ "C1": {
+  "n_insiders": 15,
+  "n_outsiders": 120,
+  "intrusion_above_median": 0.19166666666666668,
+  "intrusion_above_p75": 0.03333333333333333,
+  "insider_advantage_auc": 0.705,
+  "any_outsider_above_p75": true,
+  "top15_outsiders": 9,
+  "top15_outsider_clusters": {
+   "C5": 3,
+   "C6": 2,
+   "C7": 2,
+   "C2": 1,
+   "C9": 1
+  },
+  "top15_demo_ids": [
+   "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_0",
+   "libero_goal/put_the_wine_bottle_on_the_rack/demo_0",
+   "libero_90/KITCHEN_SCENE2_stack_the_middle_black_bowl_on_the_back_black_bowl/demo_1",
+   "libero_goal/put_the_bowl_on_top_of_the_cabinet/demo_0",
+   "libero_spatial/pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate/demo_0",
+   "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_0",
+   "libero_90/KITCHEN_SCENE10_put_the_butter_at_the_back_in_the_top_drawer_of_the_cabinet_and_close_it/demo_1",
+   "libero_90/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet/demo_0",
+   "libero_90/KITCHEN_SCENE2_put_the_black_bowl_at_the_back_on_the_plate/demo_1",
+   "libero_90/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet/demo_1",
+   "libero_90/KITCHEN_SCENE1_open_the_bottom_drawer_of_the_cabinet/demo_1",
+   "libero_90/KITCHEN_SCENE2_put_the_middle_black_bowl_on_the_plate/demo_0",
+   "libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it/demo_1",
+   "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1",
+   "libero_goal/put_the_cream_cheese_in_the_bowl/demo_0"
+  ],
+  "intrusion_above_median_jackknife_se": 0.125,
+  "intrusion_above_median_jackknife_range": [
+   0.09166666666666666,
+   0.26666666666666666
+  ],
+  "intrusion_above_p75_jackknife_se": 0.05857687256929991,
+  "intrusion_above_p75_jackknife_range": [
+   0.016666666666666666,
+   0.08333333333333333
+  ],
+  "insider_advantage_auc_jackknife_se": 0.09329701674401668,
+  "insider_advantage_auc_jackknife_range": [
+   0.6094444444444445,
+   0.7355555555555555
+  ],
+  "top15_outsiders_jackknife_se": 2.7658633371878665,
+  "top15_outsiders_jackknife_range": [
+   8.0,
+   11.0
+  ],
+  "attributor_used": "TRAK",
+  "n_ensemble_members": 10
+ },
+ "C2": {
+  "n_insiders": 15,
+  "n_outsiders": 120,
+  "intrusion_above_median": 0.55,
+  "intrusion_above_p75": 0.10833333333333334,
+  "insider_advantage_auc": 0.4577777777777778,
+  "any_outsider_above_p75": true,
+  "top15_outsiders": 11,
+  "top15_outsider_clusters": {
+   "C5": 5,
+   "C9": 1,
+   "C6": 1,
+   "C1": 1,
+   "C8": 1,
+   "C7": 1,
+   "C4": 1
+  },
+  "top15_demo_ids": [
+   "libero_90/KITCHEN_SCENE2_put_the_middle_black_bowl_on_top_of_the_cabinet/demo_0",
+   "libero_90/KITCHEN_SCENE2_put_the_middle_black_bowl_on_top_of_the_cabinet/demo_1",
+   "libero_spatial/pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate/demo_1",
+   "libero_90/KITCHEN_SCENE1_put_the_black_bowl_on_top_of_the_cabinet/demo_1",
+   "libero_90/KITCHEN_SCENE2_put_the_black_bowl_at_the_front_on_the_plate/demo_1",
+   "libero_spatial/pick_up_the_black_bowl_on_the_ramekin_and_place_it_on_the_plate/demo_0",
+   "libero_90/KITCHEN_SCENE10_put_the_butter_at_the_front_in_the_top_drawer_of_the_cabinet_and_close_it/demo_1",
+   "libero_goal/put_the_bowl_on_the_plate/demo_0",
+   "libero_spatial/pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate/demo_1",
+   "libero_90/KITCHEN_SCENE9_put_the_frying_pan_on_the_cabinet_shelf/demo_1",
+   "libero_90/KITCHEN_SCENE2_put_the_middle_black_bowl_on_the_plate/demo_1",
+   "libero_90/KITCHEN_SCENE4_put_the_wine_bottle_on_the_wine_rack/demo_1",
+   "libero_spatial/pick_up_the_black_bowl_on_the_wooden_cabinet_and_place_it_on_the_plate/demo_0",
+   "libero_90/KITCHEN_SCENE2_put_the_black_bowl_at_the_front_on_the_plate/demo_0",
+   "libero_10/KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it/demo_0"
+  ],
+  "intrusion_above_median_jackknife_se": 0.31588170254068215,
+  "intrusion_above_median_jackknife_range": [
+   0.5083333333333333,
+   0.85
+  ],
+  "intrusion_above_p75_jackknife_se": 0.0998749217771909,
+  "intrusion_above_p75_jackknife_range": [
+   0.06666666666666667,
+   0.19166666666666668
+  ],
+  "insider_advantage_auc_jackknife_se": 0.02390316111126544,
+  "insider_advantage_auc_jackknife_range": [
+   0.43777777777777777,
+   0.46555555555555556
+  ],
+  "top15_outsiders_jackknife_se": 1.8,
+  "top15_outsiders_jackknife_range": [
+   10.0,
+   12.0
+  ],
+  "attributor_used": "TRAK",
+  "n_ensemble_members": 10
+ },
+ "C3": {
+  "n_insiders": 15,
+  "n_outsiders": 120,
+  "intrusion_above_median": 0.03333333333333333,
+  "intrusion_above_p75": 0.008333333333333333,
+  "insider_advantage_auc": 0.5883333333333334,
+  "any_outsider_above_p75": true,
+  "top15_outsiders": 7,
+  "top15_outsider_clusters": {
+   "C8": 2,
+   "C2": 1,
+   "C1": 1,
+   "C4": 1,
+   "C7": 1,
+   "C5": 1
+  },
+  "top15_demo_ids": [
+   "libero_object/pick_up_the_chocolate_pudding_and_place_it_in_the_basket/demo_1",
+   "libero_object/pick_up_the_butter_and_place_it_in_the_basket/demo_0",
+   "libero_object/pick_up_the_cream_cheese_and_place_it_in_the_basket/demo_1",
+   "libero_object/pick_up_the_tomato_sauce_and_place_it_in_the_basket/demo_0",
+   "libero_spatial/pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate/demo_0",
+   "libero_object/pick_up_the_salad_dressing_and_place_it_in_the_basket/demo_0",
+   "libero_object/pick_up_the_orange_juice_and_place_it_in_the_basket/demo_0",
+   "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_1",
+   "libero_90/KITCHEN_SCENE9_put_the_frying_pan_on_top_of_the_cabinet/demo_0",
+   "libero_90/KITCHEN_SCENE9_put_the_frying_pan_on_the_cabinet_shelf/demo_0",
+   "libero_object/pick_up_the_cream_cheese_and_place_it_in_the_basket/demo_0",
+   "libero_object/pick_up_the_bbq_sauce_and_place_it_in_the_basket/demo_0",
+   "libero_10/LIVING_ROOM_SCENE1_put_both_the_alphabet_soup_and_the_cream_cheese_box_in_the_basket/demo_0",
+   "libero_90/KITCHEN_SCENE4_put_the_wine_bottle_on_the_wine_rack/demo_0",
+   "libero_90/KITCHEN_SCENE2_put_the_black_bowl_at_the_back_on_the_plate/demo_1"
+  ],
+  "intrusion_above_median_jackknife_se": 0.07483314773547882,
+  "intrusion_above_median_jackknife_range": [
+   0.03333333333333333,
+   0.125
+  ],
+  "intrusion_above_p75_jackknife_se": 0.01224744871391589,
+  "intrusion_above_p75_jackknife_range": [
+   0.0,
+   0.008333333333333333
+  ],
+  "insider_advantage_auc_jackknife_se": 0.03417113791881483,
+  "insider_advantage_auc_jackknife_range": [
+   0.5772222222222222,
+   0.6211111111111111
+  ],
+  "top15_outsiders_jackknife_se": 1.2,
+  "top15_outsiders_jackknife_range": [
+   7.0,
+   8.0
+  ],
+  "attributor_used": "TRAK",
+  "n_ensemble_members": 10
+ },
+ "C4": {
+  "n_insiders": 15,
+  "n_outsiders": 120,
+  "intrusion_above_median": 0.15833333333333333,
+  "intrusion_above_p75": 0.03333333333333333,
+  "insider_advantage_auc": 0.7016666666666667,
+  "any_outsider_above_p75": true,
+  "top15_outsiders": 9,
+  "top15_outsider_clusters": {
+   "C3": 3,
+   "C7": 3,
+   "C8": 2,
+   "C6": 1
+  },
+  "top15_demo_ids": [
+   "libero_object/pick_up_the_cream_cheese_and_place_it_in_the_basket/demo_0",
+   "libero_10/LIVING_ROOM_SCENE2_put_both_the_cream_cheese_box_and_the_butter_in_the_basket/demo_0",
+   "libero_object/pick_up_the_bbq_sauce_and_place_it_in_the_basket/demo_0",
+   "libero_10/LIVING_ROOM_SCENE1_put_both_the_alphabet_soup_and_the_cream_cheese_box_in_the_basket/demo_0",
+   "libero_10/KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it/demo_0",
+   "libero_10/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it/demo_0",
+   "libero_90/KITCHEN_SCENE9_turn_on_the_stove_and_put_the_frying_pan_on_it/demo_0",
+   "libero_90/KITCHEN_SCENE9_turn_on_the_stove/demo_0",
+   "libero_90/KITCHEN_SCENE4_close_the_bottom_drawer_of_the_cabinet_and_open_the_top_drawer/demo_0",
+   "libero_object/pick_up_the_orange_juice_and_place_it_in_the_basket/demo_0",
+   "libero_10/KITCHEN_SCENE8_put_both_moka_pots_on_the_stove/demo_1",
+   "libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it/demo_0",
+   "libero_10/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it/demo_1",
+   "libero_90/KITCHEN_SCENE4_close_the_bottom_drawer_of_the_cabinet_and_open_the_top_drawer/demo_2",
+   "libero_90/KITCHEN_SCENE4_put_the_black_bowl_on_top_of_the_cabinet/demo_0"
+  ],
+  "intrusion_above_median_jackknife_se": 0.18479718612576332,
+  "intrusion_above_median_jackknife_range": [
+   0.13333333333333333,
+   0.35833333333333334
+  ],
+  "intrusion_above_p75_jackknife_se": 0.025,
+  "intrusion_above_p75_jackknife_range": [
+   0.025,
+   0.058333333333333334
+  ],
+  "insider_advantage_auc_jackknife_se": 0.08112473249399481,
+  "insider_advantage_auc_jackknife_range": [
+   0.6144444444444445,
+   0.715
+  ],
+  "top15_outsiders_jackknife_se": 1.469693845669907,
+  "top15_outsiders_jackknife_range": [
+   9.0,
+   10.0
+  ],
+  "attributor_used": "IF",
+  "n_ensemble_members": 10
+ },
+ "C5": {
+  "n_insiders": 15,
+  "n_outsiders": 120,
+  "intrusion_above_median": 0.1,
+  "intrusion_above_p75": 0.03333333333333333,
+  "insider_advantage_auc": 0.6538888888888889,
+  "any_outsider_above_p75": true,
+  "top15_outsiders": 9,
+  "top15_outsider_clusters": {
+   "C6": 3,
+   "C1": 2,
+   "C7": 1,
+   "C8": 1,
+   "C4": 1,
+   "C2": 1
+  },
+  "top15_demo_ids": [
+   "libero_90/KITCHEN_SCENE2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle/demo_1",
+   "libero_90/KITCHEN_SCENE2_stack_the_middle_black_bowl_on_the_back_black_bowl/demo_1",
+   "libero_90/KITCHEN_SCENE4_put_the_wine_bottle_on_the_wine_rack/demo_0",
+   "libero_90/KITCHEN_SCENE2_stack_the_middle_black_bowl_on_the_back_black_bowl/demo_0",
+   "libero_90/KITCHEN_SCENE10_put_the_butter_at_the_front_in_the_top_drawer_of_the_cabinet_and_close_it/demo_1",
+   "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1",
+   "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_1",
+   "libero_90/KITCHEN_SCENE2_open_the_top_drawer_of_the_cabinet/demo_1",
+   "libero_90/KITCHEN_SCENE2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle/demo_0",
+   "libero_90/KITCHEN_SCENE9_turn_on_the_stove/demo_0",
+   "libero_10/STUDY_SCENE1_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy/demo_0",
+   "libero_90/KITCHEN_SCENE10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet/demo_2",
+   "libero_90/KITCHEN_SCENE2_put_the_black_bowl_at_the_front_on_the_plate/demo_0",
+   "libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it/demo_0",
+   "libero_spatial/pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate/demo_0"
+  ],
+  "intrusion_above_median_jackknife_se": 0.08066132902450837,
+  "intrusion_above_median_jackknife_range": [
+   0.09166666666666666,
+   0.16666666666666666
+  ],
+  "intrusion_above_p75_jackknife_se": 0.03354101966249685,
+  "intrusion_above_p75_jackknife_range": [
+   0.008333333333333333,
+   0.058333333333333334
+  ],
+  "insider_advantage_auc_jackknife_se": 0.15573802789727803,
+  "insider_advantage_auc_jackknife_range": [
+   0.6172222222222222,
+   0.8077777777777778
+  ],
+  "top15_outsiders_jackknife_se": 2.0124611797498106,
+  "top15_outsiders_jackknife_range": [
+   9.0,
+   11.0
+  ],
+  "attributor_used": "TRAK",
+  "n_ensemble_members": 10
+ },
+ "C6": {
+  "n_insiders": 15,
+  "n_outsiders": 120,
+  "intrusion_above_median": 0.5666666666666667,
+  "intrusion_above_p75": 0.15833333333333333,
+  "insider_advantage_auc": 0.5088888888888888,
+  "any_outsider_above_p75": true,
+  "top15_outsiders": 12,
+  "top15_outsider_clusters": {
+   "C7": 3,
+   "C9": 2,
+   "C5": 2,
+   "C4": 2,
+   "C8": 1,
+   "C1": 1,
+   "C2": 1
+  },
+  "top15_demo_ids": [
+   "libero_90/KITCHEN_SCENE9_put_the_frying_pan_on_the_cabinet_shelf/demo_0",
+   "libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it/demo_1",
+   "libero_90/KITCHEN_SCENE10_put_the_chocolate_pudding_in_the_top_drawer_of_the_cabinet_and_close_it/demo_1",
+   "libero_90/KITCHEN_SCENE10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet/demo_1",
+   "libero_90/KITCHEN_SCENE1_open_the_bottom_drawer_of_the_cabinet/demo_1",
+   "libero_90/KITCHEN_SCENE4_put_the_wine_bottle_in_the_bottom_drawer_of_the_cabinet/demo_1",
+   "libero_90/KITCHEN_SCENE2_put_the_middle_black_bowl_on_the_plate/demo_1",
+   "libero_90/KITCHEN_SCENE1_put_the_black_bowl_on_top_of_the_cabinet/demo_1",
+   "libero_90/KITCHEN_SCENE2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle/demo_1",
+   "libero_goal/put_the_bowl_on_the_plate/demo_1",
+   "libero_10/LIVING_ROOM_SCENE6_put_the_white_mug_on_the_plate_and_put_the_chocolate_pudding_to_the_right_of_the_plate/demo_0",
+   "libero_90/KITCHEN_SCENE4_put_the_black_bowl_on_top_of_the_cabinet/demo_0",
+   "libero_spatial/pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate/demo_1",
+   "libero_10/KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it/demo_0",
+   "libero_90/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet/demo_1"
+  ],
+  "intrusion_above_median_jackknife_se": 0.27221315177632394,
+  "intrusion_above_median_jackknife_range": [
+   0.3416666666666667,
+   0.725
+  ],
+  "intrusion_above_p75_jackknife_se": 0.11575836902790225,
+  "intrusion_above_p75_jackknife_range": [
+   0.08333333333333333,
+   0.23333333333333334
+  ],
+  "insider_advantage_auc_jackknife_se": 0.11496243347768487,
+  "insider_advantage_auc_jackknife_range": [
+   0.4222222222222222,
+   0.5911111111111111
+  ],
+  "top15_outsiders_jackknife_se": 2.244994432064365,
+  "top15_outsiders_jackknife_range": [
+   10.0,
+   13.0
+  ],
+  "attributor_used": "TRAK",
+  "n_ensemble_members": 10
+ },
+ "C7": {
+  "n_insiders": 15,
+  "n_outsiders": 120,
+  "intrusion_above_median": 0.35833333333333334,
+  "intrusion_above_p75": 0.125,
+  "insider_advantage_auc": 0.7211111111111111,
+  "any_outsider_above_p75": true,
+  "top15_outsiders": 12,
+  "top15_outsider_clusters": {
+   "C4": 7,
+   "C8": 2,
+   "C9": 1,
+   "C6": 1,
+   "C1": 1
+  },
+  "top15_demo_ids": [
+   "libero_10/KITCHEN_SCENE8_put_both_moka_pots_on_the_stove/demo_0",
+   "libero_10/KITCHEN_SCENE8_put_both_moka_pots_on_the_stove/demo_1",
+   "libero_10/KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it/demo_0",
+   "libero_10/KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it/demo_1",
+   "libero_10/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it/demo_0",
+   "libero_90/KITCHEN_SCENE4_put_the_wine_bottle_on_the_wine_rack/demo_0",
+   "libero_10/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it/demo_1",
+   "libero_90/KITCHEN_SCENE4_close_the_bottom_drawer_of_the_cabinet_and_open_the_top_drawer/demo_2",
+   "libero_10/KITCHEN_SCENE6_put_the_yellow_and_white_mug_in_the_microwave_and_close_it/demo_0",
+   "libero_90/KITCHEN_SCENE4_close_the_bottom_drawer_of_the_cabinet_and_open_the_top_drawer/demo_1",
+   "libero_90/KITCHEN_SCENE9_put_the_frying_pan_on_top_of_the_cabinet/demo_0",
+   "libero_90/KITCHEN_SCENE1_open_the_top_drawer_of_the_cabinet/demo_0",
+   "libero_90/KITCHEN_SCENE9_turn_on_the_stove_and_put_the_frying_pan_on_it/demo_0",
+   "libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it/demo_2",
+   "libero_goal/put_the_wine_bottle_on_the_rack/demo_0"
+  ],
+  "intrusion_above_median_jackknife_se": 0.07941190087134294,
+  "intrusion_above_median_jackknife_range": [
+   0.2916666666666667,
+   0.375
+  ],
+  "intrusion_above_p75_jackknife_se": 0.03674234614174766,
+  "intrusion_above_p75_jackknife_range": [
+   0.10833333333333334,
+   0.15
+  ],
+  "insider_advantage_auc_jackknife_se": 0.01922166023584386,
+  "insider_advantage_auc_jackknife_range": [
+   0.7083333333333334,
+   0.73
+  ],
+  "top15_outsiders_jackknife_se": 1.5,
+  "top15_outsiders_jackknife_range": [
+   11.0,
+   12.0
+  ],
+  "attributor_used": "TracIn",
+  "n_ensemble_members": 10
+ },
+ "C8": {
+  "n_insiders": 15,
+  "n_outsiders": 120,
+  "intrusion_above_median": 0.7333333333333333,
+  "intrusion_above_p75": 0.075,
+  "insider_advantage_auc": 0.4872222222222222,
+  "any_outsider_above_p75": true,
+  "top15_outsiders": 11,
+  "top15_outsider_clusters": {
+   "C9": 2,
+   "C6": 2,
+   "C4": 2,
+   "C7": 2,
+   "C5": 2,
+   "C1": 1
+  },
+  "top15_demo_ids": [
+   "libero_90/KITCHEN_SCENE9_put_the_frying_pan_on_top_of_the_cabinet/demo_2",
+   "libero_90/KITCHEN_SCENE9_put_the_frying_pan_under_the_cabinet_shelf/demo_0",
+   "libero_90/KITCHEN_SCENE1_put_the_black_bowl_on_top_of_the_cabinet/demo_1",
+   "libero_90/KITCHEN_SCENE9_put_the_frying_pan_on_top_of_the_cabinet/demo_1",
+   "libero_90/KITCHEN_SCENE10_put_the_butter_at_the_front_in_the_top_drawer_of_the_cabinet_and_close_it/demo_1",
+   "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_1",
+   "libero_90/KITCHEN_SCENE9_turn_on_the_stove/demo_0",
+   "libero_90/KITCHEN_SCENE1_open_the_top_drawer_of_the_cabinet/demo_0",
+   "libero_10/STUDY_SCENE1_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy/demo_0",
+   "libero_90/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet/demo_0",
+   "libero_10/KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it/demo_1",
+   "libero_90/KITCHEN_SCENE2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle/demo_0",
+   "libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet/demo_0",
+   "libero_90/KITCHEN_SCENE4_close_the_bottom_drawer_of_the_cabinet/demo_2",
+   "libero_90/KITCHEN_SCENE2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle/demo_1"
+  ],
+  "intrusion_above_median_jackknife_se": 0.456515333805996,
+  "intrusion_above_median_jackknife_range": [
+   0.30833333333333335,
+   0.7333333333333333
+  ],
+  "intrusion_above_p75_jackknife_se": 0.09646890690787367,
+  "intrusion_above_p75_jackknife_range": [
+   0.058333333333333334,
+   0.15
+  ],
+  "insider_advantage_auc_jackknife_se": 0.11195001364696458,
+  "insider_advantage_auc_jackknife_range": [
+   0.45055555555555554,
+   0.5944444444444444
+  ],
+  "top15_outsiders_jackknife_se": 1.2000000000000002,
+  "top15_outsiders_jackknife_range": [
+   11.0,
+   12.0
+  ],
+  "attributor_used": "TRAK",
+  "n_ensemble_members": 10
+ },
+ "C9": {
+  "n_insiders": 15,
+  "n_outsiders": 120,
+  "intrusion_above_median": 0.38333333333333336,
+  "intrusion_above_p75": 0.19166666666666668,
+  "insider_advantage_auc": 0.5844444444444444,
+  "any_outsider_above_p75": true,
+  "top15_outsiders": 15,
+  "top15_outsider_clusters": {
+   "C4": 10,
+   "C8": 3,
+   "C7": 1,
+   "C6": 1
+  },
+  "top15_demo_ids": [
+   "libero_10/KITCHEN_SCENE8_put_both_moka_pots_on_the_stove/demo_0",
+   "libero_10/KITCHEN_SCENE8_put_both_moka_pots_on_the_stove/demo_1",
+   "libero_10/LIVING_ROOM_SCENE5_put_the_white_mug_on_the_left_plate_and_put_the_yellow_and_white_mug_on_the_right_plate/demo_0",
+   "libero_10/STUDY_SCENE1_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy/demo_0",
+   "libero_90/KITCHEN_SCENE4_put_the_wine_bottle_on_the_wine_rack/demo_0",
+   "libero_90/KITCHEN_SCENE9_put_the_frying_pan_on_the_cabinet_shelf/demo_1",
+   "libero_90/KITCHEN_SCENE9_turn_on_the_stove_and_put_the_frying_pan_on_it/demo_0",
+   "libero_90/KITCHEN_SCENE9_turn_on_the_stove_and_put_the_frying_pan_on_it/demo_1",
+   "libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it/demo_2",
+   "libero_10/KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it/demo_0",
+   "libero_10/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it/demo_0",
+   "libero_10/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it/demo_1",
+   "libero_10/KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it/demo_1",
+   "libero_10/LIVING_ROOM_SCENE1_put_both_the_alphabet_soup_and_the_cream_cheese_box_in_the_basket/demo_1",
+   "libero_10/LIVING_ROOM_SCENE6_put_the_white_mug_on_the_plate_and_put_the_chocolate_pudding_to_the_right_of_the_plate/demo_0"
+  ],
+  "intrusion_above_median_jackknife_se": 0.11316470297756276,
+  "intrusion_above_median_jackknife_range": [
+   0.2916666666666667,
+   0.45
+  ],
+  "intrusion_above_p75_jackknife_se": 0.06712860791048778,
+  "intrusion_above_p75_jackknife_range": [
+   0.15,
+   0.23333333333333334
+  ],
+  "insider_advantage_auc_jackknife_se": 0.060573417345308224,
+  "insider_advantage_auc_jackknife_range": [
+   0.5422222222222223,
+   0.625
+  ],
+  "top15_outsiders_jackknife_se": 0.9,
+  "top15_outsiders_jackknife_range": [
+   14.0,
+   15.0
+  ],
+  "attributor_used": "TracIn",
+  "n_ensemble_members": 10
+ }
+}

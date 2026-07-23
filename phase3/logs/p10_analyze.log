@@ -1,0 +1,19 @@
+[P10] 864 rows, 24 masks, 4 seeds, 96 runs
+
+====================================================================================================
+P10 -- DIFFUSION DEMO-GRAIN LDS (primary: held-out L2 on the executed DDIM action)
+====================================================================================================
+target   ceil(S1)  ceil(S2)  ceil4(SB)     bar     best      rho  ratio      p1  verdict
+C1          0.240     0.020      0.040   0.020   TracIn   -0.055  -1.38  0.6003  FOCAL fail
+C2          0.329     0.092      0.168   0.084     TRAK   -0.104  -0.62  0.6862        -
+C3          0.183    -0.007     -0.014  -0.007     TRAK   +0.004    nan  0.4920        -
+C4          0.304     0.251      0.401   0.201   TracIn   -0.012  -0.03  0.5225        -
+C5          0.208     0.042      0.081   0.041   TracIn   -0.162  -1.99  0.7749  FOCAL fail
+C6          0.274    -0.060     -0.127  -0.064   TracIn   -0.080    nan  0.6449        -
+C7          0.245     0.058      0.110   0.055   TracIn   +0.101   0.92  0.3195        -
+C8          0.208    -0.093     -0.206  -0.103   TracIn   -0.103    nan  0.6834        -
+C9          0.155    -0.149     -0.350  -0.175   TracIn   -0.081    nan  0.6464        -
+====================================================================================================
+PREREGISTERED VERDICT: FAIL
+FAIL: demo-grain attribution is unfaithful for the diffusion policy too. The null GENERALIZES ACROSS POLICY CLASS -- it is not an artifact of the BC-Transformer's GMM head or of its training objective.
+====================================================================================================

@@ -1,0 +1,15 @@
+[P8b] masks=12 ckptavg_evals=36 actens_evals=24
+
+[P8b] neg_plain_loss
+  baseline S=1 (single seed)          : +0.593
+  arm (i)  S=1 (checkpoint-averaged)  : +0.596   gain +0.003   [FREE]
+  baseline S=3 (outcome mean)         : +0.819
+  arm (ii) S=3 (action ensemble)      : +0.799   gain -0.020   [same 3-seed cost]
+
+[P8b] logit_success
+  baseline S=1 (single seed)          : +0.336
+  arm (i)  S=1 (checkpoint-averaged)  : +0.238   gain -0.099   [FREE]
+  baseline S=3 (outcome mean)         : +0.495
+  arm (ii) S=3 (action ensemble)      : +0.497   gain +0.002   [same 3-seed cost]
+
+[P8b] -> phase3/results/p8b_variance_reduction.json

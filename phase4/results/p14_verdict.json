@@ -1,0 +1,250 @@
+{
+ "stage": "P14",
+ "preregistration_sha256": "fca37f54804c0173f5a9029e99b220de3db2a97ca2af7b3cf3c1c1a5372ecb80",
+ "fresh_masks": {
+  "K": 16,
+  "mask_seed": 1104,
+  "coincidence_with_stage_G": 0,
+  "manifest": "/mnt/sdb/ljc/RoboTDA-X/phase4/results/p14_mask_manifest.json"
+ },
+ "seeds": [
+  411,
+  412,
+  413,
+  414
+ ],
+ "S": 4,
+ "n_retrains": 64,
+ "n_missing": 0,
+ "probes": "restricted to C2 and C9 clusters (6 tasks x 10 rollouts = 60 episodes/model)",
+ "PRIMARY_OUTCOME": "neg_plain_loss",
+ "aggregator": "seed MEAN",
+ "PRIMARY_ESTIMATOR": "the P11 CHAMPION, frozen identically: TracIn, E=20, per-member unit-L2 normalization",
+ "SECONDARY_ESTIMATOR": "per cell, the P7-qualifying attributor (frozen from phase3/results/p7_grain_ladder.csv): C2@g1->TracIn, C2@g3->IF, C9@g1->TracIn, C9@g5->TracIn",
+ "grouping_rule": "P7 PRIMARY rule (a): random within cluster, default_rng(707), blocks of g",
+ "criterion_primary": "rho >= 0.5 * measured 4-seed SB ceiling AND p < 0.0125 (Bonferroni-4)",
+ "criterion_secondary": "same, at p < 0.00625 (Bonferroni-8)",
+ "ceilings": {
+  "C2": {
+   "target": "C2",
+   "n_masks": 16,
+   "n_seeds": 4,
+   "ceiling_2v2_splithalf_uncorrected": 0.7196078431372549,
+   "ceiling_4seed_SB": 0.8369441277080957,
+   "n_splits": 3,
+   "r1_mean_pairwise": 0.6235294117647059,
+   "predicted_4seed_SB_from_r1": 0.8688524590163934,
+   "bar_half_ceiling": 0.41847206385404784,
+   "per_split": [
+    0.7911764705882354,
+    0.5941176470588235,
+    0.7735294117647058
+   ]
+  },
+  "C9": {
+   "target": "C9",
+   "n_masks": 16,
+   "n_seeds": 4,
+   "ceiling_2v2_splithalf_uncorrected": 0.7411764705882353,
+   "ceiling_4seed_SB": 0.8513513513513514,
+   "n_splits": 3,
+   "r1_mean_pairwise": 0.6749999999999999,
+   "predicted_4seed_SB_from_r1": 0.8925619834710743,
+   "bar_half_ceiling": 0.4256756756756757,
+   "per_split": [
+    0.8088235294117646,
+    0.7352941176470589,
+    0.6794117647058824
+   ]
+  }
+ },
+ "POWER_LIMIT": "POWER LIMIT (preregistered, stated up front): n=16 masks; critical rho ~0.55 (primary) / ~0.59 (secondary) while the bar is ~0.45, so SIGNIFICANCE binds, not the ratio. This test is CONSERVATIVE: a FAIL is WEAK evidence, a PASS is STRONG.",
+ "critical_rho_primary": 0.5570231496592474,
+ "critical_rho_secondary": 0.6078151801899415,
+ "cells": {
+  "C2_g1": {
+   "target": "C2",
+   "grain": 1,
+   "ceiling_4seed_SB": 0.8369441277080957,
+   "bar": 0.41847206385404784,
+   "n_masks": 16,
+   "arms": {
+    "PRIMARY_champion": {
+     "arm": "PRIMARY_champion",
+     "attributor": "TracIn",
+     "alpha_bonferroni": 0.0125,
+     "rho": 0.2411764705882353,
+     "n_masks": 16,
+     "p_onesided": 0.18410330402131714,
+     "ci95": [
+      -0.26080802835865513,
+      0.6488579424307034
+     ],
+     "ratio_to_ceiling": 0.2881631671742267,
+     "ratio_exact": "8689298104573663/30154090093408836",
+     "meets_half_ceiling_EXACT": false,
+     "p_lt_alpha": false,
+     "PASS": false,
+     "critical_rho_at_this_alpha": 0.5570231496592474
+    },
+    "SECONDARY_p7_qualifier": {
+     "arm": "SECONDARY_p7_qualifier",
+     "attributor": "TracIn",
+     "alpha_bonferroni": 0.00625,
+     "rho": 0.2411764705882353,
+     "n_masks": 16,
+     "p_onesided": 0.18410330402131714,
+     "ci95": [
+      -0.26080802835865513,
+      0.6488579424307034
+     ],
+     "ratio_to_ceiling": 0.2881631671742267,
+     "ratio_exact": "8689298104573663/30154090093408836",
+     "meets_half_ceiling_EXACT": false,
+     "p_lt_alpha": false,
+     "PASS": false,
+     "critical_rho_at_this_alpha": 0.6078151801899415
+    }
+   }
+  },
+  "C2_g3": {
+   "target": "C2",
+   "grain": 3,
+   "ceiling_4seed_SB": 0.8369441277080957,
+   "bar": 0.41847206385404784,
+   "n_masks": 16,
+   "arms": {
+    "PRIMARY_champion": {
+     "arm": "PRIMARY_champion",
+     "attributor": "TracIn",
+     "alpha_bonferroni": 0.0125,
+     "rho": -0.19117647058823528,
+     "n_masks": 16,
+     "p_onesided": 0.7609179935914858,
+     "ci95": [
+      -0.6914521346272088,
+      0.4264802896578884
+     ],
+     "ratio_to_ceiling": -0.2284220227600577,
+     "ratio_exact": "-573988187802122/2512840841117403",
+     "meets_half_ceiling_EXACT": false,
+     "p_lt_alpha": false,
+     "PASS": false,
+     "critical_rho_at_this_alpha": 0.5570231496592474
+    },
+    "SECONDARY_p7_qualifier": {
+     "arm": "SECONDARY_p7_qualifier",
+     "attributor": "IF",
+     "alpha_bonferroni": 0.00625,
+     "rho": 0.22352941176470587,
+     "n_masks": 16,
+     "p_onesided": 0.20264917364137963,
+     "ci95": [
+      -0.3007559553556555,
+      0.6756336082639333
+     ],
+     "ratio_to_ceiling": 0.26707805738099055,
+     "ratio_exact": "2013373951059751/7538522523352209",
+     "meets_half_ceiling_EXACT": false,
+     "p_lt_alpha": false,
+     "PASS": false,
+     "critical_rho_at_this_alpha": 0.6078151801899415
+    }
+   }
+  },
+  "C9_g1": {
+   "target": "C9",
+   "grain": 1,
+   "ceiling_4seed_SB": 0.8513513513513514,
+   "bar": 0.4256756756756757,
+   "n_masks": 16,
+   "arms": {
+    "PRIMARY_champion": {
+     "arm": "PRIMARY_champion",
+     "attributor": "TracIn",
+     "alpha_bonferroni": 0.0125,
+     "rho": 0.0058823529411764705,
+     "n_masks": 16,
+     "p_onesided": 0.49137525220956757,
+     "ci95": [
+      -0.5356238459509365,
+      0.5780918249521112
+     ],
+     "ratio_to_ceiling": 0.006909430438842202,
+     "ratio_exact": "847736400446211/122692660118634064",
+     "meets_half_ceiling_EXACT": false,
+     "p_lt_alpha": false,
+     "PASS": false,
+     "critical_rho_at_this_alpha": 0.5570231496592474
+    },
+    "SECONDARY_p7_qualifier": {
+     "arm": "SECONDARY_p7_qualifier",
+     "attributor": "TracIn",
+     "alpha_bonferroni": 0.00625,
+     "rho": 0.0058823529411764705,
+     "n_masks": 16,
+     "p_onesided": 0.49137525220956757,
+     "ci95": [
+      -0.5356238459509365,
+      0.5780918249521112
+     ],
+     "ratio_to_ceiling": 0.006909430438842202,
+     "ratio_exact": "847736400446211/122692660118634064",
+     "meets_half_ceiling_EXACT": false,
+     "p_lt_alpha": false,
+     "PASS": false,
+     "critical_rho_at_this_alpha": 0.6078151801899415
+    }
+   }
+  },
+  "C9_g5": {
+   "target": "C9",
+   "grain": 5,
+   "ceiling_4seed_SB": 0.8513513513513514,
+   "bar": 0.4256756756756757,
+   "n_masks": 16,
+   "arms": {
+    "PRIMARY_champion": {
+     "arm": "PRIMARY_champion",
+     "attributor": "TracIn",
+     "alpha_bonferroni": 0.0125,
+     "rho": -0.16176470588235295,
+     "n_masks": 16,
+     "p_onesided": 0.7252584282981535,
+     "ci95": [
+      -0.6328419930423074,
+      0.38831205632123694
+     ],
+     "ratio_to_ceiling": -0.1900093370681606,
+     "ratio_exact": "-5828187753067701/30673165029658516",
+     "meets_half_ceiling_EXACT": false,
+     "p_lt_alpha": false,
+     "PASS": false,
+     "critical_rho_at_this_alpha": 0.5570231496592474
+    },
+    "SECONDARY_p7_qualifier": {
+     "arm": "SECONDARY_p7_qualifier",
+     "attributor": "TracIn",
+     "alpha_bonferroni": 0.00625,
+     "rho": -0.16176470588235295,
+     "n_masks": 16,
+     "p_onesided": 0.7252584282981535,
+     "ci95": [
+      -0.6328419930423074,
+      0.38831205632123694
+     ],
+     "ratio_to_ceiling": -0.1900093370681606,
+     "ratio_exact": "-5828187753067701/30673165029658516",
+     "meets_half_ceiling_EXACT": false,
+     "p_lt_alpha": false,
+     "PASS": false,
+     "critical_rho_at_this_alpha": 0.6078151801899415
+    }
+   }
+  }
+ },
+ "PRIMARY_cells_passing": [],
+ "SECONDARY_cells_passing": [],
+ "VERDICT": "FAIL",
+ "PREREGISTERED_INTERPRETATION": "the P7 heterogeneity is flagged as likely exploration noise."
+}

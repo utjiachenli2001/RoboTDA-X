@@ -1,0 +1,29 @@
+[P10a] 12 jobs (C1/C5 x target/cotrain x seeds [611, 612, 613])
+[P10b] 96 jobs (24 masks x seeds [601, 602, 603, 604])
+[P10ens] 5 jobs (135-demo, seeds [621, 622, 623, 624, 625])
+[P10a] 12 jobs, 0 already complete, 12 to run
+[P10a] launch C1_target_s611 on gpu4
+[P10a] launch C1_target_s612 on gpu5
+[P10a] launch C1_target_s613 on gpu6
+[P10a] launch C1_cotrain_s611 on gpu7
+[P10a] OK   C1_target_s612 gpu5 918s (1/12)
+[P10a] launch C1_cotrain_s612 on gpu5
+[P10a] OK   C1_target_s611 gpu4 955s (2/12)
+[P10a] OK   C1_target_s613 gpu6 949s (3/12)
+[P10a] launch C1_cotrain_s613 on gpu4
+[P10a] launch C5_target_s611 on gpu6
+[P10a] OK   C1_cotrain_s611 gpu7 992s (4/12)
+[P10a] launch C5_target_s612 on gpu7
+[P10a] OK   C1_cotrain_s613 gpu4 885s (5/12)
+[P10a] launch C5_target_s613 on gpu4
+[P10a] OK   C1_cotrain_s612 gpu5 1003s (6/12)
+[P10a] OK   C5_target_s611 gpu6 966s (7/12)
+[P10a] launch C5_cotrain_s611 on gpu5
+[P10a] launch C5_cotrain_s612 on gpu6
+[P10a] OK   C5_target_s612 gpu7 1000s (8/12)
+[P10a] launch C5_cotrain_s613 on gpu7
+[P10a] OK   C5_target_s613 gpu4 925s (9/12)
+[P10a] OK   C5_cotrain_s612 gpu6 947s (10/12)
+[P10a] OK   C5_cotrain_s611 gpu5 1030s (11/12)
+[P10a] OK   C5_cotrain_s613 gpu7 953s (12/12)
+[P10a] COMPLETE: 12/12 ok, 0 FAILED, wall=49.4 min, gpu-h=3.20

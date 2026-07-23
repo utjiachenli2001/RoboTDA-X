@@ -1,0 +1,164 @@
+{
+ "gate": "GATE 1 (Stage D)",
+ "criterion": "any attributor Spearman > 0.5",
+ "K": 12,
+ "n_masks_with_outcomes": 12,
+ "seeds": [
+  101,
+  102
+ ],
+ "loss_functional": "L2 on the executed action (the GMM-NLL functional was unusable; see policy.l2)",
+ "noise_ceiling": {
+  "neg_plain_loss": {
+   "seed_pair_rho_1seed": 0.39860139860139865,
+   "ceiling_2seed_SpearmanBrown": 0.57,
+   "n_masks": 12
+  },
+  "logit_success": {
+   "seed_pair_rho_1seed": -0.31784508630990754,
+   "ceiling_2seed_SpearmanBrown": -0.9318853531100025,
+   "n_masks": 12
+  }
+ },
+ "mask_outcomes": {
+  "D00": {
+   "neg_plain_loss": -1.0674382289832067,
+   "success": 0.11666666666666667,
+   "logit_success": -2.633560755389778,
+   "n_seeds": 2
+  },
+  "D01": {
+   "neg_plain_loss": -0.7887356806832551,
+   "success": 0.05,
+   "logit_success": -3.0031765798008667,
+   "n_seeds": 2
+  },
+  "D02": {
+   "neg_plain_loss": -1.077408565864087,
+   "success": 0.05,
+   "logit_success": -3.0031765798008667,
+   "n_seeds": 2
+  },
+  "D03": {
+   "neg_plain_loss": -1.0215576007527876,
+   "success": 0.05,
+   "logit_success": -3.1373810106209694,
+   "n_seeds": 2
+  },
+  "D04": {
+   "neg_plain_loss": -0.7366633117700223,
+   "success": 0.03333333333333333,
+   "logit_success": -3.367295829986474,
+   "n_seeds": 2
+  },
+  "D05": {
+   "neg_plain_loss": -0.9470482744365623,
+   "success": 0.11666666666666667,
+   "logit_success": -2.3767950955531822,
+   "n_seeds": 2
+  },
+  "D06": {
+   "neg_plain_loss": -1.1064364272083613,
+   "success": 0.08333333333333333,
+   "logit_success": -2.6195490034440327,
+   "n_seeds": 2
+  },
+  "D07": {
+   "neg_plain_loss": -0.7871923841799976,
+   "success": 0.0,
+   "logit_success": -4.07753744390572,
+   "n_seeds": 2
+  },
+  "D08": {
+   "neg_plain_loss": -1.0154824134104865,
+   "success": 0.0,
+   "logit_success": -4.07753744390572,
+   "n_seeds": 2
+  },
+  "D09": {
+   "neg_plain_loss": -0.9103105726306804,
+   "success": 0.11666666666666667,
+   "logit_success": -2.3767950955531822,
+   "n_seeds": 2
+  },
+  "D10": {
+   "neg_plain_loss": -0.8496667002608482,
+   "success": 0.1,
+   "logit_success": -2.7319159025128052,
+   "n_seeds": 2
+  },
+  "D11": {
+   "neg_plain_loss": -0.792529237526679,
+   "success": 0.1,
+   "logit_success": -2.7319159025128052,
+   "n_seeds": 2
+  }
+ },
+ "attributors": {
+  "IF": {
+   "neg_plain_loss": {
+    "rho": 0.2517482517482518,
+    "n": 12,
+    "p_onesided": 0.21495939251644205,
+    "ci95": [
+     -0.45012992831541215,
+     0.8321785302672736
+    ]
+   },
+   "logit_success": {
+    "rho": -0.32747290906985943,
+    "n": 12,
+    "p_onesided": 0.8506128450472907,
+    "ci95": [
+     -0.9072888968968865,
+     0.4168645531885379
+    ]
+   },
+   "PASS_primary": false
+  },
+  "TRAK": {
+   "neg_plain_loss": {
+    "rho": 0.18881118881118883,
+    "n": 12,
+    "p_onesided": 0.2783685280884157,
+    "ci95": [
+     -0.45523024777933613,
+     0.6868605032684687
+    ]
+   },
+   "logit_success": {
+    "rho": -0.3591638357540393,
+    "n": 12,
+    "p_onesided": 0.8742235048668023,
+    "ci95": [
+     -0.7045577174623938,
+     0.15784881518033805
+    ]
+   },
+   "PASS_primary": false
+  },
+  "TracIn": {
+   "neg_plain_loss": {
+    "rho": -0.04195804195804196,
+    "n": 12,
+    "p_onesided": 0.5515070645902229,
+    "ci95": [
+     -0.6751484802608594,
+     0.6029592536521612
+    ]
+   },
+   "logit_success": {
+    "rho": 0.0563394252163199,
+    "n": 12,
+    "p_onesided": 0.43096865185655003,
+    "ci95": [
+     -0.5766006123477584,
+     0.6606254836692568
+    ]
+   },
+   "PASS_primary": false
+  }
+ },
+ "any_pass": false,
+ "PASS": false
+}

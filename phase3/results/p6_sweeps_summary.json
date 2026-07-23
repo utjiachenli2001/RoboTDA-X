@@ -1,0 +1,9 @@
+{
+ "verdicts": {
+  "6.1_marker_gate": "CLEAN",
+  "6.2_probe_leak": "CLEAN",
+  "6.3_episode_count": "NO-OP CONFIRMED",
+  "6.4_g6_integrity": "INTACT"
+ },
+ "ALL_PASS": true
+}

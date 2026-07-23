@@ -1,0 +1,22 @@
+[trainDP] ep 0 step 27/16000 loss 0.99920 (3s)
+[trainDP] ep 50 step 1377/16000 loss 0.04002 (32s)
+[trainDP] ep 100 step 2727/16000 loss 0.02670 (61s)
+[trainDP] ep 150 step 4077/16000 loss 0.02015 (91s)
+[trainDP] ep 200 step 5427/16000 loss 0.01697 (120s)
+[trainDP] ep 250 step 6777/16000 loss 0.01303 (150s)
+[trainDP] ep 300 step 8127/16000 loss 0.01146 (180s)
+[trainDP] ep 350 step 9477/16000 loss 0.00945 (209s)
+[trainDP] ep 400 step 10827/16000 loss 0.00926 (238s)
+[trainDP] ep 450 step 12177/16000 loss 0.00720 (267s)
+[trainDP] ep 500 step 13527/16000 loss 0.00571 (296s)
+[trainDP] ep 550 step 14877/16000 loss 0.00530 (325s)
+[trainDP] ep 592 step 16000/16000 loss 0.00539 (349s)
+[trainDP] DONE /mnt/sdb/ljc/RoboTDA-X/phase3/runs/_calib/dp_h16 wall=350s params=18.3M loss=0.00562
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[cal-eval] /mnt/sdb/ljc/RoboTDA-X/phase3/runs/_calib/dp_h16: success=0.800 (212s)

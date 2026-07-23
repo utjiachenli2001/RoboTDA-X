@@ -1,0 +1,14 @@
+{
+ "cfg": {
+  "total_steps": 16000,
+  "h_chunk": 8,
+  "n_train_steps": 100,
+  "n_ddim_steps": 5,
+  "lr": 0.001
+ },
+ "calibrated_on": "50 demos of libero_goal/open_the_middle_drawer_of_the_cabinet, single-task eval, 20 rollouts -- IDENTICAL to Phase-1's BC-Transformer calibration (src/calibrate.py case single_task_50)",
+ "best_single_task_success": 1.0,
+ "frozen_before": "P10a and P10b launch. No hyperparameter changes after this.",
+ "runs_used": 7,
+ "sha256": "fac011e6412c90b32c5188a5ad9deff872317b5555d152805faee6cd18bd78f8"
+}

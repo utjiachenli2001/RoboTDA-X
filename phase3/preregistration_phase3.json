@@ -1,0 +1,259 @@
+{
+  "study": "RoboTDA-X Phase 3",
+  "written": "2026-07-12",
+  "status": "LOCKED before any Phase-3 training run, before the P6.5 lambda sweep, and before any Phase-3 analysis read-out. Zero post-hoc criterion changes. If an instrument defect is found, work STOPS and phase3/PHASE3_DEFECT.md is written before anything else.",
+  "central_questions": [
+    "P6: do the latent defects the external audit found change any reported Phase-1/2 number? (expected: no) — and was the attribution given its best shot, i.e. does ANY ridge lambda rescue demo-grain LDS?",
+    "P7: cluster grain (15 demos) is partially faithful, demo grain (1) is not. WHERE does it break?",
+    "P8: WHAT is the seed noise (init vs data order), and can cheap estimator repairs buy reliability more cheaply than training seeds?",
+    "P9: what does the ATTRIBUTION side of a trustworthy demo-grain study cost, in ensemble members?",
+    "P10: does the core null replicate on a diffusion policy, i.e. is it a property of attribution or of the BC-Transformer?"
+  ],
+
+  "inherited_conventions_frozen_from_phases_1_2": {
+    "evaluation_and_attribution_functional_BC": "L2 on the executed action (policy.l2). GMM-NLL is NEVER a study outcome.",
+    "training_objective_BC": "GMM NLL (model.nll)",
+    "total_gradient_steps_per_run_BC": 8000,
+    "policy_config_BC": "configs/policy.yaml, unchanged (19.2M params, d_model 512, 6 layers, 8 heads, 5 GMM modes)",
+    "norm_stats": "Phase-1 results/norm_stats.npz — REUSED, NEVER refit, for every Phase-3 arm including diffusion",
+    "attribution_estimators_BC": "exact only: TRAK N-by-N dual, Woodbury empirical-Fisher IF, TracIn over checkpoints",
+    "success_transform": "logit(clamp(p, 1/(2n), 1-1/(2n))), n = episodes; n is READ FROM THE ROW (P6.3 fix), never hardcoded",
+    "language_conditioning": "kept (frozen MiniLM, 384-D)",
+    "images": "none anywhere",
+    "gpus": "4,5,6,7 only; src/bootstrap.py structural pinning retained unchanged and never regressed",
+    "resumability": "per-run dir + atomic marker; Phase-1 marker names train.marker / probe.marker / clustereval.marker retained",
+    "determinism": "all rollouts deterministic: argmax-mode policy (BC) or fixed-step DDIM with zero stochastic noise (diffusion), fixed LIBERO init states, 50 distinct init states per task maximum (Phase-2 defect, PHASE2_DEFECT.md)",
+    "max_rollouts_per_task": 50,
+    "write_scope": "Phase 3 writes ONLY under /mnt/sdb/ljc/RoboTDA-X/phase3/. Phase-1 and Phase-2 artifacts are READ-ONLY. Fixes are made in phase3/src/ COPIES; Phase-1/2 source is never edited in place."
+  },
+
+  "P6_audit_hardening": {
+    "goal": "Fix the latent defects the external audit found, and PROVE the fixes change nothing. No Phase-3 experiment starts until every P6 check passes.",
+    "n_retrains": 0,
+    "P6_1_marker_gated_ingestion": {
+      "defect": "src/rollout.py writes outcomes.json / cluster_eval.json / suite_outcomes.json BEFORE raising on rollout errors and BEFORE writing the completion marker. Every analysis reader (src/stage_efg.py, src/stage_b.py, src/stage_c.py, src/stage_d.py, phase2/src/p1_analyze.py, phase2/src/p3_analyze.py) ingests on FILE EXISTENCE only. A partially-failed run could therefore be silently ingested.",
+      "fix": "In phase3/src/ copies: (a) artifact writes become atomic (tmp + os.replace); (b) every reader requires the run's completion marker before ingesting. Phase-3 readers use phase3/src/p3lib.py:read_outcomes_marker_gated exclusively.",
+      "verification": "Sweep ALL existing Phase-1 and Phase-2 run dirs for artifact-without-marker. The audit reported ZERO such dirs; this is CONFIRMED and RECORDED in phase3/results/p6_marker_sweep.json. Any nonzero count is an instrument defect -> STOP and write PHASE3_DEFECT.md.",
+      "expected": "zero artifact-without-marker run dirs; zero reported numbers change"
+    },
+    "P6_2_Q490_probe_leak_guard": {
+      "defect": "Stage-C Q=490 training sets contain the Phase-2 per-task probe demos (demo_45..demo_49). Harmless today because no Q490 model is ever scored against those probes, but it is a loaded gun.",
+      "fix": "Hard assertion in the attribution entry points (phase3/src/p3lib.py:assert_no_probe_leak, called by every Phase-3 attribution path): REFUSE to compute attribution for any model whose demos.json intersects the probe set being used.",
+      "verification": "Machine-check across ALL existing influence parquets that this never happened: for each influence artifact, resolve the ensemble runs that produced it, intersect each run's demos.json with the probe set used by that artifact's target functional. Expected: clean (empty intersection everywhere). Recorded in phase3/results/p6_probe_leak_check.json.",
+      "expected": "clean; zero reported numbers change"
+    },
+    "P6_3_hardcoded_episode_count": {
+      "defect": "src/analysis.py hardcodes N_EPISODES=30 for the logit clamp.",
+      "fix": "phase3/src/analysis_fixed.py reads the row's n_episodes column.",
+      "verification": "All existing rows have n_episodes == 30 (machine-checked), so every number must be IDENTICAL. Recorded in phase3/results/p6_no_change.json.",
+      "expected": "bit-identical headline table"
+    },
+    "P6_4_stage_G6_integrity": {
+      "defect": "On a COPY of this project made to another machine, 41/96 phase2/runs/stage_G6 run dirs were zero-byte (a truncated transfer, not a run failure).",
+      "verification": "ON THIS HOST: all 96 dirs have non-empty final.pt, outcomes.json and markers; stage_G6_outcomes.parquet RE-DERIVES from them (recompute the 24x6x9 = 1296-row coverage and spot-recompute 5 rows against the raw outcomes.json). Record SHA-256 of the parquet and of a manifest of run-dir file sizes so future copies are checkable.",
+      "artifact": "phase3/results/p6_g6_integrity.json",
+      "expected": "96/96 intact; 1296/1296 rows re-derive; 5/5 spot rows match exactly"
+    },
+    "P6_5_IF_ridge_sweep": {
+      "goal": "Close audit MAJOR-2 ('untuned lambda'). Repair the claim 'attribution was given its best shot' into a MEASURED statement.",
+      "n_retrains": 0,
+      "method": "Recompute IF and TRAK demo-grain and cluster-grain LDS on the EXISTING ground truth, over a ridge grid, holding everything else fixed. TracIn has no ridge and is unaffected (reported unchanged as a control).",
+      "lambda_grid_relative_to_current_default": [0.0001, 0.001, 0.01, 0.1, 1.0, 10.0],
+      "lambda_grid_note": "The current default is ridge_rel = 1e-2 (attribution.py RIDGE), applied as lambda = ridge_rel * mean(diag(G)). The brief asks for a grid spanning 1e-4 .. 1e+1 TIMES the current default with >= 7 log-spaced points; we therefore sweep ridge_rel over 7 log-spaced points from 1e-6 to 1e+1 (= 1e-4 x default .. 1e+3 x default), which STRICTLY CONTAINS the requested span. Exact grid: ridge_rel in [1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1e0, 1e1] (8 points, includes the default 1e-2).",
+      "ridge_rel_grid": [1e-06, 1e-05, 0.0001, 0.001, 0.01, 0.1, 1.0, 10.0],
+      "ground_truth_demo_grain": "phase2/results/stage_G6_outcomes.parquet, 6-seed mean, neg_plain_loss (held-out L2) — the Phase-2 P1 primary",
+      "ground_truth_cluster_grain": "results/stage_F_outcomes.parquet, 2-seed mean (F_SEEDS 301,302), same outcome convention as Phase 1",
+      "ceilings": "REUSED unchanged from phase2/results/p1_demo_grain.json (demo grain, 6-seed SB) and results/noise_ceilings.json (cluster grain). Ceilings do not depend on lambda.",
+      "confirmatory_targets": ["C1", "C5"],
+      "descriptive_targets": ["C1","C2","C3","C4","C5","C6","C7","C8","C9"],
+      "PREREGISTERED_READOUT": "The MAX over the lambda grid of demo-grain LDS/ceiling on the focal targets C1 and C5 (primary outcome neg_plain_loss, 6-seed mean).",
+      "PREREGISTERED_DECISION_RULE": {
+        "if_max_over_lambda_stays_below_half_ceiling_on_BOTH_focal": "Phase 2's conclusion STANDS and is STRENGTHENED: the 'attribution was given its best shot' claim is repaired into a measured statement — no ridge in a 8-point log grid spanning 1e-6..1e+1 reaches half of the seed-ensembled ceiling.",
+        "if_max_over_lambda_crosses_half_ceiling_on_EITHER_focal": "This is a MATERIAL UPDATE to Phase 2's headline conclusion and MUST be reported prominently and plainly in PHASE3_REPORT.md, including in the abstract-level summary. It is then subjected to the mandatory held-out check below, and NO per-target-tuned number is ever reported as a headline without its cross-validated counterpart."
+      },
+      "MANDATORY_CROSS_VALIDATION": "Tune lambda on C1, evaluate the FROZEN lambda on C5; and tune on C5, evaluate frozen on C1. The cross-validated (held-out) LDS/ceiling is the number that may be compared to the 0.5 bar as evidence of a real effect. Per-target tuned maxima are reported ONLY as an upper bound labelled 'oracle-tuned, not held-out'.",
+      "significance": "one-sided p < 0.025 (Bonferroni-2 over the two focal targets), same as Phase-2 P1",
+      "multiplicity_disclosure": "The max over an 8-point lambda grid is itself a multiple comparison. The tuned maximum is explicitly labelled an UPPER BOUND / oracle-tuned; the cross-validated number carries no such inflation and is the one used for any claim."
+    },
+    "P6_no_change_proof": {
+      "artifact": "phase3/results/p6_no_change.json",
+      "content": "before/after values of every headline number (Phase-1 cluster-grain LDS table + ceilings + intrusion; Phase-2 P1 focal verdict table) recomputed with the FIXED readers. They MUST match to the reported precision. Any mismatch is an instrument defect -> STOP.",
+      "gate": "No Phase-3 experiment (P7-P10) starts until p6_no_change.json shows zero changed numbers and the marker/leak/integrity sweeps are clean."
+    }
+  },
+
+  "P7_grain_resolution_ladder": {
+    "goal": "Locate the grain at which attribution stops being faithful. Turns 'cluster works, demo does not' into a MEASURED resolution limit.",
+    "n_retrains": 0,
+    "grains_g": [1, 3, 5, 15],
+    "grouping": "Within EACH cluster, partition that cluster's 15 training demos into 15/g groups of size g. g=1 -> 15 singleton groups (the Phase-2 demo predictor). g=15 -> 1 group = the cluster (the cluster predictor).",
+    "GROUPING_RULE_A_PRIMARY": {
+      "name": "random within cluster",
+      "rule": "numpy default_rng(707).permutation of the cluster's 15 demo ids (in the corpus_manifest order), then chunked into consecutive blocks of size g",
+      "seed": 707,
+      "frozen": true
+    },
+    "GROUPING_RULE_B_SECONDARY": {
+      "name": "similarity-clustered",
+      "rule": "complete-linkage agglomerative clustering on the Phase-1 DTW distance matrix (results/similarity.npz, key 'dtw'), restricted to the cluster's 15 demos, cut to exactly 15/g groups. Because complete-linkage does not produce equal-sized groups in general, groups are BALANCED to size g by a deterministic post-pass: repeatedly move the demo farthest (max DTW) from its group centroid-medoid out of any oversized group into the nearest undersized group; ties broken by demo id (lexicographic). Fully deterministic, no seed.",
+      "purpose": "descriptive contrast against rule (a). If DTW-grouped beats random-grouped at the same g, group STRUCTURE carries signal."
+    },
+    "coarsened_predictor": "group_score(G) = sum over demos d in G of the per-demo attribution score (from results/influence_table.parquet, ensemble mean, functional='plain'). predicted_mask_score(M) = sum over ALL groups G of group_score(G) * (|G intersect M| / g). At g=1 this is EXACTLY the Phase-2 demo predictor (sum of per-demo scores over the mask); at g=15 it is the cluster predictor with fractional inclusion.",
+    "coarsened_predictor_note": "The (|G ∩ M| / g) factor is the fraction of the group's members that survive in the mask. This is the natural coarsening: it is what an attributor that can only resolve GROUPS would predict, having no within-group resolution.",
+    "ground_truth": "phase2/results/stage_G6_outcomes.parquet — the EXISTING 24 Stage-G demo masks, 6-seed mean (seeds 401-406), PRIMARY outcome neg_plain_loss (held-out L2). n = 24 masks.",
+    "ceilings": "REUSED unchanged from phase2/results/p1_demo_grain.json (6-seed SB ceiling per target). Ceilings are a property of the ground truth, not of the predictor, so they do NOT change with g.",
+    "attributors": ["IF", "TRAK", "TracIn"],
+    "confirmatory_targets": ["C1", "C5"],
+    "PREREGISTERED_READOUT": "Per focal target (C1, C5): the SMALLEST g whose BEST attributor reaches LDS >= 0.5 x (that target's 6-seed ceiling) with one-sided p < 0.025 (Bonferroni-2 over the two focal targets). Grouping rule (a) is the PRIMARY.",
+    "readout_if_no_g_qualifies": "Report 'no g in {1,3,5,15} qualifies' — i.e. even the cluster-grain predictor evaluated against demo-grain masks does not clear half-ceiling. This is a legitimate outcome and is reported as such, not reinterpreted.",
+    "descriptive": "the other 7 targets; grouping rule (b) vs (a) at every g; all 3 attributors at every g.",
+    "multiplicity": "max over 3 attributors uncorrected (same convention as Phase-2 P1), Bonferroni-2 over the two focal targets. The ladder over 4 values of g is a monotone-resolution sweep, not a fishing grid; the SMALLEST qualifying g is the read-out, so a larger g qualifying does not license a claim at a smaller g.",
+    "deliverable": "phase3/figures/grain_ladder.png — LDS/ceiling vs g, per focal target, both grouping rules."
+  },
+
+  "P8_seed_noise_anatomy": {
+    "goal": "The central claim 'training-seed variance dominates' needs a MECHANISM (which RNG?) and a MITIGATION answer (can it be averaged away cheaply?).",
+    "P8a_factorial_decomposition": {
+      "n_retrains": 48,
+      "masks": "12 of the 24 Stage-G demo masks, selected by numpy default_rng(909).choice(24, size=12, replace=False) over the mask_ids SORTED ascending (G000..G023). Frozen.",
+      "mask_selection_seed": 909,
+      "design": "2 init seeds x 2 data-order seeds = 4 retrains per mask (fully crossed, 12 x 4 = 48).",
+      "init_seeds": [701, 702],
+      "order_seeds": [801, 802],
+      "factor_definitions": {
+        "INIT": "the RNG passed to torch.manual_seed / np.random.seed at the top of train.train(). Governs: parameter initialization AND the dropout mask stream during training. DISCLOSED CONFOUND: dropout rides on the init RNG in the Phase-1 trainer; the INIT factor is therefore 'init + dropout stream', not init alone. This is stated in advance and reported as such; it is NOT separated post hoc.",
+        "ORDER": "the seed of the CPU torch.Generator that draws the per-epoch batch permutation (train.py:82). Governs the data order only."
+      },
+      "trainer": "phase3/src/train_factorial.py — a COPY of src/train.py that takes --init_seed and --order_seed separately. It is asserted to be BIT-IDENTICAL to src/train.py when init_seed == order_seed == seed (verified by a paired run against an existing Stage-G run before the stage launches; any mismatch is an instrument defect -> STOP).",
+      "determinism_flags": "torch.backends.cudnn.deterministic=True, torch.backends.cudnn.benchmark=False, and the flags are RECORDED in each run's train_meta.json. NOTE: the bit-identity assertion above is what actually proves the factorization is sound; the flags are belt-and-braces.",
+      "outcomes": "full probe battery (9 clusters x 3 probe tasks x 10 rollouts + held-out L2), identical to Phase-1 Stage G.",
+      "analysis": "For each of the L2 (neg_plain_loss) and logit_success outcomes, a 2x2 variance decomposition WITHIN each mask into INIT / ORDER / INTERACTION / RESIDUAL components, then aggregated across the 12 masks. Components reported with bootstrap CIs over masks (2000 resamples, percentile).",
+      "residual_note": "With a single replicate per (init, order) cell the interaction and the residual are confounded within a mask. They are therefore reported as a single INTERACTION+RESIDUAL term, and the decomposition is stated as INIT / ORDER / (INTERACTION+RESIDUAL). This is declared in advance, not discovered later.",
+      "PREREGISTERED_READOUT": "DESCRIPTIVE — no pass/fail. But declared IN ADVANCE: if either factor (INIT or ORDER) accounts for more than 70% of the total seed variance (INIT + ORDER + INTERACTION+RESIDUAL), it will be NAMED the dominant source. If neither exceeds 70%, the finding is 'seed noise is not attributable to a single RNG factor' and will be reported as such."
+    },
+    "P8b_variance_reduction_probe": {
+      "n_retrains": 0,
+      "goal": "Do cheap estimator repairs buy mask-ranking reliability more cheaply than training more seeds?",
+      "masks": "the SAME 12 masks as P8a",
+      "arms": {
+        "baseline": "single-seed policy (the existing Stage-G/G6 runs, seed 401) — the reliability already measured in Phase 2",
+        "arm_i_checkpoint_averaged": "average the WEIGHTS of the last 3 saved checkpoints (ckpt_2, ckpt_3, ckpt_4) of each existing G6 run — they already exist because TracIn needed them. One probe-battery eval per run. Averaging is a plain arithmetic mean of the state_dict tensors.",
+        "arm_ii_action_ensemble": "average the ACTION OUTPUTS of the 6 seeds (401-406) at each rollout step: a_t = mean over the 6 models of model.act(...), then clamped to [-1,1]. One probe-battery eval per mask (the 6 models are stepped in lockstep through ONE env)."
+      },
+      "determinism_gate": "Before either arm is trusted, ONE repeated episode must be verified BIT-IDENTICAL (same success flag AND same step count) on a re-run. Recorded in phase3/results/p8b_determinism.json. A failure here is an instrument defect -> STOP.",
+      "READOUT": "Split-half mask-ranking reliability (Spearman between the two halves' mask-score vectors over the 12 masks) of each repaired estimator vs the single-seed baseline, on both outcomes. Compared against the cost in retrains: the baseline costs 1 model/mask, arm (i) costs 1 model/mask (checkpoints are free), arm (ii) costs 6 models/mask. DESCRIPTIVE — no pass/fail.",
+      "cost_framing": "The question is whether arm (i) — which is FREE, given checkpoints already exist — recovers a nontrivial share of the reliability that 6 training seeds buy."
+    }
+  },
+
+  "P9_attribution_side_ensemble_cost_law": {
+    "goal": "Phase-2 P4 priced GROUND-TRUTH reliability in training seeds. Price the ATTRIBUTION side the same way, in ensemble members.",
+    "n_retrains": 10,
+    "new_models": "10 additional FULL-CORPUS (135-demo) models, seeds 211-220, identical config to Phase-1 Stage E (which used seeds 201-210). Total ensemble E = 20.",
+    "new_seeds": [211, 212, 213, 214, 215, 216, 217, 218, 219, 220],
+    "probe_battery": "full battery on the 10 new models (9 clusters x 3 tasks x 10 rollouts = 270 episodes each, 2700 total)",
+    "attribution": "per-demo attribution computed PER MEMBER for the 10 new members (the per-member parquet already exists for members ens_s201..ens_s210), at the FROZEN default ridge_rel = 1e-2, functional 'plain'.",
+    "E_ladder": [2, 5, 10, 20],
+    "readouts": {
+      "a_split_half_ranking_reliability": "For each E in {2,5,10,20}: draw disjoint E/2-member sub-ensembles, average their per-demo scores, and take the Spearman between the two sub-ensembles' per-demo score vectors (over the 135 demos). Averaged over splits: ALL disjoint splits when the count is <= 200, otherwise 200 splits drawn with numpy default_rng(919). Reported per attributor and per target; the headline is the mean over the 9 targets.",
+      "b_demo_grain_LDS": "demo-grain LDS of the E-member ensemble mean scores vs the Stage-G6 6-seed ground truth (neg_plain_loss), for each E, focal targets C1/C5.",
+      "c_headline_stability": "stability of the headline intrusion rate (fraction of the 120 outsiders above the median insider) and of the top-15 composition (size of the symmetric difference of the top-15 sets) across sub-ensembles, per E."
+    },
+    "PREREGISTERED_READOUT": "Spearman-Brown extrapolation of (a) to the ensemble size E needed for a 0.8 per-demo ranking reliability, reported PER ATTRIBUTOR and EXPLICITLY LABELLED AN EXTRAPOLATION (not a measurement). Formula: from a measured reliability r_E at ensemble size E, the size needed for target r* is E* = E * r*(1-r_E) / (r_E(1-r*)). Computed from the LARGEST measured E (=20) and cross-checked against E=10.",
+    "combined_cost_statement": "Together with Phase-2 P4 this yields the paper's two-sided structural-cost claim: a trustworthy demo-grain study of this corpus costs ~X GPU-h of training seeds on the GROUND-TRUTH side plus ~Y models on the ATTRIBUTION side. Both numbers are reported with their extrapolation labels."
+  },
+
+  "P10_diffusion_policy_replication": {
+    "goal": "EXTERNAL VALIDITY. Every conclusion so far is one policy class. Replicate the CORE null on the community-standard alternative.",
+    "SYMMETRIC_INTERPRETATION_PREREGISTERED_VERBATIM": "FAIL again => the null generalizes across policy class; PASS => faithfulness is policy-class-dependent — report symmetrically.",
+    "policy": {
+      "class": "state-based diffusion policy",
+      "interface": "IDENTICAL to the BC-Transformer: same 128-D observation (Phase-1 frozen norm_stats, never refit), same CTX=10 observation history, same frozen MiniLM 384-D language conditioning, 7-D actions.",
+      "head": "action-chunk denoising head (DDPM), predicting a chunk of H future actions from the observation history",
+      "params_target": "10-30M",
+      "training_objective": "DDPM epsilon-prediction MSE",
+      "eval_sampler": "deterministic DDIM (fixed number of steps, eta = 0, NO stochastic noise at eval), so rollouts stay deterministic",
+      "implementation_note": "DDPM/DDIM are implemented natively in torch in phase3/src/diffusion_policy.py. The `diffusers` package is NOT installed in the frozen robotda_x env and is NOT installed by Phase 3 (the env stays frozen). The noise schedule, the training objective and the DDIM update are ~50 lines and are unit-tested against their closed forms; the SYNTHETIC unit tests are labelled SYNTHETIC and never mixed with results.",
+      "determinism_gate": "A repeated-episode BIT-IDENTITY check (same success flag AND same step count on a re-run) MUST pass before ANY P10 experiment runs, exactly as Phase 1 did. Recorded in phase3/results/p10_determinism.json. Failure => STOP the stage."
+    },
+    "calibration": {
+      "scope": "C1 ONLY, single-task 50-demo sanity, mirroring the BC-Transformer's Phase-1 single-task calibration (which reached ~70%).",
+      "budget": "<= 10 calibration runs (HARD CAP)",
+      "target": "a success level COMPARABLE to the BC-Transformer's 70% single-task calibration",
+      "NON_VIABILITY_STOP_RULE": "If after the bounded search (<= 10 runs) the best diffusion config cannot EXCEED 40% success on the C1 single-task 50-demo sanity, STOP the stage and REPORT NON-VIABILITY. Do NOT run the corpus on a broken policy. A non-viable P10 is reported as 'P10 did not run: policy non-viable at <= 10 calibration runs, best success = X%' — it is NOT a null result about attribution.",
+      "freeze": "The winning config is FROZEN into phase3/results/p10_config_frozen.json (with a SHA-256) BEFORE P10a/P10b launch. No hyperparameter changes after that point. Because calibration must precede the freeze, this preregistration fixes the calibration PROTOCOL, BUDGET, STOP RULE and all downstream CRITERIA in advance; only the config values are filled in by calibration."
+    },
+    "P10a_gate0_sanity": {
+      "n_retrains": 12,
+      "design": "C1 and C5, arms {target-only (15 demos), co-train (135 demos)} x 3 seeds, PAIRED on seed",
+      "seeds": [611, 612, 613],
+      "readout": "co-train margin (co-train minus target-only) in success points, per target. DESCRIPTIVE — establishes that the co-training phenomenon exists for this policy class. No pass/fail."
+    },
+    "P10b_demo_grain_LDS": {
+      "n_retrains": 96,
+      "masks": "the EXISTING 24 Stage-G demo masks (results/demo_mask_manifest.json) — NOT resampled",
+      "seeds": [601, 602, 603, 604],
+      "S": 4,
+      "outcomes": "probe battery: 9 clusters x 3 probe tasks x 10 rollouts, PLUS the held-out functionals on the executed DDIM action (L2) and the held-out denoising loss.",
+      "ceiling": "2v2 split-half over the 4 seeds (all 3 disjoint pairings), Spearman between the two pair-mean outcome vectors across the 24 masks, averaged; then Spearman-Brown corrected 2 -> 4 as r4 = 2*r2/(1+r2). The S = 1..4 seed ladder is ALSO reported.",
+      "attribution": {
+        "estimators": ["TracIn", "TRAK-dual"],
+        "loss_for_gradients": "the DDPM denoising loss",
+        "FIXED_PAIRED_NOISE_BANK": "A bank of 32 (t, epsilon) pairs, STRATIFIED over t (t drawn evenly across the diffusion horizon), drawn once with numpy default_rng(1031) and FROZEN. The SAME bank is used for BOTH the train-side and the test-side gradients (MOTIVE-style variance reduction; it also controls timestep-induced bias). The bank is written to phase3/results/p10_noise_bank.json with its SHA-256 before any attribution runs.",
+        "bank_size": 32,
+        "bank_seed": 1031,
+        "test_side_functional_PRIMARY": "the denoising loss on the target cluster's 10 held-out demos, evaluated with the SAME fixed (t, epsilon) bank",
+        "test_side_functional_SECONDARY": "L2 on the executed DDIM action over the same held-out demos (reported if tractable; if not tractable it is reported as 'did not run', never silently dropped)",
+        "ensemble": ">= 5 full-corpus (135-demo) diffusion models",
+        "ensemble_seeds": [621, 622, 623, 624, 625],
+        "n_ensemble_retrains": 5,
+        "probe_leak_guard": "assert_no_probe_leak is called on every ensemble member before its gradients are used (P6.2)"
+      },
+      "PREREGISTERED_CRITERION": "Same form as Phase-2 P1. Focal targets C1 and C5. PRIMARY outcome: the held-out denoising-loss / L2 outcome (negated so higher = better), 4-seed mean. Attribution is USABLE at demo grain for the diffusion policy iff, for a focal target, ANY attributor reaches rho >= 0.5 x (that target's MEASURED 4-seed ceiling) with one-sided p < 0.025 (Bonferroni-2 over the two focal targets).",
+      "PRIMARY_OUTCOME_NAME": "neg_plain_loss (held-out L2 on the executed DDIM action), 4-seed mean — matched to the Phase-2 P1 primary so the two policy classes are compared on the SAME outcome. The denoising-loss outcome is reported alongside as the diffusion-native secondary.",
+      "primary_outcome_note": "The L2-on-executed-action outcome is chosen as PRIMARY precisely because it is the outcome on which the BC-Transformer null was established; using a different outcome would make the two policy classes incomparable. The denoising-loss outcome is the diffusion-native check and is reported in full."
+    },
+    "CUT_ORDER_INSIDE_P10": [
+      "1. drop the C5 focal target (keep C1 only, alpha = 0.05, no Bonferroni-2)",
+      "2. seeds 4 -> 3 (drop seed 604)",
+      "3. drop P10a (the Gate-0 sanity arm)"
+    ]
+  },
+
+  "explicitly_out_of_scope_for_phase3": {
+    "no_new_mask_designs": "Stage-G / Stage-F mask manifests are reused VERBATIM.",
+    "no_image_policies": true,
+    "no_new_benchmarks": true,
+    "no_relitigation_of_phase_1_2_verdicts": "P6.5's lambda sweep is the SOLE sanctioned re-examination, and its cross-validated read-out is preregistered above.",
+    "RQ2_moderators": "CLOSED. Not reopened."
+  },
+
+  "budget_ledger": {
+    "P6_hardening_plus_lambda_sweep": {"retrains": 0, "gpu_h_nominal": 1, "episodes": 0},
+    "P7_grain_ladder": {"retrains": 0, "gpu_h_nominal": 0.5, "episodes": 0},
+    "P8_noise_anatomy": {"retrains": 48, "gpu_h_nominal": 8, "episodes": 23000},
+    "P9_ensemble_cost_law": {"retrains": 10, "gpu_h_nominal": 2, "episodes": 2700},
+    "P10_diffusion_replication": {"retrains": 125, "gpu_h_nominal": 45, "episodes": 30000},
+    "total_retrains": 183,
+    "total_gpu_h_nominal": 56.5,
+    "ALERT_THRESHOLD_gpu_h": 85,
+    "total_episodes_nominal": 56000,
+    "per_stage_alert_rule": "Time the FIRST 3 retrains of each kind. If the projected stage cost exceeds 1.5x its ledger line, write phase3/BUDGET_ALERT.md, PAUSE, decide, and document the decision before resuming."
+  },
+
+  "global_cut_order_if_over_budget": [
+    "1. P10 internal cuts, in the order listed under P10.CUT_ORDER_INSIDE_P10",
+    "2. P8b arm (ii) (the 6-seed action ensemble — the expensive arm)",
+    "3. P8a masks 12 -> 8",
+    "4. P9 E = 20 -> 15"
+  ],
+  "cut_policy": "Never cut silently. Every cut is logged in phase3/STATUS.md with its reason and the budget number that forced it, and is listed in PHASE3_REPORT.md.",
+
+  "integrity_rules": {
+    "no_fabrication": "Every reported number is read from an artifact file written by an actual run. Failed runs are reported as failed. Synthetic tests are labelled SYNTHETIC and NEVER mixed with results.",
+    "no_post_hoc_changes": "Zero post-hoc criterion or functional changes. If an instrument defect is found, work STOPS and phase3/PHASE3_DEFECT.md is written before anything else.",
+    "phase_1_2_artifacts": "READ-ONLY. Phase 3 writes only under /mnt/sdb/ljc/RoboTDA-X/phase3/.",
+    "gpu_rule": "GPUs 4-7 ONLY. Idleness (mem < 1000 MiB AND util < 10%) is verified before EVERY launch. If no GPU is idle, sleep 300 s and re-check.",
+    "extrapolations_labelled": "Every Spearman-Brown or other extrapolation is labelled an EXTRAPOLATION and never presented as a measurement."
+  }
+}

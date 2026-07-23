@@ -1,0 +1,88 @@
+{
+ "vectors_are_discriminating": true,
+ "note": "a near-floor model fails every episode at the full horizon and would match trivially; this checkpoint's per-episode outcomes vary, so the match is real",
+ "ckpt": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_C/Q50_cotrain_s101/final.pt",
+ "suite": "libero_goal",
+ "task": "open_the_middle_drawer_of_the_cabinet",
+ "episodes_0_9": {
+  "success": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   true,
+   false,
+   false,
+   true
+  ],
+  "steps": [
+   600,
+   600,
+   600,
+   600,
+   600,
+   600,
+   154,
+   600,
+   600,
+   158
+  ]
+ },
+ "episodes_50_59": {
+  "success": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   true,
+   false,
+   false,
+   true
+  ],
+  "steps": [
+   600,
+   600,
+   600,
+   600,
+   600,
+   600,
+   154,
+   600,
+   600,
+   158
+  ]
+ },
+ "episodes_0_9_repeat": {
+  "success": [
+   false,
+   false,
+   false,
+   false,
+   false,
+   false,
+   true,
+   false,
+   false,
+   true
+  ],
+  "steps": [
+   600,
+   600,
+   600,
+   600,
+   600,
+   600,
+   154,
+   600,
+   600,
+   158
+  ]
+ },
+ "pipeline_is_deterministic": true,
+ "eps_50_54_duplicate_eps_0_4": true,
+ "DEFECT_CONFIRMED": true
+}

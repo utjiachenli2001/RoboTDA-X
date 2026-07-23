@@ -1,0 +1,37 @@
+[train] ep 0 step 8/8000 loss 6.3589 (2s)
+[train] ep 50 step 408/8000 loss -7.9630 (8s)
+[train] ep 100 step 808/8000 loss -11.8012 (15s)
+[train] ep 150 step 1208/8000 loss -13.7399 (21s)
+[train] ep 200 step 1608/8000 loss -14.5652 (27s)
+[train] ep 250 step 2008/8000 loss -15.9118 (33s)
+[train] ep 300 step 2408/8000 loss -16.1552 (40s)
+[train] ep 350 step 2808/8000 loss -17.1079 (46s)
+[train] ep 400 step 3208/8000 loss -17.7026 (52s)
+[train] ep 450 step 3608/8000 loss -19.0822 (59s)
+[train] ep 500 step 4008/8000 loss -19.9876 (67s)
+[train] ep 550 step 4408/8000 loss -20.3240 (74s)
+[train] ep 600 step 4808/8000 loss -20.9052 (81s)
+[train] ep 650 step 5208/8000 loss -21.3665 (88s)
+[train] ep 700 step 5608/8000 loss -21.5182 (94s)
+[train] ep 750 step 6008/8000 loss -21.9993 (100s)
+[train] ep 800 step 6408/8000 loss -22.6921 (106s)
+[train] ep 850 step 6808/8000 loss -22.8516 (114s)
+[train] ep 900 step 7208/8000 loss -23.1366 (120s)
+[train] ep 950 step 7608/8000 loss -23.3376 (126s)
+[train] ep 999 step 8000/8000 loss -23.5237 (132s)
+[train] DONE /mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_influence_top15_s502 wall=133s windows=2262 loss=-23.5267
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[probe] /mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_influence_top15_s502 wall=243s
+  C5: succ=0.016666666666666666 (60 eps) plain=0.805 transp=0.432 inter=1.507

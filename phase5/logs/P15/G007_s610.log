@@ -1,0 +1,32 @@
+[trainDP] ep 0 step 42/16000 loss 0.99740 (3s)
+[trainDP] ep 50 step 2142/16000 loss 0.04839 (46s)
+[trainDP] ep 100 step 4242/16000 loss 0.02832 (90s)
+[trainDP] ep 150 step 6342/16000 loss 0.02245 (133s)
+[trainDP] ep 200 step 8442/16000 loss 0.01762 (177s)
+[trainDP] ep 250 step 10542/16000 loss 0.01324 (220s)
+[trainDP] ep 300 step 12642/16000 loss 0.01176 (264s)
+[trainDP] ep 350 step 14742/16000 loss 0.00942 (308s)
+[trainDP] ep 380 step 16000/16000 loss 0.00988 (335s)
+[trainDP] DONE /mnt/sdb/ljc/RoboTDA-X/phase5/runs/P15/G007_s610 wall=335s params=18.3M loss=0.00937
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[p15eval] /mnt/sdb/ljc/RoboTDA-X/phase5/runs/P15/G007_s610 wall=258s C1 succ=0.16666666666666666 C1 L2=0.590 C5 L2=0.479

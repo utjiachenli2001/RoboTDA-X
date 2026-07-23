@@ -1,0 +1,261 @@
+{
+  "study": "RoboTDA-X",
+  "phase": 4,
+  "title": "SETTLEMENT — three preregistered confirmatory tests, one shot each",
+  "locked_before": [
+    "any Phase-4 training",
+    "any Phase-4 attribution computation",
+    "any Phase-4 verdict computation",
+    "any execution of p11_*/p12_*/p13_*/p14_* analysis code on real data"
+  ],
+  "date_locked": "2026-07-13",
+  "provenance_of_every_frozen_choice": "Phase-1/2/3 artifacts ONLY. No Phase-4 number exists at lock time. Where a frozen choice is in tension with prior-phase evidence, the tension is DISCLOSED below rather than resolved in the design's favour.",
+
+  "hard_rules_inherited": {
+    "gpus": "4,5,6,7 only; idle <=> mem < 1000 MiB AND util < 10%, re-verified immediately before EVERY launch; else sleep 300 s and re-check",
+    "readers": "marker-gated atomic reads (phase4/src/p4lib.py, a copy of phase3/src/p3lib.py). NEVER existence-only.",
+    "probe_leak": "p4lib.assert_no_probe_leak() before ANY attribution computation",
+    "logit_clamp": "reads the row's own n_episodes",
+    "frozen_configs": "configs/policy.yaml (BC) and phase3/results/p10_config_frozen.json (diffusion) are NOT retuned",
+    "norm_stats": "reuse the frozen norm_stats.npz",
+    "writes": "only under phase4/; Phase-1/2/3 artifacts are READ-ONLY",
+    "arithmetic": "exact rational arithmetic (fractions.Fraction) for every criterion comparison (ratio >= 1/2)",
+    "determinism_gate": "any new rollout determinism check must run on a DISCRIMINATING checkpoint (Phase-3 incident 3: a near-floor model passes trivially)",
+    "no_fabrication": "every reported number read from an artifact file; SYNTHETIC tests labelled and never mixed",
+    "defects": "any defect goes to phase4/PHASE4_DEFECT.md BEFORE anything is touched",
+    "no_post_hoc": "ZERO post-hoc criterion changes. If a preregistered gate fails, the stage REPORTS and STOPS."
+  },
+
+  "shared_definitions": {
+    "outcome_primary": "neg_plain_loss = -(held-out executed-action L2) on the target cluster's 10 held-out demos",
+    "spearman": "src/lds.py:spearman (scipy spearmanr)",
+    "p_onesided": "src/lds.py:spearman_p_onesided (t approximation, H1: rho > 0)",
+    "spearman_brown": "r_k = k*r_1 / (1 + (k-1)*r_1); half-to-full correction r_2h = 2*r_h/(1+r_h)",
+    "demo_predictor": "predicted_mask_score(M) = sum over d in M of score_d (src/lds.py:mask_pred_score)",
+    "coarse_predictor_grain_g": "group_score(G) = sum_{d in G} score_d ; predicted_mask_score(M) = sum_G group_score(G) * |G ∩ M| / g  (phase3/src/p7_grain_ladder.py:coarse_pred). At g=1 this is EXACTLY the demo predictor.",
+    "per_member_scale_normalization": "each ensemble member's 135-demo score vector is divided by its own L2 norm (-> unit L2 norm) BEFORE averaging over members. Rank-invariant to any per-member positive rescaling.",
+    "ratio_to_ceiling": "rho / measured_ceiling; the bar is ratio >= 1/2, compared with exact rational arithmetic"
+  },
+
+  "P11": {
+    "name": "CHAMPION CONFIRMATORY TEST ON THE BC-TRANSFORMER",
+    "retrains": 0,
+    "rationale": "Phases 2-3 never tested the configuration their own evidence says is best. The champion is frozen HERE, from prior-phase evidence only.",
+    "champion_estimator": {
+      "id": "TracIn_E20_normalized",
+      "attributor": "TracIn",
+      "ensemble": "E = 20 full-corpus BC members: ens_s201..ens_s210 (Phase-1 Stage E, results/influence_table_per_member.parquet) + ens_s211..ens_s220 (Phase-3 P9, phase3/results/p9_influence_new_members.parquet)",
+      "per_member_definition": "TracIn = sum over that member's 5 checkpoints of eta_c * <g_demo(theta_c), g_target(theta_c)> (src/attribution.py) — UNCHANGED",
+      "functional": "plain (held-out L2), matching the outcome",
+      "aggregation": "per-member scale normalization (unit L2) then MEAN over the 20 members",
+      "justification_on_record": [
+        "TracIn is the ONLY reproducible attributor: per-demo rank split-half reliability 0.831 at E=20 vs IF 0.254 (Phase-3 P9, p9_ensemble_cost_law.json); ~16 members suffice for r=0.8 vs ~235 for IF.",
+        "Per-member scale normalization is what the lambda->inf analysis showed matters: 0.504 (normalized) vs 0.397 (unnormalized) on C1 (Phase-3 P6.5, p6_lambda_sweep_extended.json).",
+        "NEITHER fact was derived from the statistic this test computes (both are properties of the ATTRIBUTOR's internal reproducibility / of an E=10 sweep, not of the E=20 normalized-TracIn LDS at S=10)."
+      ]
+    },
+    "secondary_estimator": {
+      "id": "GradDot_E20_normalized",
+      "definition": "the exact lambda->infinity limit estimator: the RAW gradient dot product K_m[i,j] = <g_demo_i, g_target_j> per member, per-member scale-normalized (unit L2) and averaged over the SAME E=20 members",
+      "inputs_not_yet_on_disk": "K_m for members 211-220 (phase3/results/p6_gram_cache.npz holds G,K for members 201-210 only). Phase 4 extends the cache with ONE gradient pass over the 10 new members (~0.5-1 GPU-h, 0 retrains). The probe-leak guard runs on every member first.",
+      "reported_at": "Bonferroni-4 (alpha = 0.05/4 = 0.0125)"
+    },
+    "descriptive_only_variants": [
+      "GradDot_E20_dmean: the P6.5 form K_m / mean(diag(G_m)) averaged over members (the literal lambda->inf limit of the ensemble-MEAN score). Reported DESCRIPTIVELY; it is NOT part of any confirmatory family.",
+      "IF and TRAK at E=20, normalized and unnormalized: DESCRIPTIVE.",
+      "unnormalized TracIn at E=20: DESCRIPTIVE (the contrast that isolates the normalization)."
+    ],
+    "ground_truth": {
+      "masks": "the 24 Stage-G demo masks (results/demo_mask_manifest.json) — UNCHANGED",
+      "seed_count": "the DEEPEST available: S=10 (seeds 401-410) if P12 completes; else S=6 (seeds 401-406). The analysis seed count is recorded in the verdict artifact.",
+      "aggregator": "seed MEAN",
+      "aggregator_justification": "the BC-Transformer's executed-action outcome is NOT heavy-tailed. Phase-2's Spearman-Brown consistency check on this exact instrument agreed to 0.014 (predicted 0.947 vs measured 0.933, PHASE2_REPORT / p1_demo_grain.json). This is the preregistered justification and it predates any Phase-4 number.",
+      "ceiling_S10": "mean Spearman over ALL 126 distinct 5-vs-5 seed split-halves of the 10 seeds, between the two half-MEAN outcome vectors across the 24 masks; then Spearman-Brown corrected x2 (5 -> 10). If P12 falls back to S=8, the ceiling is all 35 distinct 4v4 splits, SB x2.",
+      "ceiling_S6_fallback": "the Phase-2 P1 estimator verbatim (10 distinct 3v3 splits, SB x2)"
+    },
+    "CRITERION": {
+      "focal_targets": ["C1", "C5"],
+      "test": "champion rho >= 0.5 * measured ceiling at the analysis seed count AND one-sided p < 0.025 (Bonferroni-2 across the two focal targets)",
+      "form": "any-focal-target: PASS if the criterion is met on C1 OR C5",
+      "secondary_family": "the secondary estimator is judged on the same two targets at Bonferroni-4 (p < 0.0125)",
+      "all_9_targets": "reported DESCRIPTIVELY, never as a verdict"
+    },
+    "PREREGISTERED_SYMMETRIC_INTERPRETATION": {
+      "PASS_on_at_least_one_focal_target": "a stability-selected, normalization-corrected attributor IS demo-grain faithful where default-config attribution was not — the Phase-2/3 null is a statement about attribution AS PRACTICED, not about attribution's ceiling.",
+      "FAIL_on_both": "the null now covers the best configuration the evidence could assemble — champion-tested, not just default-tested."
+    },
+    "ordering_constraint": "P11's verdict is computed AFTER P12 completes (its prereg names S=10 primary). The P11 analysis code is not run on real data before this preregistration is hashed."
+  },
+
+  "P12": {
+    "name": "DEEPEN THE BC GROUND TRUTH TO S=10",
+    "retrains": 96,
+    "gpu_h_nominal": 13,
+    "episodes_nominal": 25920,
+    "design": "the EXISTING 24 Stage-G demo masks x 4 NEW seeds (407, 408, 409, 410), combined with the existing seeds 401-406 -> S = 10. Identical config (configs/policy.yaml), identical trainer (src/train.py), identical probe battery (27 tasks x 10 rollouts => 30 episodes per cluster target).",
+    "new_ceilings": "all 126 distinct 5v5 split-halves of the 10 seeds (>= the preregistered minimum of 20 splits), SB-corrected x2 to the 10-seed mean.",
+    "INSTRUMENT_GATE_SB_consistency": {
+      "statistic": "r1_S6 = mean pairwise single-seed Spearman over the C(6,2)=15 pairs of seeds 401-406 (computed from S=6 data ONLY); predicted_10 = 10*r1_S6 / (1 + 9*r1_S6); measured_10 = SB-corrected 5v5 ceiling on the S=10 data",
+      "gate": "|predicted_10 - measured_10| <= 0.10 on BOTH focal targets C1 and C5",
+      "on_failure": "STOP. Write phase4/PHASE4_DEFECT.md BEFORE any verdict is computed. P11 does not proceed at S=10.",
+      "expectation_not_a_result": "from r1 ~ 0.75 (C1, phase2/results/p1_seed_ladder.json), SB predicts a 10-seed ceiling ~ 0.968; bar ~ 0.48. At n=24 masks the p<0.025 critical rho ~ 0.41, so bar and significance are commensurate — the test is LIVE, not foregone."
+    },
+    "FALLBACK_if_over_budget": "seeds 407, 408 only -> S = 8 (48 retrains). The ceiling is then all 35 distinct 4v4 splits, SB x2, and P11's analysis seed count is 8. Named here so it is not a post-hoc choice."
+  },
+
+  "P13": {
+    "name": "DIFFUSION SETTLEMENT — the follow-up PHASE3_REPORT §6.3 demands",
+    "retrains": 48,
+    "gpu_h_nominal": 16,
+    "episodes_nominal": 12960,
+    "design": "the SAME 24 Stage-G masks x 2 NEW diffusion seeds (607, 608), combined with the existing seeds 601-606 -> S = 8. Frozen config phase3/results/p10_config_frozen.json UNTOUCHED (lr 1e-3, 16000 steps, H=8, DDIM=5, eta=0, fixed latent seed 12345). Probe battery as P10b.",
+    "PREREGISTERED_AGGREGATOR": {
+      "aggregator": "MEDIAN over seeds of the held-out executed-action L2 per mask (neg_plain_loss)",
+      "why": "the heavy-tail remedy. PHASE3_DEFECT.md: the diffusion policy is deterministic but NOT seed-stable; an occasional seed lands the fixed DDIM latent in the wrong basin and its L2 blows up 3-5x, so the seed MEAN is a broken estimator (4 of 9 mean ceilings NEGATIVE; SB consistency off by 0.61; reliability DROPS as seeds are added). The median restored ceilings to 0.57-0.77.",
+      "status": "This aggregator is PREREGISTERED HERE, before any S=8 datum exists. In Phase 3 it was a POST-HOC diagnostic and was labelled as one."
+    },
+    "ceiling": {
+      "estimator": "mean Spearman over ALL 35 distinct 4v4 seed split-halves of the 8 seeds, between the two half-MEDIAN outcome vectors across the 24 masks",
+      "reported": "BOTH the uncorrected 4v4 split-half value AND the SB-corrected (x2) value",
+      "bar_uses": "the SB-corrected value (the HIGHER, therefore conservative-for-passing, choice)",
+      "caveat_stated_up_front": "Spearman-Brown is exact for MEANS and only APPROXIMATE for medians. This is disclosed here, before the number exists, and is restated wherever the ceiling is reported."
+    },
+    "UP_FRONT_CEILING_USABILITY_GATE": {
+      "when": "BEFORE any LDS is computed for that target",
+      "conditions_both_required": [
+        "measured median SB-corrected ceiling >= 0.40",
+        "S=4 -> 8 SB-consistency check holds within 0.15"
+      ],
+      "sb_consistency_definition": "r1_S4 = mean pairwise single-seed Spearman over the C(4,2)=6 pairs of the ORIGINAL preregistered seeds 601-604 (single-seed reliability is aggregator-free, so it is the correct SB base and it is exactly the statistic whose MEAN-side failure was reported in PHASE3_DEFECT.md §2); predicted_8 = 8*r1_S4 / (1 + 7*r1_S4); measured_8 = the SB-corrected 4v4 median ceiling on the S=8 data. Gate: |predicted_8 - measured_8| <= 0.15.",
+      "on_failure": "that target's verdict is INSTRUMENT-UNUSABLE — NOT a FAIL — and is stated as such. No LDS is reported as a verdict for it.",
+      "also_reported_descriptively": "the same SB check based on r1 over all C(8,2)=28 seed pairs"
+    },
+    "champion_estimator": {
+      "id": "TracIn_diffusion_E5_normalized",
+      "attributor": "TracIn",
+      "ensemble": "the EXISTING E=5 diffusion members dpens_s621..s625 (phase3/results/p10_influence_per_member.parquet)",
+      "noise_bank": "the FROZEN paired (t, epsilon) bank, phase3/results/p10_noise_bank.json — untouched",
+      "aggregation": "per-member scale normalization (unit L2) then MEAN over the 5 members",
+      "justification_on_record": "TracIn's split-half reliability across diffusion ensemble members is 0.927 at E=5 (p10_attr_stability.json) — the only attributor with consistent signal for this policy class.",
+      "sweeps": "NONE. No lambda, no hyperparameter, no alternative bank."
+    },
+    "CRITERION": {
+      "focal_targets": ["C1", "C5"],
+      "test": "champion rho >= 0.5 * measured median SB-corrected ceiling AND one-sided p < 0.025 (Bonferroni-2)",
+      "gated_by": "the up-front ceiling-usability gate, per target"
+    },
+    "PREREGISTERED_SYMMETRIC_INTERPRETATION": {
+      "PASS_on_C1": "demo-grain faithfulness is policy-class-dependent, and the BC null does not generalize.",
+      "FAIL_on_both_with_usable_ceilings": "the null extends to the diffusion class on this corpus — the external-validity question closes in the null direction.",
+      "MIXED_one_usable_and_fail_one_unusable": "report exactly that. NO averaging over verdict types."
+    },
+    "C5_DIAGNOSIS": {
+      "status": "DESCRIPTIVE, EXPLORATORY-LABELLED. Never a verdict. Instrument characterization only.",
+      "question": "why did C5 carry no signal in the P10 median diagnostic (ratio 0.08)?",
+      "reported": [
+        "C5's median-outcome distribution across the 24 masks",
+        "C5's success floor (mean success rate)",
+        "C5's mask-outcome spread (between-mask signal sd) vs C1's",
+        "C5's within-mask seed sd (noise) vs C1's, and the resulting S/N",
+        "the per-attributor scores (TracIn, TRAK, IF) on C5"
+      ]
+    }
+  },
+
+  "P14": {
+    "name": "CONFIRMATORY HETEROGENEITY ON FRESH GROUND TRUTH",
+    "retrains": 64,
+    "gpu_h_nominal": 9,
+    "episodes_nominal": 3840,
+    "rationale": "Phase-3 P7 found C2 and C9 clear half-ceiling at some grains — DESCRIPTIVELY, on ground truth that had already been used for exploration. No confirmatory license. P14 confirms or kills it on ground truth NO analysis has ever touched.",
+    "fresh_mask_corpus": {
+      "K": 16,
+      "construction": "IDENTICAL rule to src/masks.py:build_demo_masks — 68 of the 135 demos, within-cluster stratified (5 clusters contribute 8 demos, 4 contribute 7), balanced per-demo inclusion — with a NEW mask seed 1104 and K=16 (so each cluster is an 'eight' 8 or 9 times; 16*5 = 80 = 8*9 + 1*8).",
+      "mask_seed": 1104,
+      "seed_provenance": "NEW. Phase-1 used DEMO_MASK_SEED=11 for the 24 Stage-G masks; P8a used rng(909) to SELECT 12 of those 24. 1104 has never been used.",
+      "manifest": "phase4/results/p14_mask_manifest.json",
+      "MANDATORY_CHECK": "verify ZERO of the 16 new masks coincides (as a set of demo ids) with ANY of the 24 Stage-G masks. If any coincides, the mask seed is incremented and the check re-run; the number of increments is reported."
+    },
+    "training": "16 masks x S=4 seeds (411, 412, 413, 414) = 64 BC retrains. Identical config/trainer.",
+    "probes": "restricted to C2's and C9's clusters ONLY: --clusters C2,C9 => 6 tasks x 10 rollouts = 60 episodes per model, plus held-out L2 for C2 and C9.",
+    "ceiling": {
+      "estimator": "all 3 distinct 2v2 seed split-halves of the 4 seeds, between the two half-MEAN outcome vectors across the 16 masks; SB-corrected x2 to the 4-seed mean",
+      "aggregator": "seed MEAN (BC; same justification as P11)"
+    },
+    "PRIMARY_TEST": {
+      "estimator": "the P11 champion, FROZEN IDENTICALLY (TracIn, E=20, per-member unit-L2 normalization). No re-selection, no per-cell choice.",
+      "cells": [
+        {"target": "C2", "grain": 1},
+        {"target": "C2", "grain": 3},
+        {"target": "C9", "grain": 1},
+        {"target": "C9", "grain": 5}
+      ],
+      "cells_provenance": "these are C2's and C9's P7-QUALIFYING grains under P7's PRIMARY grouping rule (a) (phase3/results/p7_grain_ladder.csv). C9 also qualified at g=3; it is NOT included, because the prompt's four cells were fixed before this preregistration and adding a fifth would enlarge the family post-hoc.",
+      "grouping_rule": "P7's PRIMARY rule (a): random within cluster, default_rng(707), chunked into consecutive blocks of g — the SAME rule, the SAME seed, reused verbatim from phase3/src/p7_grain_ladder.py:groups_random.",
+      "criterion": "rho >= 0.5 * measured 4-seed SB-corrected ceiling AND one-sided p < 0.0125 (Bonferroni-4 across the four target x grain cells)"
+    },
+    "DISCLOSED_TENSION_IN_THE_PRIMARY_DESIGN": {
+      "fact": "P7's qualifying cells were qualified by a MAX OVER THREE ATTRIBUTORS. Read from phase3/results/p7_grain_ladder.csv (rule a): C2@g=1 qualified via TracIn (ratio 0.509); C2@g=3 qualified via **IF** (ratio 0.652) while TracIn there scored only 0.277; C9@g=1 via TracIn (0.516); C9@g=5 via TracIn (0.663).",
+      "consequence": "freezing the primary estimator to the P11 champion (TracIn) makes C2@g=3 a GENUINELY ADVERSARIAL cell — prior evidence does not predict TracIn to pass it.",
+      "why_we_preregister_it_anyway": "a per-cell attributor choice is exactly the multiple-comparison move Phase-3 P6.5 exposed and cross-validated away. The champion is frozen or it is not a champion.",
+      "remedy": "a SECOND preregistered family (below), which gives the P7 heterogeneity its actual best shot at the price of a wider Bonferroni correction. Both families are declared HERE, before any Phase-4 number exists."
+    },
+    "SECONDARY_TEST": {
+      "estimator": "per cell, the attributor that QUALIFIED that cell in P7 under rule (a) — frozen NOW from phase3/results/p7_grain_ladder.csv, not from any Phase-4 datum: C2@g=1 -> TracIn, C2@g=3 -> IF, C9@g=1 -> TracIn, C9@g=5 -> TracIn. Same E=20 ensemble, same per-member unit-L2 normalization.",
+      "criterion": "rho >= 0.5 * measured 4-seed SB-corrected ceiling AND one-sided p < 0.00625 (Bonferroni-8 across the two families x four cells)",
+      "status": "SECONDARY. The PRIMARY verdict is the champion's."
+    },
+    "POWER_LIMIT_STATED_UP_FRONT": {
+      "n_masks": 16,
+      "critical_rho_primary": "at n=16 and one-sided alpha=0.0125 the critical rho is ~0.55; at alpha=0.00625 (secondary) it is ~0.59",
+      "bar_expectation": "the half-ceiling bar will be ~0.45 (from an S=4 SB ceiling ~0.90), so SIGNIFICANCE binds, not the ratio",
+      "ASYMMETRY": "this test is CONSERVATIVE. A FAIL here is WEAK evidence (small n, stiff critical rho); a PASS is STRONG. This asymmetry is stated UP FRONT and must be restated verbatim wherever the P14 verdict appears."
+    },
+    "PREREGISTERED_INTERPRETATION": {
+      "PASS_on_any_cell": "the paper upgrades from 'attribution fails at demo grain' to 'attribution faithfulness is target-dependent, confirmed out-of-sample — and here is the moderator question that opens.'",
+      "FAIL_on_all": "the P7 heterogeneity is flagged as likely exploration noise. (Qualified by the stated power limit: a FAIL at n=16 is weak evidence.)"
+    }
+  },
+
+  "OUT_OF_SCOPE_phase4_does_NOT": [
+    "no lambda or hyperparameter sweeps (champions are frozen)",
+    "no new policy classes",
+    "no new benchmarks",
+    "no image observations",
+    "no re-litigation of any settled verdict",
+    "no new-init-state generation (possible Phase 5)",
+    "no improvised remedy beyond what a stage's preregistration names: if a preregistered gate fails, the stage REPORTS and STOPS"
+  ],
+
+  "BUDGET_LEDGER": {
+    "stages": [
+      {"stage": "P12 BC S=10", "retrains": 96, "gpu_h": 13, "episodes": 25920},
+      {"stage": "P11 champion test", "retrains": 0, "gpu_h": 1, "episodes": 0, "note": "attribution only: extend the Gram cache to members 211-220"},
+      {"stage": "P13 diffusion S=8 + verdict", "retrains": 48, "gpu_h": 17, "episodes": 12960},
+      {"stage": "P14 fresh heterogeneity corpus", "retrains": 64, "gpu_h": 9, "episodes": 3840}
+    ],
+    "total_retrains": 208,
+    "total_gpu_h_nominal": 40,
+    "total_gpu_h_range": "40-42",
+    "ALERT_THRESHOLD_gpu_h": 60,
+    "total_episodes": 42720,
+    "per_stage_guard": ">1.5x a stage line => phase4/BUDGET_ALERT.md, PAUSE, decide, document",
+    "CUT_ORDER": ["P14", "P12 seeds 4 -> 2 (S=8; the fallback named in P12)", "P13 C5 arm (keep C1)"],
+    "never_cut_silently": true
+  },
+
+  "REPORTING": {
+    "per_stage": "phase4/STATUS.md updated per stage",
+    "final": "phase4/PHASE4_REPORT.md",
+    "verification": "EVERY report number machine-verified into phase4/results/report_verification.json",
+    "required_sections": [
+      "the three preregistered verdicts (P11, P13, P14), each with its preregistered interpretation sentence VERBATIM and its numbers",
+      "the P12/P13 instrument gates (SB-consistency checks) with pass/fail",
+      "the C5 diagnosis (exploratory-labelled)",
+      "actual-vs-ledger budget",
+      "every deviation",
+      "every incident",
+      "closing: 'After Phase 4, the paper may claim X, may not claim Y' — the updated Phase-3 §8"
+    ]
+  }
+}

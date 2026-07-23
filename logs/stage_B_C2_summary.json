@@ -1,0 +1,92 @@
+{
+ "stage": "stage_B_C2",
+ "n_jobs": 10,
+ "n_skipped": 0,
+ "n_run": 10,
+ "n_ok": 10,
+ "n_fail": 0,
+ "wall_s": 1401.4681811332703,
+ "gpu_h_est": 1.2658155955870947,
+ "results": [
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_B/C2_target_s101",
+   "seed": 101,
+   "gpu": 4,
+   "wall_s": 432.08225750923157,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_B/C2_target_s102",
+   "seed": 102,
+   "gpu": 5,
+   "wall_s": 472.79280185699463,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_B/C2_target_s103",
+   "seed": 103,
+   "gpu": 6,
+   "wall_s": 469.78324818611145,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_B/C2_target_s104",
+   "seed": 104,
+   "gpu": 7,
+   "wall_s": 466.7813277244568,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_B/C2_target_s105",
+   "seed": 105,
+   "gpu": 4,
+   "wall_s": 452.47127056121826,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_B/C2_cotrain_s103",
+   "seed": 103,
+   "gpu": 7,
+   "wall_s": 426.09540581703186,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_B/C2_cotrain_s101",
+   "seed": 101,
+   "gpu": 5,
+   "wall_s": 445.28024339675903,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_B/C2_cotrain_s102",
+   "seed": 102,
+   "gpu": 6,
+   "wall_s": 442.279189825058,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_B/C2_cotrain_s104",
+   "seed": 104,
+   "gpu": 4,
+   "wall_s": 466.3627119064331,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_B/C2_cotrain_s105",
+   "seed": 105,
+   "gpu": 7,
+   "wall_s": 483.007687330246,
+   "rc": 0,
+   "ok": true
+  }
+ ]
+}

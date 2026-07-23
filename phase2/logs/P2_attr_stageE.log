@@ -1,0 +1,23 @@
+[p2attr] ensemble=stageE: 10 members
+[p2attr] probe bank: 135 demos, 16933 windows, 27 task functionals
+[p2attr] TracIn ens_s201 done (33s)
+[p2attr] TRAK+IF ens_s201 done (40s)
+[p2attr] TracIn ens_s202 done (73s)
+[p2attr] TRAK+IF ens_s202 done (79s)
+[p2attr] TracIn ens_s203 done (111s)
+[p2attr] TRAK+IF ens_s203 done (117s)
+[p2attr] TracIn ens_s204 done (148s)
+[p2attr] TRAK+IF ens_s204 done (154s)
+[p2attr] TracIn ens_s205 done (184s)
+[p2attr] TRAK+IF ens_s205 done (190s)
+[p2attr] TracIn ens_s206 done (221s)
+[p2attr] TRAK+IF ens_s206 done (227s)
+[p2attr] TracIn ens_s207 done (257s)
+[p2attr] TRAK+IF ens_s207 done (263s)
+[p2attr] TracIn ens_s208 done (293s)
+[p2attr] TRAK+IF ens_s208 done (299s)
+[p2attr] TracIn ens_s209 done (329s)
+[p2attr] TRAK+IF ens_s209 done (335s)
+[p2attr] TracIn ens_s210 done (367s)
+[p2attr] TRAK+IF ens_s210 done (373s)
+[p2attr] wrote /mnt/sdb/ljc/RoboTDA-X/phase2/results/per_task_influence_stageE.parquet: 10935 rows (3 attributors x 27 tasks x 135 demos = 10935) in 373s

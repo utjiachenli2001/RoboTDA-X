@@ -1,0 +1,168 @@
+{
+ "LABEL": "SYNTHETIC -- synthetic data only, never mixed with any real result",
+ "n_tests": 32,
+ "n_pass": 32,
+ "ALL_PASS": true,
+ "tests": [
+  {
+   "test": "exact tie 0.25 vs 0.5*0.5 -> PASS (>=)",
+   "PASS": true,
+   "detail": "rho=0.25 ceil=0.5"
+  },
+  {
+   "test": "one ULP below the bar -> FAIL",
+   "PASS": true,
+   "detail": "rho=np.float64(0.24999999999999997) (bar=0.25)"
+  },
+  {
+   "test": "one ULP above the bar -> PASS",
+   "PASS": true,
+   "detail": "rho=np.float64(0.25000000000000006)"
+  },
+  {
+   "test": "20000 random (rho, ceiling): agrees with exact rational",
+   "PASS": true,
+   "detail": "20000/20000"
+  },
+  {
+   "test": "NaN ceiling -> FAIL",
+   "PASS": true,
+   "detail": ""
+  },
+  {
+   "test": "NaN rho -> FAIL",
+   "PASS": true,
+   "detail": ""
+  },
+  {
+   "test": "sb(r,1) == r",
+   "PASS": true,
+   "detail": ""
+  },
+  {
+   "test": "sb identity: sb(r,2) == 2r/(1+r)",
+   "PASS": true,
+   "detail": ""
+  },
+  {
+   "test": "sb_half_to_full(sb(r1,5)) == sb(r1,10)",
+   "PASS": true,
+   "detail": "0.810811 vs 0.810811"
+  },
+  {
+   "test": "S=4: enumerates exactly 3 distinct 2v2 splits",
+   "PASS": true,
+   "detail": "got 3"
+  },
+  {
+   "test": "S=6: enumerates exactly 10 distinct 3v3 splits",
+   "PASS": true,
+   "detail": "got 10"
+  },
+  {
+   "test": "S=8: enumerates exactly 35 distinct 4v4 splits",
+   "PASS": true,
+   "detail": "got 35"
+  },
+  {
+   "test": "S=10: enumerates exactly 126 distinct 5v5 splits",
+   "PASS": true,
+   "detail": "got 126"
+  },
+  {
+   "test": "SB consistency on clean data (var_n=0.5): |pred-meas| < 0.10",
+   "PASS": true,
+   "detail": "r1=0.602 pred10=0.938 meas10=0.946 diff=0.008"
+  },
+  {
+   "test": "SB consistency on clean data (var_n=1.0): |pred-meas| < 0.10",
+   "PASS": true,
+   "detail": "r1=0.406 pred10=0.873 meas10=0.841 diff=0.032"
+  },
+  {
+   "test": "SB consistency on clean data (var_n=2.0): |pred-meas| < 0.10",
+   "PASS": true,
+   "detail": "r1=0.269 pred10=0.786 meas10=0.779 diff=0.008"
+  },
+  {
+   "test": "clean data: median ceiling within 0.15 of the mean ceiling",
+   "PASS": true,
+   "detail": "mean=0.875 median=0.856"
+  },
+  {
+   "test": "HEAVY TAIL: the median ceiling BEATS the mean ceiling",
+   "PASS": true,
+   "detail": "mean=0.283 median=0.763 gain=+0.480"
+  },
+  {
+   "test": "HEAVY TAIL: the mean ceiling is degraded (< 0.8)",
+   "PASS": true,
+   "detail": "mean=0.283"
+  },
+  {
+   "test": "normalized ensemble is INVARIANT to per-member rescaling (Spearman == 1)",
+   "PASS": true,
+   "detail": "rho=1.000000000000"
+  },
+  {
+   "test": "UNNORMALIZED mean is dominated by the huge-norm member (rho > 0.95)",
+   "PASS": true,
+   "detail": "rho(unnorm, m0)=0.957"
+  },
+  {
+   "test": "NORMALIZED mean is NOT dominated by it (rho < unnorm)",
+   "PASS": true,
+   "detail": "rho(norm, m0)=0.876 < 0.957"
+  },
+  {
+   "test": "missing (member, demo) cell RAISES",
+   "PASS": true,
+   "detail": ""
+  },
+  {
+   "test": "g=1 coarse predictor == the plain demo predictor (EXACT)",
+   "PASS": true,
+   "detail": "coarse=-15.239753035 demo=-15.239753035"
+  },
+  {
+   "test": "g=1: predictor is finite",
+   "PASS": true,
+   "detail": "-15.2398"
+  },
+  {
+   "test": "g=3: predictor is finite",
+   "PASS": true,
+   "detail": "-10.5735"
+  },
+  {
+   "test": "g=5: predictor is finite",
+   "PASS": true,
+   "detail": "-10.0189"
+  },
+  {
+   "test": "g=15: predictor is finite",
+   "PASS": true,
+   "detail": "-9.6323"
+  },
+  {
+   "test": "g=1: full mask -> sum of all scores (EXACT)",
+   "PASS": true,
+   "detail": "-20.616833296 vs -20.616833296"
+  },
+  {
+   "test": "g=3: full mask -> sum of all scores (EXACT)",
+   "PASS": true,
+   "detail": "-20.616833296 vs -20.616833296"
+  },
+  {
+   "test": "g=5: full mask -> sum of all scores (EXACT)",
+   "PASS": true,
+   "detail": "-20.616833296 vs -20.616833296"
+  },
+  {
+   "test": "g=15: full mask -> sum of all scores (EXACT)",
+   "PASS": true,
+   "detail": "-20.616833296 vs -20.616833296"
+  }
+ ]
+}

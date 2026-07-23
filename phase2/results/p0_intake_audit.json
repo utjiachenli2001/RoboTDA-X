@@ -1,0 +1,96 @@
+{
+ "gate1": {
+  "recomputed_from": "runs/stage_D/*/outcomes.json + stage_D_influence_C1.parquet",
+  "per_attributor": {
+   "IF": {
+    "rho": 0.2517482517482518,
+    "n": 12,
+    "p_onesided": 0.21495939251644205
+   },
+   "TRAK": {
+    "rho": 0.18881118881118883,
+    "n": 12,
+    "p_onesided": 0.2783685280884157
+   },
+   "TracIn": {
+    "rho": -0.04195804195804196,
+    "n": 12,
+    "p_onesided": 0.5515070645902229
+   }
+  },
+  "best_attributor": "IF",
+  "best_rho_recomputed": 0.2517482517482518,
+  "report_value": 0.252,
+  "archived_value": 0.2517482517482518,
+  "max_abs_delta_vs_archived_mask_outcomes": 0.0,
+  "delta_vs_report": 0.00025174825174822946,
+  "MATCH": true
+ },
+ "stage_C": {
+  "recomputed_from": "runs/stage_C/*/cluster_eval.json (exact rational arithmetic)",
+  "by_Q": {
+   "15": {
+    "target_only_pct_mean": 21.0,
+    "cotrain_pct_mean": 23.333333333333332,
+    "margin_pts_mean_exact": "7/3",
+    "margin_pts_mean": 2.3333333333333335,
+    "per_seed_margins": [
+     28.0,
+     -15.5,
+     -5.5
+    ]
+   },
+   "50": {
+    "target_only_pct_mean": 48.5,
+    "cotrain_pct_mean": 49.333333333333336,
+    "margin_pts_mean_exact": "5/6",
+    "margin_pts_mean": 0.8333333333333334,
+    "per_seed_margins": [
+     6.0,
+     4.0,
+     -7.5
+    ]
+   },
+   "490": {
+    "target_only_pct_mean": 93.83333333333333,
+    "cotrain_pct_mean": 90.66666666666667,
+    "margin_pts_mean_exact": "-19/6",
+    "margin_pts_mean": -3.1666666666666665,
+    "per_seed_margins": [
+     2.0,
+     0.0,
+     -11.5
+    ]
+   }
+  },
+  "report_values": {
+   "15": 2.3,
+   "50": 0.8,
+   "490": -3.2
+  },
+  "MATCH": true,
+  "Q490_target_only_pct": 93.83333333333333,
+  "Q490_matches_report_93.8": true
+ },
+ "checkpoints": {
+  "stage_B": 30,
+  "stage_E": 10,
+  "stage_F": 168,
+  "stage_G": 48,
+  "stage_D": 24,
+  "stage_C": 18,
+  "MATCH": true,
+  "runs_missing_train_marker_or_final_pt": [],
+  "all_reusable_ckpts_intact": true
+ },
+ "stage_G_masks": {
+  "K": 24,
+  "demos_per_mask": 68,
+  "seed": 11,
+  "per_demo_inclusion_ok": true,
+  "n_masks_listed": 24,
+  "MATCH": true
+ },
+ "stage_B_per_task_success_available": true,
+ "ALL_PASS": true
+}

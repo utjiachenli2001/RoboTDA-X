@@ -1,0 +1,50 @@
+{
+ "defect": "src/analysis.py:32/44 hardcodes N_EPISODES=30 for the logit clamp; src/stage_d.py:85 hardcodes the literal 30.",
+ "fix": "phase3/src/p3lib.py:logit_success_rowwise reads the row's own n_episodes.",
+ "scoping_note": "phase2/results/p3_outcomes.parquet carries n_episodes = 200, NOT 30. It is consumed ONLY by phase2/src/p3_analyze.py, which already passes df.n_episodes.values ROW-WISE and is therefore correct. No hardcoding reader is ever pointed at a table whose n != 30.",
+ "hardcoding_readers": {
+  "src/analysis.py:44 (N_EPISODES=30) -> results/stage_F_outcomes.parquet": {
+   "n_episodes_unique": [
+    30
+   ],
+   "n_rows": 1512,
+   "clamp_correct": true
+  },
+  "src/analysis.py:44 (N_EPISODES=30) -> results/stage_G_outcomes.parquet": {
+   "n_episodes_unique": [
+    30
+   ],
+   "n_rows": 432,
+   "clamp_correct": true
+  },
+  "src/stage_d.py:85 (literal 30) -> runs/stage_D/*/outcomes.json": {
+   "n_episodes_unique": [
+    30
+   ],
+   "n_rows": 24,
+   "clamp_correct": true
+  }
+ },
+ "rowwise_readers_already_correct": {
+  "phase2/src/p1_analyze.py:85 -> phase2/results/stage_G6_outcomes.parquet": {
+   "n_episodes_unique": [
+    30
+   ],
+   "n_rows": 1296,
+   "reads_n_episodes_per_row": true
+  },
+  "phase2/src/p3_analyze.py:89 -> phase2/results/p3_outcomes.parquet": {
+   "n_episodes_unique": [
+    200
+   ],
+   "n_rows": 159,
+   "reads_n_episodes_per_row": true
+  },
+  "phase2/src/p4_analyze.py:89 -> phase2/runs/P4/*/ (per-episode subsampling)": {
+   "reads_n_episodes_per_row": true
+  }
+ },
+ "every_table_read_by_a_hardcoding_reader_has_n_30": true,
+ "VERDICT": "NO-OP CONFIRMED",
+ "note": "Every table a hardcoding reader consumes has n_episodes == 30, so the clamp it applied was the correct one and the fix is provably numerically inert on all existing data. That is exactly the claim: a LATENT defect, not an active error. p6_no_change.json proves the headline table is unchanged."
+}

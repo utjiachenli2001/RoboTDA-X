@@ -1,0 +1,14 @@
+[P10attr] 5 diffusion ensemble members: ['dpens_s621', 'dpens_s622', 'dpens_s623', 'dpens_s624', 'dpens_s625']
+[P10attr] probe-leak guard PASSED
+[P10attr] fixed (t,eps) bank: K=32, t=[3, 7, 9, 12, 14, 18, 19, 23]...
+[P10attr] TracIn dpens_s621 (407s)
+[P10attr] TRAK+IF dpens_s621 (488s)
+[P10attr] TracIn dpens_s622 (901s)
+[P10attr] TRAK+IF dpens_s622 (984s)
+[P10attr] TracIn dpens_s623 (1393s)
+[P10attr] TRAK+IF dpens_s623 (1476s)
+[P10attr] TracIn dpens_s624 (1886s)
+[P10attr] TRAK+IF dpens_s624 (1968s)
+[P10attr] TracIn dpens_s625 (2379s)
+[P10attr] TRAK+IF dpens_s625 (2461s)
+[P10attr] wrote /mnt/sdb/ljc/RoboTDA-X/phase3/results/p10_influence.parquet: 3645 rows (5 members, test_side=denoise, 2461s)

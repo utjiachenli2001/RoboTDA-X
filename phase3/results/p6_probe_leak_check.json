@@ -1,0 +1,144 @@
+{
+ "defect": "Stage-C Q=490 training sets contain the Phase-2 per-task probe demos (demo_45..demo_49). Harmless today because no Q490 model is ever scored against them, but nothing PREVENTED it.",
+ "fix": "p3lib.assert_no_probe_leak() -- a hard assertion in every Phase-3 attribution entry point. It REFUSES to compute attribution for any model whose demos.json intersects the probe set being used.",
+ "loaded_gun_confirmed": [
+  {
+   "run": "Q490_cotrain_s101",
+   "n_demos": 610,
+   "n_probe_demos_in_training_set": 50,
+   "examples": [
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_45",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_46",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_47"
+   ]
+  },
+  {
+   "run": "Q490_cotrain_s102",
+   "n_demos": 610,
+   "n_probe_demos_in_training_set": 50,
+   "examples": [
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_45",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_46",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_47"
+   ]
+  },
+  {
+   "run": "Q490_cotrain_s103",
+   "n_demos": 610,
+   "n_probe_demos_in_training_set": 50,
+   "examples": [
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_45",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_46",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_47"
+   ]
+  },
+  {
+   "run": "Q490_target_s101",
+   "n_demos": 490,
+   "n_probe_demos_in_training_set": 50,
+   "examples": [
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_45",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_46",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_47"
+   ]
+  },
+  {
+   "run": "Q490_target_s102",
+   "n_demos": 490,
+   "n_probe_demos_in_training_set": 50,
+   "examples": [
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_45",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_46",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_47"
+   ]
+  },
+  {
+   "run": "Q490_target_s103",
+   "n_demos": 490,
+   "n_probe_demos_in_training_set": 50,
+   "examples": [
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_45",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_46",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_47"
+   ]
+  }
+ ],
+ "loaded_gun_note": "These Q490 models DO contain probe demos in their training sets. The check below is whether any of them was ever ATTRIBUTED against those probes. Expected: no -- no influence artifact is derived from a Q490 model.",
+ "per_artifact_checks": [
+  {
+   "artifact": "results/influence_table.parquet",
+   "status": "CHECKED",
+   "n_models": 10,
+   "test_side": "9 clusters x 10 held-out demos",
+   "n_leaking_models": 0,
+   "leaks": [],
+   "clean": true
+  },
+  {
+   "artifact": "results/influence_table_per_member.parquet",
+   "status": "CHECKED",
+   "n_models": 10,
+   "test_side": "9 clusters x 10 held-out demos",
+   "n_leaking_models": 0,
+   "leaks": [],
+   "clean": true
+  },
+  {
+   "artifact": "results/stage_D_influence_C1.parquet",
+   "status": "CHECKED",
+   "n_models": 10,
+   "test_side": "C1 10 held-out demos",
+   "n_leaking_models": 0,
+   "leaks": [],
+   "clean": true
+  },
+  {
+   "artifact": "phase2/results/per_task_influence_stageE.parquet",
+   "status": "CHECKED",
+   "n_models": 10,
+   "test_side": "27 tasks x demo_45..49 (Phase-2 per-task probes)",
+   "n_leaking_models": 0,
+   "leaks": [],
+   "clean": true
+  },
+  {
+   "artifact": "phase2/results/per_task_influence_stageB.parquet",
+   "status": "CHECKED",
+   "n_models": 15,
+   "test_side": "27 tasks x demo_45..49 (Phase-2 per-task probes)",
+   "n_leaking_models": 0,
+   "leaks": [],
+   "clean": true
+  },
+  {
+   "artifact": "phase2/results/p3_influence_Q15.parquet",
+   "status": "CHECKED",
+   "n_models": 5,
+   "test_side": "C1 10 held-out demos",
+   "n_leaking_models": 0,
+   "leaks": [],
+   "clean": true
+  },
+  {
+   "artifact": "phase2/results/p3_influence_Q50.parquet",
+   "status": "CHECKED",
+   "n_models": 5,
+   "test_side": "C1 10 held-out demos",
+   "n_leaking_models": 0,
+   "leaks": [],
+   "clean": true
+  },
+  {
+   "artifact": "phase2/results/p3_influence_Q150.parquet",
+   "status": "CHECKED",
+   "n_models": 5,
+   "test_side": "C1 10 held-out demos",
+   "n_leaking_models": 0,
+   "leaks": [],
+   "clean": true
+  }
+ ],
+ "n_leaking_model_artifact_pairs": 0,
+ "VERDICT": "CLEAN",
+ "conclusion": "No influence artifact in the study was computed from a model whose training set intersects its test-side probe set."
+}

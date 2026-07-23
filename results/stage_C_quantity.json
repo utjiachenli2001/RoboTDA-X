@@ -1,0 +1,184 @@
+{
+ "Q_values": [
+  15,
+  50,
+  490
+ ],
+ "seeds": [
+  101,
+  102,
+  103
+ ],
+ "runs": [
+  {
+   "Q": 15,
+   "cond": "target",
+   "seed": 101,
+   "success_pct": 9.5,
+   "n_episodes": 200
+  },
+  {
+   "Q": 15,
+   "cond": "target",
+   "seed": 102,
+   "success_pct": 30.5,
+   "n_episodes": 200
+  },
+  {
+   "Q": 15,
+   "cond": "target",
+   "seed": 103,
+   "success_pct": 23.0,
+   "n_episodes": 200
+  },
+  {
+   "Q": 15,
+   "cond": "cotrain",
+   "seed": 101,
+   "success_pct": 37.5,
+   "n_episodes": 200
+  },
+  {
+   "Q": 15,
+   "cond": "cotrain",
+   "seed": 102,
+   "success_pct": 15.000000000000002,
+   "n_episodes": 200
+  },
+  {
+   "Q": 15,
+   "cond": "cotrain",
+   "seed": 103,
+   "success_pct": 17.5,
+   "n_episodes": 200
+  },
+  {
+   "Q": 50,
+   "cond": "target",
+   "seed": 101,
+   "success_pct": 40.0,
+   "n_episodes": 200
+  },
+  {
+   "Q": 50,
+   "cond": "target",
+   "seed": 102,
+   "success_pct": 48.00000000000001,
+   "n_episodes": 200
+  },
+  {
+   "Q": 50,
+   "cond": "target",
+   "seed": 103,
+   "success_pct": 57.49999999999999,
+   "n_episodes": 200
+  },
+  {
+   "Q": 50,
+   "cond": "cotrain",
+   "seed": 101,
+   "success_pct": 46.0,
+   "n_episodes": 200
+  },
+  {
+   "Q": 50,
+   "cond": "cotrain",
+   "seed": 102,
+   "success_pct": 52.0,
+   "n_episodes": 200
+  },
+  {
+   "Q": 50,
+   "cond": "cotrain",
+   "seed": 103,
+   "success_pct": 50.0,
+   "n_episodes": 200
+  },
+  {
+   "Q": 490,
+   "cond": "target",
+   "seed": 101,
+   "success_pct": 94.5,
+   "n_episodes": 200
+  },
+  {
+   "Q": 490,
+   "cond": "target",
+   "seed": 102,
+   "success_pct": 93.5,
+   "n_episodes": 200
+  },
+  {
+   "Q": 490,
+   "cond": "target",
+   "seed": 103,
+   "success_pct": 93.5,
+   "n_episodes": 200
+  },
+  {
+   "Q": 490,
+   "cond": "cotrain",
+   "seed": 101,
+   "success_pct": 96.50000000000001,
+   "n_episodes": 200
+  },
+  {
+   "Q": 490,
+   "cond": "cotrain",
+   "seed": 102,
+   "success_pct": 93.5,
+   "n_episodes": 200
+  },
+  {
+   "Q": 490,
+   "cond": "cotrain",
+   "seed": 103,
+   "success_pct": 82.0,
+   "n_episodes": 200
+  }
+ ],
+ "by_Q": {
+  "15": {
+   "target_only_pct_mean": 21.0,
+   "target_only_pct_sd": 10.641898326896381,
+   "cotrain_pct_mean": 23.333333333333332,
+   "cotrain_pct_sd": 12.332207155790618,
+   "margin_pts_mean": 2.333333333333334,
+   "margin_pts_sd": 22.783400390050062,
+   "per_seed_margins": [
+    28.0,
+    -15.499999999999998,
+    -5.5
+   ],
+   "n_runs": 6
+  },
+  "50": {
+   "target_only_pct_mean": 48.5,
+   "target_only_pct_sd": 8.760707733967612,
+   "cotrain_pct_mean": 49.333333333333336,
+   "cotrain_pct_sd": 3.0550504633038935,
+   "margin_pts_mean": 0.8333333333333334,
+   "margin_pts_sd": 7.285830998131459,
+   "per_seed_margins": [
+    6.0,
+    3.999999999999993,
+    -7.499999999999993
+   ],
+   "n_runs": 6
+  },
+  "490": {
+   "target_only_pct_mean": 93.83333333333333,
+   "target_only_pct_sd": 0.5773502691896257,
+   "cotrain_pct_mean": 90.66666666666667,
+   "cotrain_pct_sd": 7.653975002136694,
+   "margin_pts_mean": -3.166666666666662,
+   "margin_pts_sd": 7.28583099813147,
+   "per_seed_margins": [
+    2.000000000000014,
+    0.0,
+    -11.5
+   ],
+   "n_runs": 6
+  }
+ }
+}

@@ -1,0 +1,76 @@
+{
+ "LABEL": "SYNTHETIC -- validation of the exact Page trend test. NOT a study result. Never mix with measured numbers.",
+ "perfect_increase": {
+  "L": 42.0,
+  "p_onesided_exact": 0.004629629629629629,
+  "n_perms": 216,
+  "n_blocks": 3,
+  "k": 3,
+  "ranks": [
+   [
+    1.0,
+    2.0,
+    3.0
+   ],
+   [
+    1.0,
+    2.0,
+    3.0
+   ],
+   [
+    1.0,
+    2.0,
+    3.0
+   ]
+  ]
+ },
+ "perfect_decrease": {
+  "L": 30.0,
+  "p_onesided_exact": 1.0,
+  "n_perms": 216,
+  "n_blocks": 3,
+  "k": 3,
+  "ranks": [
+   [
+    3.0,
+    2.0,
+    1.0
+   ],
+   [
+    3.0,
+    2.0,
+    1.0
+   ],
+   [
+    3.0,
+    2.0,
+    1.0
+   ]
+  ]
+ },
+ "mixed": {
+  "L": 36.0,
+  "p_onesided_exact": 0.5555555555555556,
+  "n_perms": 216,
+  "n_blocks": 3,
+  "k": 3,
+  "ranks": [
+   [
+    1.0,
+    3.0,
+    2.0
+   ],
+   [
+    2.0,
+    1.0,
+    3.0
+   ],
+   [
+    3.0,
+    2.0,
+    1.0
+   ]
+  ]
+ },
+ "known_min_p_k3_n3": 0.004629629629629629
+}

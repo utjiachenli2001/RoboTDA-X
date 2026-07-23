@@ -1,0 +1,9 @@
+{
+ "report": "phase4/PHASE4_REPORT.md",
+ "preregistration_sha256": "fca37f54804c0173f5a9029e99b220de3db2a97ca2af7b3cf3c1c1a5372ecb80",
+ "n_checks": 159,
+ "n_verified": 159,
+ "n_mismatches": 0,
+ "ALL_VERIFIED": true,
+ "mismatches": []
+}

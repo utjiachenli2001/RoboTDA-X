@@ -1,0 +1,101 @@
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[stage_G] 48 jobs
+[stage_G] 48 jobs, 0 already complete, 48 to run
+[stage_G] launch G000_s401 on gpu4
+[stage_G] launch G000_s402 on gpu5
+[stage_G] launch G001_s401 on gpu6
+[stage_G] launch G001_s402 on gpu7
+[stage_G] OK  G000_s401 gpu4 443s (1/48 done)
+[stage_G] launch G002_s401 on gpu4
+[stage_G] OK  G001_s402 gpu7 447s (2/48 done)
+[stage_G] launch G002_s402 on gpu7
+[stage_G] OK  G001_s401 gpu6 463s (3/48 done)
+[stage_G] launch G003_s401 on gpu6
+[stage_G] OK  G000_s402 gpu5 489s (4/48 done)
+[stage_G] launch G003_s402 on gpu5
+[stage_G] OK  G002_s401 gpu4 445s (5/48 done)
+[stage_G] OK  G002_s402 gpu7 432s (6/48 done)
+[stage_G] launch G004_s401 on gpu4
+[stage_G] launch G004_s402 on gpu7
+[stage_G] OK  G003_s401 gpu6 435s (7/48 done)
+[stage_G] launch G005_s401 on gpu6
+[stage_G] OK  G003_s402 gpu5 445s (8/48 done)
+[stage_G] launch G005_s402 on gpu5
+[stage_G] OK  G004_s402 gpu7 418s (9/48 done)
+[stage_G] launch G006_s401 on gpu7
+[stage_G] OK  G004_s401 gpu4 434s (10/48 done)
+[stage_G] launch G006_s402 on gpu4
+[stage_G] OK  G005_s401 gpu6 441s (11/48 done)
+[stage_G] launch G007_s401 on gpu6
+[stage_G] OK  G005_s402 gpu5 451s (12/48 done)
+[stage_G] launch G007_s402 on gpu5
+[stage_G] OK  G006_s401 gpu7 462s (13/48 done)
+[stage_G] launch G008_s401 on gpu7
+[stage_G] OK  G006_s402 gpu4 472s (14/48 done)
+[stage_G] launch G008_s402 on gpu4
+[stage_G] OK  G007_s401 gpu6 462s (15/48 done)
+[stage_G] launch G009_s401 on gpu6
+[stage_G] OK  G007_s402 gpu5 451s (16/48 done)
+[stage_G] launch G009_s402 on gpu5
+[stage_G] OK  G009_s401 gpu6 418s (17/48 done)
+[stage_G] launch G010_s401 on gpu6
+[stage_G] OK  G008_s401 gpu7 468s (18/48 done)
+[stage_G] OK  G008_s402 gpu4 445s (19/48 done)
+[stage_G] launch G010_s402 on gpu4
+[stage_G] launch G011_s401 on gpu7
+[stage_G] OK  G009_s402 gpu5 445s (20/48 done)
+[stage_G] launch G011_s402 on gpu5
+[stage_G] OK  G010_s401 gpu6 481s (21/48 done)
+[stage_G] launch G012_s401 on gpu6
+[stage_G] OK  G010_s402 gpu4 481s (22/48 done)
+[stage_G] OK  G011_s401 gpu7 478s (23/48 done)
+[stage_G] launch G012_s402 on gpu4
+[stage_G] launch G013_s401 on gpu7
+[stage_G] OK  G011_s402 gpu5 450s (24/48 done)
+[stage_G] launch G013_s402 on gpu5
+[stage_G] OK  G012_s402 gpu4 420s (25/48 done)
+[stage_G] launch G014_s401 on gpu4
+[stage_G] OK  G012_s401 gpu6 477s (26/48 done)
+[stage_G] OK  G013_s401 gpu7 461s (27/48 done)
+[stage_G] launch G014_s402 on gpu6
+[stage_G] launch G015_s401 on gpu7
+[stage_G] OK  G013_s402 gpu5 484s (28/48 done)
+[stage_G] launch G015_s402 on gpu5
+[stage_G] OK  G014_s401 gpu4 463s (29/48 done)
+[stage_G] launch G016_s401 on gpu4
+[stage_G] OK  G014_s402 gpu6 453s (30/48 done)
+[stage_G] launch G016_s402 on gpu6
+[stage_G] OK  G015_s401 gpu7 463s (31/48 done)
+[stage_G] launch G017_s401 on gpu7
+[stage_G] OK  G015_s402 gpu5 453s (32/48 done)
+[stage_G] launch G017_s402 on gpu5
+[stage_G] OK  G016_s401 gpu4 462s (33/48 done)
+[stage_G] launch G018_s401 on gpu4
+[stage_G] OK  G016_s402 gpu6 483s (34/48 done)
+[stage_G] OK  G017_s401 gpu7 470s (35/48 done)
+[stage_G] launch G018_s402 on gpu6
+[stage_G] launch G019_s401 on gpu7
+[stage_G] OK  G017_s402 gpu5 473s (36/48 done)
+[stage_G] launch G019_s402 on gpu5
+[stage_G] OK  G018_s401 gpu4 474s (37/48 done)
+[stage_G] launch G020_s401 on gpu4
+[stage_G] OK  G018_s402 gpu6 434s (38/48 done)
+[stage_G] launch G020_s402 on gpu6
+[stage_G] OK  G019_s401 gpu7 455s (39/48 done)
+[stage_G] launch G021_s401 on gpu7
+[stage_G] OK  G019_s402 gpu5 485s (40/48 done)
+[stage_G] launch G021_s402 on gpu5
+[stage_G] OK  G020_s401 gpu4 472s (41/48 done)
+[stage_G] launch G022_s401 on gpu4
+[stage_G] OK  G020_s402 gpu6 472s (42/48 done)
+[stage_G] OK  G021_s401 gpu7 448s (43/48 done)
+[stage_G] launch G022_s402 on gpu6
+[stage_G] launch G023_s401 on gpu7
+[stage_G] OK  G021_s402 gpu5 451s (44/48 done)
+[stage_G] launch G023_s402 on gpu5
+[stage_G] OK  G022_s402 gpu6 430s (45/48 done)
+[stage_G] OK  G022_s401 gpu4 473s (46/48 done)
+[stage_G] OK  G023_s401 gpu7 477s (47/48 done)
+[stage_G] OK  G023_s402 gpu5 473s (48/48 done)
+[stage_G] COMPLETE: 48/48 ok, 0 failed, wall=92.8 min, gpu-h=6.10
+[stage_G] collected 432 rows from 48/48 runs -> /mnt/sdb/ljc/RoboTDA-X/results/stage_G_outcomes.parquet

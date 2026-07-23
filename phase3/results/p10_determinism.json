@@ -1,0 +1,63 @@
+{
+ "stage": "P10 determinism gate",
+ "checkpoint": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/_calib/dp_lr0.001_st16000/final.pt",
+ "task": "open_the_middle_drawer_of_the_cabinet",
+ "n_episodes": 6,
+ "run1_success": [
+  true,
+  true,
+  false,
+  true,
+  true,
+  true
+ ],
+ "run1_steps": [
+  124,
+  216,
+  600,
+  133,
+  124,
+  123
+ ],
+ "run2_success": [
+  true,
+  true,
+  false,
+  true,
+  true,
+  true
+ ],
+ "run2_steps": [
+  124,
+  216,
+  600,
+  133,
+  124,
+  123
+ ],
+ "BIT_IDENTICAL_success_flags": true,
+ "BIT_IDENTICAL_step_counts": true,
+ "GATE": true,
+ "why_step_counts": "Step counts are the strict test: a near-floor model matches on success flags trivially (it fails every episode at the full horizon), so flags alone would not prove determinism.",
+ "episode_50_wraps_to_0": {
+  "episodes_50_55_success": [
+   true,
+   true,
+   false,
+   true,
+   true,
+   true
+  ],
+  "episodes_50_55_steps": [
+   124,
+   216,
+   600,
+   133,
+   124,
+   123
+  ],
+  "identical_to_episodes_0_5": true,
+  "meaning": "LIBERO supplies 50 init states per task, and rollout selects them with ep % 50 -- so episode 50 IS episode 0. This re-confirms the Phase-2 instrument defect for the diffusion policy: there are at most 50 distinct episodes per task, and P10 never exceeds that."
+ },
+ "sampler": "DDIM, eta = 0, fixed initial latent (seed 12345)"
+}

@@ -1,0 +1,237 @@
+{
+ "budget_B": 15,
+ "targets": [
+  "C1",
+  "C5"
+ ],
+ "seeds": [
+  501,
+  502,
+  503
+ ],
+ "n_rollouts_per_probe_task": 20,
+ "selection_composition": {
+  "C1": {
+   "best_attributor": "TRAK",
+   "influence_top15_outsiders": 9,
+   "similarity_top15_outsiders": 12,
+   "influence_top15": [
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_0",
+    "libero_goal/put_the_wine_bottle_on_the_rack/demo_0",
+    "libero_90/KITCHEN_SCENE2_stack_the_middle_black_bowl_on_the_back_black_bowl/demo_1",
+    "libero_goal/put_the_bowl_on_top_of_the_cabinet/demo_0",
+    "libero_spatial/pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate/demo_0",
+    "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_0",
+    "libero_90/KITCHEN_SCENE10_put_the_butter_at_the_back_in_the_top_drawer_of_the_cabinet_and_close_it/demo_1",
+    "libero_90/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet/demo_0",
+    "libero_90/KITCHEN_SCENE2_put_the_black_bowl_at_the_back_on_the_plate/demo_1",
+    "libero_90/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet/demo_1",
+    "libero_90/KITCHEN_SCENE1_open_the_bottom_drawer_of_the_cabinet/demo_1",
+    "libero_90/KITCHEN_SCENE2_put_the_middle_black_bowl_on_the_plate/demo_0",
+    "libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it/demo_1",
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1",
+    "libero_goal/put_the_cream_cheese_in_the_bowl/demo_0"
+   ],
+   "similarity_top15": [
+    "libero_goal/put_the_bowl_on_the_plate/demo_1",
+    "libero_90/KITCHEN_SCENE10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet/demo_2",
+    "libero_90/KITCHEN_SCENE4_close_the_bottom_drawer_of_the_cabinet/demo_2",
+    "libero_90/KITCHEN_SCENE2_put_the_black_bowl_at_the_back_on_the_plate/demo_1",
+    "libero_spatial/pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate/demo_0",
+    "libero_90/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet/demo_2",
+    "libero_goal/put_the_bowl_on_the_plate/demo_0",
+    "libero_spatial/pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate/demo_1",
+    "libero_90/KITCHEN_SCENE10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet/demo_0",
+    "libero_90/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet/demo_1",
+    "libero_90/KITCHEN_SCENE4_put_the_wine_bottle_in_the_bottom_drawer_of_the_cabinet/demo_1",
+    "libero_90/KITCHEN_SCENE10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet/demo_1",
+    "libero_90/KITCHEN_SCENE2_stack_the_middle_black_bowl_on_the_back_black_bowl/demo_1",
+    "libero_goal/put_the_bowl_on_the_stove/demo_0",
+    "libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it/demo_1"
+   ]
+  },
+  "C5": {
+   "best_attributor": "TRAK",
+   "influence_top15_outsiders": 9,
+   "similarity_top15_outsiders": 11,
+   "influence_top15": [
+    "libero_90/KITCHEN_SCENE2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle/demo_1",
+    "libero_90/KITCHEN_SCENE2_stack_the_middle_black_bowl_on_the_back_black_bowl/demo_1",
+    "libero_90/KITCHEN_SCENE4_put_the_wine_bottle_on_the_wine_rack/demo_0",
+    "libero_90/KITCHEN_SCENE2_stack_the_middle_black_bowl_on_the_back_black_bowl/demo_0",
+    "libero_90/KITCHEN_SCENE10_put_the_butter_at_the_front_in_the_top_drawer_of_the_cabinet_and_close_it/demo_1",
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1",
+    "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_1",
+    "libero_90/KITCHEN_SCENE2_open_the_top_drawer_of_the_cabinet/demo_1",
+    "libero_90/KITCHEN_SCENE2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle/demo_0",
+    "libero_90/KITCHEN_SCENE9_turn_on_the_stove/demo_0",
+    "libero_10/STUDY_SCENE1_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy/demo_0",
+    "libero_90/KITCHEN_SCENE10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet/demo_2",
+    "libero_90/KITCHEN_SCENE2_put_the_black_bowl_at_the_front_on_the_plate/demo_0",
+    "libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it/demo_0",
+    "libero_spatial/pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate/demo_0"
+   ],
+   "similarity_top15": [
+    "libero_goal/put_the_cream_cheese_in_the_bowl/demo_0",
+    "libero_90/KITCHEN_SCENE9_put_the_frying_pan_on_the_cabinet_shelf/demo_0",
+    "libero_90/KITCHEN_SCENE2_stack_the_middle_black_bowl_on_the_back_black_bowl/demo_1",
+    "libero_goal/put_the_bowl_on_the_plate/demo_1",
+    "libero_goal/put_the_bowl_on_the_plate/demo_0",
+    "libero_spatial/pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate/demo_1",
+    "libero_spatial/pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate/demo_0",
+    "libero_90/KITCHEN_SCENE2_put_the_black_bowl_at_the_front_on_the_plate/demo_0",
+    "libero_90/KITCHEN_SCENE2_put_the_middle_black_bowl_on_the_plate/demo_0",
+    "libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet/demo_0",
+    "libero_90/KITCHEN_SCENE2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle/demo_1",
+    "libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet/demo_1",
+    "libero_90/KITCHEN_SCENE4_put_the_wine_bottle_in_the_bottom_drawer_of_the_cabinet/demo_0",
+    "libero_90/KITCHEN_SCENE9_put_the_frying_pan_under_the_cabinet_shelf/demo_1",
+    "libero_90/KITCHEN_SCENE9_put_the_frying_pan_under_the_cabinet_shelf/demo_2"
+   ]
+  }
+ },
+ "by_target": {
+  "C1": {
+   "success_pct": {
+    "target_only": {
+     "501": 1.6666666666666667,
+     "502": 31.666666666666664,
+     "503": 5.0
+    },
+    "influence_top15": {
+     "501": 0.0,
+     "502": 30.0,
+     "503": 10.0
+    },
+    "random15": {
+     "501": 0.0,
+     "502": 0.0,
+     "503": 0.0
+    },
+    "similarity_top15": {
+     "501": 0.0,
+     "502": 0.0,
+     "503": 0.0
+    }
+   },
+   "mean_success_pct": {
+    "target_only": 12.777777777777777,
+    "influence_top15": 13.333333333333334,
+    "random15": 0.0,
+    "similarity_top15": 0.0
+   },
+   "sd_success_pct": {
+    "target_only": 16.442942874387487,
+    "influence_top15": 15.275252316519467,
+    "random15": 0.0,
+    "similarity_top15": 0.0
+   },
+   "margins_influence_vs": {
+    "target_only": {
+     "per_seed_pts": [
+      -1.6666666666666667,
+      -1.6666666666666643,
+      5.0
+     ],
+     "mean_pts": 0.5555555555555562,
+     "sd_pts": 3.8490017945975046,
+     "t": 0.25000000000000033,
+     "p_twosided": 0.825922344044302
+    },
+    "random15": {
+     "per_seed_pts": [
+      0.0,
+      30.0,
+      10.0
+     ],
+     "mean_pts": 13.333333333333334,
+     "sd_pts": 15.275252316519467,
+     "t": 1.511857892036909,
+     "p_twosided": 0.26970325665977846
+    },
+    "similarity_top15": {
+     "per_seed_pts": [
+      0.0,
+      30.0,
+      10.0
+     ],
+     "mean_pts": 13.333333333333334,
+     "sd_pts": 15.275252316519467,
+     "t": 1.511857892036909,
+     "p_twosided": 0.26970325665977846
+    }
+   }
+  },
+  "C5": {
+   "success_pct": {
+    "target_only": {
+     "501": 3.3333333333333335,
+     "502": 25.0,
+     "503": 23.333333333333332
+    },
+    "influence_top15": {
+     "501": 0.0,
+     "502": 1.6666666666666667,
+     "503": 1.6666666666666667
+    },
+    "random15": {
+     "501": 0.0,
+     "502": 13.333333333333334,
+     "503": 28.333333333333332
+    },
+    "similarity_top15": {
+     "501": 8.333333333333332,
+     "502": 0.0,
+     "503": 1.6666666666666667
+    }
+   },
+   "mean_success_pct": {
+    "target_only": 17.22222222222222,
+    "influence_top15": 1.1111111111111112,
+    "random15": 13.888888888888888,
+    "similarity_top15": 3.3333333333333326
+   },
+   "sd_success_pct": {
+    "target_only": 12.056963563450392,
+    "influence_top15": 0.9622504486493764,
+    "random15": 14.17483424685897,
+    "similarity_top15": 4.409585518440984
+   },
+   "margins_influence_vs": {
+    "target_only": {
+     "per_seed_pts": [
+      -3.3333333333333335,
+      -23.333333333333332,
+      -21.666666666666664
+     ],
+     "mean_pts": -16.11111111111111,
+     "sd_pts": 11.097213530798987,
+     "t": -2.514618911619948,
+     "p_twosided": 0.12838601982148212
+    },
+    "random15": {
+     "per_seed_pts": [
+      0.0,
+      -11.666666666666668,
+      -26.666666666666664
+     ],
+     "mean_pts": -12.777777777777777,
+     "sd_pts": 13.368010461684404,
+     "t": -1.6555762267219976,
+     "p_twosided": 0.23964345435662074
+    },
+    "similarity_top15": {
+     "per_seed_pts": [
+      -8.333333333333332,
+      1.6666666666666667,
+      0.0
+     ],
+     "mean_pts": -2.222222222222222,
+     "sd_pts": 5.357583756107197,
+     "t": -0.7184212081070995,
+     "p_twosided": 0.5470891863421617
+    }
+   }
+  }
+ }
+}

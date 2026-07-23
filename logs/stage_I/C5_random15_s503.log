@@ -1,0 +1,31 @@
+[train] ep 0 step 10/8000 loss 6.3375 (2s)
+[train] ep 50 step 510/8000 loss -8.2053 (10s)
+[train] ep 100 step 1010/8000 loss -12.0769 (18s)
+[train] ep 150 step 1510/8000 loss -11.1527 (26s)
+[train] ep 200 step 2010/8000 loss -13.3913 (35s)
+[train] ep 250 step 2510/8000 loss -15.2451 (43s)
+[train] ep 300 step 3010/8000 loss -17.6518 (51s)
+[train] ep 350 step 3510/8000 loss -18.4925 (59s)
+[train] ep 400 step 4010/8000 loss -18.8944 (68s)
+[train] ep 450 step 4510/8000 loss -19.9290 (76s)
+[train] ep 500 step 5010/8000 loss -20.6181 (84s)
+[train] ep 550 step 5510/8000 loss -21.1196 (92s)
+[train] ep 600 step 6010/8000 loss -21.6191 (99s)
+[train] ep 650 step 6510/8000 loss -22.2950 (108s)
+[train] ep 700 step 7010/8000 loss -22.4641 (117s)
+[train] ep 750 step 7510/8000 loss -22.7136 (126s)
+[train] ep 799 step 8000/8000 loss -22.9584 (134s)
+[train] DONE /mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_random15_s503 wall=134s windows=2789 loss=-22.6939
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[probe] /mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_random15_s503 wall=266s
+  C5: succ=0.2833333333333333 (60 eps) plain=0.729 transp=0.470 inter=1.219

@@ -1,0 +1,83 @@
+{
+ "LABEL": "SYNTHETIC -- Phase-5 statistics on known answers; NEVER mixed with real data",
+ "n_tests": 15,
+ "n_pass": 15,
+ "ALL_PASS": true,
+ "tests": [
+  {
+   "test": "exact_criterion_at_bar_passes",
+   "PASS": true,
+   "detail": "rho=0.4752794707166836"
+  },
+  {
+   "test": "exact_criterion_one_ulp_below_FAILS",
+   "PASS": true,
+   "detail": "epsilon compare would wrongly pass"
+  },
+  {
+   "test": "exact_criterion_one_ulp_above_passes",
+   "PASS": true,
+   "detail": ""
+  },
+  {
+   "test": "balanced_splits_S10_eq_126",
+   "PASS": true,
+   "detail": "got 126"
+  },
+  {
+   "test": "balanced_splits_S8_eq_35",
+   "PASS": true,
+   "detail": "got 35"
+  },
+  {
+   "test": "balanced_splits_S4_eq_3",
+   "PASS": true,
+   "detail": "got 3"
+  },
+  {
+   "test": "balanced_splits_S6_eq_10",
+   "PASS": true,
+   "detail": "got 10"
+  },
+  {
+   "test": "SB_predicts_10seed_ceiling_within_0.05",
+   "PASS": true,
+   "detail": "pred=0.916 meas=0.916 r1=0.520"
+  },
+  {
+   "test": "median_beats_mean_on_heavytail",
+   "PASS": true,
+   "detail": "mean=0.464 median=0.987"
+  },
+  {
+   "test": "stricter_gate_fails_on_iii",
+   "PASS": true,
+   "detail": "i=True ii=True iii=False"
+  },
+  {
+   "test": "stricter_gate_passes_all_three",
+   "PASS": true,
+   "detail": ""
+  },
+  {
+   "test": "per_member_normalization_scale_invariant",
+   "PASS": true,
+   "detail": "max abs diff 2.78e-17"
+  },
+  {
+   "test": "bonferroni7_exact",
+   "PASS": true,
+   "detail": ""
+  },
+  {
+   "test": "bonferroni14_exact",
+   "PASS": true,
+   "detail": ""
+  },
+  {
+   "test": "critical_rho_n24_bonf7_near_0.50",
+   "PASS": true,
+   "detail": "critical rho = 0.4934"
+  }
+ ]
+}

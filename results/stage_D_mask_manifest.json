@@ -1,0 +1,180 @@
+{
+ "seed": 23,
+ "K": 12,
+ "per_mask": 8,
+ "per_demo_inclusion": {
+  "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_0": 7,
+  "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_0": 6,
+  "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_0": 6,
+  "libero_goal/put_the_bowl_on_the_plate/demo_0": 7,
+  "libero_goal/put_the_bowl_on_the_stove/demo_0": 6,
+  "libero_goal/put_the_bowl_on_top_of_the_cabinet/demo_0": 6,
+  "libero_goal/put_the_cream_cheese_in_the_bowl/demo_0": 6,
+  "libero_goal/put_the_wine_bottle_on_the_rack/demo_0": 7,
+  "libero_goal/put_the_wine_bottle_on_top_of_the_cabinet/demo_0": 7,
+  "libero_goal/turn_on_the_stove/demo_0": 7,
+  "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_1": 6,
+  "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_1": 6,
+  "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1": 7,
+  "libero_goal/put_the_bowl_on_the_plate/demo_1": 6,
+  "libero_goal/put_the_bowl_on_the_stove/demo_1": 6
+ },
+ "masks": [
+  {
+   "mask_id": "D00",
+   "demos": [
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_0",
+    "libero_goal/put_the_bowl_on_the_plate/demo_0",
+    "libero_goal/put_the_cream_cheese_in_the_bowl/demo_0",
+    "libero_goal/put_the_wine_bottle_on_the_rack/demo_0",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_1",
+    "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_1",
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1",
+    "libero_goal/put_the_bowl_on_the_stove/demo_1"
+   ]
+  },
+  {
+   "mask_id": "D01",
+   "demos": [
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_0",
+    "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_0",
+    "libero_goal/put_the_bowl_on_the_stove/demo_0",
+    "libero_goal/put_the_bowl_on_top_of_the_cabinet/demo_0",
+    "libero_goal/put_the_wine_bottle_on_top_of_the_cabinet/demo_0",
+    "libero_goal/turn_on_the_stove/demo_0",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_1",
+    "libero_goal/put_the_bowl_on_the_plate/demo_1"
+   ]
+  },
+  {
+   "mask_id": "D02",
+   "demos": [
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_0",
+    "libero_goal/put_the_bowl_on_the_stove/demo_0",
+    "libero_goal/put_the_bowl_on_top_of_the_cabinet/demo_0",
+    "libero_goal/put_the_cream_cheese_in_the_bowl/demo_0",
+    "libero_goal/put_the_wine_bottle_on_the_rack/demo_0",
+    "libero_goal/turn_on_the_stove/demo_0",
+    "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_1",
+    "libero_goal/put_the_bowl_on_the_plate/demo_1"
+   ]
+  },
+  {
+   "mask_id": "D03",
+   "demos": [
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_0",
+    "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_0",
+    "libero_goal/put_the_bowl_on_the_plate/demo_0",
+    "libero_goal/put_the_wine_bottle_on_top_of_the_cabinet/demo_0",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_1",
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1",
+    "libero_goal/put_the_bowl_on_the_plate/demo_1",
+    "libero_goal/put_the_bowl_on_the_stove/demo_1"
+   ]
+  },
+  {
+   "mask_id": "D04",
+   "demos": [
+    "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_0",
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_0",
+    "libero_goal/put_the_bowl_on_the_stove/demo_0",
+    "libero_goal/put_the_bowl_on_top_of_the_cabinet/demo_0",
+    "libero_goal/put_the_cream_cheese_in_the_bowl/demo_0",
+    "libero_goal/put_the_wine_bottle_on_top_of_the_cabinet/demo_0",
+    "libero_goal/turn_on_the_stove/demo_0",
+    "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_1"
+   ]
+  },
+  {
+   "mask_id": "D05",
+   "demos": [
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_0",
+    "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_0",
+    "libero_goal/put_the_bowl_on_the_plate/demo_0",
+    "libero_goal/put_the_wine_bottle_on_the_rack/demo_0",
+    "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_1",
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1",
+    "libero_goal/put_the_bowl_on_the_plate/demo_1",
+    "libero_goal/put_the_bowl_on_the_stove/demo_1"
+   ]
+  },
+  {
+   "mask_id": "D06",
+   "demos": [
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_0",
+    "libero_goal/put_the_bowl_on_the_plate/demo_0",
+    "libero_goal/put_the_bowl_on_the_stove/demo_0",
+    "libero_goal/put_the_bowl_on_top_of_the_cabinet/demo_0",
+    "libero_goal/put_the_cream_cheese_in_the_bowl/demo_0",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_1",
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1",
+    "libero_goal/put_the_bowl_on_the_stove/demo_1"
+   ]
+  },
+  {
+   "mask_id": "D07",
+   "demos": [
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_0",
+    "libero_goal/put_the_bowl_on_the_plate/demo_0",
+    "libero_goal/put_the_cream_cheese_in_the_bowl/demo_0",
+    "libero_goal/put_the_wine_bottle_on_the_rack/demo_0",
+    "libero_goal/put_the_wine_bottle_on_top_of_the_cabinet/demo_0",
+    "libero_goal/turn_on_the_stove/demo_0",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_1",
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1"
+   ]
+  },
+  {
+   "mask_id": "D08",
+   "demos": [
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_0",
+    "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_0",
+    "libero_goal/put_the_bowl_on_the_stove/demo_0",
+    "libero_goal/put_the_wine_bottle_on_the_rack/demo_0",
+    "libero_goal/turn_on_the_stove/demo_0",
+    "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_1",
+    "libero_goal/put_the_bowl_on_the_plate/demo_1",
+    "libero_goal/put_the_bowl_on_the_stove/demo_1"
+   ]
+  },
+  {
+   "mask_id": "D09",
+   "demos": [
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_0",
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_0",
+    "libero_goal/put_the_bowl_on_the_plate/demo_0",
+    "libero_goal/put_the_bowl_on_top_of_the_cabinet/demo_0",
+    "libero_goal/put_the_cream_cheese_in_the_bowl/demo_0",
+    "libero_goal/put_the_wine_bottle_on_top_of_the_cabinet/demo_0",
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1",
+    "libero_goal/put_the_bowl_on_the_plate/demo_1"
+   ]
+  },
+  {
+   "mask_id": "D10",
+   "demos": [
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_0",
+    "libero_goal/put_the_bowl_on_the_stove/demo_0",
+    "libero_goal/put_the_bowl_on_top_of_the_cabinet/demo_0",
+    "libero_goal/put_the_wine_bottle_on_the_rack/demo_0",
+    "libero_goal/put_the_wine_bottle_on_top_of_the_cabinet/demo_0",
+    "libero_goal/turn_on_the_stove/demo_0",
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_1",
+    "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_1"
+   ]
+  },
+  {
+   "mask_id": "D11",
+   "demos": [
+    "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_0",
+    "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_0",
+    "libero_goal/put_the_bowl_on_the_plate/demo_0",
+    "libero_goal/put_the_wine_bottle_on_the_rack/demo_0",
+    "libero_goal/put_the_wine_bottle_on_top_of_the_cabinet/demo_0",
+    "libero_goal/turn_on_the_stove/demo_0",
+    "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1",
+    "libero_goal/put_the_bowl_on_the_stove/demo_1"
+   ]
+  }
+ ]
+}

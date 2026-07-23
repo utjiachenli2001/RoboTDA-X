@@ -1,0 +1,20 @@
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[bitcheck] idle GPUs: [4, 5, 6, 7]
+[bitcheck] launch A_stock_train on gpu4
+[bitcheck] launch B_factorial_nodet on gpu5
+[bitcheck] launch C_factorial_det on gpu6
+[bitcheck] A_stock_train rc=0
+[bitcheck] B_factorial_nodet rc=0
+[bitcheck] C_factorial_det rc=0
+[bitcheck] launch C'_repeat on gpu4
+
+========================================================================================
+P8a INSTRUMENT CHECK
+========================================================================================
+  1. factorial(init=401,order=401) == src/train.py(401)   : True  {'n_tensors': 81, 'n_differing': 0, 'max_abs_diff': 0.0}
+  2. P8a trainer reproducible (C' == C)                   : True  {'n_tensors': 81, 'n_differing': 0, 'max_abs_diff': 0.0}
+  -  cuDNN-deterministic changes weights (C vs A)         : False  {'n_tensors': 81, 'n_differing': 0, 'max_abs_diff': 0.0}
+  -  Phase-1 run reproduces across time (A vs archive)    : True  {'n_tensors': 81, 'n_differing': 0, 'max_abs_diff': 0.0}
+
+  GATE (assertions 1 AND 2): True
+========================================================================================

@@ -1,0 +1,120 @@
+{
+ "n_targets": 9,
+ "note": "n=9 -> descriptive, not a powered test",
+ "per_target": [
+  {
+   "target": "C1",
+   "attributor": "TRAK",
+   "insider_advantage_auc": 0.705,
+   "mean_outsider_dtw": 0.17573493637540072,
+   "mean_outsider_mmd": 0.9005594565802151,
+   "mean_outsider_bddl": 0.22270562770562768,
+   "within_target_redundancy_dtw": 0.11183391632232938
+  },
+  {
+   "target": "C2",
+   "attributor": "TRAK",
+   "insider_advantage_auc": 0.4577777777777778,
+   "mean_outsider_dtw": 0.17170768373974815,
+   "mean_outsider_mmd": 0.9440701941317982,
+   "mean_outsider_bddl": 0.09513888888888888,
+   "within_target_redundancy_dtw": 0.08090474997727976
+  },
+  {
+   "target": "C3",
+   "attributor": "TRAK",
+   "insider_advantage_auc": 0.5883333333333334,
+   "mean_outsider_dtw": 0.499772216861617,
+   "mean_outsider_mmd": 1.1267372668120597,
+   "mean_outsider_bddl": 0.033503667628667626,
+   "within_target_redundancy_dtw": 0.0509407339683684
+  },
+  {
+   "target": "C4",
+   "attributor": "IF",
+   "insider_advantage_auc": 0.7016666666666667,
+   "mean_outsider_dtw": 0.22986415348209188,
+   "mean_outsider_mmd": 0.9757740355531375,
+   "mean_outsider_bddl": 0.06988985088985089,
+   "within_target_redundancy_dtw": 0.1964727911031528
+  },
+  {
+   "target": "C5",
+   "attributor": "TRAK",
+   "insider_advantage_auc": 0.6538888888888889,
+   "mean_outsider_dtw": 0.1684434810660278,
+   "mean_outsider_mmd": 0.9357527694768376,
+   "mean_outsider_bddl": 0.1375,
+   "within_target_redundancy_dtw": 0.093961932444999
+  },
+  {
+   "target": "C6",
+   "attributor": "TRAK",
+   "insider_advantage_auc": 0.5088888888888888,
+   "mean_outsider_dtw": 0.169361131008728,
+   "mean_outsider_mmd": 0.9545074582099914,
+   "mean_outsider_bddl": 0.12493055555555554,
+   "within_target_redundancy_dtw": 0.069002600236795
+  },
+  {
+   "target": "C7",
+   "attributor": "TracIn",
+   "insider_advantage_auc": 0.7211111111111111,
+   "mean_outsider_dtw": 0.16141181860035492,
+   "mean_outsider_mmd": 0.927998176349534,
+   "mean_outsider_bddl": 0.16249999999999998,
+   "within_target_redundancy_dtw": 0.08626662713922073
+  },
+  {
+   "target": "C8",
+   "attributor": "TRAK",
+   "insider_advantage_auc": 0.4872222222222222,
+   "mean_outsider_dtw": 0.1724356120817095,
+   "mean_outsider_mmd": 0.834211629860931,
+   "mean_outsider_bddl": 0.005555555555555556,
+   "within_target_redundancy_dtw": 0.09537946502125585
+  },
+  {
+   "target": "C9",
+   "attributor": "TracIn",
+   "insider_advantage_auc": 0.5844444444444444,
+   "mean_outsider_dtw": 0.16827028921396742,
+   "mean_outsider_mmd": 0.9003264512618383,
+   "mean_outsider_bddl": 0.24680555555555556,
+   "within_target_redundancy_dtw": 0.09071824821652982
+  }
+ ],
+ "univariate": {
+  "mean_outsider_dtw": {
+   "pearson_r": 0.010543250782174456,
+   "p": 0.9785234554096605,
+   "spearman": -0.06666666666666667,
+   "slope": 0.009667080013329615
+  },
+  "mean_outsider_mmd": {
+   "pearson_r": 0.09773567424245166,
+   "p": 0.8024726374315136,
+   "spearman": 0.049999999999999996,
+   "slope": 0.12321270766902254
+  },
+  "mean_outsider_bddl": {
+   "pearson_r": 0.4122592148632306,
+   "p": 0.2701911261963743,
+   "spearman": 0.43333333333333335,
+   "slope": 0.5109685349335915
+  },
+  "within_target_redundancy_dtw": {
+   "pearson_r": 0.4820090742886124,
+   "p": 0.18885990961365656,
+   "spearman": 0.3666666666666667,
+   "slope": 1.1797985328526348
+  }
+ },
+ "multivariate_auc_on_dtw_and_redundancy": {
+  "intercept": 0.4495698978564966,
+  "beta_mean_outsider_dtw": 0.1310144811627202,
+  "beta_within_target_redundancy": 1.2690729292951122,
+  "r2": 0.2514196915714074,
+  "n": 9
+ }
+}

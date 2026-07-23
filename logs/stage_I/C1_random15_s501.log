@@ -1,0 +1,37 @@
+[train] ep 0 step 10/8000 loss 6.4210 (2s)
+[train] ep 50 step 510/8000 loss -7.6139 (11s)
+[train] ep 100 step 1010/8000 loss -11.8513 (18s)
+[train] ep 150 step 1510/8000 loss -13.2283 (26s)
+[train] ep 200 step 2010/8000 loss -14.4786 (35s)
+[train] ep 250 step 2510/8000 loss -16.3136 (43s)
+[train] ep 300 step 3010/8000 loss -16.8680 (50s)
+[train] ep 350 step 3510/8000 loss -18.0065 (59s)
+[train] ep 400 step 4010/8000 loss -19.2255 (67s)
+[train] ep 450 step 4510/8000 loss -19.5922 (74s)
+[train] ep 500 step 5010/8000 loss -19.9706 (83s)
+[train] ep 550 step 5510/8000 loss -20.6288 (90s)
+[train] ep 600 step 6010/8000 loss -21.4867 (98s)
+[train] ep 650 step 6510/8000 loss -22.0530 (106s)
+[train] ep 700 step 7010/8000 loss -21.9633 (114s)
+[train] ep 750 step 7510/8000 loss -22.5360 (121s)
+[train] ep 799 step 8000/8000 loss -22.9243 (129s)
+[train] DONE /mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_random15_s501 wall=129s windows=2738 loss=-22.8032
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[probe] /mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_random15_s501 wall=221s
+  C1: succ=0.0 (60 eps) plain=1.490 transp=1.509 inter=1.452

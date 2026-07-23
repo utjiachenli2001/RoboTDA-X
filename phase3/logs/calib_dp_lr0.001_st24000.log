@@ -1,0 +1,28 @@
+[trainDP] ep 0 step 27/24000 loss 1.00097 (3s)
+[trainDP] ep 50 step 1377/24000 loss 0.04892 (32s)
+[trainDP] ep 100 step 2727/24000 loss 0.03068 (59s)
+[trainDP] ep 150 step 4077/24000 loss 0.02310 (86s)
+[trainDP] ep 200 step 5427/24000 loss 0.01972 (115s)
+[trainDP] ep 250 step 6777/24000 loss 0.01609 (145s)
+[trainDP] ep 300 step 8127/24000 loss 0.01444 (173s)
+[trainDP] ep 350 step 9477/24000 loss 0.01313 (200s)
+[trainDP] ep 400 step 10827/24000 loss 0.01268 (227s)
+[trainDP] ep 450 step 12177/24000 loss 0.01034 (254s)
+[trainDP] ep 500 step 13527/24000 loss 0.00855 (281s)
+[trainDP] ep 550 step 14877/24000 loss 0.00731 (308s)
+[trainDP] ep 600 step 16227/24000 loss 0.00736 (335s)
+[trainDP] ep 650 step 17577/24000 loss 0.00656 (362s)
+[trainDP] ep 700 step 18927/24000 loss 0.00596 (389s)
+[trainDP] ep 750 step 20277/24000 loss 0.00560 (416s)
+[trainDP] ep 800 step 21627/24000 loss 0.00494 (442s)
+[trainDP] ep 850 step 22977/24000 loss 0.00472 (469s)
+[trainDP] ep 888 step 24000/24000 loss 0.00473 (489s)
+[trainDP] DONE /mnt/sdb/ljc/RoboTDA-X/phase3/runs/_calib/dp_lr0.001_st24000 wall=489s params=18.3M loss=0.00478
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[cal-eval] /mnt/sdb/ljc/RoboTDA-X/phase3/runs/_calib/dp_lr0.001_st24000: success=0.950 (143s)

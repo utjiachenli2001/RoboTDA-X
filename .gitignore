@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# Large model checkpoints (too big for GitHub — kept locally only)
+*.pt
+*.pth
+
+# Large datasets
+*.hdf5
+
+# Media
+*.mp4

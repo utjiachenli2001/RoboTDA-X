@@ -1,0 +1,205 @@
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[P1_stage_G6] 96 jobs, 0 already complete, 96 to run
+[P1_stage_G6] launch G000_s403 on gpu4
+[P1_stage_G6] launch G000_s404 on gpu5
+[P1_stage_G6] launch G000_s405 on gpu6
+[P1_stage_G6] launch G000_s406 on gpu7
+[P1_stage_G6] OK  G000_s405 gpu6 466s (1/96 done)
+[P1_stage_G6] launch G001_s403 on gpu6
+[P1_stage_G6] OK  G000_s403 gpu4 485s (2/96 done)
+[P1_stage_G6] launch G001_s404 on gpu4
+[P1_stage_G6] OK  G000_s404 gpu5 496s (3/96 done)
+[P1_stage_G6] OK  G000_s406 gpu7 490s (4/96 done)
+[P1_stage_G6] launch G001_s405 on gpu5
+[P1_stage_G6] launch G001_s406 on gpu7
+[P1_stage_G6] OK  G001_s403 gpu6 465s (5/96 done)
+[P1_stage_G6] launch G002_s403 on gpu6
+[P1_stage_G6] OK  G001_s404 gpu4 475s (6/96 done)
+[P1_stage_G6] OK  G001_s406 gpu7 459s (7/96 done)
+[P1_stage_G6] launch G002_s404 on gpu4
+[P1_stage_G6] launch G002_s405 on gpu7
+[P1_stage_G6] OK  G001_s405 gpu5 478s (8/96 done)
+[P1_stage_G6] launch G002_s406 on gpu5
+[P1_stage_G6] OK  G002_s403 gpu6 444s (9/96 done)
+[P1_stage_G6] launch G003_s403 on gpu6
+[P1_stage_G6] OK  G002_s405 gpu7 441s (10/96 done)
+[P1_stage_G6] launch G003_s404 on gpu7
+[P1_stage_G6] OK  G002_s406 gpu5 441s (11/96 done)
+[P1_stage_G6] launch G003_s405 on gpu5
+[P1_stage_G6] OK  G002_s404 gpu4 470s (12/96 done)
+[P1_stage_G6] launch G003_s406 on gpu4
+[P1_stage_G6] OK  G003_s403 gpu6 442s (13/96 done)
+[P1_stage_G6] launch G004_s403 on gpu6
+[P1_stage_G6] OK  G003_s404 gpu7 462s (14/96 done)
+[P1_stage_G6] OK  G003_s405 gpu5 449s (15/96 done)
+[P1_stage_G6] launch G004_s404 on gpu5
+[P1_stage_G6] launch G004_s405 on gpu7
+[P1_stage_G6] OK  G003_s406 gpu4 452s (16/96 done)
+[P1_stage_G6] launch G004_s406 on gpu4
+[P1_stage_G6] OK  G004_s403 gpu6 432s (17/96 done)
+[P1_stage_G6] launch G005_s403 on gpu6
+[P1_stage_G6] OK  G004_s404 gpu5 473s (18/96 done)
+[P1_stage_G6] OK  G004_s406 gpu4 457s (19/96 done)
+[P1_stage_G6] launch G005_s404 on gpu4
+[P1_stage_G6] launch G005_s405 on gpu5
+[P1_stage_G6] OK  G004_s405 gpu7 486s (20/96 done)
+[P1_stage_G6] launch G005_s406 on gpu7
+[P1_stage_G6] OK  G005_s403 gpu6 432s (21/96 done)
+[P1_stage_G6] launch G006_s403 on gpu6
+[P1_stage_G6] OK  G005_s405 gpu5 419s (22/96 done)
+[P1_stage_G6] launch G006_s404 on gpu5
+[P1_stage_G6] OK  G005_s404 gpu4 435s (23/96 done)
+[P1_stage_G6] OK  G005_s406 gpu7 419s (24/96 done)
+[P1_stage_G6] launch G006_s405 on gpu4
+[P1_stage_G6] launch G006_s406 on gpu7
+[P1_stage_G6] OK  G006_s403 gpu6 472s (25/96 done)
+[P1_stage_G6] launch G007_s403 on gpu6
+[P1_stage_G6] OK  G006_s405 gpu4 449s (26/96 done)
+[P1_stage_G6] launch G007_s404 on gpu4
+[P1_stage_G6] OK  G006_s406 gpu7 459s (27/96 done)
+[P1_stage_G6] launch G007_s405 on gpu7
+[P1_stage_G6] OK  G006_s404 gpu5 488s (28/96 done)
+[P1_stage_G6] launch G007_s406 on gpu5
+[P1_stage_G6] OK  G007_s403 gpu6 420s (29/96 done)
+[P1_stage_G6] launch G008_s403 on gpu6
+[P1_stage_G6] OK  G007_s404 gpu4 441s (30/96 done)
+[P1_stage_G6] launch G008_s404 on gpu4
+[P1_stage_G6] OK  G007_s405 gpu7 441s (31/96 done)
+[P1_stage_G6] launch G008_s405 on gpu7
+[P1_stage_G6] OK  G007_s406 gpu5 451s (32/96 done)
+[P1_stage_G6] launch G008_s406 on gpu5
+[P1_stage_G6] OK  G008_s403 gpu6 484s (33/96 done)
+[P1_stage_G6] launch G009_s403 on gpu6
+[P1_stage_G6] OK  G008_s404 gpu4 454s (34/96 done)
+[P1_stage_G6] OK  G008_s405 gpu7 441s (35/96 done)
+[P1_stage_G6] launch G009_s404 on gpu4
+[P1_stage_G6] launch G009_s405 on gpu7
+[P1_stage_G6] OK  G008_s406 gpu5 444s (36/96 done)
+[P1_stage_G6] launch G009_s406 on gpu5
+[P1_stage_G6] OK  G009_s403 gpu6 443s (37/96 done)
+[P1_stage_G6] launch G010_s403 on gpu6
+[P1_stage_G6] OK  G009_s405 gpu7 409s (38/96 done)
+[P1_stage_G6] launch G010_s404 on gpu7
+[P1_stage_G6] OK  G009_s406 gpu5 399s (39/96 done)
+[P1_stage_G6] launch G010_s405 on gpu5
+[P1_stage_G6] OK  G009_s404 gpu4 438s (40/96 done)
+[P1_stage_G6] launch G010_s406 on gpu4
+[P1_stage_G6] OK  G010_s403 gpu6 471s (41/96 done)
+[P1_stage_G6] launch G011_s403 on gpu6
+[P1_stage_G6] OK  G010_s404 gpu7 472s (42/96 done)
+[P1_stage_G6] launch G011_s404 on gpu7
+[P1_stage_G6] OK  G010_s405 gpu5 482s (43/96 done)
+[P1_stage_G6] OK  G010_s406 gpu4 469s (44/96 done)
+[P1_stage_G6] launch G011_s405 on gpu4
+[P1_stage_G6] launch G011_s406 on gpu5
+[P1_stage_G6] OK  G011_s404 gpu7 451s (45/96 done)
+[P1_stage_G6] launch G012_s403 on gpu7
+[P1_stage_G6] OK  G011_s405 gpu4 441s (46/96 done)
+[P1_stage_G6] launch G012_s404 on gpu4
+[P1_stage_G6] OK  G011_s403 gpu6 501s (47/96 done)
+[P1_stage_G6] launch G012_s405 on gpu6
+[P1_stage_G6] OK  G011_s406 gpu5 484s (48/96 done)
+[P1_stage_G6] launch G012_s406 on gpu5
+[P1_stage_G6] OK  G012_s404 gpu4 462s (49/96 done)
+[P1_stage_G6] launch G013_s403 on gpu4
+[P1_stage_G6] OK  G012_s403 gpu7 488s (50/96 done)
+[P1_stage_G6] launch G013_s404 on gpu7
+[P1_stage_G6] OK  G012_s405 gpu6 487s (51/96 done)
+[P1_stage_G6] OK  G012_s406 gpu5 454s (52/96 done)
+[P1_stage_G6] launch G013_s405 on gpu5
+[P1_stage_G6] launch G013_s406 on gpu6
+[P1_stage_G6] OK  G013_s403 gpu4 455s (53/96 done)
+[P1_stage_G6] launch G014_s403 on gpu4
+[P1_stage_G6] OK  G013_s404 gpu7 465s (54/96 done)
+[P1_stage_G6] launch G014_s404 on gpu7
+[P1_stage_G6] OK  G013_s406 gpu6 450s (55/96 done)
+[P1_stage_G6] launch G014_s405 on gpu6
+[P1_stage_G6] OK  G013_s405 gpu5 466s (56/96 done)
+[P1_stage_G6] launch G014_s406 on gpu5
+[P1_stage_G6] OK  G014_s403 gpu4 421s (57/96 done)
+[P1_stage_G6] launch G015_s403 on gpu4
+[P1_stage_G6] OK  G014_s405 gpu6 428s (58/96 done)
+[P1_stage_G6] launch G015_s404 on gpu6
+[P1_stage_G6] OK  G014_s404 gpu7 464s (59/96 done)
+[P1_stage_G6] launch G015_s405 on gpu7
+[P1_stage_G6] OK  G014_s406 gpu5 451s (60/96 done)
+[P1_stage_G6] launch G015_s406 on gpu5
+[P1_stage_G6] OK  G015_s403 gpu4 442s (61/96 done)
+[P1_stage_G6] launch G016_s403 on gpu4
+[P1_stage_G6] OK  G015_s405 gpu7 418s (62/96 done)
+[P1_stage_G6] launch G016_s404 on gpu7
+[P1_stage_G6] OK  G015_s404 gpu6 465s (63/96 done)
+[P1_stage_G6] launch G016_s405 on gpu6
+[P1_stage_G6] OK  G015_s406 gpu5 442s (64/96 done)
+[P1_stage_G6] launch G016_s406 on gpu5
+[P1_stage_G6] OK  G016_s403 gpu4 464s (65/96 done)
+[P1_stage_G6] launch G017_s403 on gpu4
+[P1_stage_G6] OK  G016_s404 gpu7 484s (66/96 done)
+[P1_stage_G6] launch G017_s404 on gpu7
+[P1_stage_G6] OK  G016_s405 gpu6 474s (67/96 done)
+[P1_stage_G6] OK  G016_s406 gpu5 460s (68/96 done)
+[P1_stage_G6] launch G017_s405 on gpu5
+[P1_stage_G6] launch G017_s406 on gpu6
+[P1_stage_G6] OK  G017_s403 gpu4 442s (69/96 done)
+[P1_stage_G6] launch G018_s403 on gpu4
+[P1_stage_G6] OK  G017_s404 gpu7 402s (70/96 done)
+[P1_stage_G6] launch G018_s404 on gpu7
+[P1_stage_G6] OK  G017_s406 gpu6 429s (71/96 done)
+[P1_stage_G6] launch G018_s405 on gpu6
+[P1_stage_G6] OK  G017_s405 gpu5 456s (72/96 done)
+[P1_stage_G6] launch G018_s406 on gpu5
+[P1_stage_G6] OK  G018_s403 gpu4 433s (73/96 done)
+[P1_stage_G6] launch G019_s403 on gpu4
+[P1_stage_G6] OK  G018_s404 gpu7 463s (74/96 done)
+[P1_stage_G6] launch G019_s404 on gpu7
+[P1_stage_G6] OK  G018_s405 gpu6 443s (75/96 done)
+[P1_stage_G6] OK  G018_s406 gpu5 420s (76/96 done)
+[P1_stage_G6] launch G019_s405 on gpu5
+[P1_stage_G6] launch G019_s406 on gpu6
+[P1_stage_G6] OK  G019_s403 gpu4 483s (77/96 done)
+[P1_stage_G6] launch G020_s403 on gpu4
+[P1_stage_G6] OK  G019_s404 gpu7 442s (78/96 done)
+[P1_stage_G6] launch G020_s404 on gpu7
+[P1_stage_G6] OK  G019_s406 gpu6 449s (79/96 done)
+[P1_stage_G6] launch G020_s405 on gpu6
+[P1_stage_G6] OK  G019_s405 gpu5 465s (80/96 done)
+[P1_stage_G6] launch G020_s406 on gpu5
+[P1_stage_G6] OK  G020_s403 gpu4 454s (81/96 done)
+[P1_stage_G6] launch G021_s403 on gpu4
+[P1_stage_G6] OK  G020_s404 gpu7 474s (82/96 done)
+[P1_stage_G6] launch G021_s404 on gpu7
+[P1_stage_G6] OK  G020_s406 gpu5 461s (83/96 done)
+[P1_stage_G6] launch G021_s405 on gpu5
+[P1_stage_G6] OK  G020_s405 gpu6 487s (84/96 done)
+[P1_stage_G6] launch G021_s406 on gpu6
+[P1_stage_G6] OK  G021_s403 gpu4 442s (85/96 done)
+[P1_stage_G6] launch G022_s403 on gpu4
+[P1_stage_G6] OK  G021_s404 gpu7 473s (86/96 done)
+[P1_stage_G6] OK  G021_s405 gpu5 440s (87/96 done)
+[P1_stage_G6] launch G022_s404 on gpu5
+[P1_stage_G6] launch G022_s405 on gpu7
+[P1_stage_G6] OK  G021_s406 gpu6 443s (88/96 done)
+[P1_stage_G6] launch G022_s406 on gpu6
+[P1_stage_G6] OK  G022_s403 gpu4 442s (89/96 done)
+[P1_stage_G6] launch G023_s403 on gpu4
+[P1_stage_G6] OK  G022_s405 gpu7 439s (90/96 done)
+[P1_stage_G6] launch G023_s404 on gpu7
+[P1_stage_G6] OK  G022_s404 gpu5 466s (91/96 done)
+[P1_stage_G6] launch G023_s405 on gpu5
+[P1_stage_G6] OK  G022_s406 gpu6 463s (92/96 done)
+[P1_stage_G6] launch G023_s406 on gpu6
+[P1_stage_G6] OK  G023_s403 gpu4 464s (93/96 done)
+[P1_stage_G6] OK  G023_s404 gpu7 470s (94/96 done)
+[P1_stage_G6] OK  G023_s405 gpu5 456s (95/96 done)
+[P1_stage_G6] OK  G023_s406 gpu6 463s (96/96 done)
+[P1_stage_G6] COMPLETE: 96/96 ok, 0 failed, wall=183.0 min, gpu-h=12.13
+{
+ "stage": "P1_stage_G6",
+ "n_jobs": 96,
+ "n_skipped": 0,
+ "n_run": 96,
+ "n_ok": 96,
+ "n_fail": 0,
+ "wall_s": 10982.228235006332,
+ "gpu_h_est": 12.130658582978779
+}

@@ -1,0 +1,114 @@
+[train] ep 0 step 4/8000 loss 6.9992 (2s)
+[train] ep 50 step 204/8000 loss -5.7912 (5s)
+[train] ep 100 step 404/8000 loss -7.2981 (9s)
+[train] ep 150 step 604/8000 loss -9.2894 (12s)
+[train] ep 200 step 804/8000 loss -11.4213 (15s)
+[train] ep 250 step 1004/8000 loss -11.7894 (18s)
+[train] ep 300 step 1204/8000 loss -13.3632 (21s)
+[train] ep 350 step 1404/8000 loss -14.5427 (24s)
+[train] ep 400 step 1604/8000 loss -15.3613 (28s)
+[train] ep 450 step 1804/8000 loss -13.5132 (31s)
+[train] ep 500 step 2004/8000 loss -16.4372 (34s)
+[train] ep 550 step 2204/8000 loss -16.7048 (37s)
+[train] ep 600 step 2404/8000 loss -16.6608 (40s)
+[train] ep 650 step 2604/8000 loss -18.3230 (43s)
+[train] ep 700 step 2804/8000 loss -18.0417 (46s)
+[train] ep 750 step 3004/8000 loss -18.0217 (49s)
+[train] ep 800 step 3204/8000 loss -18.7528 (52s)
+[train] ep 850 step 3404/8000 loss -19.0320 (56s)
+[train] ep 900 step 3604/8000 loss -20.0571 (60s)
+[train] ep 950 step 3804/8000 loss -19.7479 (64s)
+[train] ep 1000 step 4004/8000 loss -20.7002 (67s)
+[train] ep 1050 step 4204/8000 loss -19.5994 (70s)
+[train] ep 1100 step 4404/8000 loss -20.9583 (73s)
+[train] ep 1150 step 4604/8000 loss -21.7066 (76s)
+[train] ep 1200 step 4804/8000 loss -21.9729 (79s)
+[train] ep 1250 step 5004/8000 loss -21.7490 (83s)
+[train] ep 1300 step 5204/8000 loss -22.2833 (86s)
+[train] ep 1350 step 5404/8000 loss -23.0517 (89s)
+[train] ep 1400 step 5604/8000 loss -23.6393 (92s)
+[train] ep 1450 step 5804/8000 loss -22.8999 (95s)
+[train] ep 1500 step 6004/8000 loss -23.3764 (98s)
+[train] ep 1550 step 6204/8000 loss -23.6910 (101s)
+[train] ep 1600 step 6404/8000 loss -24.0167 (104s)
+[train] ep 1650 step 6604/8000 loss -24.1986 (108s)
+[train] ep 1700 step 6804/8000 loss -24.3370 (111s)
+[train] ep 1750 step 7004/8000 loss -24.5112 (114s)
+[train] ep 1800 step 7204/8000 loss -24.5679 (117s)
+[train] ep 1850 step 7404/8000 loss -24.1959 (120s)
+[train] ep 1900 step 7604/8000 loss -25.1234 (123s)
+[train] ep 1950 step 7804/8000 loss -24.9122 (126s)
+[train] ep 1999 step 8000/8000 loss -24.7914 (130s)
+[train] DONE /mnt/sdb/ljc/RoboTDA-X/phase2/runs/P3/Q15M00_s604 wall=130s windows=1097 loss=-24.7949
+[heldout] /mnt/sdb/ljc/RoboTDA-X/phase2/runs/P3/Q15M00_s604: C1 plain_loss=1.1170
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[robosuite WARNING] No private macro file found! (__init__.py:7)
+[robosuite WARNING] It is recommended to use a private macro file (__init__.py:8)
+[robosuite WARNING] To setup, run: python /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/robosuite/scripts/setup_macros.py (__init__.py:9)
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Local assets not found. Downloading from HuggingFace Hub...
+Assets already downloaded at /home/ljc/.cache/libero/assets
+[clustereval] /mnt/sdb/ljc/RoboTDA-X/phase2/runs/P3/Q15M00_s604 C1 success=0.0750 (200 eps, 278s)

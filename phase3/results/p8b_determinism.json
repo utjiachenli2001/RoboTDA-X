@@ -1,0 +1,50 @@
+{
+ "arm_i_checkpoint_average": {
+  "run1_success": [
+   false,
+   false,
+   false
+  ],
+  "run1_steps": [
+   600,
+   600,
+   600
+  ],
+  "run2_success": [
+   false,
+   false,
+   false
+  ],
+  "run2_steps": [
+   600,
+   600,
+   600
+  ],
+  "bit_identical": true
+ },
+ "arm_ii_action_ensemble": {
+  "run1_success": [
+   false,
+   false,
+   false
+  ],
+  "run1_steps": [
+   600,
+   600,
+   600
+  ],
+  "run2_success": [
+   false,
+   false,
+   false
+  ],
+  "run2_steps": [
+   600,
+   600,
+   600
+  ],
+  "bit_identical": true
+ },
+ "GATE": true,
+ "meaning": "Both repaired policies must be DETERMINISTIC (same success flags AND same step counts on a replay), or their mask rankings would carry rollout noise that the baseline does not have."
+}

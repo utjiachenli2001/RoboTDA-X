@@ -1,0 +1,149 @@
+{
+ "outcomes": {
+  "C1": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "per_task_success": {
+    "open_the_middle_drawer_of_the_cabinet": 0.0,
+    "open_the_top_drawer_and_put_the_bowl_inside": 0.0,
+    "push_the_plate_to_the_front_of_the_stove": 0.0
+   },
+   "plain_loss": 1.4973823262008734,
+   "transport_loss": 1.2587827935599014,
+   "interaction_loss": 1.988275845894882,
+   "denoise_loss": 0.052943845927069765,
+   "denoise_transport": 0.052237661121724885,
+   "denoise_interaction": 0.05439674711599124
+  },
+  "C2": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "per_task_success": {
+    "pick_up_the_black_bowl_between_the_plate_and_the_ramekin_and_place_it_on_the_plate": 0.0,
+    "pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate": 0.0,
+    "pick_up_the_black_bowl_in_the_top_drawer_of_the_wooden_cabinet_and_place_it_on_the_plate": 0.0
+   },
+   "plain_loss": 2.073436332242411,
+   "transport_loss": 1.8567620322961522,
+   "interaction_loss": 2.527701510595086,
+   "denoise_loss": 0.05695585976336166,
+   "denoise_transport": 0.05627150193006328,
+   "denoise_interaction": 0.05839063967624218
+  },
+  "C3": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "per_task_success": {
+    "pick_up_the_alphabet_soup_and_place_it_in_the_basket": 0.0,
+    "pick_up_the_bbq_sauce_and_place_it_in_the_basket": 0.0,
+    "pick_up_the_butter_and_place_it_in_the_basket": 0.0
+   },
+   "plain_loss": 2.3241790221471503,
+   "transport_loss": 2.5096677220780346,
+   "interaction_loss": 1.9270481179567325,
+   "denoise_loss": 0.04751820302470613,
+   "denoise_transport": 0.04632809451331121,
+   "denoise_interaction": 0.050066222766022364
+  },
+  "C4": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "per_task_success": {
+    "KITCHEN_SCENE3_turn_on_the_stove_and_put_the_moka_pot_on_it": 0.0,
+    "LIVING_ROOM_SCENE2_put_both_the_alphabet_soup_and_the_tomato_sauce_in_the_basket": 0.0,
+    "LIVING_ROOM_SCENE6_put_the_white_mug_on_the_plate_and_put_the_chocolate_pudding_to_the_right_of_the_plate": 0.0
+   },
+   "plain_loss": 1.4465869299744152,
+   "transport_loss": 1.3264265356048512,
+   "interaction_loss": 1.8581839633863493,
+   "denoise_loss": 0.05030747364746831,
+   "denoise_transport": 0.05046408565022721,
+   "denoise_interaction": 0.04977101539039896
+  },
+  "C5": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "per_task_success": {
+    "KITCHEN_SCENE2_open_the_top_drawer_of_the_cabinet": 0.0,
+    "KITCHEN_SCENE2_put_the_black_bowl_at_the_back_on_the_plate": 0.0,
+    "KITCHEN_SCENE2_put_the_black_bowl_at_the_front_on_the_plate": 0.0
+   },
+   "plain_loss": 1.0228222526516604,
+   "transport_loss": 0.6218690696705128,
+   "interaction_loss": 1.7797338723941263,
+   "denoise_loss": 0.04659780679955847,
+   "denoise_transport": 0.04689066119423158,
+   "denoise_interaction": 0.046044961969714214
+  },
+  "C6": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "per_task_success": {
+    "KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet": 0.0,
+    "KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it": 0.0,
+    "KITCHEN_SCENE10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet": 0.0
+   },
+   "plain_loss": 1.180796152234555,
+   "transport_loss": 1.0887001208751348,
+   "interaction_loss": 1.4927014960098282,
+   "denoise_loss": 0.048931604958554586,
+   "denoise_transport": 0.04764657968512416,
+   "denoise_interaction": 0.05328365187906758
+  },
+  "C7": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "per_task_success": {
+    "KITCHEN_SCENE4_close_the_bottom_drawer_of_the_cabinet": 0.0,
+    "KITCHEN_SCENE4_close_the_bottom_drawer_of_the_cabinet_and_open_the_top_drawer": 0.0,
+    "KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet": 0.0
+   },
+   "plain_loss": 1.09975658842609,
+   "transport_loss": 0.8758883066935303,
+   "interaction_loss": 1.7831735791423213,
+   "denoise_loss": 0.048120798820240555,
+   "denoise_transport": 0.04838412030151597,
+   "denoise_interaction": 0.04731694052941236
+  },
+  "C8": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "per_task_success": {
+    "KITCHEN_SCENE9_put_the_frying_pan_on_the_cabinet_shelf": 0.0,
+    "KITCHEN_SCENE9_put_the_frying_pan_on_top_of_the_cabinet": 0.0,
+    "KITCHEN_SCENE9_put_the_frying_pan_under_the_cabinet_shelf": 0.0
+   },
+   "plain_loss": 0.7545765263297863,
+   "transport_loss": 0.5363071925070206,
+   "interaction_loss": 1.251810409797691,
+   "denoise_loss": 0.04340053927973764,
+   "denoise_transport": 0.04214222682567083,
+   "denoise_interaction": 0.046267069255312286
+  },
+  "C9": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "per_task_success": {
+    "KITCHEN_SCENE1_open_the_bottom_drawer_of_the_cabinet": 0.0,
+    "KITCHEN_SCENE1_open_the_top_drawer_of_the_cabinet": 0.0,
+    "KITCHEN_SCENE1_open_the_top_drawer_of_the_cabinet_and_put_the_bowl_in_it": 0.0
+   },
+   "plain_loss": 1.0276209078722458,
+   "transport_loss": 0.8769689204147046,
+   "interaction_loss": 1.3631798590537758,
+   "denoise_loss": 0.04535690971966873,
+   "denoise_transport": 0.04593350508754763,
+   "denoise_interaction": 0.0440726137726531
+  }
+ },
+ "meta": {
+  "ckpt": "final.pt",
+  "policy": "diffusion",
+  "n_rollouts": 10,
+  "horizon": 600,
+  "n_ddim_steps": 10,
+  "rollout_wall_s": 1058.6693453788757,
+  "n_errors": 0,
+  "total_wall_s": 1064.6465768814087
+ }
+}

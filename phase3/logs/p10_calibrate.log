@@ -1,0 +1,52 @@
+================================================================================
+[cal] STAGE 1: learning rate
+================================================================================
+[cal] launch dp_lr0.0001 on gpu4
+[cal] launch dp_lr0.0003 on gpu5
+[cal] launch dp_lr0.001 on gpu6
+[cal] dp_lr0.0001: success=0.050
+[cal] dp_lr0.0003: success=0.450
+[cal] dp_lr0.001: success=0.850
+[cal] best lr = 0.001 (success 0.850)
+================================================================================
+[cal] STAGE 2: step budget
+================================================================================
+[cal] launch dp_lr0.001_st16000 on gpu4
+[cal] launch dp_lr0.001_st24000 on gpu5
+[cal] dp_lr0.001_st16000: success=0.950
+[cal] dp_lr0.001_st24000: success=0.950
+[cal] best steps = 16000 (success 0.950)
+================================================================================
+[cal] STAGE 3: action-chunk length
+================================================================================
+[cal] launch dp_h4 on gpu4
+[cal] launch dp_h16 on gpu5
+[cal] dp_h4: success=0.950
+[cal] dp_h16: success=0.800
+[cal] best h_chunk = 8 (success 0.950)
+================================================================================
+[cal] STAGE 4: DDIM step count (eval-only, free)
+================================================================================
+[cal] n_ddim= 5: success=1.000 rollout=95s
+[cal] n_ddim=10: success=0.950 rollout=149s
+[cal] n_ddim=20: success=1.000 rollout=204s
+[cal] best success 1.000, SE 0.000 -> smallest n_ddim within 1 SE: 5
+
+[cal] FROZEN config -> p10_config_frozen.json  sha=fac011e6412c90b3
+
+================================================================================
+P10 CALIBRATION
+================================================================================
+  dp_lr0.0001              success=0.050
+  dp_lr0.0003              success=0.450
+  dp_lr0.001               success=0.850
+  dp_lr0.001_st16000       success=0.950
+  dp_lr0.001_st24000       success=0.950
+  dp_h4                    success=0.950
+  dp_h16                   success=0.800
+
+  BEST: {'total_steps': 16000, 'h_chunk': 8, 'n_train_steps': 100, 'n_ddim_steps': 5, 'lr': 0.001}
+  BEST SUCCESS: 100.0%   (BC-Transformer reference: 70%)
+  STOP THRESHOLD: 40%
+  VERDICT: VIABLE -- proceed to P10a/P10b
+================================================================================

@@ -1,0 +1,80 @@
+{
+ "stage": "P5",
+ "target": "C5",
+ "seeds": [
+  501,
+  502,
+  503
+ ],
+ "DIAGNOSTIC_ONLY": "n=1 target; do NOT generalize beyond C5",
+ "selection": {
+  "attributor": "TRAK",
+  "unconstrained_outsiders": 9,
+  "coverage_constrained_outsiders": 6,
+  "overlap_demos": 12,
+  "n_tasks": 7
+ },
+ "per_arm_success_pct": {
+  "coverage_constrained": [
+   3.3333333333333335,
+   0.0,
+   1.6666666666666667
+  ],
+  "unconstrained": [
+   0.0,
+   1.6666666666666667,
+   1.6666666666666667
+  ],
+  "target_only": [
+   3.3333333333333335,
+   25.0,
+   23.333333333333332
+  ],
+  "random15": [
+   0.0,
+   13.333333333333334,
+   28.333333333333332
+  ]
+ },
+ "mean_success_pct": {
+  "coverage_constrained": 1.6666666666666667,
+  "unconstrained": 1.1111111111111112,
+  "target_only": 17.22222222222222,
+  "random15": 13.88888888888889
+ },
+ "paired_margins_pts": {
+  "unconstrained": {
+   "per_seed": [
+    3.3333333333333335,
+    -1.6666666666666667,
+    0.0
+   ],
+   "mean_exact": "5/9",
+   "mean": 0.5555555555555556,
+   "t_p_twosided": 0.741801110252839,
+   "n": 3
+  },
+  "target_only": {
+   "per_seed": [
+    0.0,
+    -25.0,
+    -21.666666666666668
+   ],
+   "mean_exact": "-140/9",
+   "mean": -15.555555555555555,
+   "t_p_twosided": 0.18557838197158982,
+   "n": 3
+  },
+  "random15": {
+   "per_seed": [
+    3.3333333333333335,
+    -13.333333333333334,
+    -26.666666666666668
+   ],
+   "mean_exact": "-110/9",
+   "mean": -12.222222222222221,
+   "t_p_twosided": 0.2943496709904574,
+   "n": 3
+  }
+ }
+}

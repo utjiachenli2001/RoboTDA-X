@@ -1,0 +1,510 @@
+{
+ "stage": "P3",
+ "Q_values": [
+  15,
+  50,
+  150
+ ],
+ "seeds": [
+  601,
+  602,
+  603,
+  604
+ ],
+ "n_missing_runs": 0,
+ "missing": [],
+ "per_Q": {
+  "15": {
+   "n_mask_runs": 48,
+   "n_masks": 12,
+   "n_seeds": 4,
+   "outcomes": {
+    "neg_plain_loss": {
+     "ceiling_2seed_splithalf": 0.8041958041958043,
+     "ceiling_4seed_SB": 0.8914728682170544,
+     "per_pairing": [
+      0.7622377622377624,
+      0.8111888111888113,
+      0.8391608391608393
+     ],
+     "n_masks": 12,
+     "attributors": {
+      "IF": {
+       "rho": 0.30069930069930073,
+       "n": 12,
+       "p_onesided": 0.17112976447001219,
+       "ci95": [
+        -0.280653349660697,
+        0.7857333502796136
+       ],
+       "ratio_to_ceiling": 0.3373061720887808
+      },
+      "TRAK": {
+       "rho": 0.3216783216783217,
+       "n": 12,
+       "p_onesided": 0.15395493809032632,
+       "ci95": [
+        -0.26242040689548063,
+        0.8169159360495096
+       ],
+       "ratio_to_ceiling": 0.36083916083916084
+      },
+      "TracIn": {
+       "rho": 0.4755244755244756,
+       "n": 12,
+       "p_onesided": 0.059087978506516106,
+       "ci95": [
+        -0.21161757830762037,
+        0.8916967509025271
+       ],
+       "ratio_to_ceiling": 0.5334144116752813
+      }
+     }
+    },
+    "logit_success": {
+     "ceiling_2seed_splithalf": 0.5268065268065268,
+     "ceiling_4seed_SB": 0.6900763358778625,
+     "per_pairing": [
+      0.6993006993006995,
+      0.3426573426573427,
+      0.5384615384615385
+     ],
+     "n_masks": 12,
+     "attributors": {
+      "IF": {
+       "rho": 0.06293706293706294,
+       "n": 12,
+       "p_onesided": 0.42296546061438944,
+       "ci95": [
+        -0.640320002062866,
+        0.6858096957194424
+       ],
+       "ratio_to_ceiling": 0.09120304474286776
+      },
+      "TRAK": {
+       "rho": 0.06993006993006995,
+       "n": 12,
+       "p_onesided": 0.4145118202656546,
+       "ci95": [
+        -0.6415960285691861,
+        0.6879829479990781
+       ],
+       "ratio_to_ceiling": 0.1013367163809642
+      },
+      "TracIn": {
+       "rho": -0.18881118881118883,
+       "n": 12,
+       "p_onesided": 0.7216314719115843,
+       "ci95": [
+        -0.6923214285714285,
+        0.38571428571428573
+       ],
+       "ratio_to_ceiling": -0.2736091342286033
+      }
+     }
+    }
+   }
+  },
+  "50": {
+   "n_mask_runs": 48,
+   "n_masks": 12,
+   "n_seeds": 4,
+   "outcomes": {
+    "neg_plain_loss": {
+     "ceiling_2seed_splithalf": 0.8438228438228439,
+     "ceiling_4seed_SB": 0.9152970922882427,
+     "per_pairing": [
+      0.9790209790209792,
+      0.9230769230769231,
+      0.6293706293706295
+     ],
+     "n_masks": 12,
+     "attributors": {
+      "IF": {
+       "rho": 0.0979020979020979,
+       "n": 12,
+       "p_onesided": 0.3810608279981496,
+       "ci95": [
+        -0.45722507708119214,
+        0.6
+       ],
+       "ratio_to_ceiling": 0.10696209867480586
+      },
+      "TRAK": {
+       "rho": 0.4055944055944056,
+       "n": 12,
+       "p_onesided": 0.09541793700225018,
+       "ci95": [
+        -0.22470355731225297,
+        0.8478260869565217
+       ],
+       "ratio_to_ceiling": 0.44312869450991
+      },
+      "TracIn": {
+       "rho": 0.3706293706293707,
+       "n": 12,
+       "p_onesided": 0.11781050175632284,
+       "ci95": [
+        -0.321043094359515,
+        0.8643097771023301
+       ],
+       "ratio_to_ceiling": 0.4049279449831937
+      }
+     }
+    },
+    "logit_success": {
+     "ceiling_2seed_splithalf": 0.6037296037296038,
+     "ceiling_4seed_SB": 0.7529069767441862,
+     "per_pairing": [
+      0.3216783216783217,
+      0.8041958041958043,
+      0.6853146853146854
+     ],
+     "n_masks": 12,
+     "attributors": {
+      "IF": {
+       "rho": 0.0,
+       "n": 12,
+       "p_onesided": 0.5,
+       "ci95": [
+        -0.6762880018565792,
+        0.7785714285714286
+       ],
+       "ratio_to_ceiling": 0.0
+      },
+      "TRAK": {
+       "rho": 0.2657342657342658,
+       "n": 12,
+       "p_onesided": 0.2019165441573558,
+       "ci95": [
+        -0.47831502398267056,
+        0.758958365222715
+       ],
+       "ratio_to_ceiling": 0.35294435294435295
+      },
+      "TracIn": {
+       "rho": -0.34965034965034975,
+       "n": 12,
+       "p_onesided": 0.867380606553605,
+       "ci95": [
+        -0.8327003110957484,
+        0.22633472367048982
+       ],
+       "ratio_to_ceiling": -0.46440046440046445
+      }
+     }
+    }
+   }
+  },
+  "150": {
+   "n_mask_runs": 48,
+   "n_masks": 12,
+   "n_seeds": 4,
+   "outcomes": {
+    "neg_plain_loss": {
+     "ceiling_2seed_splithalf": 0.7552447552447553,
+     "ceiling_4seed_SB": 0.8605577689243028,
+     "per_pairing": [
+      0.8181818181818183,
+      0.6713286713286714,
+      0.7762237762237763
+     ],
+     "n_masks": 12,
+     "attributors": {
+      "IF": {
+       "rho": -0.21678321678321683,
+       "n": 12,
+       "p_onesided": 0.7507220072379057,
+       "ci95": [
+        -0.8920960006188599,
+        0.5345582019456557
+       ],
+       "ratio_to_ceiling": -0.25191012691012693
+      },
+      "TRAK": {
+       "rho": -0.04195804195804196,
+       "n": 12,
+       "p_onesided": 0.5515070645902229,
+       "ci95": [
+        -0.6496441605839417,
+        0.6136525974025975
+       ],
+       "ratio_to_ceiling": -0.04875679875679876
+      },
+      "TracIn": {
+       "rho": -0.5174825174825175,
+       "n": 12,
+       "p_onesided": 0.9575656144330327,
+       "ci95": [
+        -0.88195114067929,
+        0.04312980030721817
+       ],
+       "ratio_to_ceiling": -0.6013338513338513
+      }
+     }
+    },
+    "logit_success": {
+     "ceiling_2seed_splithalf": -0.21911421911421913,
+     "ceiling_4seed_SB": -0.5611940298507463,
+     "per_pairing": [
+      -0.3356643356643357,
+      -0.20979020979020982,
+      -0.11188811188811189
+     ],
+     "n_masks": 12,
+     "attributors": {
+      "IF": {
+       "rho": -0.04895104895104895,
+       "n": 12,
+       "p_onesided": 0.5600407105606626,
+       "ci95": [
+        -0.7401187842086876,
+        0.6058396247998163
+       ],
+       "ratio_to_ceiling": NaN
+      },
+      "TRAK": {
+       "rho": -0.4055944055944056,
+       "n": 12,
+       "p_onesided": 0.9045820629977498,
+       "ci95": [
+        -0.8709677419354839,
+        0.22864006100660866
+       ],
+       "ratio_to_ceiling": NaN
+      },
+      "TracIn": {
+       "rho": -0.1188811188811189,
+       "n": 12,
+       "p_onesided": 0.643557890392614,
+       "ci95": [
+        -0.6416090629800306,
+        0.5357555922724959
+       ],
+       "ratio_to_ceiling": NaN
+      }
+     }
+    }
+   }
+  }
+ },
+ "PREREGISTERED_TEST_i_success_ceiling_rises_with_Q": {
+  "test": "Page's trend test, blocks = 3 disjoint 2v2 seed pairings, k=3 Q levels, exact p",
+  "matrix_blocks_x_Q": [
+   [
+    0.6993006993006995,
+    0.3216783216783217,
+    -0.3356643356643357
+   ],
+   [
+    0.3426573426573427,
+    0.8041958041958043,
+    -0.20979020979020982
+   ],
+   [
+    0.5384615384615385,
+    0.6853146853146854,
+    -0.11188811188811189
+   ]
+  ],
+  "L": 32.0,
+  "p_onesided_exact": 0.9675925925925926,
+  "n_perms": 216,
+  "n_blocks": 3,
+  "k": 3,
+  "ranks": [
+   [
+    3.0,
+    2.0,
+    1.0
+   ],
+   [
+    2.0,
+    3.0,
+    1.0
+   ],
+   [
+    2.0,
+    3.0,
+    1.0
+   ]
+  ],
+  "PASS": false
+ },
+ "PREREGISTERED_TEST_ii_LDS_ceiling_ratio_rises_with_Q": {
+  "test": "Page's trend test, blocks = 3 attributors, k=3 Q levels, exact p",
+  "matrix_blocks_x_Q": [
+   [
+    0.3373061720887808,
+    0.10696209867480586,
+    -0.25191012691012693
+   ],
+   [
+    0.36083916083916084,
+    0.44312869450991,
+    -0.04875679875679876
+   ],
+   [
+    0.5334144116752813,
+    0.4049279449831937,
+    -0.6013338513338513
+   ]
+  ],
+  "L": 31.0,
+  "p_onesided_exact": 0.9953703703703703,
+  "n_perms": 216,
+  "n_blocks": 3,
+  "k": 3,
+  "ranks": [
+   [
+    3.0,
+    2.0,
+    1.0
+   ],
+   [
+    2.0,
+    3.0,
+    1.0
+   ],
+   [
+    3.0,
+    2.0,
+    1.0
+   ]
+  ],
+  "PASS": false
+ },
+ "DESCRIPTIVE_reverse_direction_tests": {
+  "note": "NOT preregistered. The preregistered tests are one-sided for an INCREASE; these test a monotone DECREASE with the same exact machinery, so the direction of the effect is reported rather than merely 'no increase'.",
+  "i_success_ceiling_DECREASES_with_Q": {
+   "L": 40.0,
+   "p_onesided_exact": 0.08796296296296297,
+   "n_perms": 216,
+   "n_blocks": 3,
+   "k": 3,
+   "ranks": [
+    [
+     1.0,
+     2.0,
+     3.0
+    ],
+    [
+     1.0,
+     3.0,
+     2.0
+    ],
+    [
+     1.0,
+     3.0,
+     2.0
+    ]
+   ],
+   "significant_at_05": false
+  },
+  "ii_LDS_ratio_DECREASES_with_Q": {
+   "L": 41.0,
+   "p_onesided_exact": 0.032407407407407406,
+   "n_perms": 216,
+   "n_blocks": 3,
+   "k": 3,
+   "ranks": [
+    [
+     1.0,
+     2.0,
+     3.0
+    ],
+    [
+     1.0,
+     3.0,
+     2.0
+    ],
+    [
+     1.0,
+     2.0,
+     3.0
+    ]
+   ],
+   "significant_at_05": true
+  }
+ },
+ "DESCRIPTIVE_signal_vs_seed_noise": {
+  "note": "the mechanism: a ceiling is a signal/noise ratio. between_mask_sd is the data-composition signal any attributor must rank; within_mask_seed_sd is the seed noise at fixed data. As Q grows the policy saturates, so removing 40% of demos moves it less -- the SIGNAL shrinks while the noise does not.",
+  "per_Q": {
+   "15": {
+    "success": {
+     "between_mask_sd": 0.06268155448556835,
+     "within_mask_seed_sd": 0.05571112530180608,
+     "signal_to_noise": 1.1251173647274415,
+     "mask_mean_min": 0.06125,
+     "mask_mean_max": 0.27
+    },
+    "L2": {
+     "between_mask_sd": 0.13732703458365728,
+     "within_mask_seed_sd": 0.08669401665191971,
+     "signal_to_noise": 1.5840428196449976,
+     "mask_mean_min": 0.6658667256355993,
+     "mask_mean_max": 1.0954272409191395
+    }
+   },
+   "50": {
+    "success": {
+     "between_mask_sd": 0.05803716073788543,
+     "within_mask_seed_sd": 0.06561868979232742,
+     "signal_to_noise": 0.8844608284859647,
+     "mask_mean_min": 0.33375,
+     "mask_mean_max": 0.5175
+    },
+    "L2": {
+     "between_mask_sd": 0.06611528443966969,
+     "within_mask_seed_sd": 0.039710577259086215,
+     "signal_to_noise": 1.6649288175366876,
+     "mask_mean_min": 0.37222637086944377,
+     "mask_mean_max": 0.5791617038502465
+    }
+   },
+   "150": {
+    "success": {
+     "between_mask_sd": 0.027281327558118094,
+     "within_mask_seed_sd": 0.07384386402239086,
+     "signal_to_noise": 0.36944609981197457,
+     "mask_mean_min": 0.6162500000000001,
+     "mask_mean_max": 0.6925
+    },
+    "L2": {
+     "between_mask_sd": 0.04953909311742264,
+     "within_mask_seed_sd": 0.02335518555323814,
+     "signal_to_noise": 2.1211175139027816,
+     "mask_mean_min": 0.24313822799885063,
+     "mask_mean_max": 0.39948177930103806
+    }
+   }
+  }
+ },
+ "secondary_spearman_vs_Q": {
+  "success_ceiling": -0.5,
+  "L2_ceiling": -0.5,
+  "best_LDS_ceiling_ratio": -1.0
+ },
+ "summary": {
+  "Q": [
+   15,
+   50,
+   150
+  ],
+  "ceiling_success_4seed": [
+   0.6900763358778625,
+   0.7529069767441862,
+   -0.5611940298507463
+  ],
+  "ceiling_L2_4seed": [
+   0.8914728682170544,
+   0.9152970922882427,
+   0.8605577689243028
+  ],
+  "best_LDS_ratio_L2": [
+   0.5334144116752813,
+   0.44312869450991,
+   -0.04875679875679876
+  ]
+ }
+}

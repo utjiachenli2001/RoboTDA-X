@@ -1,0 +1,29 @@
+{
+ "outcomes": {
+  "C1": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "per_task_success": {
+    "open_the_middle_drawer_of_the_cabinet": 0.0,
+    "open_the_top_drawer_and_put_the_bowl_inside": 0.0,
+    "push_the_plate_to_the_front_of_the_stove": 0.0
+   },
+   "plain_loss": 0.8925315304985018,
+   "transport_loss": 0.8654364675236966,
+   "interaction_loss": 0.9482767814753637,
+   "plain_loss_nll": 14.704363531885594,
+   "transport_loss_nll": 14.625918595895747,
+   "interaction_loss_nll": 14.865755762222324,
+   "median_nll": 13.734257698059082
+  }
+ },
+ "meta": {
+  "ckpt": "final.pt",
+  "n_rollouts": 10,
+  "horizon": 600,
+  "rollout_wall_s": 116.24461388587952,
+  "n_errors": 0,
+  "total_wall_s": 117.69924521446228,
+  "loss_functional": "l2"
+ }
+}

@@ -1,0 +1,151 @@
+{
+ "gate": "GATE 1 (Stage D)",
+ "criterion": "any attributor Spearman > 0.5",
+ "K": 12,
+ "n_masks_with_outcomes": 12,
+ "seeds": [
+  101,
+  102
+ ],
+ "mask_outcomes": {
+  "D00": {
+   "neg_plain_loss": -105.30195702701698,
+   "success": 0.11666666666666667,
+   "logit_success": -2.633560755389778,
+   "n_seeds": 2
+  },
+  "D01": {
+   "neg_plain_loss": -15.079638038093513,
+   "success": 0.05,
+   "logit_success": -3.0031765798008667,
+   "n_seeds": 2
+  },
+  "D02": {
+   "neg_plain_loss": -29.379586829234334,
+   "success": 0.05,
+   "logit_success": -3.0031765798008667,
+   "n_seeds": 2
+  },
+  "D03": {
+   "neg_plain_loss": -18.54060454226035,
+   "success": 0.05,
+   "logit_success": -3.1373810106209694,
+   "n_seeds": 2
+  },
+  "D04": {
+   "neg_plain_loss": -175.11234371590052,
+   "success": 0.03333333333333333,
+   "logit_success": -3.367295829986474,
+   "n_seeds": 2
+  },
+  "D05": {
+   "neg_plain_loss": -16.609871526024833,
+   "success": 0.11666666666666667,
+   "logit_success": -2.3767950955531822,
+   "n_seeds": 2
+  },
+  "D06": {
+   "neg_plain_loss": -67.62458549722868,
+   "success": 0.08333333333333333,
+   "logit_success": -2.6195490034440327,
+   "n_seeds": 2
+  },
+  "D07": {
+   "neg_plain_loss": -73.81477358255684,
+   "success": 0.0,
+   "logit_success": -4.07753744390572,
+   "n_seeds": 2
+  },
+  "D08": {
+   "neg_plain_loss": -56.69367967011266,
+   "success": 0.0,
+   "logit_success": -4.07753744390572,
+   "n_seeds": 2
+  },
+  "D09": {
+   "neg_plain_loss": -30.37639542778799,
+   "success": 0.11666666666666667,
+   "logit_success": -2.3767950955531822,
+   "n_seeds": 2
+  },
+  "D10": {
+   "neg_plain_loss": -133.20132858309398,
+   "success": 0.1,
+   "logit_success": -2.7319159025128052,
+   "n_seeds": 2
+  },
+  "D11": {
+   "neg_plain_loss": -45.80717867411646,
+   "success": 0.1,
+   "logit_success": -2.7319159025128052,
+   "n_seeds": 2
+  }
+ },
+ "attributors": {
+  "IF": {
+   "neg_plain_loss": {
+    "rho": 0.07692307692307693,
+    "n": 12,
+    "p_onesided": 0.40609134901402955,
+    "ci95": [
+     -0.5667870036101084,
+     0.6557142857142855
+    ]
+   },
+   "logit_success": {
+    "rho": -0.3943759765142393,
+    "n": 12,
+    "p_onesided": 0.8977090466710226,
+    "ci95": [
+     -0.9314055987629529,
+     0.3516254294950429
+    ]
+   },
+   "PASS_primary": false
+  },
+  "TRAK": {
+   "neg_plain_loss": {
+    "rho": 0.10489510489510491,
+    "n": 12,
+    "p_onesided": 0.37280474049035395,
+    "ci95": [
+     -0.5110323253388948,
+     0.6774193548387096
+    ]
+   },
+   "logit_success": {
+    "rho": -0.3239516949938394,
+    "n": 12,
+    "p_onesided": 0.8478462822654268,
+    "ci95": [
+     -0.9131770768309891,
+     0.4251601746572117
+    ]
+   },
+   "PASS_primary": false
+  },
+  "TracIn": {
+   "neg_plain_loss": {
+    "rho": -0.20979020979020982,
+    "n": 12,
+    "p_onesided": 0.7435795284090869,
+    "ci95": [
+     -0.8279569892473118,
+     0.5165210688591981
+    ]
+   },
+   "logit_success": {
+    "rho": 0.1654970615729397,
+    "n": 12,
+    "p_onesided": 0.3036167971858622,
+    "ci95": [
+     -0.4394256090693074,
+     0.7382757803539354
+    ]
+   },
+   "PASS_primary": false
+  }
+ },
+ "any_pass": false,
+ "PASS": false
+}

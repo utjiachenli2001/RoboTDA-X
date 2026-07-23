@@ -1,0 +1,26 @@
+{
+ "_LABEL": "SYNTHETIC -- correctness tests of the P8a 2x2 variance decomposition on FABRICATED tables. NEVER mixed with study results.",
+ "pure_INIT": {
+  "ss_init": 4.0,
+  "ss_order": 0.0,
+  "ss_inter_resid": 0.0,
+  "pass": true
+ },
+ "pure_ORDER": {
+  "ss_init": 0.0,
+  "ss_order": 4.0,
+  "ss_inter_resid": 0.0,
+  "pass": true
+ },
+ "pure_INTERACTION": {
+  "ss_init": 0.0,
+  "ss_order": 0.0,
+  "ss_inter_resid": 4.0,
+  "pass": true
+ },
+ "completeness_over_200_random_tables": {
+  "max_abs_gap_ss_sum_vs_total": 3.552713678800501e-15,
+  "pass": true
+ },
+ "_ALL_PASS": true
+}

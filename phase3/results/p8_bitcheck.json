@@ -1,0 +1,46 @@
+{
+ "stage": "P8a instrument check (init/order factorization)",
+ "data": "Stage-G mask G000 (68 demos)",
+ "seed": 401,
+ "ASSERTION_1_factorial_equals_stock_when_init_eq_order": {
+  "arms": "B (train_factorial init=order=401, no cuDNN flags) vs A (src/train.py seed=401)",
+  "IDENTICAL": true,
+  "stats": {
+   "n_tensors": 81,
+   "n_differing": 0,
+   "max_abs_diff": 0.0
+  },
+  "meaning": "If IDENTICAL, splitting one seed into (init, order) reproduces the Phase-1 RNG stream EXACTLY. This is what licenses treating INIT and ORDER as separable factors of the same trainer."
+ },
+ "ASSERTION_2_p8a_trainer_is_reproducible": {
+  "arms": "C' vs C (train_factorial, cuDNN deterministic, run twice)",
+  "IDENTICAL": true,
+  "stats": {
+   "n_tensors": 81,
+   "n_differing": 0,
+   "max_abs_diff": 0.0
+  },
+  "meaning": "If IDENTICAL, any difference between two P8a cells is caused by the seeds, not by nondeterminism."
+ },
+ "INFORMATIONAL_cudnn_flag_effect": {
+  "arms": "C (deterministic) vs A (stock flags)",
+  "IDENTICAL": true,
+  "stats": {
+   "n_tensors": 81,
+   "n_differing": 0,
+   "max_abs_diff": 0.0
+  },
+  "meaning": "Whether enabling cuDNN determinism changes the trained weights. Either way P8a is unbiased: ALL 48 P8a runs use the same flags."
+ },
+ "INFORMATIONAL_phase1_reproducible_across_time": {
+  "arms": "A (fresh src/train.py seed=401) vs the ARCHIVED runs/stage_G/G000_s401",
+  "IDENTICAL": true,
+  "stats": {
+   "n_tensors": 81,
+   "n_differing": 0,
+   "max_abs_diff": 0.0
+  },
+  "meaning": "Whether a Phase-1 training run reproduces bit-for-bit today. NOT an assertion -- P8a compares runs made here under identical conditions."
+ },
+ "GATE": true
+}

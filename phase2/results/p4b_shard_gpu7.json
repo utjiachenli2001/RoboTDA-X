@@ -1,0 +1,146 @@
+[
+ {
+  "name": "G000_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G000_s406/final.pt",
+  "mask_id": "G000",
+  "seed": 406
+ },
+ {
+  "name": "G001_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G001_s406/final.pt",
+  "mask_id": "G001",
+  "seed": 406
+ },
+ {
+  "name": "G002_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G002_s406/final.pt",
+  "mask_id": "G002",
+  "seed": 406
+ },
+ {
+  "name": "G003_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G003_s406/final.pt",
+  "mask_id": "G003",
+  "seed": 406
+ },
+ {
+  "name": "G004_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G004_s406/final.pt",
+  "mask_id": "G004",
+  "seed": 406
+ },
+ {
+  "name": "G005_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G005_s406/final.pt",
+  "mask_id": "G005",
+  "seed": 406
+ },
+ {
+  "name": "G006_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G006_s406/final.pt",
+  "mask_id": "G006",
+  "seed": 406
+ },
+ {
+  "name": "G007_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G007_s406/final.pt",
+  "mask_id": "G007",
+  "seed": 406
+ },
+ {
+  "name": "G008_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G008_s406/final.pt",
+  "mask_id": "G008",
+  "seed": 406
+ },
+ {
+  "name": "G009_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G009_s406/final.pt",
+  "mask_id": "G009",
+  "seed": 406
+ },
+ {
+  "name": "G010_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G010_s406/final.pt",
+  "mask_id": "G010",
+  "seed": 406
+ },
+ {
+  "name": "G011_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G011_s406/final.pt",
+  "mask_id": "G011",
+  "seed": 406
+ },
+ {
+  "name": "G012_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G012_s406/final.pt",
+  "mask_id": "G012",
+  "seed": 406
+ },
+ {
+  "name": "G013_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G013_s406/final.pt",
+  "mask_id": "G013",
+  "seed": 406
+ },
+ {
+  "name": "G014_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G014_s406/final.pt",
+  "mask_id": "G014",
+  "seed": 406
+ },
+ {
+  "name": "G015_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G015_s406/final.pt",
+  "mask_id": "G015",
+  "seed": 406
+ },
+ {
+  "name": "G016_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G016_s406/final.pt",
+  "mask_id": "G016",
+  "seed": 406
+ },
+ {
+  "name": "G017_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G017_s406/final.pt",
+  "mask_id": "G017",
+  "seed": 406
+ },
+ {
+  "name": "G018_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G018_s406/final.pt",
+  "mask_id": "G018",
+  "seed": 406
+ },
+ {
+  "name": "G019_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G019_s406/final.pt",
+  "mask_id": "G019",
+  "seed": 406
+ },
+ {
+  "name": "G020_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G020_s406/final.pt",
+  "mask_id": "G020",
+  "seed": 406
+ },
+ {
+  "name": "G021_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G021_s406/final.pt",
+  "mask_id": "G021",
+  "seed": 406
+ },
+ {
+  "name": "G022_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G022_s406/final.pt",
+  "mask_id": "G022",
+  "seed": 406
+ },
+ {
+  "name": "G023_s406",
+  "ckpt": "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G023_s406/final.pt",
+  "mask_id": "G023",
+  "seed": 406
+ }
+]

@@ -1,0 +1,681 @@
+{
+ "stage": "P10 MEDIAN-aggregated DIAGNOSTIC",
+ "STATUS": "*** POST-HOC DIAGNOSTIC, NOT THE PREREGISTERED VERDICT. *** The preregistration specifies the seed MEAN. That test ran at S=4 and S=6 and is reported verbatim; both are INCONCLUSIVE because the mean-aggregated ceiling collapses on a heavy-tailed outcome. This diagnostic swaps ONLY the seed aggregator (mean -> median) and keeps every other element of the criterion identical.",
+ "why_the_mean_fails": "The diffusion executed-action L2 is heavy-tailed across seeds: an occasional seed lands the fixed DDIM latent in the wrong basin of a multimodal denoiser and its L2 blows up 3-5x. A mean is dominated by that outlier, and averaging MORE seeds does not help -- the 6-seed mean ceiling (0.079 on C1) is LOWER than Spearman-Brown predicts from the 1-seed reliability (0.690). A reliability that DROPS when you average is a broken aggregator, not noise.",
+ "precedent": "This is Phase 1's GMM-NLL pathology reborn one level up. src/policy.py:l2 documents Phase 1 abandoning the mean NLL because it 'swings 8-10x while the MEDIAN per-frame NLL barely moves'. The diffusion policy re-introduces the same failure mode inside the L2, in the seed-to-seed distribution.",
+ "seeds": [
+  601,
+  602,
+  603,
+  604,
+  605,
+  606
+ ],
+ "S": 6,
+ "aggregator": "MEDIAN over the 6 seeds",
+ "ceiling_estimator": "10 distinct 3v3 splits, median-aggregated, SB-corrected 3 -> 6",
+ "ceiling_comparison": {
+  "C1": {
+   "mean_aggregated": null,
+   "median_aggregated": 0.5680488108579256
+  },
+  "C2": {
+   "mean_aggregated": null,
+   "median_aggregated": 0.6024184237710397
+  },
+  "C3": {
+   "mean_aggregated": null,
+   "median_aggregated": 0.6155420453861434
+  },
+  "C4": {
+   "mean_aggregated": null,
+   "median_aggregated": 0.7053923224135988
+  },
+  "C5": {
+   "mean_aggregated": null,
+   "median_aggregated": 0.7175197948031672
+  },
+  "C6": {
+   "mean_aggregated": null,
+   "median_aggregated": 0.7721546017510142
+  },
+  "C7": {
+   "mean_aggregated": null,
+   "median_aggregated": 0.704225352112676
+  },
+  "C8": {
+   "mean_aggregated": null,
+   "median_aggregated": 0.6526069127123609
+  },
+  "C9": {
+   "mean_aggregated": null,
+   "median_aggregated": 0.7132867132867133
+  }
+ },
+ "focal_verdict": {
+  "C1": {
+   "ceiling_median_6seed": 0.5680488108579256,
+   "bar": 0.2840244054289628,
+   "best_attributor": "TracIn",
+   "best_rho": 0.42,
+   "best_ratio": 0.7393730819815869,
+   "best_p_onesided": 0.020509800007056437,
+   "any_PASS": true,
+   "per_attributor": {
+    "TracIn": {
+     "rho": 0.42,
+     "n": 24,
+     "p_onesided": 0.020509800007056437,
+     "ci95": [
+      0.05053100358726185,
+      0.6668274309070925
+     ],
+     "ratio_to_ceiling": 0.7393730819815869,
+     "PASS": true,
+     "in_preregistered_criterion": true
+    },
+    "TRAK": {
+     "rho": 0.16869565217391302,
+     "n": 24,
+     "p_onesided": 0.21535113086049065,
+     "ci95": [
+      -0.24782258850880765,
+      0.5406231677710934
+     ],
+     "ratio_to_ceiling": 0.2969738672969521,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "IF": {
+     "rho": 0.2617391304347826,
+     "n": 24,
+     "p_onesided": 0.10832584897664314,
+     "ci95": [
+      -0.16030297845472466,
+      0.6383748440460232
+     ],
+     "ratio_to_ceiling": 0.46076873224939474,
+     "PASS": false,
+     "in_preregistered_criterion": false
+    }
+   }
+  },
+  "C5": {
+   "ceiling_median_6seed": 0.7175197948031672,
+   "bar": 0.3587598974015836,
+   "best_attributor": "TracIn",
+   "best_rho": 0.06,
+   "best_ratio": 0.08362138638483058,
+   "best_p_onesided": 0.39031504777820597,
+   "any_PASS": false,
+   "per_attributor": {
+    "TracIn": {
+     "rho": 0.06,
+     "n": 24,
+     "p_onesided": 0.39031504777820597,
+     "ci95": [
+      -0.32338289361223793,
+      0.4531193343314937
+     ],
+     "ratio_to_ceiling": 0.08362138638483058,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "TRAK": {
+     "rho": -0.20434782608695648,
+     "n": 24,
+     "p_onesided": 0.830921375743412,
+     "ci95": [
+      -0.6219789639016795,
+      0.22975319098494146
+     ],
+     "ratio_to_ceiling": -0.2847974753686259,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "IF": {
+     "rho": 0.11913043478260868,
+     "n": 24,
+     "p_onesided": 0.28963795100406253,
+     "ci95": [
+      -0.25647651879908984,
+      0.5191227873348293
+     ],
+     "ratio_to_ceiling": 0.16603086861915636,
+     "PASS": false,
+     "in_preregistered_criterion": false
+    }
+   }
+  }
+ },
+ "CEILING_IS_USABLE": true,
+ "DIAGNOSTIC_PASS": true,
+ "all_targets": {
+  "C1": {
+   "ceiling_median_r3": 0.396695652173913,
+   "ceiling_median_6seed_SB": 0.5680488108579256,
+   "per_split": [
+    0.4269565217391304,
+    0.5895652173913043,
+    0.3643478260869565,
+    0.25999999999999995,
+    0.28521739130434776,
+    0.2756521739130435,
+    0.3078260869565217,
+    0.3660869565217391,
+    0.5130434782608695,
+    0.5782608695652174
+   ],
+   "heavy_tail_evidence": {
+    "median_max_over_min_across_seeds": 2.9491880874535594,
+    "median_within_mask_CV": 0.525894119094169
+   },
+   "attributors": {
+    "TracIn": {
+     "rho": 0.42,
+     "n": 24,
+     "p_onesided": 0.020509800007056437,
+     "ci95": [
+      0.05053100358726185,
+      0.6668274309070925
+     ],
+     "ratio_to_ceiling": 0.7393730819815869,
+     "PASS": true,
+     "in_preregistered_criterion": true
+    },
+    "TRAK": {
+     "rho": 0.16869565217391302,
+     "n": 24,
+     "p_onesided": 0.21535113086049065,
+     "ci95": [
+      -0.24782258850880765,
+      0.5406231677710934
+     ],
+     "ratio_to_ceiling": 0.2969738672969521,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "IF": {
+     "rho": 0.2617391304347826,
+     "n": 24,
+     "p_onesided": 0.10832584897664314,
+     "ci95": [
+      -0.16030297845472466,
+      0.6383748440460232
+     ],
+     "ratio_to_ceiling": 0.46076873224939474,
+     "PASS": false,
+     "in_preregistered_criterion": false
+    }
+   }
+  },
+  "C2": {
+   "ceiling_median_r3": 0.43104347826086953,
+   "ceiling_median_6seed_SB": 0.6024184237710397,
+   "per_split": [
+    0.49217391304347824,
+    0.4730434782608695,
+    0.45739130434782604,
+    0.46434782608695646,
+    0.34434782608695647,
+    0.4243478260869564,
+    0.18347826086956517,
+    0.6121739130434782,
+    0.36,
+    0.4991304347826086
+   ],
+   "heavy_tail_evidence": {
+    "median_max_over_min_across_seeds": 4.949142680886451,
+    "median_within_mask_CV": 0.8275969840600252
+   },
+   "attributors": {
+    "TracIn": {
+     "rho": 0.2843478260869565,
+     "n": 24,
+     "p_onesided": 0.08904749047656121,
+     "ci95": [
+      -0.09369973849933505,
+      0.5996509560701366
+     ],
+     "ratio_to_ceiling": 0.47201050775802333,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "TRAK": {
+     "rho": -0.4530434782608695,
+     "n": 24,
+     "p_onesided": 0.9868989318478707,
+     "ci95": [
+      -0.7840909090909092,
+      -0.013113497403754688
+     ],
+     "ratio_to_ceiling": -0.752041206550245,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "IF": {
+     "rho": -0.04869565217391304,
+     "n": 24,
+     "p_onesided": 0.5893827634988733,
+     "ci95": [
+      -0.4632868190432533,
+      0.40478826835090476
+     ],
+     "ratio_to_ceiling": -0.08083360377507433,
+     "PASS": false,
+     "in_preregistered_criterion": false
+    }
+   }
+  },
+  "C3": {
+   "ceiling_median_r3": 0.44460869565217387,
+   "ceiling_median_6seed_SB": 0.6155420453861434,
+   "per_split": [
+    0.4869565217391304,
+    0.4260869565217391,
+    0.5234782608695652,
+    0.1826086956521739,
+    0.551304347826087,
+    0.3069565217391304,
+    0.47913043478260864,
+    0.4904347826086956,
+    0.437391304347826,
+    0.5617391304347825
+   ],
+   "heavy_tail_evidence": {
+    "median_max_over_min_across_seeds": 4.589299130108278,
+    "median_within_mask_CV": 0.7547529904721666
+   },
+   "attributors": {
+    "TracIn": {
+     "rho": 0.03043478260869565,
+     "n": 24,
+     "p_onesided": 0.44386696778798024,
+     "ci95": [
+      -0.33275032794053344,
+      0.36655633361466966
+     ],
+     "ratio_to_ceiling": 0.0494438728220478,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "TRAK": {
+     "rho": 0.07478260869565216,
+     "n": 24,
+     "p_onesided": 0.36418758077877716,
+     "ci95": [
+      -0.3428607934358949,
+      0.43511087077599037
+     ],
+     "ratio_to_ceiling": 0.12149065893417459,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "IF": {
+     "rho": 0.05826086956521739,
+     "n": 24,
+     "p_onesided": 0.3934218080773674,
+     "ci95": [
+      -0.3493553044377033,
+      0.43383627315523743
+     ],
+     "ratio_to_ceiling": 0.09464969940220579,
+     "PASS": false,
+     "in_preregistered_criterion": false
+    }
+   }
+  },
+  "C4": {
+   "ceiling_median_r3": 0.5448695652173912,
+   "ceiling_median_6seed_SB": 0.7053923224135988,
+   "per_split": [
+    0.5808695652173912,
+    0.5495652173913043,
+    0.8026086956521737,
+    0.5339130434782609,
+    0.47478260869565214,
+    0.3313043478260869,
+    0.3208695652173913,
+    0.6269565217391303,
+    0.7330434782608695,
+    0.49478260869565216
+   ],
+   "heavy_tail_evidence": {
+    "median_max_over_min_across_seeds": 2.176237633193738,
+    "median_within_mask_CV": 0.34377993764097525
+   },
+   "attributors": {
+    "TracIn": {
+     "rho": 0.1660869565217391,
+     "n": 24,
+     "p_onesided": 0.2189834508041196,
+     "ci95": [
+      -0.28830335971793963,
+      0.5189305297198624
+     ],
+     "ratio_to_ceiling": 0.23545330909393694,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "TRAK": {
+     "rho": -0.02,
+     "n": 24,
+     "p_onesided": 0.5369520989872645,
+     "ci95": [
+      -0.3541059877013928,
+      0.32344104026712234
+     ],
+     "ratio_to_ceiling": -0.028353016278327488,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "IF": {
+     "rho": 0.27391304347826084,
+     "n": 24,
+     "p_onesided": 0.097625940537208,
+     "ci95": [
+      -0.1382471081431675,
+      0.5981129750284739
+     ],
+     "ratio_to_ceiling": 0.3883130490292677,
+     "PASS": false,
+     "in_preregistered_criterion": false
+    }
+   }
+  },
+  "C5": {
+   "ceiling_median_r3": 0.5594782608695652,
+   "ceiling_median_6seed_SB": 0.7175197948031672,
+   "per_split": [
+    0.7304347826086957,
+    0.3878260869565217,
+    0.5521739130434782,
+    0.646086956521739,
+    0.6869565217391305,
+    0.40434782608695646,
+    0.40434782608695646,
+    0.7713043478260868,
+    0.4165217391304347,
+    0.5947826086956521
+   ],
+   "heavy_tail_evidence": {
+    "median_max_over_min_across_seeds": 4.407547117042903,
+    "median_within_mask_CV": 0.679693154764692
+   },
+   "attributors": {
+    "TracIn": {
+     "rho": 0.06,
+     "n": 24,
+     "p_onesided": 0.39031504777820597,
+     "ci95": [
+      -0.32338289361223793,
+      0.4531193343314937
+     ],
+     "ratio_to_ceiling": 0.08362138638483058,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "TRAK": {
+     "rho": -0.20434782608695648,
+     "n": 24,
+     "p_onesided": 0.830921375743412,
+     "ci95": [
+      -0.6219789639016795,
+      0.22975319098494146
+     ],
+     "ratio_to_ceiling": -0.2847974753686259,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "IF": {
+     "rho": 0.11913043478260868,
+     "n": 24,
+     "p_onesided": 0.28963795100406253,
+     "ci95": [
+      -0.25647651879908984,
+      0.5191227873348293
+     ],
+     "ratio_to_ceiling": 0.16603086861915636,
+     "PASS": false,
+     "in_preregistered_criterion": false
+    }
+   }
+  },
+  "C6": {
+   "ceiling_median_r3": 0.6288695652173912,
+   "ceiling_median_6seed_SB": 0.7721546017510142,
+   "per_split": [
+    0.7582608695652173,
+    0.551304347826087,
+    0.6930434782608694,
+    0.5782608695652174,
+    0.606086956521739,
+    0.49217391304347824,
+    0.5730434782608694,
+    0.8286956521739129,
+    0.4156521739130434,
+    0.7921739130434783
+   ],
+   "heavy_tail_evidence": {
+    "median_max_over_min_across_seeds": 6.221853972166788,
+    "median_within_mask_CV": 0.8594585422278211
+   },
+   "attributors": {
+    "TracIn": {
+     "rho": 0.29565217391304344,
+     "n": 24,
+     "p_onesided": 0.0803589466811215,
+     "ci95": [
+      -0.15159876439579628,
+      0.6499620431185559
+     ],
+     "ratio_to_ceiling": 0.38289245863793764,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "TRAK": {
+     "rho": 0.20173913043478262,
+     "n": 24,
+     "p_onesided": 0.17224651570369892,
+     "ci95": [
+      -0.21252650519651176,
+      0.5663361342046128
+     ],
+     "ratio_to_ceiling": 0.2612677953058869,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "IF": {
+     "rho": 0.014782608695652172,
+     "n": 24,
+     "p_onesided": 0.47267106288681715,
+     "ci95": [
+      -0.43248937018681505,
+      0.427200283793956
+     ],
+     "ratio_to_ceiling": 0.019144622931896883,
+     "PASS": false,
+     "in_preregistered_criterion": false
+    }
+   }
+  },
+  "C7": {
+   "ceiling_median_r3": 0.5434782608695651,
+   "ceiling_median_6seed_SB": 0.704225352112676,
+   "per_split": [
+    0.7513043478260868,
+    0.4313043478260869,
+    0.8478260869565216,
+    0.19565217391304346,
+    0.5234782608695652,
+    0.2678260869565217,
+    0.6347826086956522,
+    0.6095652173913042,
+    0.4130434782608695,
+    0.76
+   ],
+   "heavy_tail_evidence": {
+    "median_max_over_min_across_seeds": 3.1666141154886827,
+    "median_within_mask_CV": 0.5469365984827138
+   },
+   "attributors": {
+    "TracIn": {
+     "rho": 0.38956521739130434,
+     "n": 24,
+     "p_onesided": 0.029937739687435298,
+     "ci95": [
+      0.023169392199723426,
+      0.6817342770414055
+     ],
+     "ratio_to_ceiling": 0.5531826086956522,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "TRAK": {
+     "rho": 0.08695652173913042,
+     "n": 24,
+     "p_onesided": 0.3430976626492644,
+     "ci95": [
+      -0.33100743132817256,
+      0.4370642440233469
+     ],
+     "ratio_to_ceiling": 0.1234782608695652,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "IF": {
+     "rho": 0.16,
+     "n": 24,
+     "p_onesided": 0.227584860107713,
+     "ci95": [
+      -0.2641372672948748,
+      0.5391359511501237
+     ],
+     "ratio_to_ceiling": 0.2272,
+     "PASS": false,
+     "in_preregistered_criterion": false
+    }
+   }
+  },
+  "C8": {
+   "ceiling_median_r3": 0.48434782608695653,
+   "ceiling_median_6seed_SB": 0.6526069127123609,
+   "per_split": [
+    0.7808695652173911,
+    0.48086956521739127,
+    0.47130434782608693,
+    0.6382608695652173,
+    0.5026086956521739,
+    0.11565217391304347,
+    0.3904347826086956,
+    0.48869565217391303,
+    0.5426086956521738,
+    0.4321739130434783
+   ],
+   "heavy_tail_evidence": {
+    "median_max_over_min_across_seeds": 4.415922537523038,
+    "median_within_mask_CV": 0.6950837443563125
+   },
+   "attributors": {
+    "TracIn": {
+     "rho": 0.15652173913043477,
+     "n": 24,
+     "p_onesided": 0.23257814893784542,
+     "ci95": [
+      -0.24405013014733273,
+      0.5348747081469435
+     ],
+     "ratio_to_ceiling": 0.23984076184528916,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "TRAK": {
+     "rho": 0.16086956521739126,
+     "n": 24,
+     "p_onesided": 0.22634537388283704,
+     "ci95": [
+      -0.27189292685841765,
+      0.5624849400748191
+     ],
+     "ratio_to_ceiling": 0.24650300522988047,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "IF": {
+     "rho": 0.25913043478260867,
+     "n": 24,
+     "p_onesided": 0.1107168553781794,
+     "ci95": [
+      -0.16047494676677274,
+      0.6092662415880221
+     ],
+     "ratio_to_ceiling": 0.39706970572164535,
+     "PASS": false,
+     "in_preregistered_criterion": false
+    }
+   }
+  },
+  "C9": {
+   "ceiling_median_r3": 0.5543478260869565,
+   "ceiling_median_6seed_SB": 0.7132867132867133,
+   "per_split": [
+    0.5895652173913043,
+    0.44869565217391305,
+    0.6704347826086956,
+    0.368695652173913,
+    0.577391304347826,
+    0.38434782608695645,
+    0.49999999999999994,
+    0.8382608695652173,
+    0.3478260869565217,
+    0.8182608695652173
+   ],
+   "heavy_tail_evidence": {
+    "median_max_over_min_across_seeds": 4.5719683127881305,
+    "median_within_mask_CV": 0.692806344091006
+   },
+   "attributors": {
+    "TracIn": {
+     "rho": 0.09913043478260869,
+     "n": 24,
+     "p_onesided": 0.3224528195153675,
+     "ci95": [
+      -0.32554967967812004,
+      0.5058941828913008
+     ],
+     "ratio_to_ceiling": 0.13897698209718667,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "TRAK": {
+     "rho": -0.06782608695652173,
+     "n": 24,
+     "p_onesided": 0.62358240681559,
+     "ci95": [
+      -0.47849084602250386,
+      0.3213505078876682
+     ],
+     "ratio_to_ceiling": -0.09508951406649614,
+     "PASS": false,
+     "in_preregistered_criterion": true
+    },
+    "IF": {
+     "rho": 0.04,
+     "n": 24,
+     "p_onesided": 0.42639021971699514,
+     "ci95": [
+      -0.37170783957365605,
+      0.42422001958653954
+     ],
+     "ratio_to_ceiling": 0.05607843137254902,
+     "PASS": false,
+     "in_preregistered_criterion": false
+    }
+   }
+  }
+ },
+ "INTERPRETATION": "DIAGNOSTIC PASS at a usable ceiling. On this (post-hoc) aggregator, demo-grain attribution IS faithful for the diffusion policy where it is not for the BC-Transformer -- i.e. faithfulness would be POLICY-CLASS-DEPENDENT. Because the aggregator was not preregistered, this CANNOT be reported as a confirmatory result. It is a strong, specific, pre-specifiable hypothesis for a follow-up study.",
+ "HETEROGENEITY_WARNING": "The diagnostic is MIXED, not a clean pass. C1 crosses the bar (TracIn rho=+0.420, ratio 0.74, p=0.0205 -- razor-thin against the 0.025 Bonferroni-2 threshold) while C5, the other focal target, shows essentially NOTHING (rho=+0.060, ratio 0.08, p=0.39). A criterion of the form 'ANY focal target' returns PASS on that split, but a result driven by one of two focal targets, on a POST-HOC aggregator, with p a hair under threshold, cannot support a confirmatory claim in either direction.",
+ "WHAT_P10_ACTUALLY_LICENSES": "P10 does NOT settle the external-validity question. It licenses exactly three statements: (1) a diffusion policy is VIABLE and STRONGER than the BC-Transformer on this corpus (100% vs 70% single-task; larger co-train margins); (2) its executed-action ground truth is DETERMINISTIC BUT NOT SEED-STABLE, and heavy-tailed, so a seed-MEAN outcome -- the convention this whole literature uses -- is a broken instrument for it; the median restores a 0.57-0.77 ceiling; (3) on the repaired instrument the evidence is SUGGESTIVE BUT MIXED (C1 0.74 of oracle, C5 0.08). A follow-up must PREREGISTER the median aggregator, S>=6, and an up-front ceiling-usability gate.",
+ "TracIn_is_the_only_attributor_with_signal": "Across all 9 targets the only attributor showing consistent positive correlation is TracIn (C1 +0.42, C7 +0.39, C6 +0.30, C2 +0.28). This is coherent with its attribution-side stability: TracIn's diffusion ensemble split-half reliability is 0.927 vs 0.53 for TRAK/IF (p10_attr_stability.json)."
+}

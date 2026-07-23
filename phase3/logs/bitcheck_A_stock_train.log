@@ -1,0 +1,6 @@
+[train] ep 0 step 44/8000 loss 4.6326 (3s)
+[train] ep 50 step 2244/8000 loss -12.7261 (42s)
+[train] ep 100 step 4444/8000 loss -16.4151 (81s)
+[train] ep 150 step 6644/8000 loss -19.2043 (123s)
+[train] ep 181 step 8000/8000 loss -19.8004 (147s)
+[train] DONE /mnt/sdb/ljc/RoboTDA-X/phase3/runs/_bitcheck/A_stock_train wall=147s windows=11480 loss=-19.7031

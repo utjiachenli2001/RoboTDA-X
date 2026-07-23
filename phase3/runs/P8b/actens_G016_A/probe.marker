@@ -1,0 +1,1 @@
+{"arm": "action_ensemble", "n_members": 3, "members": ["/mnt/sdb/ljc/RoboTDA-X/runs/stage_G/G016_s401/final.pt", "/mnt/sdb/ljc/RoboTDA-X/runs/stage_G/G016_s402/final.pt", "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G016_s403/final.pt"], "n_rollouts": 10, "total_wall_s": 442.0690987110138}

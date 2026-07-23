@@ -1,0 +1,92 @@
+{
+ "15": {
+  "intrusion_above_median": 0.5777777777777777,
+  "intrusion_sd": 0.10080692950902252,
+  "intrusion_above_p75": 0.18333333333333335,
+  "per_seed": [
+   {
+    "seed": 101,
+    "intrusion_above_median": 0.5,
+    "intrusion_above_p75": 0.19166666666666668,
+    "n_insiders": 15,
+    "n_outsiders": 120
+   },
+   {
+    "seed": 102,
+    "intrusion_above_median": 0.5416666666666666,
+    "intrusion_above_p75": 0.21666666666666667,
+    "n_insiders": 15,
+    "n_outsiders": 120
+   },
+   {
+    "seed": 103,
+    "intrusion_above_median": 0.6916666666666667,
+    "intrusion_above_p75": 0.14166666666666666,
+    "n_insiders": 15,
+    "n_outsiders": 120
+   }
+  ],
+  "attributor": "TracIn",
+  "functional": "plain"
+ },
+ "50": {
+  "intrusion_above_median": 0.4138888888888889,
+  "intrusion_sd": 0.16442942874387492,
+  "intrusion_above_p75": 0.225,
+  "per_seed": [
+   {
+    "seed": 101,
+    "intrusion_above_median": 0.525,
+    "intrusion_above_p75": 0.25,
+    "n_insiders": 50,
+    "n_outsiders": 120
+   },
+   {
+    "seed": 102,
+    "intrusion_above_median": 0.49166666666666664,
+    "intrusion_above_p75": 0.2916666666666667,
+    "n_insiders": 50,
+    "n_outsiders": 120
+   },
+   {
+    "seed": 103,
+    "intrusion_above_median": 0.225,
+    "intrusion_above_p75": 0.13333333333333333,
+    "n_insiders": 50,
+    "n_outsiders": 120
+   }
+  ],
+  "attributor": "TracIn",
+  "functional": "plain"
+ },
+ "490": {
+  "intrusion_above_median": 0.5416666666666666,
+  "intrusion_sd": 0.1589898669028243,
+  "intrusion_above_p75": 0.3138888888888889,
+  "per_seed": [
+   {
+    "seed": 101,
+    "intrusion_above_median": 0.625,
+    "intrusion_above_p75": 0.2833333333333333,
+    "n_insiders": 490,
+    "n_outsiders": 120
+   },
+   {
+    "seed": 102,
+    "intrusion_above_median": 0.35833333333333334,
+    "intrusion_above_p75": 0.175,
+    "n_insiders": 490,
+    "n_outsiders": 120
+   },
+   {
+    "seed": 103,
+    "intrusion_above_median": 0.6416666666666667,
+    "intrusion_above_p75": 0.48333333333333334,
+    "n_insiders": 490,
+    "n_outsiders": 120
+   }
+  ],
+  "attributor": "TracIn",
+  "functional": "plain"
+ }
+}

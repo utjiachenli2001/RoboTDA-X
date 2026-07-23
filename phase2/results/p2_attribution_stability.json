@@ -1,0 +1,46 @@
+{
+ "note": "Stage-E and Stage-B co-train are trained on the IDENTICAL 135-demo pool; they differ only in training seed.",
+ "agreement_between_ensembles": {
+  "IF": {
+   "spearman_predicted_benefit_E_vs_B": 0.7735042735042735,
+   "n_tasks": 27
+  },
+  "TRAK": {
+   "spearman_predicted_benefit_E_vs_B": 0.38949938949938945,
+   "n_tasks": 27
+  },
+  "TracIn": {
+   "spearman_predicted_benefit_E_vs_B": -0.10256410256410256,
+   "n_tasks": 27
+  }
+ },
+ "subensemble_spread": {
+  "IF": {
+   "n_subensembles": 252,
+   "pooled_rho_mean": 0.1447091833160655,
+   "pooled_rho_sd": 0.08898837249289042,
+   "pooled_rho_min": -0.08643862333630836,
+   "pooled_rho_max": 0.3814906026397496,
+   "range": 0.46792922597605796,
+   "frac_that_would_PASS_alpha05_uncorrected": 0.03571428571428571
+  },
+  "TRAK": {
+   "n_subensembles": 252,
+   "pooled_rho_mean": -0.003081033435987657,
+   "pooled_rho_sd": 0.10129679492340564,
+   "pooled_rho_min": -0.24770927040899673,
+   "pooled_rho_max": 0.2138057821039429,
+   "range": 0.46151505251293967,
+   "frac_that_would_PASS_alpha05_uncorrected": 0.0
+  },
+  "TracIn": {
+   "n_subensembles": 252,
+   "pooled_rho_mean": 0.2251202774324027,
+   "pooled_rho_sd": 0.12057701183524801,
+   "pooled_rho_min": -0.10201590174673847,
+   "pooled_rho_max": 0.483201067554911,
+   "range": 0.5852169693016495,
+   "frac_that_would_PASS_alpha05_uncorrected": 0.19047619047619047
+  }
+ }
+}

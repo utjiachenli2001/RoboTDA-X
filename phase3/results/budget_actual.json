@@ -1,0 +1,91 @@
+{
+ "per_stage": [
+  {
+   "stage": "P10a",
+   "runs": 12,
+   "ok": 12,
+   "fail": 0,
+   "gpu_h": 3.2005912278095883
+  },
+  {
+   "stage": "P10b_s56",
+   "runs": 48,
+   "ok": 48,
+   "fail": 0,
+   "gpu_h": 15.423694910671976
+  },
+  {
+   "stage": "P10b",
+   "runs": 96,
+   "ok": 96,
+   "fail": 0,
+   "gpu_h": 31.64424852563275
+  },
+  {
+   "stage": "P10ens",
+   "runs": 5,
+   "ok": 5,
+   "fail": 0,
+   "gpu_h": 1.4465883654356002
+  },
+  {
+   "stage": "P8a",
+   "runs": 48,
+   "ok": 48,
+   "fail": 0,
+   "gpu_h": 6.104458670549922
+  },
+  {
+   "stage": "P9",
+   "runs": 10,
+   "ok": 10,
+   "fail": 0,
+   "gpu_h": 1.3547251737780042
+  }
+ ],
+ "other_stages": [
+  {
+   "stage": "P8 bitcheck",
+   "runs": 4,
+   "gpu_h": 0.6
+  },
+  {
+   "stage": "P10 calibration",
+   "runs": 7,
+   "gpu_h": 1.5
+  },
+  {
+   "stage": "P6 lambda sweep",
+   "runs": 0,
+   "gpu_h": 0.1
+  },
+  {
+   "stage": "P9 attribution",
+   "runs": 0,
+   "gpu_h": 0.1
+  },
+  {
+   "stage": "P8b evals (60)",
+   "runs": 0,
+   "gpu_h": 4.0
+  },
+  {
+   "stage": "P10 attribution",
+   "runs": 0,
+   "gpu_h": 0.7
+  },
+  {
+   "stage": "P7 ladder",
+   "runs": 0,
+   "gpu_h": 0.0
+  }
+ ],
+ "total_retrains": 230,
+ "total_gpu_h": 66.17,
+ "total_episodes": 74130,
+ "ledger_retrains": 183,
+ "ledger_gpu_h_nominal": 56.5,
+ "alert_gpu_h": 85,
+ "alert_tripped": false,
+ "cuts": "NONE"
+}

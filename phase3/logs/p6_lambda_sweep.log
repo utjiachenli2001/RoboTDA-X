@@ -1,0 +1,57 @@
+[6.5] probe-leak guard PASSED for 10 ensemble members
+[6.5] Gram ens_s201: G(135, 135) K(135, 9) (6s)
+[6.5] Gram ens_s202: G(135, 135) K(135, 9) (11s)
+[6.5] Gram ens_s203: G(135, 135) K(135, 9) (17s)
+[6.5] Gram ens_s204: G(135, 135) K(135, 9) (22s)
+[6.5] Gram ens_s205: G(135, 135) K(135, 9) (28s)
+[6.5] Gram ens_s206: G(135, 135) K(135, 9) (33s)
+[6.5] Gram ens_s207: G(135, 135) K(135, 9) (38s)
+[6.5] Gram ens_s208: G(135, 135) K(135, 9) (43s)
+[6.5] Gram ens_s209: G(135, 135) K(135, 9) (48s)
+[6.5] Gram ens_s210: G(135, 135) K(135, 9) (54s)
+[6.5] cached -> /mnt/sdb/ljc/RoboTDA-X/phase3/results/p6_gram_cache.npz (54s)
+[6.5] reproduction @ default ridge IF: min rho vs archived = 1.000000, max rel|diff| = 6.79e-06
+[6.5] reproduction @ default ridge TRAK: min rho vs archived = 0.999995, max rel|diff| = 4.76e-05
+[6.5] ridge_rel=1e-06 done
+[6.5] ridge_rel=1e-05 done
+[6.5] ridge_rel=1e-04 done
+[6.5] ridge_rel=1e-03 done
+[6.5] ridge_rel=1e-02 done
+[6.5] ridge_rel=1e-01 done
+[6.5] ridge_rel=1e+00 done
+[6.5] ridge_rel=1e+01 done
+
+============================================================================================
+P6.5 -- RIDGE SWEEP (demo grain, held-out L2, 6-seed ground truth)
+============================================================================================
+target     ridge   attr      LDS  ceiling     bar  ratio      p1
+C1         1e-06     IF   -0.226    0.933   0.466  -0.24  0.8560
+C1         1e-05     IF   -0.157    0.933   0.466  -0.17  0.7674
+C1         1e-04     IF   -0.073    0.933   0.466  -0.08  0.6328
+C1         1e-03     IF   +0.145    0.933   0.466   0.16  0.2492
+C1         1e-02     IF   +0.256    0.933   0.466   0.27  0.1140 <-- DEFAULT
+C1         1e-01     IF   +0.341    0.933   0.466   0.37  0.0515
+C1         1e+00     IF   +0.443    0.933   0.466   0.47  0.0152
+C1         1e+01     IF   +0.498    0.933   0.466   0.53  0.0066
+--------------------------------------------------------------------------------------------
+C5         1e-06     IF   -0.071    0.918   0.459  -0.08  0.6297
+C5         1e-05     IF   +0.008    0.918   0.459   0.01  0.4855
+C5         1e-04     IF   +0.032    0.918   0.459   0.04  0.4407
+C5         1e-03     IF   +0.077    0.918   0.459   0.08  0.3596
+C5         1e-02     IF   +0.380    0.918   0.459   0.41  0.0335 <-- DEFAULT
+C5         1e-01     IF   +0.432    0.918   0.459   0.47  0.0175
+C5         1e+00     IF   +0.408    0.918   0.459   0.44  0.0240
+C5         1e+01   TRAK   +0.432    0.918   0.459   0.47  0.0175
+--------------------------------------------------------------------------------------------
+
+ORACLE-TUNED MAXIMUM (upper bound, not held-out):
+  C1: ridge=1e+01 IF     LDS=+0.498 ratio=0.53 p=0.0066 crosses_half=True
+  C5: ridge=1e-01 IF     LDS=+0.432 ratio=0.47 p=0.0175 crosses_half=False
+
+CROSS-VALIDATED (the number that licenses a claim):
+  tune_on_C1__evaluate_on_C5: ridge=1e+01 IF     LDS=+0.403 ratio=0.44 p=0.0253 PASS=False
+  tune_on_C5__evaluate_on_C1: ridge=1e-01 IF     LDS=+0.341 ratio=0.37 p=0.0515 PASS=False
+============================================================================================
+VERDICT: ORACLE_TUNED_ONLY__NOT_HELD_OUT
+An oracle-tuned lambda crosses half-ceiling on at least one focal target, but the CROSS-VALIDATED (held-out) lambda does NOT. Tuning lambda on the target it is scored against is not a method; it is a multiple comparison over 8 grid points. Phase 2's conclusion stands, and the oracle-tuned value is reported as an upper bound.
+============================================================================================

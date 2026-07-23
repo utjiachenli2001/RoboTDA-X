@@ -1,0 +1,5 @@
+benchmark_root: /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/libero/libero
+bddl_files: /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/libero/libero/bddl_files
+init_states: /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/libero/libero/init_files
+datasets: /mnt/sdb/ljc/RoboTDA-X/data/libero
+assets: /home/ljc/.cache/libero/assets

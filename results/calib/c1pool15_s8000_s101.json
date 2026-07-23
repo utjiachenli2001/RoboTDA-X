@@ -1,0 +1,17 @@
+{
+ "name": "c1pool15_s8000_s101",
+ "n_demos": 15,
+ "steps": 8000,
+ "seed": 101,
+ "n_windows": 1990,
+ "train_s": 132.05125403404236,
+ "rollout_s": 112.69326782226562,
+ "final_loss": -24.103050908588227,
+ "per_task_success": {
+  "open_the_middle_drawer_of_the_cabinet": 0.2,
+  "push_the_plate_to_the_front_of_the_stove": 0.1,
+  "open_the_top_drawer_and_put_the_bowl_inside": 0.0
+ },
+ "mean_success": 0.10000000000000002,
+ "n_errors": 0
+}

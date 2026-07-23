@@ -1,0 +1,197 @@
+[P10a] 12 jobs (C1/C5 x target/cotrain x seeds [611, 612, 613])
+[P10b] 96 jobs (24 masks x seeds [601, 602, 603, 604])
+[P10ens] 5 jobs (135-demo, seeds [621, 622, 623, 624, 625])
+[P10b] 96 jobs, 0 already complete, 96 to run
+[P10b] launch G000_s601 on gpu4
+[P10b] launch G000_s602 on gpu5
+[P10b] launch G000_s603 on gpu6
+[P10b] launch G000_s604 on gpu7
+[P10b] OK   G000_s603 gpu6 1068s (1/96)
+[P10b] OK   G000_s604 gpu7 1065s (2/96)
+[P10b] launch G001_s601 on gpu6
+[P10b] launch G001_s602 on gpu7
+[P10b] OK   G000_s601 gpu4 1100s (3/96)
+[P10b] launch G001_s603 on gpu4
+[P10b] OK   G000_s602 gpu5 1385s (4/96)
+[P10b] launch G001_s604 on gpu5
+[P10b] OK   G001_s602 gpu7 1072s (5/96)
+[P10b] launch G002_s601 on gpu7
+[P10b] OK   G001_s601 gpu6 1109s (6/96)
+[P10b] launch G002_s602 on gpu6
+[P10b] OK   G001_s603 gpu4 1136s (7/96)
+[P10b] launch G002_s603 on gpu4
+[P10b] OK   G001_s604 gpu5 1117s (8/96)
+[P10b] launch G002_s604 on gpu5
+[P10b] OK   G002_s601 gpu7 1066s (9/96)
+[P10b] launch G003_s601 on gpu7
+[P10b] OK   G002_s603 gpu4 1114s (10/96)
+[P10b] launch G003_s602 on gpu4
+[P10b] OK   G002_s604 gpu5 1072s (11/96)
+[P10b] launch G003_s603 on gpu5
+[P10b] OK   G002_s602 gpu6 1408s (12/96)
+[P10b] launch G003_s604 on gpu6
+[P10b] OK   G003_s602 gpu4 1071s (13/96)
+[P10b] launch G004_s601 on gpu4
+[P10b] OK   G003_s601 gpu7 1393s (14/96)
+[P10b] launch G004_s602 on gpu7
+[P10b] OK   G003_s604 gpu6 1040s (15/96)
+[P10b] launch G004_s603 on gpu6
+[P10b] OK   G003_s603 gpu5 1445s (16/96)
+[P10b] launch G004_s604 on gpu5
+[P10b] OK   G004_s601 gpu4 1043s (17/96)
+[P10b] launch G005_s601 on gpu4
+[P10b] OK   G004_s602 gpu7 1022s (18/96)
+[P10b] launch G005_s602 on gpu7
+[P10b] OK   G004_s603 gpu6 1012s (19/96)
+[P10b] launch G005_s603 on gpu6
+[P10b] OK   G004_s604 gpu5 1063s (20/96)
+[P10b] launch G005_s604 on gpu5
+[P10b] OK   G005_s601 gpu4 1175s (21/96)
+[P10b] launch G006_s601 on gpu4
+[P10b] OK   G005_s603 gpu6 1060s (22/96)
+[P10b] launch G006_s602 on gpu6
+[P10b] OK   G005_s602 gpu7 1433s (23/96)
+[P10b] launch G006_s603 on gpu7
+[P10b] OK   G005_s604 gpu5 1093s (24/96)
+[P10b] launch G006_s604 on gpu5
+[P10b] OK   G006_s602 gpu6 1264s (25/96)
+[P10b] launch G007_s601 on gpu6
+[P10b] OK   G006_s601 gpu4 1403s (26/96)
+[P10b] launch G007_s602 on gpu4
+[P10b] OK   G006_s604 gpu5 1152s (27/96)
+[P10b] launch G007_s603 on gpu5
+[P10b] OK   G006_s603 gpu7 1413s (28/96)
+[P10b] launch G007_s604 on gpu7
+[P10b] OK   G007_s601 gpu6 1237s (29/96)
+[P10b] launch G008_s601 on gpu6
+[P10b] OK   G007_s602 gpu4 1400s (30/96)
+[P10b] launch G008_s602 on gpu4
+[P10b] OK   G007_s603 gpu5 1125s (31/96)
+[P10b] launch G008_s603 on gpu5
+[P10b] OK   G007_s604 gpu7 1115s (32/96)
+[P10b] launch G008_s604 on gpu7
+[P10b] OK   G008_s601 gpu6 1065s (33/96)
+[P10b] launch G009_s601 on gpu6
+[P10b] OK   G008_s602 gpu4 1126s (34/96)
+[P10b] OK   G008_s603 gpu5 1112s (35/96)
+[P10b] launch G009_s602 on gpu4
+[P10b] launch G009_s603 on gpu5
+[P10b] OK   G008_s604 gpu7 1137s (36/96)
+[P10b] launch G009_s604 on gpu7
+[P10b] OK   G009_s602 gpu4 1000s (37/96)
+[P10b] OK   G009_s603 gpu5 997s (38/96)
+[P10b] launch G010_s601 on gpu4
+[P10b] launch G010_s602 on gpu5
+[P10b] OK   G009_s601 gpu6 1406s (39/96)
+[P10b] launch G010_s603 on gpu6
+[P10b] OK   G009_s604 gpu7 1073s (40/96)
+[P10b] launch G010_s604 on gpu7
+[P10b] OK   G010_s602 gpu5 1113s (41/96)
+[P10b] launch G011_s601 on gpu5
+[P10b] OK   G010_s601 gpu4 1129s (42/96)
+[P10b] launch G011_s602 on gpu4
+[P10b] OK   G010_s603 gpu6 1126s (43/96)
+[P10b] launch G011_s603 on gpu6
+[P10b] OK   G010_s604 gpu7 1401s (44/96)
+[P10b] launch G011_s604 on gpu7
+[P10b] OK   G011_s601 gpu5 1092s (45/96)
+[P10b] launch G012_s601 on gpu5
+[P10b] OK   G011_s602 gpu4 1112s (46/96)
+[P10b] launch G012_s602 on gpu4
+[P10b] OK   G011_s603 gpu6 1409s (47/96)
+[P10b] launch G012_s603 on gpu6
+[P10b] OK   G011_s604 gpu7 1155s (48/96)
+[P10b] launch G012_s604 on gpu7
+[P10b] OK   G012_s601 gpu5 1155s (49/96)
+[P10b] launch G013_s601 on gpu5
+[P10b] OK   G012_s602 gpu4 1175s (50/96)
+[P10b] launch G013_s602 on gpu4
+[P10b] OK   G012_s603 gpu6 1266s (51/96)
+[P10b] launch G013_s603 on gpu6
+[P10b] OK   G012_s604 gpu7 1164s (52/96)
+[P10b] launch G013_s604 on gpu7
+[P10b] OK   G013_s601 gpu5 1178s (53/96)
+[P10b] launch G014_s601 on gpu5
+[P10b] OK   G013_s602 gpu4 1402s (54/96)
+[P10b] launch G014_s602 on gpu4
+[P10b] OK   G013_s604 gpu7 1155s (55/96)
+[P10b] launch G014_s603 on gpu7
+[P10b] OK   G013_s603 gpu6 1405s (56/96)
+[P10b] launch G014_s604 on gpu6
+[P10b] OK   G014_s601 gpu5 1115s (57/96)
+[P10b] launch G015_s601 on gpu5
+[P10b] OK   G014_s602 gpu4 1135s (58/96)
+[P10b] launch G015_s602 on gpu4
+[P10b] OK   G014_s603 gpu7 1105s (59/96)
+[P10b] launch G015_s603 on gpu7
+[P10b] OK   G014_s604 gpu6 1166s (60/96)
+[P10b] launch G015_s604 on gpu6
+[P10b] OK   G015_s601 gpu5 1114s (61/96)
+[P10b] launch G016_s601 on gpu5
+[P10b] OK   G015_s602 gpu4 1136s (62/96)
+[P10b] launch G016_s602 on gpu4
+[P10b] OK   G015_s604 gpu6 1103s (63/96)
+[P10b] launch G016_s603 on gpu6
+[P10b] OK   G015_s603 gpu7 1415s (64/96)
+[P10b] launch G016_s604 on gpu7
+[P10b] OK   G016_s601 gpu5 1433s (65/96)
+[P10b] launch G017_s601 on gpu5
+[P10b] OK   G016_s602 gpu4 1228s (66/96)
+[P10b] launch G017_s602 on gpu4
+[P10b] OK   G016_s603 gpu6 1083s (67/96)
+[P10b] launch G017_s603 on gpu6
+[P10b] OK   G016_s604 gpu7 1053s (68/96)
+[P10b] launch G017_s604 on gpu7
+[P10b] OK   G017_s601 gpu5 1115s (69/96)
+[P10b] launch G018_s601 on gpu5
+[P10b] OK   G017_s603 gpu6 1052s (70/96)
+[P10b] launch G018_s602 on gpu6
+[P10b] OK   G017_s602 gpu4 1425s (71/96)
+[P10b] launch G018_s603 on gpu4
+[P10b] OK   G017_s604 gpu7 1117s (72/96)
+[P10b] launch G018_s604 on gpu7
+[P10b] OK   G018_s601 gpu5 1117s (73/96)
+[P10b] launch G019_s601 on gpu5
+[P10b] OK   G018_s603 gpu4 1082s (74/96)
+[P10b] launch G019_s602 on gpu4
+[P10b] OK   G018_s602 gpu6 1129s (75/96)
+[P10b] launch G019_s603 on gpu6
+[P10b] OK   G018_s604 gpu7 1146s (76/96)
+[P10b] launch G019_s604 on gpu7
+[P10b] OK   G019_s601 gpu5 1175s (77/96)
+[P10b] launch G020_s601 on gpu5
+[P10b] OK   G019_s602 gpu4 1155s (78/96)
+[P10b] launch G020_s602 on gpu4
+[P10b] OK   G019_s604 gpu7 1142s (79/96)
+[P10b] launch G020_s603 on gpu7
+[P10b] OK   G019_s603 gpu6 1422s (80/96)
+[P10b] launch G020_s604 on gpu6
+[P10b] OK   G020_s601 gpu5 1113s (81/96)
+[P10b] launch G021_s601 on gpu5
+[P10b] OK   G020_s603 gpu7 1110s (82/96)
+[P10b] launch G021_s602 on gpu7
+[P10b] OK   G020_s602 gpu4 1432s (83/96)
+[P10b] launch G021_s603 on gpu4
+[P10b] OK   G020_s604 gpu6 1410s (84/96)
+[P10b] launch G021_s604 on gpu6
+[P10b] OK   G021_s601 gpu5 1073s (85/96)
+[P10b] launch G022_s601 on gpu5
+[P10b] OK   G021_s603 gpu4 1081s (86/96)
+[P10b] launch G022_s602 on gpu4
+[P10b] OK   G021_s602 gpu7 1444s (87/96)
+[P10b] launch G022_s603 on gpu7
+[P10b] OK   G021_s604 gpu6 1032s (88/96)
+[P10b] launch G022_s604 on gpu6
+[P10b] OK   G022_s601 gpu5 1429s (89/96)
+[P10b] launch G023_s601 on gpu5
+[P10b] OK   G022_s604 gpu6 1065s (90/96)
+[P10b] launch G023_s602 on gpu6
+[P10b] OK   G022_s602 gpu4 1410s (91/96)
+[P10b] launch G023_s603 on gpu4
+[P10b] OK   G022_s603 gpu7 1421s (92/96)
+[P10b] launch G023_s604 on gpu7
+[P10b] OK   G023_s601 gpu5 1207s (93/96)
+[P10b] OK   G023_s602 gpu6 1134s (94/96)
+[P10b] OK   G023_s603 gpu4 1209s (95/96)
+[P10b] OK   G023_s604 gpu7 1163s (96/96)
+[P10b] COMPLETE: 96/96 ok, 0 FAILED, wall=480.1 min, gpu-h=31.64

@@ -1,0 +1,460 @@
+{
+ "stage": "P14",
+ "n_jobs": 64,
+ "n_skipped": 0,
+ "n_run": 64,
+ "n_ok": 64,
+ "n_fail": 0,
+ "wall_s": 4733.101962804794,
+ "gpu_h": 5.181825205948618,
+ "results": [
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H000_s413",
+   "gpu": 6,
+   "wall_s": 281.35997772216797,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H000_s411",
+   "gpu": 4,
+   "wall_s": 300.5435400009155,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H000_s412",
+   "gpu": 5,
+   "wall_s": 297.5425639152527,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H000_s414",
+   "gpu": 7,
+   "wall_s": 307.7144412994385,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H001_s411",
+   "gpu": 6,
+   "wall_s": 307.4097669124603,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H001_s412",
+   "gpu": 4,
+   "wall_s": 317.59028720855713,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H001_s413",
+   "gpu": 5,
+   "wall_s": 314.5893564224243,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H001_s414",
+   "gpu": 7,
+   "wall_s": 317.5705418586731,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H002_s411",
+   "gpu": 6,
+   "wall_s": 276.7377953529358,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H002_s412",
+   "gpu": 4,
+   "wall_s": 286.9345951080322,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H002_s413",
+   "gpu": 5,
+   "wall_s": 297.08119797706604,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H002_s414",
+   "gpu": 7,
+   "wall_s": 283.9035930633545,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H003_s411",
+   "gpu": 6,
+   "wall_s": 306.9837169647217,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H003_s412",
+   "gpu": 4,
+   "wall_s": 286.64684891700745,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H003_s413",
+   "gpu": 5,
+   "wall_s": 296.8727526664734,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H003_s414",
+   "gpu": 7,
+   "wall_s": 307.06145191192627,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H004_s411",
+   "gpu": 6,
+   "wall_s": 317.31037735939026,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H004_s412",
+   "gpu": 4,
+   "wall_s": 304.1425848007202,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H004_s413",
+   "gpu": 5,
+   "wall_s": 307.0606083869934,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H004_s414",
+   "gpu": 7,
+   "wall_s": 307.03888988494873,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H005_s411",
+   "gpu": 4,
+   "wall_s": 276.56288862228394,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H005_s412",
+   "gpu": 6,
+   "wall_s": 286.7363438606262,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H005_s413",
+   "gpu": 5,
+   "wall_s": 286.706481218338,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H005_s414",
+   "gpu": 7,
+   "wall_s": 286.69831943511963,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H006_s411",
+   "gpu": 4,
+   "wall_s": 297.4695599079132,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H006_s412",
+   "gpu": 6,
+   "wall_s": 284.3123219013214,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H006_s414",
+   "gpu": 7,
+   "wall_s": 274.1249771118164,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H006_s413",
+   "gpu": 5,
+   "wall_s": 300.48745584487915,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H007_s411",
+   "gpu": 4,
+   "wall_s": 266.31128787994385,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H007_s412",
+   "gpu": 6,
+   "wall_s": 276.4620122909546,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H007_s414",
+   "gpu": 5,
+   "wall_s": 273.4674274921417,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H007_s413",
+   "gpu": 7,
+   "wall_s": 299.9226875305176,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H008_s411",
+   "gpu": 4,
+   "wall_s": 276.5626263618469,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H008_s412",
+   "gpu": 6,
+   "wall_s": 307.08757758140564,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H008_s413",
+   "gpu": 5,
+   "wall_s": 286.63102436065674,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H008_s414",
+   "gpu": 7,
+   "wall_s": 286.6223134994507,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H009_s411",
+   "gpu": 4,
+   "wall_s": 307.7072606086731,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H009_s412",
+   "gpu": 6,
+   "wall_s": 297.5351777076721,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H009_s413",
+   "gpu": 5,
+   "wall_s": 297.54859733581543,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H009_s414",
+   "gpu": 7,
+   "wall_s": 297.5549199581146,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H010_s411",
+   "gpu": 4,
+   "wall_s": 277.58667516708374,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H010_s412",
+   "gpu": 6,
+   "wall_s": 277.5944547653198,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H010_s413",
+   "gpu": 5,
+   "wall_s": 287.76305651664734,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H010_s414",
+   "gpu": 7,
+   "wall_s": 274.5727231502533,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H011_s411",
+   "gpu": 4,
+   "wall_s": 277.1351544857025,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H011_s412",
+   "gpu": 6,
+   "wall_s": 277.11897134780884,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H011_s413",
+   "gpu": 5,
+   "wall_s": 277.58716011047363,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H011_s414",
+   "gpu": 7,
+   "wall_s": 288.1543493270874,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H012_s411",
+   "gpu": 4,
+   "wall_s": 297.62216210365295,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H012_s412",
+   "gpu": 6,
+   "wall_s": 297.6384770870209,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H012_s413",
+   "gpu": 5,
+   "wall_s": 286.6017918586731,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H012_s414",
+   "gpu": 7,
+   "wall_s": 296.7739541530609,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H013_s411",
+   "gpu": 4,
+   "wall_s": 297.70346117019653,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H013_s412",
+   "gpu": 6,
+   "wall_s": 297.7043254375458,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H013_s413",
+   "gpu": 5,
+   "wall_s": 297.70657539367676,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H013_s414",
+   "gpu": 7,
+   "wall_s": 297.72313618659973,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H014_s411",
+   "gpu": 4,
+   "wall_s": 276.5557870864868,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H014_s412",
+   "gpu": 6,
+   "wall_s": 286.7423577308655,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H014_s413",
+   "gpu": 5,
+   "wall_s": 296.9041075706482,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H014_s414",
+   "gpu": 7,
+   "wall_s": 286.7290086746216,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H015_s411",
+   "gpu": 4,
+   "wall_s": 253.28735280036926,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H015_s412",
+   "gpu": 6,
+   "wall_s": 269.5570721626282,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H015_s413",
+   "gpu": 5,
+   "wall_s": 296.1973731517792,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase4/runs/P14/H015_s414",
+   "gpu": 7,
+   "wall_s": 293.00510573387146,
+   "rc": 0,
+   "ok": true
+  }
+ ]
+}

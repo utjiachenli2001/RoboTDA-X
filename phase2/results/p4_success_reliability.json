@@ -1,0 +1,269 @@
+{
+ "stage": "P4",
+ "descriptive_only": true,
+ "HEADLINE_episodes_vs_seeds": {
+  "C1": {
+   "episodes_axis": {
+    "from": "30 episodes (S=1)",
+    "to": "150 episodes (S=1)",
+    "cost_multiple": 5.0,
+    "delta_reliability": 0.05743870544135274
+   },
+   "seeds_axis": {
+    "from": "S=1 (at 150 episodes)",
+    "to": "S=3 (at 150 episodes)",
+    "cost_multiple": 3.0,
+    "delta_reliability": 0.25936612426562244
+   },
+   "seeds_beat_episodes": true,
+   "ratio_seed_gain_to_episode_gain": 4.515528723579013
+  },
+  "C2": {
+   "episodes_axis": {
+    "from": "30 episodes (S=1)",
+    "to": "150 episodes (S=1)",
+    "cost_multiple": 5.0,
+    "delta_reliability": -0.02549664056167955
+   },
+   "seeds_axis": {
+    "from": "S=1 (at 150 episodes)",
+    "to": "S=3 (at 150 episodes)",
+    "cost_multiple": 3.0,
+    "delta_reliability": 0.22108488705905016
+   },
+   "seeds_beat_episodes": true,
+   "ratio_seed_gain_to_episode_gain": null
+  }
+ },
+ "episode_ladder_rollouts_per_task": [
+  10,
+  30,
+  50
+ ],
+ "episode_ladder_episodes_per_cluster_estimate": [
+  30,
+  90,
+  150
+ ],
+ "DEFECT_NOTE": "the brief's 90-rollout arm is impossible: a LIBERO task has 50 init states and rollout.py indexes ep % 50 under a deterministic policy, so episodes 50-89 are bit-identical replays. See PHASE2_DEFECT.md.",
+ "seed_ladder": [
+  1,
+  2,
+  3,
+  6
+ ],
+ "n_models": 144,
+ "grid": {
+  "C1": {
+   "10": {
+    "1": {
+     "reliability": 0.18493586133438417,
+     "n_splits": 15,
+     "episodes_per_estimate": 30,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "2": {
+     "reliability": 0.31558142299097486,
+     "n_splits": 45,
+     "episodes_per_estimate": 30,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "3": {
+     "reliability": 0.4234229430793907,
+     "n_splits": 10,
+     "episodes_per_estimate": 30,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "6": {
+     "reliability": 0.5949362347123198,
+     "status": "EXTRAPOLATION (Spearman-Brown from measured S=3); a split-half of an S-seed mean needs 12 seeds, only 6 exist",
+     "is_extrapolation": true,
+     "extrapolated_from_S": 3,
+     "episodes_per_estimate": 30
+    }
+   },
+   "30": {
+    "1": {
+     "reliability": 0.25968412913562344,
+     "n_splits": 15,
+     "episodes_per_estimate": 90,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "2": {
+     "reliability": 0.3764612757692118,
+     "n_splits": 45,
+     "episodes_per_estimate": 90,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "3": {
+     "reliability": 0.4745206634181107,
+     "n_splits": 10,
+     "episodes_per_estimate": 90,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "6": {
+     "reliability": 0.6436270107169831,
+     "status": "EXTRAPOLATION (Spearman-Brown from measured S=3); a split-half of an S-seed mean needs 12 seeds, only 6 exist",
+     "is_extrapolation": true,
+     "extrapolated_from_S": 3,
+     "episodes_per_estimate": 90
+    }
+   },
+   "50": {
+    "1": {
+     "reliability": 0.2423745667757369,
+     "n_splits": 15,
+     "episodes_per_estimate": 150,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "2": {
+     "reliability": 0.3778313873286112,
+     "n_splits": 45,
+     "episodes_per_estimate": 150,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "3": {
+     "reliability": 0.5017406910413593,
+     "n_splits": 10,
+     "episodes_per_estimate": 150,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "6": {
+     "reliability": 0.6682121541148823,
+     "status": "EXTRAPOLATION (Spearman-Brown from measured S=3); a split-half of an S-seed mean needs 12 seeds, only 6 exist",
+     "is_extrapolation": true,
+     "extrapolated_from_S": 3,
+     "episodes_per_estimate": 150
+    }
+   }
+  },
+  "C2": {
+   "10": {
+    "1": {
+     "reliability": 0.6012813187200207,
+     "n_splits": 15,
+     "episodes_per_estimate": 30,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "2": {
+     "reliability": 0.7374507751956846,
+     "n_splits": 45,
+     "episodes_per_estimate": 30,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "3": {
+     "reliability": 0.7969132151903011,
+     "n_splits": 10,
+     "episodes_per_estimate": 30,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "6": {
+     "reliability": 0.8869801929815564,
+     "status": "EXTRAPOLATION (Spearman-Brown from measured S=3); a split-half of an S-seed mean needs 12 seeds, only 6 exist",
+     "is_extrapolation": true,
+     "extrapolated_from_S": 3,
+     "episodes_per_estimate": 30
+    }
+   },
+   "30": {
+    "1": {
+     "reliability": 0.6016103272481597,
+     "n_splits": 15,
+     "episodes_per_estimate": 90,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "2": {
+     "reliability": 0.731522783600038,
+     "n_splits": 45,
+     "episodes_per_estimate": 90,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "3": {
+     "reliability": 0.7952173913043478,
+     "n_splits": 10,
+     "episodes_per_estimate": 90,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "6": {
+     "reliability": 0.8859287963187212,
+     "status": "EXTRAPOLATION (Spearman-Brown from measured S=3); a split-half of an S-seed mean needs 12 seeds, only 6 exist",
+     "is_extrapolation": true,
+     "extrapolated_from_S": 3,
+     "episodes_per_estimate": 90
+    }
+   },
+   "50": {
+    "1": {
+     "reliability": 0.5757846781583411,
+     "n_splits": 15,
+     "episodes_per_estimate": 150,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "2": {
+     "reliability": 0.7360341982976948,
+     "n_splits": 45,
+     "episodes_per_estimate": 150,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "3": {
+     "reliability": 0.7968695652173913,
+     "n_splits": 10,
+     "episodes_per_estimate": 150,
+     "status": "measured",
+     "is_extrapolation": false
+    },
+    "6": {
+     "reliability": 0.8869531552458382,
+     "status": "EXTRAPOLATION (Spearman-Brown from measured S=3); a split-half of an S-seed mean needs 12 seeds, only 6 exist",
+     "is_extrapolation": true,
+     "extrapolated_from_S": 3,
+     "episodes_per_estimate": 150
+    }
+   }
+  }
+ },
+ "extrapolation": {
+  "C1": {
+   "basis": "measured 1-seed reliability at 50 rollouts/task (150 episodes)",
+   "r1_measured": 0.2423745667757369,
+   "seeds_needed_for_0.5": {
+    "k_seeds": 3.1258454354465126,
+    "LABEL": "EXTRAPOLATION (Spearman-Brown), not measured"
+   },
+   "seeds_needed_for_0.8": {
+    "k_seeds": 12.503381741786054,
+    "LABEL": "EXTRAPOLATION (Spearman-Brown), not measured"
+   }
+  },
+  "C2": {
+   "basis": "measured 1-seed reliability at 50 rollouts/task (150 episodes)",
+   "r1_measured": 0.5757846781583411,
+   "seeds_needed_for_0.5": {
+    "k_seeds": 0.736760351453811,
+    "LABEL": "EXTRAPOLATION (Spearman-Brown), not measured"
+   },
+   "seeds_needed_for_0.8": {
+    "k_seeds": 2.947041405815245,
+    "LABEL": "EXTRAPOLATION (Spearman-Brown), not measured"
+   }
+  }
+ },
+ "hard_instrument_limit": "beyond 50 episodes/task no further INDEPENDENT closed-loop samples exist for that task; more must come from more tasks, more seeds, or new initial states."
+}

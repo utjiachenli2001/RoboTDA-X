@@ -1,0 +1,15 @@
+[P10a] 12 jobs (C1/C5 x target/cotrain x seeds [611, 612, 613])
+[P10b] 96 jobs (24 masks x seeds [601, 602, 603, 604])
+[P10ens] 5 jobs (135-demo, seeds [621, 622, 623, 624, 625])
+[P10ens] 5 jobs, 0 already complete, 5 to run
+[P10ens] launch dpens_s621 on gpu4
+[P10ens] launch dpens_s622 on gpu5
+[P10ens] launch dpens_s623 on gpu6
+[P10ens] launch dpens_s624 on gpu7
+[P10ens] OK   dpens_s624 gpu7 984s (1/5)
+[P10ens] launch dpens_s625 on gpu7
+[P10ens] OK   dpens_s623 gpu6 1030s (2/5)
+[P10ens] OK   dpens_s621 gpu4 1046s (3/5)
+[P10ens] OK   dpens_s622 gpu5 1083s (4/5)
+[P10ens] OK   dpens_s625 gpu7 1063s (5/5)
+[P10ens] COMPLETE: 5/5 ok, 0 FAILED, wall=34.4 min, gpu-h=1.45

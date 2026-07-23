@@ -1,0 +1,20 @@
+{
+ "demos": [
+  "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_0",
+  "libero_goal/put_the_wine_bottle_on_the_rack/demo_0",
+  "libero_90/KITCHEN_SCENE2_stack_the_middle_black_bowl_on_the_back_black_bowl/demo_1",
+  "libero_goal/put_the_bowl_on_top_of_the_cabinet/demo_0",
+  "libero_spatial/pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate/demo_0",
+  "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_0",
+  "libero_90/KITCHEN_SCENE10_put_the_butter_at_the_back_in_the_top_drawer_of_the_cabinet_and_close_it/demo_1",
+  "libero_90/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet/demo_0",
+  "libero_90/KITCHEN_SCENE2_put_the_black_bowl_at_the_back_on_the_plate/demo_1",
+  "libero_90/KITCHEN_SCENE4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet/demo_1",
+  "libero_90/KITCHEN_SCENE1_open_the_bottom_drawer_of_the_cabinet/demo_1",
+  "libero_90/KITCHEN_SCENE2_put_the_middle_black_bowl_on_the_plate/demo_0",
+  "libero_90/KITCHEN_SCENE10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it/demo_1",
+  "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1",
+  "libero_goal/put_the_cream_cheese_in_the_bowl/demo_0"
+ ],
+ "seed": 502
+}

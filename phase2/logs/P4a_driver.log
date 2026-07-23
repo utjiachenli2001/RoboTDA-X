@@ -1,0 +1,5 @@
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4])
+[P4] arm=a: 48 models, 14400 episodes (6 probe tasks x 50 rollouts)
+[P4] launch shard of 48 models on gpu4
+[P4] shard gpu4 exited rc=0
+[P4] arm=a COMPLETE: 48 models have p4.marker, wall=284.1 min

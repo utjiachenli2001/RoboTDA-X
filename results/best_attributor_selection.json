@@ -1,0 +1,26 @@
+{
+ "selected_on": "conditional LDS vs held-out L2 (success ceilings are too low to rank on)",
+ "by_loss": {
+  "C1": "TRAK",
+  "C2": "TRAK",
+  "C3": "TRAK",
+  "C4": "IF",
+  "C5": "TRAK",
+  "C6": "TRAK",
+  "C7": "TracIn",
+  "C8": "TRAK",
+  "C9": "TracIn"
+ },
+ "by_success": {
+  "C1": "TRAK",
+  "C2": "TRAK",
+  "C3": "TracIn",
+  "C4": "TRAK",
+  "C5": "TRAK",
+  "C6": "IF",
+  "C7": "TracIn",
+  "C8": "TracIn",
+  "C9": "TRAK"
+ },
+ "gate1_passed": false
+}

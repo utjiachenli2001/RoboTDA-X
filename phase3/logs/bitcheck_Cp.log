@@ -1,0 +1,6 @@
+[trainF] ep 0 step 44/8000 loss 4.6326 (3s)
+[trainF] ep 50 step 2244/8000 loss -12.7261 (39s)
+[trainF] ep 100 step 4444/8000 loss -16.4151 (79s)
+[trainF] ep 150 step 6644/8000 loss -19.2043 (119s)
+[trainF] ep 181 step 8000/8000 loss -19.8004 (143s)
+[trainF] DONE /mnt/sdb/ljc/RoboTDA-X/phase3/runs/_bitcheck/Cp_factorial_det_repeat init=401 order=401 wall=143s loss=-19.7031

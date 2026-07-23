@@ -1,0 +1,14 @@
+{
+ "demos": [
+  "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_0",
+  "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_0",
+  "libero_goal/put_the_bowl_on_the_stove/demo_0",
+  "libero_goal/put_the_bowl_on_top_of_the_cabinet/demo_0",
+  "libero_goal/put_the_cream_cheese_in_the_bowl/demo_0",
+  "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_1",
+  "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_1",
+  "libero_goal/put_the_bowl_on_the_plate/demo_1",
+  "libero_goal/put_the_bowl_on_the_stove/demo_1"
+ ],
+ "seed": 603
+}

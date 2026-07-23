@@ -1,0 +1,124 @@
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[P8a] 12 masks: ['G000', 'G002', 'G004', 'G007', 'G009', 'G012', 'G014', 'G016', 'G018', 'G020', 'G021', 'G023']
+[P8a] 48 jobs -> phase3/results/p8a_jobs.json
+[P9 ] 10 jobs (seeds 211-220, 135 demos each)
+[P9] 10 jobs, 0 already complete, 10 to run
+[P9] launch ens_s211 on gpu4
+[P9] launch ens_s212 on gpu5
+[P9] launch ens_s213 on gpu6
+[P9] launch ens_s214 on gpu7
+[P9] OK   ens_s211 gpu4 464s (1/10)
+[P9] OK   ens_s214 gpu7 455s (2/10)
+[P9] launch ens_s215 on gpu4
+[P9] launch ens_s216 on gpu7
+[P9] OK   ens_s212 gpu5 477s (3/10)
+[P9] OK   ens_s213 gpu6 474s (4/10)
+[P9] launch ens_s217 on gpu5
+[P9] launch ens_s218 on gpu6
+[P9] OK   ens_s216 gpu7 515s (5/10)
+[P9] launch ens_s219 on gpu7
+[P9] OK   ens_s215 gpu4 531s (6/10)
+[P9] launch ens_s220 on gpu4
+[P9] OK   ens_s217 gpu5 528s (7/10)
+[P9] OK   ens_s218 gpu6 555s (8/10)
+[P9] OK   ens_s220 gpu4 423s (9/10)
+[P9] OK   ens_s219 gpu7 456s (10/10)
+[P9] COMPLETE: 10/10 ok, 0 FAILED, wall=24.1 min, gpu-h=1.35
+[P8a] 48 jobs, 0 already complete, 48 to run
+[P8a] launch G000_i701_o801 on gpu4
+[P8a] launch G000_i701_o802 on gpu5
+[P8a] launch G000_i702_o801 on gpu6
+[P8a] launch G000_i702_o802 on gpu7
+[P8a] OK   G000_i701_o801 gpu4 508s (1/48)
+[P8a] launch G002_i701_o801 on gpu4
+[P8a] OK   G000_i701_o802 gpu5 518s (2/48)
+[P8a] OK   G000_i702_o801 gpu6 515s (3/48)
+[P8a] launch G002_i701_o802 on gpu5
+[P8a] launch G002_i702_o801 on gpu6
+[P8a] OK   G000_i702_o802 gpu7 528s (4/48)
+[P8a] launch G002_i702_o802 on gpu7
+[P8a] OK   G002_i701_o802 gpu5 422s (5/48)
+[P8a] OK   G002_i702_o801 gpu6 419s (6/48)
+[P8a] launch G004_i701_o801 on gpu5
+[P8a] launch G004_i701_o802 on gpu6
+[P8a] OK   G002_i701_o801 gpu4 462s (7/48)
+[P8a] OK   G002_i702_o802 gpu7 432s (8/48)
+[P8a] launch G004_i702_o801 on gpu4
+[P8a] launch G004_i702_o802 on gpu7
+[P8a] OK   G004_i701_o802 gpu6 439s (9/48)
+[P8a] launch G007_i701_o801 on gpu6
+[P8a] OK   G004_i701_o801 gpu5 465s (10/48)
+[P8a] launch G007_i701_o802 on gpu5
+[P8a] OK   G004_i702_o801 gpu4 472s (11/48)
+[P8a] launch G007_i702_o801 on gpu4
+[P8a] OK   G004_i702_o802 gpu7 482s (12/48)
+[P8a] launch G007_i702_o802 on gpu7
+[P8a] OK   G007_i701_o801 gpu6 412s (13/48)
+[P8a] launch G009_i701_o801 on gpu6
+[P8a] OK   G007_i701_o802 gpu5 423s (14/48)
+[P8a] launch G009_i701_o802 on gpu5
+[P8a] OK   G007_i702_o801 gpu4 413s (15/48)
+[P8a] launch G009_i702_o801 on gpu4
+[P8a] OK   G007_i702_o802 gpu7 423s (16/48)
+[P8a] launch G009_i702_o802 on gpu7
+[P8a] OK   G009_i701_o801 gpu6 463s (17/48)
+[P8a] OK   G009_i702_o801 gpu4 405s (18/48)
+[P8a] launch G012_i701_o801 on gpu4
+[P8a] launch G012_i701_o802 on gpu6
+[P8a] OK   G009_i702_o802 gpu7 418s (19/48)
+[P8a] launch G012_i702_o801 on gpu7
+[P8a] OK   G009_i701_o802 gpu5 479s (20/48)
+[P8a] launch G012_i702_o802 on gpu5
+[P8a] OK   G012_i701_o801 gpu4 485s (21/48)
+[P8a] launch G014_i701_o801 on gpu4
+[P8a] OK   G012_i701_o802 gpu6 495s (22/48)
+[P8a] launch G014_i701_o802 on gpu6
+[P8a] OK   G012_i702_o801 gpu7 485s (23/48)
+[P8a] OK   G012_i702_o802 gpu5 472s (24/48)
+[P8a] launch G014_i702_o801 on gpu5
+[P8a] launch G014_i702_o802 on gpu7
+[P8a] OK   G014_i701_o801 gpu4 451s (25/48)
+[P8a] launch G016_i701_o801 on gpu4
+[P8a] OK   G014_i701_o802 gpu6 461s (26/48)
+[P8a] launch G016_i701_o802 on gpu6
+[P8a] OK   G014_i702_o801 gpu5 451s (27/48)
+[P8a] launch G016_i702_o801 on gpu5
+[P8a] OK   G014_i702_o802 gpu7 461s (28/48)
+[P8a] launch G016_i702_o802 on gpu7
+[P8a] OK   G016_i701_o801 gpu4 444s (29/48)
+[P8a] launch G018_i701_o801 on gpu4
+[P8a] OK   G016_i702_o802 gpu7 438s (30/48)
+[P8a] launch G018_i701_o802 on gpu7
+[P8a] OK   G016_i702_o801 gpu5 465s (31/48)
+[P8a] launch G018_i702_o801 on gpu5
+[P8a] OK   G016_i701_o802 gpu6 491s (32/48)
+[P8a] launch G018_i702_o802 on gpu6
+[P8a] OK   G018_i701_o801 gpu4 453s (33/48)
+[P8a] launch G020_i701_o801 on gpu4
+[P8a] OK   G018_i702_o802 gpu6 406s (34/48)
+[P8a] launch G020_i701_o802 on gpu6
+[P8a] OK   G018_i701_o802 gpu7 455s (35/48)
+[P8a] OK   G018_i702_o801 gpu5 442s (36/48)
+[P8a] launch G020_i702_o801 on gpu5
+[P8a] launch G020_i702_o802 on gpu7
+[P8a] OK   G020_i701_o801 gpu4 464s (37/48)
+[P8a] launch G021_i701_o801 on gpu4
+[P8a] OK   G020_i701_o802 gpu6 454s (38/48)
+[P8a] launch G021_i701_o802 on gpu6
+[P8a] OK   G020_i702_o802 gpu7 451s (39/48)
+[P8a] launch G021_i702_o801 on gpu7
+[P8a] OK   G020_i702_o801 gpu5 488s (40/48)
+[P8a] launch G021_i702_o802 on gpu5
+[P8a] OK   G021_i701_o801 gpu4 433s (41/48)
+[P8a] launch G023_i701_o801 on gpu4
+[P8a] OK   G021_i701_o802 gpu6 484s (42/48)
+[P8a] launch G023_i701_o802 on gpu6
+[P8a] OK   G021_i702_o801 gpu7 473s (43/48)
+[P8a] launch G023_i702_o801 on gpu7
+[P8a] OK   G021_i702_o802 gpu5 453s (44/48)
+[P8a] launch G023_i702_o802 on gpu5
+[P8a] OK   G023_i701_o801 gpu4 443s (45/48)
+[P8a] OK   G023_i702_o801 gpu7 456s (46/48)
+[P8a] OK   G023_i702_o802 gpu5 443s (47/48)
+[P8a] OK   G023_i701_o802 gpu6 479s (48/48)
+[P8a] COMPLETE: 48/48 ok, 0 FAILED, wall=92.4 min, gpu-h=6.10

@@ -1,0 +1,204 @@
+{
+ "stage": "stage_I",
+ "n_jobs": 24,
+ "n_skipped": 0,
+ "n_run": 24,
+ "n_ok": 24,
+ "n_fail": 0,
+ "wall_s": 2364.6096801757812,
+ "gpu_h_est": 2.5698123368289734,
+ "results": [
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_target_only_s503",
+   "seed": 503,
+   "gpu": 6,
+   "wall_s": 351.6932408809662,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_target_only_s501",
+   "seed": 501,
+   "gpu": 4,
+   "wall_s": 370.84556674957275,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_target_only_s502",
+   "seed": 502,
+   "gpu": 5,
+   "wall_s": 367.8447787761688,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_influence_top15_s501",
+   "seed": 501,
+   "gpu": 7,
+   "wall_s": 361.8420069217682,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_influence_top15_s502",
+   "seed": 502,
+   "gpu": 6,
+   "wall_s": 357.82777547836304,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_influence_top15_s503",
+   "seed": 503,
+   "gpu": 4,
+   "wall_s": 357.8439018726349,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_random15_s501",
+   "seed": 501,
+   "gpu": 5,
+   "wall_s": 354.84303069114685,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_random15_s502",
+   "seed": 502,
+   "gpu": 7,
+   "wall_s": 378.257306098938,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_random15_s503",
+   "seed": 503,
+   "gpu": 6,
+   "wall_s": 378.07310461997986,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_similarity_top15_s501",
+   "seed": 501,
+   "gpu": 4,
+   "wall_s": 364.90345430374146,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_similarity_top15_s502",
+   "seed": 502,
+   "gpu": 5,
+   "wall_s": 378.07153391838074,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C1_similarity_top15_s503",
+   "seed": 503,
+   "gpu": 7,
+   "wall_s": 398.35141587257385,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_target_only_s501",
+   "seed": 501,
+   "gpu": 4,
+   "wall_s": 398.3113040924072,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_target_only_s503",
+   "seed": 503,
+   "gpu": 5,
+   "wall_s": 405.4881818294525,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_target_only_s502",
+   "seed": 502,
+   "gpu": 6,
+   "wall_s": 431.8494758605957,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_influence_top15_s501",
+   "seed": 501,
+   "gpu": 7,
+   "wall_s": 388.12150740623474,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_influence_top15_s502",
+   "seed": 502,
+   "gpu": 4,
+   "wall_s": 388.43028712272644,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_random15_s501",
+   "seed": 501,
+   "gpu": 6,
+   "wall_s": 385.4050352573395,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_influence_top15_s503",
+   "seed": 503,
+   "gpu": 5,
+   "wall_s": 411.76698446273804,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_random15_s502",
+   "seed": 502,
+   "gpu": 7,
+   "wall_s": 418.9598762989044,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_random15_s503",
+   "seed": 503,
+   "gpu": 4,
+   "wall_s": 413.26391983032227,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_similarity_top15_s502",
+   "seed": 502,
+   "gpu": 5,
+   "wall_s": 386.5728898048401,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_similarity_top15_s501",
+   "seed": 501,
+   "gpu": 6,
+   "wall_s": 409.75215125083923,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/runs/stage_I/C5_similarity_top15_s503",
+   "seed": 503,
+   "gpu": 7,
+   "wall_s": 393.00568318367004,
+   "rc": 0,
+   "ok": true
+  }
+ ]
+}

@@ -1,0 +1,88 @@
+{
+ "note": "C1-only policy calibration (spec \u00a73). NOT a study result.",
+ "runs": [
+  {
+   "name": "c1pool15_s20000_s101",
+   "n_demos": 15,
+   "steps": 20000,
+   "seed": 101,
+   "n_windows": 1990,
+   "train_s": 318.9803886413574,
+   "rollout_s": 120.7904760837555,
+   "final_loss": -25.505191121782573,
+   "per_task_success": {
+    "push_the_plate_to_the_front_of_the_stove": 0.3,
+    "open_the_top_drawer_and_put_the_bowl_inside": 0.0,
+    "open_the_middle_drawer_of_the_cabinet": 0.0
+   },
+   "mean_success": 0.09999999999999999,
+   "n_errors": 0
+  },
+  {
+   "name": "c1pool15_s8000_s101",
+   "n_demos": 15,
+   "steps": 8000,
+   "seed": 101,
+   "n_windows": 1990,
+   "train_s": 132.05125403404236,
+   "rollout_s": 112.69326782226562,
+   "final_loss": -24.103050908588227,
+   "per_task_success": {
+    "open_the_middle_drawer_of_the_cabinet": 0.2,
+    "push_the_plate_to_the_front_of_the_stove": 0.1,
+    "open_the_top_drawer_and_put_the_bowl_inside": 0.0
+   },
+   "mean_success": 0.10000000000000002,
+   "n_errors": 0
+  },
+  {
+   "name": "cotrain135_s20000_s101",
+   "n_demos": 135,
+   "steps": 20000,
+   "seed": 101,
+   "n_windows": 22180,
+   "train_s": 314.67472982406616,
+   "rollout_s": 113.99926733970642,
+   "final_loss": -20.819477773359576,
+   "per_task_success": {
+    "open_the_top_drawer_and_put_the_bowl_inside": 0.1,
+    "open_the_middle_drawer_of_the_cabinet": 0.1,
+    "push_the_plate_to_the_front_of_the_stove": 0.0
+   },
+   "mean_success": 0.06666666666666667,
+   "n_errors": 0
+  },
+  {
+   "name": "cotrain135_s8000_s101",
+   "n_demos": 135,
+   "steps": 8000,
+   "seed": 101,
+   "n_windows": 22180,
+   "train_s": 134.3029601573944,
+   "rollout_s": 111.18747568130493,
+   "final_loss": -18.890128388515738,
+   "per_task_success": {
+    "open_the_middle_drawer_of_the_cabinet": 0.4,
+    "open_the_top_drawer_and_put_the_bowl_inside": 0.0,
+    "push_the_plate_to_the_front_of_the_stove": 0.0
+   },
+   "mean_success": 0.13333333333333333,
+   "n_errors": 0
+  },
+  {
+   "name": "singletask50_e300_s101",
+   "n_demos": 50,
+   "epochs": 300,
+   "seed": 101,
+   "n_windows": 7027,
+   "train_s": 136.7404215335846,
+   "rollout_s": 58.38006925582886,
+   "final_loss": -7.093286904471892,
+   "per_task_success": {
+    "open_the_middle_drawer_of_the_cabinet": 0.7
+   },
+   "mean_success": 0.7,
+   "n_errors": 0
+  }
+ ]
+}

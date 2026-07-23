@@ -1,0 +1,47 @@
+{
+ "stage": "P10ens",
+ "n_jobs": 5,
+ "n_skipped": 0,
+ "n_run": 5,
+ "n_ok": 5,
+ "n_fail": 0,
+ "wall_s": 2066.642731666565,
+ "gpu_h": 1.4465883654356002,
+ "results": [
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10ens/dpens_s624",
+   "gpu": 7,
+   "wall_s": 984.294472694397,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10ens/dpens_s623",
+   "gpu": 6,
+   "wall_s": 1030.4685757160187,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10ens/dpens_s621",
+   "gpu": 4,
+   "wall_s": 1046.4707126617432,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10ens/dpens_s622",
+   "gpu": 5,
+   "wall_s": 1083.4707601070404,
+   "rc": 0,
+   "ok": true
+  },
+  {
+   "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10ens/dpens_s625",
+   "gpu": 7,
+   "wall_s": 1063.0135943889618,
+   "rc": 0,
+   "ok": true
+  }
+ ]
+}

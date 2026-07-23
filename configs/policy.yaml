@@ -1,0 +1,34 @@
+# FROZEN policy + training hyperparameters — one set for ALL runs in the study (spec §3).
+# Fixed after the C1-only calibration sweep (results/calib/*.json); not touched again.
+#
+# Calibration evidence (C1 probe tasks, 3 tasks x 10 rollouts, seed 101):
+#   target-only(15 demos) @  8k steps -> 10.0% success
+#   target-only(15 demos) @ 20k steps -> 10.0% success
+#   co-train(135 demos)   @  8k steps -> 13.3% success
+#   co-train(135 demos)   @ 20k steps ->  6.7% success   <- longer training overfits
+#   single task, 50 demos @ 7.7k steps -> 70.0% success  <- architecture ceiling test
+# => 8000 steps is kept: 20k is no better and costs 2.4x more.
+
+# architecture (19.22M params; spec requires 10-50M)
+d_model: 512
+n_layer: 6
+n_head: 8
+n_modes: 5          # GMM modes on the 7-D action
+dropout: 0.1
+
+# optimization
+batch_size: 256
+lr: 1.0e-4
+lr_min: 1.0e-5
+weight_decay: 0.01
+betas: [0.9, 0.95]
+warmup_frac: 0.05
+grad_clip: 1.0
+amp: bf16
+
+# budget: FIXED TOTAL GRADIENT STEPS for every run (not fixed epochs).
+# Gate 0 (15 vs 135 demos) and Stage C (Q = 15/50/500) compare datasets of different size;
+# at fixed epochs the larger dataset would silently receive proportionally more optimization,
+# confounding "more data helps" with "more gradient steps".
+total_steps: 8000
+n_ckpt: 5           # evenly spaced checkpoints, needed by TracIn

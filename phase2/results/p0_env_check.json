@@ -1,0 +1,24 @@
+{
+ "cuda_visible_devices": "4",
+ "replay": {
+  "suite": "libero_goal",
+  "task": "open_the_middle_drawer_of_the_cabinet",
+  "demo": "demo_0",
+  "n_actions": 138,
+  "success": true,
+  "success_at_step": 127,
+  "wall_s": 4.66
+ },
+ "tiny_train": {
+  "device": "cuda",
+  "torch": "2.11.0+cu130",
+  "state_dim": 128,
+  "steps": 50,
+  "n_log_recs": 2,
+  "loss_first": -0.19622832333499735,
+  "loss_last": -2.387933055559794,
+  "all_finite": true,
+  "wall_s": 3.35
+ },
+ "PASS": true
+}

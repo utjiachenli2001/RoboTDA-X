@@ -1,0 +1,319 @@
+{
+ "stage": "P16",
+ "preregistration_sha256": "b4883cb1a7048aee1a47410291573c3e27401c7e08be7852f67c58f42f2922b8",
+ "ground_truth": "phase4/results/p12_outcomes_S10.parquet, S=10, seed MEAN, held-out L2",
+ "targets": [
+  "C2",
+  "C3",
+  "C4",
+  "C6",
+  "C7",
+  "C8",
+  "C9"
+ ],
+ "n_masks": 24,
+ "PRIMARY_OUTCOME": "neg_plain_loss",
+ "PRIMARY": "GradDot_E20_normalized (raw gradient dot product, E=20, unit-L2 per member)",
+ "SECONDARY": "GradDot_E20_dmean (K_m / mean(diag G_m), E=20)",
+ "alpha_primary_Bonferroni7": 0.0071428571428571435,
+ "alpha_secondary_Bonferroni14": 0.0035714285714285718,
+ "critical_rho_primary_n24": 0.4933858690374967,
+ "commensurate_note": "at n=24 and p<0.00714 the critical rho ~ 0.50, so the half-ceiling bar and significance are commensurate; both components are reported and a PASS requires BOTH",
+ "SELF_VALIDATION": {
+  "C1_GradDot_recomputed": 0.5130434782608695,
+  "C1_GradDot_archived": 0.5130434782608695,
+  "C1_exact_match": true,
+  "probe_leak_guard": {
+   "n_models_checked": 20,
+   "n_probe_ids": 90,
+   "clean": true
+  }
+ },
+ "PRIMARY_PASS_targets": [],
+ "k_primary": 0,
+ "SECONDARY_PASS_targets": [],
+ "k_secondary": 0,
+ "PREREGISTERED_INTERPRETATION": "the achievability result is C1-specific on this corpus; the paper must scope it that way (k=0 of the 7 non-focal BC targets pass GradDot).",
+ "per_target": {
+  "C2": {
+   "ceiling": 0.927024325224925,
+   "bar_half_ceiling": 0.4635121626124625,
+   "estimators": {
+    "GradDot_E20_normalized": {
+     "estimator": "GradDot_E20_normalized",
+     "family": "PRIMARY",
+     "rho": 0.3678260869565217,
+     "n_masks": 24,
+     "p_onesided": 0.03849943540091518,
+     "ci95": [
+      -0.03204868444890873,
+      0.7004628221930972
+     ],
+     "ratio_to_ceiling": 0.39678148344950454,
+     "ratio_exact": "1325233142523631/3339957124517086",
+     "meets_half_ceiling_EXACT": false,
+     "alpha_bonferroni": 0.0071428571428571435,
+     "p_lt_alpha": false,
+     "PASS": false
+    },
+    "GradDot_E20_dmean": {
+     "estimator": "GradDot_E20_dmean",
+     "family": "SECONDARY",
+     "rho": 0.29217391304347823,
+     "n_masks": 24,
+     "p_onesided": 0.08296621813284714,
+     "ci95": [
+      -0.11339926049180846,
+      0.6385182603418935
+     ],
+     "ratio_to_ceiling": 0.3151739443003157,
+     "ratio_exact": "5263337303639953/16699785622585430",
+     "meets_half_ceiling_EXACT": false,
+     "alpha_bonferroni": 0.0035714285714285718,
+     "p_lt_alpha": false,
+     "PASS": false
+    }
+   }
+  },
+  "C3": {
+   "ceiling": 0.754694603676616,
+   "bar_half_ceiling": 0.377347301838308,
+   "estimators": {
+    "GradDot_E20_normalized": {
+     "estimator": "GradDot_E20_normalized",
+     "family": "PRIMARY",
+     "rho": -0.07478260869565216,
+     "n_masks": 24,
+     "p_onesided": 0.6358124192212229,
+     "ci95": [
+      -0.45703615656789043,
+      0.3176193424406403
+     ],
+     "ratio_to_ceiling": -0.09908989454984396,
+     "ratio_exact": "-598739428720947/6042386374927168",
+     "meets_half_ceiling_EXACT": false,
+     "alpha_bonferroni": 0.0071428571428571435,
+     "p_lt_alpha": false,
+     "PASS": false
+    },
+    "GradDot_E20_dmean": {
+     "estimator": "GradDot_E20_dmean",
+     "family": "SECONDARY",
+     "rho": -0.2826086956521739,
+     "n_masks": 24,
+     "p_onesided": 0.9095603158403444,
+     "ci95": [
+      -0.5764113785557987,
+      0.10712724092697858
+     ],
+     "ratio_to_ceiling": -0.3744676247523173,
+     "ratio_exact": "-5091025665723169/13595369343586128",
+     "meets_half_ceiling_EXACT": false,
+     "alpha_bonferroni": 0.0035714285714285718,
+     "p_lt_alpha": false,
+     "PASS": false
+    }
+   }
+  },
+  "C4": {
+   "ceiling": 0.8839337292326178,
+   "bar_half_ceiling": 0.4419668646163089,
+   "estimators": {
+    "GradDot_E20_normalized": {
+     "estimator": "GradDot_E20_normalized",
+     "family": "PRIMARY",
+     "rho": 0.43043478260869555,
+     "n_masks": 24,
+     "p_onesided": 0.01788158044941236,
+     "ci95": [
+      0.024526554964344346,
+      0.712804744914236
+     ],
+     "ratio_to_ceiling": 0.4869536803198755,
+     "ratio_exact": "7754023706255287/15923534454368922",
+     "meets_half_ceiling_EXACT": false,
+     "alpha_bonferroni": 0.0071428571428571435,
+     "p_lt_alpha": false,
+     "PASS": false
+    },
+    "GradDot_E20_dmean": {
+     "estimator": "GradDot_E20_dmean",
+     "family": "SECONDARY",
+     "rho": 0.21652173913043476,
+     "n_masks": 24,
+     "p_onesided": 0.15475994878115024,
+     "ci95": [
+      -0.15868480925146125,
+      0.5339121017683365
+     ],
+     "ratio_to_ceiling": 0.24495245737302832,
+     "ratio_exact": "1300169631553917/5307844818122974",
+     "meets_half_ceiling_EXACT": false,
+     "alpha_bonferroni": 0.0035714285714285718,
+     "p_lt_alpha": false,
+     "PASS": false
+    }
+   }
+  },
+  "C6": {
+   "ceiling": 0.9605116377501426,
+   "bar_half_ceiling": 0.4802558188750713,
+   "estimators": {
+    "GradDot_E20_normalized": {
+     "estimator": "GradDot_E20_normalized",
+     "family": "PRIMARY",
+     "rho": 0.15652173913043477,
+     "n_masks": 24,
+     "p_onesided": 0.23257814893784542,
+     "ci95": [
+      -0.3348270665680017,
+      0.5982544167166381
+     ],
+     "ratio_to_ceiling": 0.16295662954908485,
+     "ratio_exact": "100701606574744/617965693408081",
+     "meets_half_ceiling_EXACT": false,
+     "alpha_bonferroni": 0.0071428571428571435,
+     "p_lt_alpha": false,
+     "PASS": false
+    },
+    "GradDot_E20_dmean": {
+     "estimator": "GradDot_E20_dmean",
+     "family": "SECONDARY",
+     "rho": 0.07652173913043478,
+     "n_masks": 24,
+     "p_onesided": 0.3611495516064094,
+     "ci95": [
+      -0.3946724883580009,
+      0.5363313410676805
+     ],
+     "ratio_to_ceiling": 0.07966768555733038,
+     "ratio_exact": "393855172381221/4943725547264648",
+     "meets_half_ceiling_EXACT": false,
+     "alpha_bonferroni": 0.0035714285714285718,
+     "p_lt_alpha": false,
+     "PASS": false
+    }
+   }
+  },
+  "C7": {
+   "ceiling": 0.9491509444224862,
+   "bar_half_ceiling": 0.4745754722112431,
+   "estimators": {
+    "GradDot_E20_normalized": {
+     "estimator": "GradDot_E20_normalized",
+     "family": "PRIMARY",
+     "rho": 0.3313043478260869,
+     "n_masks": 24,
+     "p_onesided": 0.05688774673740126,
+     "ci95": [
+      -0.12435967600700523,
+      0.694416650009225
+     ],
+     "ratio_to_ceiling": 0.34905338268158187,
+     "ratio_exact": "5968248549663161/17098383358477852",
+     "meets_half_ceiling_EXACT": false,
+     "alpha_bonferroni": 0.0071428571428571435,
+     "p_lt_alpha": false,
+     "PASS": false
+    },
+    "GradDot_E20_dmean": {
+     "estimator": "GradDot_E20_dmean",
+     "family": "SECONDARY",
+     "rho": 0.3756521739130434,
+     "n_masks": 24,
+     "p_onesided": 0.03522680844687852,
+     "ci95": [
+      -0.12161551539012169,
+      0.7388779277266475
+     ],
+     "ratio_to_ceiling": 0.3957770638279353,
+     "ratio_exact": "1691786990455699/4274595839619463",
+     "meets_half_ceiling_EXACT": false,
+     "alpha_bonferroni": 0.0035714285714285718,
+     "p_lt_alpha": false,
+     "PASS": false
+    }
+   }
+  },
+  "C8": {
+   "ceiling": 0.9462584539306231,
+   "bar_half_ceiling": 0.47312922696531157,
+   "estimators": {
+    "GradDot_E20_normalized": {
+     "estimator": "GradDot_E20_normalized",
+     "family": "PRIMARY",
+     "rho": -0.1782608695652174,
+     "n_masks": 24,
+     "p_onesided": 0.7976853689640626,
+     "ci95": [
+      -0.5140044955044955,
+      0.22736182455301987
+     ],
+     "ratio_to_ceiling": -0.1883849690586616,
+     "ratio_exact": "-6422524685989229/34092553764145088",
+     "meets_half_ceiling_EXACT": false,
+     "alpha_bonferroni": 0.0071428571428571435,
+     "p_lt_alpha": false,
+     "PASS": false
+    },
+    "GradDot_E20_dmean": {
+     "estimator": "GradDot_E20_dmean",
+     "family": "SECONDARY",
+     "rho": -0.1878260869565217,
+     "n_masks": 24,
+     "p_onesided": 0.8102707508413087,
+     "ci95": [
+      -0.5432917173406304,
+      0.19966796965503503
+     ],
+     "ratio_to_ceiling": -0.19849343081302875,
+     "ratio_exact": "-1691786990455699/8523138441036272",
+     "meets_half_ceiling_EXACT": false,
+     "alpha_bonferroni": 0.0035714285714285718,
+     "p_lt_alpha": false,
+     "PASS": false
+    }
+   }
+  },
+  "C9": {
+   "ceiling": 0.8946019346373317,
+   "bar_half_ceiling": 0.44730096731866587,
+   "estimators": {
+    "GradDot_E20_normalized": {
+     "estimator": "GradDot_E20_normalized",
+     "family": "PRIMARY",
+     "rho": 0.3539130434782608,
+     "n_masks": 24,
+     "p_onesided": 0.044879228044911346,
+     "ci95": [
+      -0.1190344242525732,
+      0.7088100486819141
+     ],
+     "ratio_to_ceiling": 0.3956095217050205,
+     "ratio_exact": "354196144606723/895317542106136",
+     "meets_half_ceiling_EXACT": false,
+     "alpha_bonferroni": 0.0071428571428571435,
+     "p_lt_alpha": false,
+     "PASS": false
+    },
+    "GradDot_E20_dmean": {
+     "estimator": "GradDot_E20_dmean",
+     "family": "SECONDARY",
+     "rho": 0.22,
+     "n_masks": 24,
+     "p_onesided": 0.15081018527392076,
+     "ci95": [
+      -0.2791716585322709,
+      0.6300646722986118
+     ],
+     "ratio_to_ceiling": 0.245919432411229,
+     "ratio_exact": "2642111781390691/10743810505273632",
+     "meets_half_ceiling_EXACT": false,
+     "alpha_bonferroni": 0.0035714285714285718,
+     "p_lt_alpha": false,
+     "PASS": false
+    }
+   }
+  }
+ }
+}

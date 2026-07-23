@@ -1,0 +1,55 @@
+{
+ "run_dir": "../runs/_smoke/c1_e100_s101",
+ "seed": 101,
+ "n_demos": 15,
+ "n_windows": 1990,
+ "steps": 700,
+ "epochs": 100,
+ "ckpts": [
+  "ckpt_0.pt",
+  "ckpt_1.pt",
+  "ckpt_2.pt",
+  "ckpt_3.pt",
+  "ckpt_4.pt"
+ ],
+ "wall_s": 16.334683895111084,
+ "cfg": {
+  "d_model": 512,
+  "n_layer": 6,
+  "n_head": 8,
+  "n_modes": 5,
+  "dropout": 0.1,
+  "batch_size": 256,
+  "lr": 0.0001,
+  "weight_decay": 0.01,
+  "betas": [
+   0.9,
+   0.95
+  ],
+  "warmup_frac": 0.05,
+  "lr_min": 1e-05,
+  "grad_clip": 1.0,
+  "epochs": 100,
+  "n_ckpt": 5,
+  "amp": "bf16"
+ },
+ "demos": [
+  "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_0",
+  "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_0",
+  "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_0",
+  "libero_goal/put_the_bowl_on_the_plate/demo_0",
+  "libero_goal/put_the_bowl_on_the_stove/demo_0",
+  "libero_goal/put_the_bowl_on_top_of_the_cabinet/demo_0",
+  "libero_goal/put_the_cream_cheese_in_the_bowl/demo_0",
+  "libero_goal/put_the_wine_bottle_on_the_rack/demo_0",
+  "libero_goal/put_the_wine_bottle_on_top_of_the_cabinet/demo_0",
+  "libero_goal/turn_on_the_stove/demo_0",
+  "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_1",
+  "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_1",
+  "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1",
+  "libero_goal/put_the_bowl_on_the_plate/demo_1",
+  "libero_goal/put_the_bowl_on_the_stove/demo_1"
+ ],
+ "final_loss": -11.997517721993583,
+ "params_M": 19.222091
+}

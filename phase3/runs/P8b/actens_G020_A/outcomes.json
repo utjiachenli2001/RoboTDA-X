@@ -1,0 +1,78 @@
+{
+ "outcomes": {
+  "C1": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "plain_loss": 0.7611972379852894,
+   "transport_loss": 0.5877544888299729,
+   "interaction_loss": 1.11803750777062
+  },
+  "C2": {
+   "success_rate": 0.3,
+   "n_episodes": 30,
+   "plain_loss": 0.47550078526550205,
+   "transport_loss": 0.26525976100261406,
+   "interaction_loss": 0.9162783782126954
+  },
+  "C3": {
+   "success_rate": 0.16666666666666666,
+   "n_episodes": 30,
+   "plain_loss": 0.7247343159899616,
+   "transport_loss": 0.5769475834124996,
+   "interaction_loss": 1.041145389859712
+  },
+  "C4": {
+   "success_rate": 0.06666666666666667,
+   "n_episodes": 30,
+   "plain_loss": 0.6964757951854031,
+   "transport_loss": 0.5978411604437556,
+   "interaction_loss": 1.0343385599036183
+  },
+  "C5": {
+   "success_rate": 0.03333333333333333,
+   "n_episodes": 30,
+   "plain_loss": 0.3762102342498833,
+   "transport_loss": 0.19896197593137327,
+   "interaction_loss": 0.7108160485818337
+  },
+  "C6": {
+   "success_rate": 0.1,
+   "n_episodes": 30,
+   "plain_loss": 0.4562855198957678,
+   "transport_loss": 0.42672733012829916,
+   "interaction_loss": 0.5563914333071395
+  },
+  "C7": {
+   "success_rate": 0.23333333333333334,
+   "n_episodes": 30,
+   "plain_loss": 0.6754039878223261,
+   "transport_loss": 0.5197383357032773,
+   "interaction_loss": 1.1506144584872615
+  },
+  "C8": {
+   "success_rate": 0.16666666666666666,
+   "n_episodes": 30,
+   "plain_loss": 0.3378624984994024,
+   "transport_loss": 0.2604239975992759,
+   "interaction_loss": 0.5142732010847173
+  },
+  "C9": {
+   "success_rate": 0.2,
+   "n_episodes": 30,
+   "plain_loss": 0.49333607872516533,
+   "transport_loss": 0.32604993865473564,
+   "interaction_loss": 0.8659455786500204
+  }
+ },
+ "meta": {
+  "arm": "action_ensemble",
+  "n_members": 3,
+  "members": [
+   "/mnt/sdb/ljc/RoboTDA-X/runs/stage_G/G020_s401/final.pt",
+   "/mnt/sdb/ljc/RoboTDA-X/runs/stage_G/G020_s402/final.pt",
+   "/mnt/sdb/ljc/RoboTDA-X/phase2/runs/stage_G6/G020_s403/final.pt"
+  ],
+  "n_rollouts": 10,
+  "total_wall_s": 442.1829500198364
+ }
+}

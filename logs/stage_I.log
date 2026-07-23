@@ -1,0 +1,71 @@
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[stage_I] 24 jobs, 0 already complete, 24 to run
+[stage_I] launch C1_target_only_s501 on gpu4
+[stage_I] launch C1_target_only_s502 on gpu5
+[stage_I] launch C1_target_only_s503 on gpu6
+[stage_I] launch C1_influence_top15_s501 on gpu7
+[stage_I] OK  C1_target_only_s503 gpu6 352s (1/24 done)
+[stage_I] launch C1_influence_top15_s502 on gpu6
+[stage_I] OK  C1_target_only_s501 gpu4 371s (2/24 done)
+[stage_I] OK  C1_target_only_s502 gpu5 368s (3/24 done)
+[stage_I] OK  C1_influence_top15_s501 gpu7 362s (4/24 done)
+[stage_I] launch C1_influence_top15_s503 on gpu4
+[stage_I] launch C1_random15_s501 on gpu5
+[stage_I] launch C1_random15_s502 on gpu7
+[stage_I] OK  C1_influence_top15_s502 gpu6 358s (5/24 done)
+[stage_I] launch C1_random15_s503 on gpu6
+[stage_I] OK  C1_influence_top15_s503 gpu4 358s (6/24 done)
+[stage_I] OK  C1_random15_s501 gpu5 355s (7/24 done)
+[stage_I] launch C1_similarity_top15_s501 on gpu4
+[stage_I] launch C1_similarity_top15_s502 on gpu5
+[stage_I] OK  C1_random15_s502 gpu7 378s (8/24 done)
+[stage_I] launch C1_similarity_top15_s503 on gpu7
+[stage_I] OK  C1_random15_s503 gpu6 378s (9/24 done)
+[stage_I] OK  C1_similarity_top15_s501 gpu4 365s (10/24 done)
+[stage_I] launch C5_target_only_s501 on gpu4
+[stage_I] launch C5_target_only_s502 on gpu6
+[stage_I] OK  C1_similarity_top15_s502 gpu5 378s (11/24 done)
+[stage_I] launch C5_target_only_s503 on gpu5
+[stage_I] OK  C1_similarity_top15_s503 gpu7 398s (12/24 done)
+[stage_I] launch C5_influence_top15_s501 on gpu7
+[stage_I] OK  C5_target_only_s501 gpu4 398s (13/24 done)
+[stage_I] launch C5_influence_top15_s502 on gpu4
+[stage_I] OK  C5_target_only_s503 gpu5 405s (14/24 done)
+[stage_I] launch C5_influence_top15_s503 on gpu5
+[stage_I] OK  C5_target_only_s502 gpu6 432s (15/24 done)
+[stage_I] launch C5_random15_s501 on gpu6
+[stage_I] OK  C5_influence_top15_s501 gpu7 388s (16/24 done)
+[stage_I] launch C5_random15_s502 on gpu7
+[stage_I] OK  C5_influence_top15_s502 gpu4 388s (17/24 done)
+[stage_I] launch C5_random15_s503 on gpu4
+[stage_I] OK  C5_random15_s501 gpu6 385s (18/24 done)
+[stage_I] launch C5_similarity_top15_s501 on gpu6
+[stage_I] OK  C5_influence_top15_s503 gpu5 412s (19/24 done)
+[stage_I] launch C5_similarity_top15_s502 on gpu5
+[stage_I] OK  C5_random15_s502 gpu7 419s (20/24 done)
+[stage_I] launch C5_similarity_top15_s503 on gpu7
+[stage_I] OK  C5_random15_s503 gpu4 413s (21/24 done)
+[stage_I] OK  C5_similarity_top15_s502 gpu5 387s (22/24 done)
+[stage_I] OK  C5_similarity_top15_s501 gpu6 410s (23/24 done)
+[stage_I] OK  C5_similarity_top15_s503 gpu7 393s (24/24 done)
+[stage_I] COMPLETE: 24/24 ok, 0 failed, wall=39.4 min, gpu-h=2.57
+
+=== STAGE I (RQ4): data selection at budget B=15 ===
+
+  target C1 (best attributor: TRAK; influence-top15 picks 9 outsiders, similarity-top15 picks 12)
+           target_only: 12.8% +- 16.4
+       influence_top15: 13.3% +- 15.3
+              random15: 0.0% +- 0.0
+      similarity_top15: 0.0% +- 0.0
+    influence - target_only      = +0.6 pts (SD 3.8, per-seed [-1.6666666666666667, -1.6666666666666643, 5.0])
+    influence - random15         = +13.3 pts (SD 15.3, per-seed [0.0, 30.0, 10.0])
+    influence - similarity_top15 = +13.3 pts (SD 15.3, per-seed [0.0, 30.0, 10.0])
+
+  target C5 (best attributor: TRAK; influence-top15 picks 9 outsiders, similarity-top15 picks 11)
+           target_only: 17.2% +- 12.1
+       influence_top15: 1.1% +- 1.0
+              random15: 13.9% +- 14.2
+      similarity_top15: 3.3% +- 4.4
+    influence - target_only      = -16.1 pts (SD 11.1, per-seed [-3.3333333333333335, -23.333333333333332, -21.666666666666664])
+    influence - random15         = -12.8 pts (SD 13.4, per-seed [0.0, -11.666666666666668, -26.666666666666664])
+    influence - similarity_top15 = -2.2 pts (SD 5.4, per-seed [-8.333333333333332, 1.6666666666666667, 0.0])

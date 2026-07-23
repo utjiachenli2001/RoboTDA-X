@@ -1,0 +1,18 @@
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[4, 5, 6, 7])
+[drive] RUN /home/ljc/miniconda/envs/robotda_x/bin/python p10_calibrate.py  (gpu=None) -> /mnt/sdb/ljc/RoboTDA-X/phase3/logs/p10_calibrate.log
+[drive] rc=0
+[drive] P10 calibration: best=100.0% (BC ref 70%) VIABLE=True
+[drive] RUN /home/ljc/miniconda/envs/robotda_x/bin/python p10_determinism.py /mnt/sdb/ljc/RoboTDA-X/phase3/runs/_calib/dp_lr0.001_st16000/final.pt  (gpu=4) -> /mnt/sdb/ljc/RoboTDA-X/phase3/logs/p10_determinism.log
+[drive] rc=0
+[drive] P10 determinism gate PASSED
+[drive] RUN /home/ljc/miniconda/envs/robotda_x/bin/python p10_jobs.py ens --run  (gpu=None) -> /mnt/sdb/ljc/RoboTDA-X/phase3/logs/p10_ens_run.log
+[drive] rc=0
+[drive] RUN /home/ljc/miniconda/envs/robotda_x/bin/python p10_jobs.py a --run  (gpu=None) -> /mnt/sdb/ljc/RoboTDA-X/phase3/logs/p10_a_run.log
+[drive] rc=0
+[drive] RUN /home/ljc/miniconda/envs/robotda_x/bin/python p10_jobs.py b --run  (gpu=None) -> /mnt/sdb/ljc/RoboTDA-X/phase3/logs/p10_b_run.log
+[drive] rc=0
+[drive] RUN /home/ljc/miniconda/envs/robotda_x/bin/python p10_attr.py  (gpu=4) -> /mnt/sdb/ljc/RoboTDA-X/phase3/logs/p10_attr.log
+[drive] rc=0
+[drive] RUN /home/ljc/miniconda/envs/robotda_x/bin/python p10_analyze.py  (gpu=4) -> /mnt/sdb/ljc/RoboTDA-X/phase3/logs/p10_analyze.log
+[drive] rc=0
+[drive] ALL REQUESTED STAGES COMPLETE

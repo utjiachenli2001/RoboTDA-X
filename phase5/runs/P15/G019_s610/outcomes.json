@@ -1,0 +1,118 @@
+{
+ "outcomes": {
+  "C1": {
+   "success_rate": 0.0,
+   "n_episodes": 30,
+   "per_task_success": {
+    "open_the_middle_drawer_of_the_cabinet": 0.0,
+    "open_the_top_drawer_and_put_the_bowl_inside": 0.0,
+    "push_the_plate_to_the_front_of_the_stove": 0.0
+   },
+   "plain_loss": 0.8036650497173816,
+   "transport_loss": 0.593051506402001,
+   "interaction_loss": 1.2369803308872156,
+   "denoise_loss": 0.28224729155644185,
+   "denoise_transport": 0.271832475178903,
+   "denoise_interaction": 0.303674684191908
+  },
+  "C2": {
+   "success_rate": null,
+   "n_episodes": 0,
+   "per_task_success": {},
+   "plain_loss": 0.40901920159937716,
+   "transport_loss": 0.22414690772634452,
+   "interaction_loss": 0.7966103721698193,
+   "denoise_loss": 0.1799587549233763,
+   "denoise_transport": 0.16693275018211415,
+   "denoise_interaction": 0.20726822525963629
+  },
+  "C3": {
+   "success_rate": null,
+   "n_episodes": 0,
+   "per_task_success": {},
+   "plain_loss": 0.5351902112759801,
+   "transport_loss": 0.2993081831379172,
+   "interaction_loss": 1.0402131218448916,
+   "denoise_loss": 0.19043259266686743,
+   "denoise_transport": 0.17260700056523748,
+   "denoise_interaction": 0.22859714668922917
+  },
+  "C4": {
+   "success_rate": null,
+   "n_episodes": 0,
+   "per_task_success": {},
+   "plain_loss": 1.2366516082430061,
+   "transport_loss": 1.1053531795282234,
+   "interaction_loss": 1.6864008291422146,
+   "denoise_loss": 0.27647718513274894,
+   "denoise_transport": 0.2787648175944047,
+   "denoise_interaction": 0.26864113616091867
+  },
+  "C5": {
+   "success_rate": null,
+   "n_episodes": 0,
+   "per_task_success": {},
+   "plain_loss": 0.48199852500833684,
+   "transport_loss": 0.35414251217689635,
+   "interaction_loss": 0.7233626190567171,
+   "denoise_loss": 0.16272298208741867,
+   "denoise_transport": 0.16729818751157077,
+   "denoise_interaction": 0.15408599828172503
+  },
+  "C6": {
+   "success_rate": null,
+   "n_episodes": 0,
+   "per_task_success": {},
+   "plain_loss": 0.2906291781738844,
+   "transport_loss": 0.18056492664724055,
+   "interaction_loss": 0.6633882178746174,
+   "denoise_loss": 0.14773038698164442,
+   "denoise_transport": 0.14653354149720468,
+   "denoise_interaction": 0.15178379185436017
+  },
+  "C7": {
+   "success_rate": null,
+   "n_episodes": 0,
+   "per_task_success": {},
+   "plain_loss": 0.35664458732901316,
+   "transport_loss": 0.2224101057366196,
+   "interaction_loss": 0.7664307560093102,
+   "denoise_loss": 0.17782151558184137,
+   "denoise_transport": 0.16440235760538177,
+   "denoise_interaction": 0.2187870355351037
+  },
+  "C8": {
+   "success_rate": null,
+   "n_episodes": 0,
+   "per_task_success": {},
+   "plain_loss": 0.2835779769876982,
+   "transport_loss": 0.15506099547171698,
+   "interaction_loss": 0.5763492824733025,
+   "denoise_loss": 0.15435066634167216,
+   "denoise_transport": 0.1495334446384296,
+   "denoise_interaction": 0.16532465802927282
+  },
+  "C9": {
+   "success_rate": null,
+   "n_episodes": 0,
+   "per_task_success": {},
+   "plain_loss": 0.34875535071890407,
+   "transport_loss": 0.22545544609347418,
+   "interaction_loss": 0.6233908691421354,
+   "denoise_loss": 0.18645301311645768,
+   "denoise_transport": 0.1786606651323382,
+   "denoise_interaction": 0.20380951906716463
+  }
+ },
+ "meta": {
+  "ckpt": "final.pt",
+  "policy": "diffusion",
+  "eval": "p15econ",
+  "rollout_cluster": "C1",
+  "n_rollouts": 10,
+  "n_ddim_steps": 10,
+  "rollout_wall_s": 280.360675573349,
+  "n_errors": 0,
+  "total_wall_s": 286.2992169857025
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "rule": "default_rng(909).choice(24, size=12, replace=False) over sorted mask ids",
+ "seed": 909,
+ "n_masks": 12,
+ "masks": [
+  "G000",
+  "G002",
+  "G004",
+  "G007",
+  "G009",
+  "G012",
+  "G014",
+  "G016",
+  "G018",
+  "G020",
+  "G021",
+  "G023"
+ ],
+ "init_seeds": [
+  701,
+  702
+ ],
+ "order_seeds": [
+  801,
+  802
+ ],
+ "design": "2 init x 2 order, fully crossed, per mask -> 48 retrains"
+}

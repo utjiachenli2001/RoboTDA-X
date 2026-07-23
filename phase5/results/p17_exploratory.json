@@ -1,0 +1,57 @@
+{
+ "LABEL": "EXPLORATORY -- cross-check only, NOT a verdict, no criterion, no pass/fail",
+ "ground_truth": "P15 S=10 diffusion MEDIAN, held-out L2",
+ "targets": [
+  "C1",
+  "C5"
+ ],
+ "n_masks": 24,
+ "rows": {
+  "C1": {
+   "ceiling_median_10seed_SB": 0.82979067062928,
+   "GradDot_diffE5_normalized": {
+    "rho": 0.4139130434782608,
+    "ratio_to_ceiling": 0.49881621730498094,
+    "p_onesided": 0.02217784609526371
+   },
+   "GradDot_diffE5_dmean": {
+    "rho": 0.42,
+    "ratio_to_ceiling": 0.5061517499124072,
+    "p_onesided": 0.020509800007056437
+   },
+   "TracIn_diffE5_normalized_S8_ARCHIVED": {
+    "rho": 0.477391304347826,
+    "ratio": 0.8385645332927939,
+    "p_onesided": 0.009160785730716742
+   },
+   "TracIn_diffE5_normalized_S10": {
+    "rho": 0.47913043478260864,
+    "ratio": 0.5774112095274044,
+    "p_onesided": 0.008921139192505636
+   }
+  },
+  "C5": {
+   "ceiling_median_10seed_SB": 0.8444377100886411,
+   "GradDot_diffE5_normalized": {
+    "rho": 0.18608695652173912,
+    "ratio_to_ceiling": 0.22036789013390398,
+    "p_onesided": 0.19198351698587418
+   },
+   "GradDot_diffE5_dmean": {
+    "rho": 0.18608695652173912,
+    "ratio_to_ceiling": 0.22036789013390398,
+    "p_onesided": 0.19198351698587418
+   },
+   "TracIn_diffE5_normalized_S8_ARCHIVED": {
+    "rho": 0.07217391304347825,
+    "ratio": 0.1087664661539633,
+    "p_onesided": 0.36875949204762914
+   },
+   "TracIn_diffE5_normalized_S10": {
+    "rho": 0.11739130434782606,
+    "ratio": 0.139017126953631,
+    "p_onesided": 0.29243275718003164
+   }
+  }
+ }
+}

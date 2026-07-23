@@ -1,0 +1,5 @@
+[bootstrap] CUDA_VISIBLE_DEVICES unset -> pinned to GPU 4 (allowed (4, 5, 6, 7); idle=[])
+[stage_E] 10 jobs
+[stage_E] 10 jobs, 10 already complete, 0 to run
+[stage_E] COMPLETE: 0/0 ok, 0 failed, wall=0.0 min, gpu-h=0.00
+[stage_E] collected 90 rows from 10/10 runs -> /mnt/sdb/ljc/RoboTDA-X/results/stage_E_outcomes.parquet

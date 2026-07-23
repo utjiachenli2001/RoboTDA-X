@@ -1,0 +1,62 @@
+{
+ "run_dir": "/mnt/sdb/ljc/RoboTDA-X/phase3/runs/P10a/C1_target_s612",
+ "seed": 612,
+ "policy": "diffusion",
+ "n_demos": 15,
+ "n_windows": 1990,
+ "steps": 16000,
+ "epochs_run": 2286,
+ "steps_per_epoch": 7,
+ "ckpts": [
+  "ckpt_0.pt",
+  "ckpt_1.pt",
+  "ckpt_2.pt",
+  "ckpt_3.pt",
+  "ckpt_4.pt"
+ ],
+ "wall_s": 336.8489365577698,
+ "cfg": {
+  "d_model": 384,
+  "n_obs_layer": 4,
+  "n_den_layer": 6,
+  "n_head": 6,
+  "dropout": 0.1,
+  "h_chunk": 8,
+  "n_train_steps": 100,
+  "n_ddim_steps": 5,
+  "batch_size": 256,
+  "lr": 0.001,
+  "weight_decay": 0.01,
+  "betas": [
+   0.9,
+   0.95
+  ],
+  "warmup_frac": 0.05,
+  "lr_min": 1e-05,
+  "grad_clip": 1.0,
+  "total_steps": 16000,
+  "n_ckpt": 5,
+  "amp": "bf16"
+ },
+ "demos": [
+  "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_0",
+  "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_0",
+  "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_0",
+  "libero_goal/put_the_bowl_on_the_plate/demo_0",
+  "libero_goal/put_the_bowl_on_the_stove/demo_0",
+  "libero_goal/put_the_bowl_on_top_of_the_cabinet/demo_0",
+  "libero_goal/put_the_cream_cheese_in_the_bowl/demo_0",
+  "libero_goal/put_the_wine_bottle_on_the_rack/demo_0",
+  "libero_goal/put_the_wine_bottle_on_top_of_the_cabinet/demo_0",
+  "libero_goal/turn_on_the_stove/demo_0",
+  "libero_goal/open_the_middle_drawer_of_the_cabinet/demo_1",
+  "libero_goal/open_the_top_drawer_and_put_the_bowl_inside/demo_1",
+  "libero_goal/push_the_plate_to_the_front_of_the_stove/demo_1",
+  "libero_goal/put_the_bowl_on_the_plate/demo_1",
+  "libero_goal/put_the_bowl_on_the_stove/demo_1"
+ ],
+ "final_loss": 0.005586585375214262,
+ "params_M": 18.251911,
+ "cudnn_deterministic": true,
+ "torch_version": "2.11.0+cu130"
+}
