@@ -1,7 +1,8 @@
 item,n_jobs,job_h,solo_h,occupancy_h,note
 "campaign A -- 24 archived masks x 10 seeds, per-frame losses",240,10.793,5.8,3.436,3 workers
 campaign C -- 8 masks x 3 inits x 3 orders (B5),72,2.598,1.74,0.831,3 workers
-campaign B -- 24 FRESH masks x 10 seeds (confirmatory),240,8.849,5.8,10.744,3 workers
+campaign B -- 24 FRESH H-series x 10 seeds (confirmatory),240,8.849,5.8,10.744,3 workers
+campaign I -- 24 FRESH I-series x 10 seeds (out-of-sample),240,8.767,5.8,2.89,3 workers
 diffusion ensemble regeneration (B7),5,0.656,0.46,0.0,overlapped campaign A
 B7 diffusion TracIn cache (25 Phi passes),25,1.013,1.014,1.013,overlapped campaign A
 B4 TracIn cache (25 Phi passes),25,0.064,0.064,0.064,overlapped campaign A

@@ -92,7 +92,8 @@ def main():
 
     for c, label in (("A", "campaign A -- 24 archived masks x 10 seeds, per-frame losses"),
                      ("C", "campaign C -- 8 masks x 3 inits x 3 orders (B5)"),
-                     ("B", "campaign B -- 24 FRESH masks x 10 seeds (confirmatory)")):
+                     ("B", "campaign B -- 24 FRESH H-series x 10 seeds (confirmatory)"),
+                     ("I", "campaign I -- 24 FRESH I-series x 10 seeds (out-of-sample)")):
         s, n, span = campaign_seconds(c)
         if n:
             add(label, s, n, SOLO_S["retrain"], span, "3 workers")

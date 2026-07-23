@@ -329,3 +329,34 @@ The pass-2 hold-out (C2/C4/C7/C9 on the archived 24) and the pass-3 fresh-mask f
 hypotheses on the H-series masks) have each been computed once. Neither can be re-used. The
 G+H pool is now dev data too (B8 read it), so a genuinely new claim needs a THIRD mask draw;
 `retrain.fresh_demo_masks(seed=...)` generates one at any seed, ~5.8 solo-h at 10 seeds.
+
+## 20. (MEASURED) A paired bootstrap over the SELECTION masks is not out-of-sample
+
+B8 resampled 24-mask subsets of the pooled G (dev) + H (confirm) masks and found KFAC-on-embed and
+the datamodel each beating GradDot on C5 in ~100% of subsets. That reads like a decisive win, and
+for the datamodel it held up -- but for KFAC-on-embed it did NOT. The I-series (a third draw,
+disjoint from G and H, `confirm_iseries.py`) scores KFAC-on-embed at 0.428 vs GradDot 0.490: it
+LOSES to the baseline out of sample.
+
+The subtlety: every G and H mask had already been used to select or confirm KFAC-on-embed (it was
+tuned on the G-series and passed on the H-series). Bootstrapping subsets of those masks tests
+stability under resampling, not generalisation to new masks -- the estimator has effectively seen
+all 48. The paired statistic (B8, BLOCKERS #17) is the right one for resolving a comparison at
+n=24, but it must be computed on masks the estimator was NOT selected against.
+
+**Consequence.** Two bars are now required for any estimator claim: PAIRED (beats GradDot on shared
+masks, resolvable at n=24) AND OUT-OF-SAMPLE (on a fresh draw). Of everything this project tried,
+only the datamodel clears both, and only on C5. The gradient-side improvements (KFAC-on-embed,
+TracIn density, the fail_div/ens_var functionals) each cleared an in-sample bar and failed the
+fresh draw. `if_repair/confirm_iseries.py` is the template; a fourth draw needs a new seed.
+
+## 21. (RESULT) k* tracks depth, not dimension or side (B9)
+
+B6 showed k* is not a function of Phi's dimension. B9 (`b9_structured.py`) identifies what it IS a
+function of, on the same cached Phi: DEPTH. The six transformer blocks are identical in size
+(3.15M) and give k* = 6,5,1,1,1,1 from first to last. `embed` (input) has k*=9 but so does
+block_00's attention (k*=8) and the first LayerNorm (k*=6 on 1024 params) -- the common factor is
+EARLY, not input-side. Every structured subspace beats its size-matched random control (k* 5-9 vs
+1-2), so the structure is real, not a dimension artefact. And k* does NOT predict where inverting
+helps: mean gain-from-inverting k*>=3 vs k*<=1 is +0.008/+0.001 (C1), +0.093/+0.106 (C5) --
+indistinguishable. The subspaces richest in estimable curvature are not where preconditioning pays.
