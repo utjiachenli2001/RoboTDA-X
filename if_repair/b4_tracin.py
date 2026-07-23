@@ -181,12 +181,52 @@ def sweep(index, z, tier="bc_s10", targets=("C1", "C5"), groups=GROUPS):
     return pd.DataFrame(rows)
 
 
+def single_checkpoints(index, z, tier="bc_s10", targets=("C1", "C5"), groups=("ALL", "head")):
+    """Score each checkpoint ALONE, to ask whether TracIn's gain is integration or location.
+
+    If one checkpoint matches the multi-checkpoint sum, the density knob is not doing the work:
+    the finding is that some point in the middle of training attributes better than the end.
+    The spread ACROSS single checkpoints also bounds how much of any "gain" is measurement
+    noise at n = 24 masks.
+    """
+    gm, obs, ceil = D.demo_masks(), D.outcomes(tier), D.ceilings(tier)
+    nck = len(index["ckpts"])
+    rows = []
+    for group in groups:
+        plans = [(f"single_ckpt_{i}", [i], False) for i in range(nck)]
+        plans += [("last5_lr", list(range(nck)), True),
+                  ("last5_unweighted", list(range(nck)), False)]
+        for label, ck, lrw in plans:
+            Z = tracin_Z(index, z, group, ck, lr_weight=lrw)
+            sc = scores_graddot(Z, normalize_per_member=True)
+            for t in targets:
+                rho, p, n, _, _ = demo_grain_lds(sc[t], gm, obs[t])
+                c = float(ceil[t])
+                rows.append({"group": group, "cell": label,
+                             "step": index["step"][ck[0]] if len(ck) == 1 else None,
+                             "target": t, "lds": float(rho), "ratio": float(rho) / c,
+                             "p": float(p)})
+    return pd.DataFrame(rows)
+
+
 def main():
     import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--decompose", action="store_true",
+                    help="score each checkpoint alone instead of running the full sweep")
     a = ap.parse_args()
     index, z = build_cache(force=a.force)
+    if a.decompose:
+        sc = single_checkpoints(index, z)
+        os.makedirs(RESULTS, exist_ok=True)
+        sc.to_csv(os.path.join(RESULTS, "b4_single_ckpt.csv"), index=False)
+        print("=" * 90)
+        print("B4 -- is the TracIn gain INTEGRATION, or one better checkpoint?")
+        print("=" * 90)
+        print(sc.pivot_table(index=["group", "cell"], columns="target", values="ratio",
+                             sort=False).round(3).to_string())
+        return
     df = sweep(index, z)
     os.makedirs(RESULTS, exist_ok=True)
     df.to_csv(os.path.join(RESULTS, "b4_tracin.csv"), index=False)

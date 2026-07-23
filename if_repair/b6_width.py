@@ -138,12 +138,54 @@ def curve(index, ens, tier="bc_s10", targets=("C1", "C5"), n_perm=100):
     return pd.DataFrame(rows)
 
 
+def kstar_compare(index, ens, n_perm=100, seed=0):
+    """The decisive table: architectural groups vs RANDOM subsets, same code path.
+
+    B1 read k* = 6-9 off `block_00` and `embed` and concluded that Phi was too wide for 135
+    demos. That conclusion needs random subsets to be legitimate, because width and role are
+    confounded in any group chosen by architecture. This puts both on one axis.
+    """
+    from if_repair import b1_layerwise as B1
+    import glob as _glob
+    members = sorted(os.path.basename(d) for d in
+                     _glob.glob(os.path.join(GR.REGEN, "ens_s*"))
+                     if os.path.exists(os.path.join(d, "final.pt")))
+    arch = B1.build_ensemble(members)
+    rows = []
+    for g in ("ALL", "head", "embed", "block_00", "last_block"):
+        if g not in arch:
+            continue
+        ns = SP.spectrum_null(arch[g], n_perm=n_perm, seed=seed)
+        rows.append({"kind": "architectural", "group": g, "draw": 0,
+                     "k_star": ns["k_star_median"],
+                     "per_member": str(ns["k_star_per_member"])})
+    for (w, dr), Z in sorted(ens.items()):
+        ns = SP.spectrum_null(Z, n_perm=n_perm, seed=seed)
+        rows.append({"kind": "random", "group": f"random_{w}", "draw": dr,
+                     "n_params": int(w), "k_star": ns["k_star_median"],
+                     "per_member": str(ns["k_star_per_member"])})
+    return pd.DataFrame(rows)
+
+
 def main():
     import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--kstar_compare", action="store_true",
+                    help="emit the architectural-vs-random k* table (BLOCKERS #10)")
     a = ap.parse_args()
     index, ens = build_cache(force=a.force)
+    if a.kstar_compare:
+        kc = kstar_compare(index, ens)
+        os.makedirs(RESULTS, exist_ok=True)
+        kc.to_csv(os.path.join(RESULTS, "b6_kstar_compare.csv"), index=False)
+        print("=" * 90)
+        print("k* : ARCHITECTURAL groups vs RANDOM subsets of Phi (same spectrum_null settings)")
+        print("=" * 90)
+        print(kc.to_string(index=False))
+        print("\nThe test: block_00 and last_block have IDENTICAL dimension (3,152,384).")
+        print("If k* were a function of p/N they could not differ.")
+        return
     df = curve(index, ens)
     os.makedirs(RESULTS, exist_ok=True)
     df.to_csv(os.path.join(RESULTS, "b6_width.csv"), index=False)

@@ -232,6 +232,10 @@ def main():
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)
     ap.add_argument("--limit", type=int, default=None)
+    # Extra workers can be added mid-flight from the other end of the job list: run_job skips a
+    # job whose output already exists, so a reverse worker and a forward worker converge without
+    # coordination. Duplicated effort is bounded by the number of workers at the crossover.
+    ap.add_argument("--reverse", action="store_true")
     a = ap.parse_args()
 
     cfg = TR.load_cfg()
@@ -243,6 +247,8 @@ def main():
     if a.limit:
         J = J[:a.limit]
     mine = [j for k, j in enumerate(J) if k % a.nworkers == a.worker]
+    if a.reverse:
+        mine = mine[::-1]
     fidx = frame_index()
     print(f"[retrain {a.campaign}] worker {a.worker}/{a.nworkers}: {len(mine)} of {len(J)} jobs,"
           f" steps={cfg['total_steps']}", flush=True)
