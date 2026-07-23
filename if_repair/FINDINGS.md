@@ -203,6 +203,34 @@ on fresh masks, in line with §1.
 gate certifies that an outcome is *measurable*; it says nothing about whether the estimator has
 the *sign* right, and this corpus contains a functional where it does not.
 
+### B10 completes the set: the rollout-visited functional is the WORST of the four
+
+B2's fourth functional — weight held-out frames by the density of states the policy actually
+visits when rolled out — was blocked in pass 3 (no sim stack). It is now installed (BLOCKERS #15)
+and run (`b10_rollout.py`): roll the 3 regenerated members out on the 70 held-out tasks, build a
+per-cluster kernel-density weighting over the visited-state cloud. Only the rollouts cost GPU
+(~4 min); the outcome is free from the stored per-frame losses. The weighting clears the gate
+(rollout ceilings 0.89–0.98). GradDot on it, vs plain:
+
+| | plain | rollout |
+|---|---|---|
+| dev C5 | 0.374 | **−0.284** |
+| I-series C5 | 0.509 | **0.002** |
+| dev C1 | 0.475 | 0.088 |
+| I-series C1 | −0.095 | 0.160 |
+
+It is *worse* than plain everywhere the plain functional is resolvable — most sharply on C5, where
+it flips negative. The reason is legible in the rollout data: **the policy scored 0 successes on
+C5 and C6**, so the visited cloud there is entirely failed-trajectory states. Aiming attribution
+at where the broken policy goes is worse than aiming it uniformly. (Caveat: C8/C9 rollouts failed
+on a file-descriptor leak and fell back to uniform; C1–C7 use real clouds, so the C1/C5 result is
+sound.)
+
+**All four redesigned functionals — transport, ens_var, fail_div, rollout — fail to beat plain out
+of sample.** The one that looked best on dev (`fail_div`, +0.161 C5) collapsed to +0.010 on the
+I-series; the newest one is actively harmful. The target functional was the largest single-estimator
+lever on dev and, like every other dev lever this pass, it does not survive.
+
 ## 6. B5 is retired, not deferred
 
 The premise was wrong: `src/train.py` seeds the model before building it and the init draw count

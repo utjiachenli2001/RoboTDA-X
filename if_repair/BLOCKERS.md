@@ -234,12 +234,29 @@ i.e. it measured the mismatch between two functionals, which is exactly the erro
 exists to prevent. Caught by a wiring smoke test run on the archived masks *before* campaign B
 produced any data; `fresh_truth` is now keyed by weighting. `PREREG` was not touched.
 
-## 15. (NOT ATTEMPTED, environment) Rollout-visited-state weighting
+## 15. (RESOLVED -> DONE as B10) Rollout-visited-state weighting
 
-B2's third proposed functional needs the policy rolled out to collect visited states. Neither
-`libero` nor `robosuite` is importable in this environment, and the functional would additionally
-require re-rolling all 240 mask retrains, which is outside the GPU budget. Not attempted, and the
-B2 conclusions are stated over the four functionals that were.
+Originally not attempted: `libero`/`robosuite` were not installed, and I wrongly believed the
+functional would need re-rolling every mask retrain. Both were fixed. The install:
+
+```
+sudo apt-get install python3.12-dev libosmesa6 libglfw3 patchelf
+.venv/bin/pip install robosuite==1.4.1 libero          # libero pins robosuite 1.4.0
+.venv/bin/pip install mujoco==3.1.6                    # 3.10 breaks robosuite (mj_fullM sig)
+```
+
+The repo config (`configs/libero_cfg`) pointed at the original host's conda path; redirected
+via a fresh `if_repair/runs/libero_cfg/config.yaml` (no repo file edited) + `LIBERO_CONFIG_PATH`.
+LIBERO auto-downloads its assets to `~/.cache/libero` on first env build.
+
+The re-rolling worry was wrong: the weighting is an ENSEMBLE property computed ONCE from rollouts
+(like ens_var/fail_div), and the outcome side is free (per-frame campaign losses already on disk).
+Only the rollouts cost GPU -- 3 members x 70 held-out tasks x 1 episode, ~4 min. `b10_rollout.py`
+runs it. Two gotchas found: a file-descriptor leak in the robosuite env (raise `ulimit -n`; it
+starved the last-processed clusters C8/C9, which fall back to uniform weighting -- C1-C7 have real
+clouds), and per-step batch-1 GPU inference from many workers is pathologically slow (load the
+model once per worker via a pool initializer, use <=6 workers). See FINDINGS §5 for the result:
+the functional does NOT beat plain -- it is worse.
 
 ## 16. (OPERATIONAL) Three concurrent trainers saturate this H200; six is slower
 
