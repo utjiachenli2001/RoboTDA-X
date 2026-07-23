@@ -170,3 +170,39 @@ def test_anova_recovers_a_pure_mask_effect():
     Y = np.tile(np.arange(6.0)[:, None, None], (1, 3, 3))
     ss = B5.anova(Y)
     assert abs(ss["mask"] - ss["total"]) < 1e-9
+
+
+# --------------------------------------------------------------------- pooled mask draws
+def test_pooled_mask_sets_are_exchangeable_in_construction():
+    """B8 pools the G- and H-series masks. They must be the same KIND of object to pool.
+
+    Same generator, same mask size, same demo universe, disjoint ids. If a future draw changes
+    any of that, pooling silently compares different designs.
+    """
+    from if_repair import retrain as RT
+    D.add_repo_paths()
+    import masks as MK
+    g = MK.demo_mask_manifest()["masks"]
+    h, _ = RT.fresh_demo_masks()
+    assert len(g) == len(h) == 24
+    assert {len(m["demos"]) for m in g} == {len(m["demos"]) for m in h} == {68}
+    gu = {d for m in g for d in m["demos"]}
+    hu = {d for m in h for d in m["demos"]}
+    assert gu == hu, "the two draws span different demo universes"
+    assert not ({m["mask_id"] for m in g} & {m["mask_id"] for m in h})
+
+
+def test_paired_difference_is_better_determined_than_the_level():
+    """The claim B8 rests on: mask-draw noise is shared, so it cancels in a difference.
+
+    Synthetic, so it tests the algebra rather than the corpus: two estimators whose scores differ
+    by a small constant shift plus independent noise, evaluated on common subsets.
+    """
+    rng = np.random.default_rng(0)
+    draw_effect = rng.normal(0, 0.15, 400)          # the shared nuisance
+    a = draw_effect + rng.normal(0, 0.02, 400)
+    b = draw_effect + 0.10 + rng.normal(0, 0.02, 400)
+    assert a.std() > 0.1 and b.std() > 0.1          # levels are noisy
+    d = b - a
+    assert d.std() < 0.05                           # the difference is not
+    assert (d > 0).mean() > 0.95

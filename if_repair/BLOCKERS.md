@@ -248,32 +248,84 @@ Measured, not assumed. One trainer: 87 s/run. Three: 137 s/run (throughput 1.9×
 bottleneck is kernel launch and scheduling rather than FLOPs, and oversubscription costs more
 than it buys. Campaign workers are 3.
 
-## 17. (MEASURED) The demo-grain LDS is mask-draw-dependent at the scale of the effects chased
+## 17. (MEASURED, and CORRECTED) The single-draw demo-grain LDS has a large sampling variance -- but the mask draw is a SHARED nuisance, so paired comparisons survive it
 
-Campaign B drew 24 fresh masks from the repo's own Stage-G generator (seed 4711, disjoint from
-the archived 24) and retrained them at 6 seeds. GradDot_dmean on all parameters, the project's
-reference estimator:
+**First version of this entry was wrong about the cause, and the error was mine.** It read a
+two-point gap -- GradDot_dmean on C1 scoring 0.509 on the archived 24 masks and 0.337 on the
+fresh 24 -- and attributed ~0.14 of it to the mask draw. Two things were confounded into that
+number, and B8 (`b8_maskdraw.py`) plus a seed-depth control (`/tmp/chk_seeddepth.py`, folded into
+`test_pass3`) separate them.
 
-| masks | outcomes | C1 | C5 |
+**Confound 1: seed depth is not neutral.** Campaign B was first run at 6 seeds to save GPU, then
+compared against dev numbers computed at 10. Holding the masks, the estimator and the outcome
+table fixed and varying ONLY the number of seeds averaged into the outcome:
+
+| seed depth | ceiling | GradDot_ALL C1 | GradDot_ALL C5 |
 |---|---|---|---|
-| archived 24 | archived p12 (10 seeds) | 0.509 | 0.401 |
-| archived 24 | campaign A (10 seeds, regenerated) | 0.475 | 0.374 |
-| fresh 24 | campaign B (6 seeds, regenerated) | **0.337** | **-0.106** |
+| 4 | 0.883 | 0.386 | 0.414 |
+| 6 | 0.908 | 0.362 | 0.414 |
+| 8 | 0.937 | 0.418 | 0.408 |
+| 10 | 0.941 | 0.475 | 0.374 |
 
-Regenerating the outcomes costs ~0.03; **redrawing the masks costs another ~0.14 on C1 and flips
-C5 negative**. Ratio-to-ceiling already divides out outcome reliability (fresh ceilings 0.90-0.95
-vs archived 0.93-0.95), so this is not a seed-depth artifact.
+Dividing by the ceiling does NOT make the ratio invariant to depth, and it is not even monotone
+(C1 rises with depth, C5 falls). So a depth-6 number is not comparable to a depth-10 one.
+Campaign B was extended to 10 seeds and every fresh-mask number recomputed at matched depth.
 
-**Impact.** Any single-draw LDS number in this project -- including the paper's GradDot = 0.513 --
-carries a mask-draw sensitivity of roughly this size, which is larger than every estimator effect
-reported. Four of the five preregistered hypotheses failed on the fresh draw, and so did the
-baseline; those are not five independent over-fits but one fact about n = 24. A claim is only
-worth making here if it survives a second draw, and the only one that did is the datamodel on C2
-(0.639 archived, 0.729 fresh, p = 0.0002).
+**Confound 2: at matched depth the two mask sets barely differ.** At 6 seeds, G-series C1 = 0.362
+and H-series C1 = 0.337 -- a 0.025 gap, not 0.14. Most of the original "mask-draw" effect was
+seed depth (~0.11) plus outcome regeneration (~0.03).
 
-## 18. (CONSUMED) Both confirmatory families are now spent
+**What IS true, and it is stronger.** B8 pools the 24 G + 24 H masks (exchangeable: same
+generator, same 68-demo stratified design, same demo universe, same held-out bank) and bootstraps
+2000 random 24-mask subsets. The sampling sd of the single-draw ratio is large -- ~0.15 for
+GradDot on every target -- against a pass bar of 0.5. **The design cannot resolve an absolute
+ratio at n = 24.** But the mask draw is a *shared* nuisance: every estimator is scored on the same
+subset, so it cancels in a paired difference. The paired sd of (estimator - GradDot) is far
+smaller than either level's sd, and the paired comparisons are decisive:
+
+(2000-bootstrap, matched 10-seed depth; `results/b8_maskdraw_bootstrap_d10.csv`)
+
+| target | comparison | level sd | paired sd | mean Δ | wins over draws |
+|---|---|---|---|---|---|
+| C5 | KFAC_embed - GradDot | 0.10 / 0.17 | 0.15 | +0.48 | **100.0%** |
+| C5 | datamodel - GradDot | 0.14 / 0.17 | 0.20 | +0.56 | 99.7% |
+| C2 | datamodel - GradDot | 0.14 / 0.19 | 0.23 | +0.12 | 70.9% |
+| C1 | TracIn - GradDot | 0.13 / 0.14 | 0.10 | +0.08 | 77.1% |
+| any | GradDot_head - GradDot_ALL | 0.13 | **0.005** | ~0 | -- |
+
+On the pooled 48 (best point estimate, ceiling ~0.94), C5 KFAC_embed = 0.631 and datamodel =
+0.684, both clearing the 0.5 bar, while GradDot sits at 0.137. Depths 6 and 10 agree throughout
+(`results/b8_maskdraw_*_d6.csv` vs `_d10.csv`).
+
+**Impact.** The project has been reporting the wrong statistic. Its bar is absolute
+(ratio >= 0.5 and p < alpha), and the absolute ratio is unresolvable at n = 24 -- the paper's
+GradDot = 0.513 carries a +-0.15 sampling sd. The *relative* question ("does estimator X beat
+GradDot on these masks?") is answerable, and by that measure KFAC-on-embed beats GradDot on C5 in
+99.6% of draws and the action head reproduces the full model to a paired sd of 0.004. Future work
+should report paired differences on shared masks, not absolute ratios on one draw.
+
+## 18. (CONFIRMED at matched depth) Two hypotheses replicate on fresh masks, not one
+
+The confirmatory family was recomputed at matched 10-seed depth after confound 1 above. Result:
+**2 of 5**, not the 1 of 5 the depth-6 run reported.
+
+| hypothesis | depth-6 ratio | depth-10 ratio | p (d10) | verdict |
+|---|---|---|---|---|
+| H1 datamodel on C2 | 0.729 | 0.626 | 0.0012 | PASS (both depths) |
+| H3 KFAC embed on C5 | 0.499 (fail) | **0.563** | **0.0032** | **PASS (d10 only)** |
+| H2 TracIn head on C1 | 0.410 | 0.340 | 0.060 | fail |
+| H4 interaction on C5 | -0.033 | -0.055 | 0.60 | fail |
+| H5 GradDot head on C1 | 0.337 | 0.283 | 0.10 | fail |
+
+H3 sat exactly on the 0.5 bar at depth 6 (0.499) and cleared it at matched depth (0.563,
+p = 0.0032 < alpha = 0.005). This is the §3 mechanism result -- curvature from 92k frames on the
+one subspace with real Gram structure -- confirmed out of sample. The depth-10 table
+(`results/confirm3_fresh_masks_d10.csv`) supersedes the depth-6 one; the protocol (10 seeds
+matches the archived dev depth; report both regardless of outcome) was declared before looking.
+
+## 19. (CONSUMED) Both confirmatory families are now spent
 
 The pass-2 hold-out (C2/C4/C7/C9 on the archived 24) and the pass-3 fresh-mask family (5
-hypotheses on the H-series masks) have each been computed once. Neither can be re-used. A new
-claim needs a third mask draw; `retrain.fresh_demo_masks(seed=...)` generates one at any seed and
-costs ~3.5 solo-h at 6 seeds.
+hypotheses on the H-series masks) have each been computed once. Neither can be re-used. The
+G+H pool is now dev data too (B8 read it), so a genuinely new claim needs a THIRD mask draw;
+`retrain.fresh_demo_masks(seed=...)` generates one at any seed, ~5.8 solo-h at 10 seeds.

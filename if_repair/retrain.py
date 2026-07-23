@@ -64,10 +64,17 @@ A_SEEDS = tuple(range(401, 411))
 C_INITS = (401, 402, 403)
 C_ORDERS = (401, 402, 403)
 C_N_MASKS = 8
-# Campaign B: fresh masks. 6 seeds -- the archived 6-seed SB ceiling (0.933 on C1) is within
-# 0.02 of the 10-seed one, so depth 6 costs little reliability and buys 24 more masks' worth of
-# GPU elsewhere. This family tests exactly TWO preregistered hypotheses.
-B_SEEDS = (4401, 4402, 4403, 4404, 4405, 4406)
+# Campaign B: fresh masks, 10 seeds to MATCH campaign A and the archived protocol.
+#
+# This started at 6, on the reasoning that the archived 6-seed SB ceiling (0.933 on C1) is within
+# 0.02 of the 10-seed one so the reliability cost is negligible. That reasoning was wrong, and
+# measurably so: holding the masks, the estimator and the outcome table fixed and varying ONLY
+# the number of seeds averaged into the outcome, GradDot_ALL on C1 scores 0.362 at depth 6 and
+# 0.475 at depth 10 -- and on C5 it moves the other way (0.414 -> 0.374). Dividing by the ceiling
+# does not make the ratio invariant to depth. Comparing a depth-6 confirmatory number against a
+# depth-10 dev number therefore confounds the hypothesis with the protocol, so seeds 4407-4410
+# were added and the family recomputed at matched depth. Both tables are reported.
+B_SEEDS = (4401, 4402, 4403, 4404, 4405, 4406, 4407, 4408, 4409, 4410)
 FRESH_MASK_SEED = 4711
 
 

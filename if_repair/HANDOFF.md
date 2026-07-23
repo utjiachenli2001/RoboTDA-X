@@ -146,17 +146,22 @@ RESULTS.md is divided by a ceiling inflated by it.
 
 # Pass 3 follow-ups — read FINDINGS.md §1 first
 
-## What changed about the project's story
+## What changed about the project's story (updated after B8 + the depth re-run)
 
-Pass 2 ended "generality NO, unification NO, **mechanism YES**". Pass 3 **retracts the
-mechanism claim** (B6: k\* is a property of which subspace, not of p/N — two groups of identical
-dimension differ 6 vs 1, and random subspaces never leave k\* ≈ 1), and adds one thing pass 2
-could not have known: **the demo-grain LDS is mask-draw-dependent at the scale of every effect
-this project chases** (BLOCKERS #17). Four of five preregistered hypotheses failed on a fresh
-mask draw — and so did the baseline.
+Pass 2 ended "generality NO, unification NO, **mechanism YES**". Pass 3 **retracts the mechanism
+claim as stated** (B6: k\* is a property of which subspace, not of p/N — two groups of identical
+dimension differ 6 vs 1, and random subspaces never leave k\* ≈ 1) and **re-confirms it at the
+right level** (H3: KFAC on `embed`, C5, 0.563 on fresh masks p=0.0032 — curvature from 92k frames,
+not from 135 demos).
 
-The one confirmed result is the **datamodel on C2**: 0.639 on the archived masks, **0.729 on the
-fresh masks, p = 0.0002**. Two independent draws.
+The bigger correction is methodological. The absolute LDS ratio is unresolvable at n=24 (B8:
+sampling sd ~0.15 against a 0.5 bar). But the mask draw is a *shared* nuisance, so the **paired**
+comparison "does X beat GradDot on these masks?" is decisive. Two estimators beat GradDot on C5 in
+~100% of mask draws: **KFAC-on-embed (+0.48)** and the **datamodel (+0.56)**. The confirmatory
+family reads 2 of 5 at matched 10-seed depth (H1 datamodel/C2, H3 KFAC/C5).
+
+The most robust single result is the **datamodel**: C2 confirmed on two independent draws (0.639,
+0.626) and C5 in 99.7% of B8 subsets.
 
 ## Do NOT re-run these
 
@@ -164,15 +169,21 @@ fresh masks, p = 0.0002**. Two independent draws.
   `src/train.py`: the model is seeded before it is built), the batch-order main effect is
   0.1–0.5% of variance, and the binding noise is the mask×init interaction, which no seeding
   protocol removes. The three designs differ by ≤0.05 in reliability. See FINDINGS §6.
-- **Either confirmatory family.** Both are consumed (BLOCKERS #18).
+- **All THREE mask sets are now consumed dev data.** The archived 24 (G), the fresh 24 (H), and
+  their pool (B8 read it). Both confirmatory families are spent (BLOCKERS #18/#19). A genuinely
+  new confirmation needs a THIRD draw: `retrain.fresh_demo_masks(seed=<new>)`, ~5.8 solo-h at 10
+  seeds.
+- **Comparing seed depths.** Ratio-to-ceiling is not invariant to depth (BLOCKERS #17). Always
+  match the depth of anything you compare; the archived protocol is 10.
 - **Six concurrent trainers.** Slower than three (BLOCKERS #16).
 
 ## Open threads, ordered by what would change a conclusion
 
-1. **More masks is now the only thing that moves the needle.** BLOCKERS #17 shows the mask draw
-   is worth ~0.14 in C1 ratio, larger than any estimator effect reported. Everything else is
-   being measured through that noise. A K = 48 draw at 6 seeds costs ~7 solo-h and would roughly
-   halve the sampling error on every comparison; nothing else in the backlog buys as much. This
+1. **Report paired differences, not absolute ratios.** B8 shows this is the only way to resolve an
+   estimator comparison at n=24, and the machinery is in `b8_maskdraw.py`. Any new estimator
+   should be run through it against GradDot on shared masks. A K=48 fresh draw at 10 seeds
+   (~5.8 solo-h) would tighten the paired sd further, but B8 already turns the existing 48 masks
+   into a decisive test — that is the cheaper first move. This
    is the one place where spending GPU on *more data* is not a violation of the prime directive
    but its precondition — the directive was about not buying stability with seeds, and this buys
    adjudicability with masks.

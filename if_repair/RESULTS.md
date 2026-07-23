@@ -477,3 +477,62 @@ Project total **12.80 solo-h against a 12 h budget** — 0.8 h over, spent on th
 - `runs/campaigns/{A,B,C}/*.npz` — the per-frame held-out losses. **Machine-local and gitignored**
   (~40 MB); rebuilding them costs ~11 solo-h. Keep them if the box survives.
 - `runs/regen_dp/` — the regenerated diffusion ensemble with checkpoints. Machine-local.
+
+---
+
+# Pass 3, continued — B8 (mask-draw sampling) and the confirmatory re-run at matched depth
+
+After the first write-up I found two errors of my own (both in BLOCKERS #17/#18): campaign B was
+run at 6 seeds and compared against depth-10 dev numbers, and the 0.509->0.337 C1 drop was
+mis-attributed to the mask draw when most of it was seed depth. Campaign B was extended to 10
+seeds (240 runs total) and two analyses added.
+
+## B8 -- sampling distribution over mask draws (`b8_maskdraw.py`, `b8_maskdraw_*_d{6,10}.csv`)
+
+`python -m if_repair.b8_maskdraw --targets C1,C5,C2 --n_boot 2000 --n_seeds 10`. Pools the 24
+G-series + 24 H-series masks (exchangeable; `tests/test_pass3.py` pins same-generator, same-size,
+same-universe, disjoint-id) and bootstraps 2000 random 24-mask subsets. Matched 10-seed depth.
+
+Pooled-48 point estimates (ceiling ~0.94):
+
+| target | GradDot_ALL | GradDot_head | TracIn_head_last5 | KFAC_embed | datamodel_LOO |
+|---|---|---|---|---|---|
+| C1 | 0.398 | 0.394 | 0.473 | 0.124 | 0.416 |
+| C5 | 0.137 | 0.138 | 0.020 | **0.631** | **0.684** |
+| C2 | 0.434 | 0.437 | 0.466 | 0.211 | 0.614 |
+
+Bootstrap level sd (why absolute numbers are unresolvable): 0.13-0.17 on every target for
+GradDot, against a 0.5 pass bar. The ceiling itself has sd 0.014-0.023.
+
+Paired vs GradDot_ALL on the SAME subsets (the draw cancels):
+
+| target | estimator | mean Δ | paired sd | p05 | p95 | beats GradDot |
+|---|---|---|---|---|---|---|
+| C5 | KFAC_embed | +0.483 | 0.153 | +0.240 | +0.733 | **100.0%** |
+| C5 | datamodel_LOO | +0.557 | 0.202 | +0.222 | +0.885 | 99.7% |
+| C5 | TracIn_head_last5 | −0.117 | 0.094 | −0.268 | +0.035 | 10.2% |
+| C1 | TracIn_head_last5 | +0.076 | 0.104 | −0.098 | +0.249 | 77.1% |
+| C1 | KFAC_embed | −0.274 | 0.222 | −0.650 | +0.083 | 10.4% |
+| C2 | datamodel_LOO | +0.121 | 0.230 | −0.258 | +0.469 | 70.9% |
+| any | GradDot_head | ~0 | **0.005** | | | — |
+
+Depth-6 (`_d6.csv`) agrees: C5 KFAC +0.389 sd 0.157 99.6%, datamodel +0.496 sd 0.216 98.9%,
+head-vs-ALL sd 0.004. The paired sd is far below the level sd everywhere, which is the whole
+point: at n=24 you cannot say what an estimator's ratio IS, but you can say whether it beats the
+baseline on the same masks.
+
+## Confirmatory family at matched 10-seed depth (`confirm3_fresh_masks_d10.csv`)
+
+`python -m if_repair.confirm3` on campaign B extended to 10 seeds. Fresh ceilings all 0.94-0.97.
+
+| hypothesis | weighting | LDS | ceiling | ratio | p | Bonf α | PASS |
+|---|---|---|---|---|---|---|---|
+| H1 datamodel on C2 | plain | 0.5887 | 0.940 | 0.626 | 0.0012 | 0.005 | **YES** |
+| H3 KFAC embed on C5 | plain | 0.5409 | 0.960 | 0.563 | 0.0032 | 0.005 | **YES** |
+| H2 TracIn head on C1 | plain | 0.3252 | 0.958 | 0.340 | 0.060 | 0.005 | no |
+| H4 interaction on C5 | interaction | −0.0522 | 0.956 | −0.055 | 0.60 | 0.005 | no |
+| H5 GradDot head on C1 | plain | 0.2713 | 0.958 | 0.283 | 0.100 | 0.005 | no |
+
+2 of 5, vs 1 of 5 at depth 6. H3 crossed the bar (0.499 -> 0.563) purely from matching the seed
+depth to the dev protocol. Reference GradDot_ALL at depth 10: C1 0.283, C2 0.448, C5 −0.189 --
+the baseline fails its own absolute bar on the fresh draw, which is BLOCKERS #17.
