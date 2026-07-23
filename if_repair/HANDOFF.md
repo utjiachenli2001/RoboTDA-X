@@ -92,3 +92,52 @@ python -m if_repair.run diffusion --config if_repair/configs/frozen.yaml
 
 Runtime is seconds to ~1 minute per step on CPU (135×135 × ≤20 members × 9 targets); the
 k-sweep is the slowest at ~21 s. No GPU is used anywhere.
+
+---
+
+# Pass 2 follow-ups — B2/B3/B4 are now UNBLOCKED and cheap
+
+Pass 1 listed Task 4 as blocked for want of checkpoints. That is resolved: checkpoints are
+**regenerable** in 94 s/member via `if_repair/regen_ckpt.sh <member>`, which also writes the
+5 intermediate `ckpt_0..4.pt` that TracIn needs. Only B1 was run (session limit, not budget:
+**0.15 of 12 GPU-h used**). The remaining Phase-B items now cost well under an hour each.
+
+**Read first:** regenerated weights are NOT the originals (BLOCKERS #6). Recompute every
+baseline on whichever ensemble you use; never mix regenerated numbers with the E=20 cached
+Gram rows.
+
+## B2 — target-functional redesign (highest upside, ~2-3 h)
+
+`if_repair/gradients.py:build_gram` already isolates the test-side term (`AT.build_targets`
+→ `TG`). Swap the uniform held-out-L2 target for (a) ensemble-action-variance weighting, (b)
+failure-divergence-state weighting, (c) rollout-visited states. **Gate each new functional
+through its own split-half ceiling ≥0.4 BEFORE scoring any estimator against it** — a
+misaligned proxy scored −0.48 in the sibling study, and B1 already shows this corpus will
+happily produce large negative LDS (block_01/C7 = −0.142).
+
+## B3 — KFAC / EK-FAC (~2-3 h)
+
+The one genuinely different `H^-1`. Given B1's mechanism result, the specific prediction is
+sharp: KFAC's *structure* is what should help, because it estimates curvature in a factored
+space far smaller than 19.2M, i.e. it raises the effective `k*` the way layer restriction
+did. Test it per-block as well as globally — if KFAC beats GradDot only where `k*` is already
+> 1, that confirms the p/N account rather than the "better solve" account.
+
+## B4 — TracIn density & grain (~1-2 h)
+
+`ckpt_0..4.pt` per regenerated member are already on disk. TracIn is the diffusion winner
+(0.479 vs GradDot 0.414), so this is the direct probe of the policy-class flip, and the
+cheapest remaining item.
+
+## B5 — common-random-seed estimand (~4-5 h, unchanged from pass 1)
+
+Still the highest-value retrain: init is ~72 % of outcome variance, and every ratio in
+RESULTS.md is divided by a ceiling inflated by it.
+
+## The two results most worth defending
+
+1. **Datamodel on C2** — the only hold-out pass in either pass (ratio 0.639, p = 0.00115).
+   Confirm on fresh masks; note it needs outcome data, so it is a different estimator class.
+2. **`k*` rises when Φ is restricted** (1 → 6-9). This is the mechanism claim. Strengthen it
+   by sweeping Φ width directly (random parameter subsets of increasing size) and showing
+   `k*` and the best-k LDS move together — that turns a 5-group observation into a curve.
