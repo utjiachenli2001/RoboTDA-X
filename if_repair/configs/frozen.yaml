@@ -1,0 +1,20 @@
+# FROZEN confirmatory config -- Task 6. Selected on C1/C5 ONLY (see RESULTS.md).
+# Hold-out (C2, C4, C7, C9) is computed exactly once with this file. Do not edit
+# after the hold-out has been run.
+frozen: true
+tier: bc_s10
+holdout_targets: [C2, C4, C7, C9]
+diffusion_targets: [C1, C5]
+selection_rationale: >
+  Tasks 1-3 produced no estimator that beats the strongest dev baseline on C1.
+  PRIMARY is therefore the strongest dev performer, GradDot_dmean (= truncated_if at
+  k=0 in the dmean convention, = the true lambda->inf limit; C1 dev LDS 0.5930).
+  SECONDARY is the best genuinely-new variant from Task 1: the published champion's
+  unit-L2 normalization aggregated with Hodges-Lehmann instead of the mean, the only
+  Task 1-3 variant that improved on its own baseline on C1 (0.5130 -> 0.5678).
+  The published champion GradDot_unitL2 + mean is NOT part of this family: its
+  hold-out values are already archived in phase5/results/p16_lds_table.csv and are
+  quoted as the reference line, not re-tested.
+estimators:
+  - {name: GradDot_dmean_mean, kind: GradDot, normalize: dmean,  aggregator: mean}
+  - {name: GradDot_unitL2_HL,  kind: GradDot, normalize: unitL2, aggregator: hodges_lehmann}

@@ -1,0 +1,12 @@
+# Dev config -- C1/C5 only. Iterate freely here; never touches hold-out.
+tier: bc_s10
+targets: [C1, C5]
+estimators:
+  - {name: GradDot_unitL2_mean,  kind: GradDot, normalize: unitL2, aggregator: mean}
+  - {name: GradDot_dmean_mean,   kind: GradDot, normalize: dmean,  aggregator: mean}
+  - {name: GradDot_unitL2_HL,    kind: GradDot, normalize: unitL2, aggregator: hodges_lehmann}
+  - {name: IF_ridge10_mean,      kind: IF, normalize: none, ridge_rel: 10.0, aggregator: mean}
+  - {name: truncated_if_k0,      kind: truncated_if, k: 0,   normalize: dmean, aggregator: mean}
+  - {name: truncated_if_k1,      kind: truncated_if, k: 1,   normalize: dmean, aggregator: mean}
+  - {name: truncated_if_k135,    kind: truncated_if, k: 135, normalize: none,  aggregator: mean}
+  - {name: damped_if_muI_1e2,    kind: damped_if, gamma: 100.0, mode: muI, normalize: dmean, aggregator: mean}
