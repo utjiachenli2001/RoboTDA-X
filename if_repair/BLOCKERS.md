@@ -247,3 +247,33 @@ Measured, not assumed. One trainer: 87 s/run. Three: 137 s/run (throughput 1.9×
 (throughput 1.15× vs three, i.e. a net LOSS). The model is 19.2M parameters at batch 256, so the
 bottleneck is kernel launch and scheduling rather than FLOPs, and oversubscription costs more
 than it buys. Campaign workers are 3.
+
+## 17. (MEASURED) The demo-grain LDS is mask-draw-dependent at the scale of the effects chased
+
+Campaign B drew 24 fresh masks from the repo's own Stage-G generator (seed 4711, disjoint from
+the archived 24) and retrained them at 6 seeds. GradDot_dmean on all parameters, the project's
+reference estimator:
+
+| masks | outcomes | C1 | C5 |
+|---|---|---|---|
+| archived 24 | archived p12 (10 seeds) | 0.509 | 0.401 |
+| archived 24 | campaign A (10 seeds, regenerated) | 0.475 | 0.374 |
+| fresh 24 | campaign B (6 seeds, regenerated) | **0.337** | **-0.106** |
+
+Regenerating the outcomes costs ~0.03; **redrawing the masks costs another ~0.14 on C1 and flips
+C5 negative**. Ratio-to-ceiling already divides out outcome reliability (fresh ceilings 0.90-0.95
+vs archived 0.93-0.95), so this is not a seed-depth artifact.
+
+**Impact.** Any single-draw LDS number in this project -- including the paper's GradDot = 0.513 --
+carries a mask-draw sensitivity of roughly this size, which is larger than every estimator effect
+reported. Four of the five preregistered hypotheses failed on the fresh draw, and so did the
+baseline; those are not five independent over-fits but one fact about n = 24. A claim is only
+worth making here if it survives a second draw, and the only one that did is the datamodel on C2
+(0.639 archived, 0.729 fresh, p = 0.0002).
+
+## 18. (CONSUMED) Both confirmatory families are now spent
+
+The pass-2 hold-out (C2/C4/C7/C9 on the archived 24) and the pass-3 fresh-mask family (5
+hypotheses on the H-series masks) have each been computed once. Neither can be re-used. A new
+claim needs a third mask draw; `retrain.fresh_demo_masks(seed=...)` generates one at any seed and
+costs ~3.5 solo-h at 6 seeds.

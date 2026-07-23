@@ -45,3 +45,23 @@ just the two focal numbers.
 `GradDot_unitL2` is the preregistered champion whose value the paper reports. **Both are carried
 as baselines throughout**; any claimed improvement must beat `GradDot_dmean` (0.5930), the
 stronger of the two on C1.
+
+## Pass-3 triples (regenerated ground truth)
+
+Pass 3 introduces a second and a third outcome table. A number is only interpretable once you
+know which of the five (Φ source, mask set, outcome table, ceiling) combinations produced it, and
+mixing them is exactly how a fake improvement gets manufactured.
+
+| id | Φ | masks | outcomes | ceiling | used by |
+|---|---|---|---|---|---|
+| T1 | E=20 cached Gram | archived 24 (G-series) | `p12_outcomes_S10` | `p12_ceilings.ceiling_10seed_SB` | pass 1/2, anchors, datamodel |
+| T2 | regenerated E=5 | archived 24 | `p12_outcomes_S10` | as T1 | B1, B3, B4, B6, B2 archived arm |
+| T3 | regenerated E=5 | archived 24 | campaign A (per-frame, 10 seeds) | `functionals.split_half_ceiling` | B2 campaign arm |
+| T4 | regenerated E=5 | **fresh 24 (H-series)** | campaign B (per-frame, 6 seeds) | `functionals.split_half_ceiling` | confirm3 |
+| T5 | regenerated diffusion E=5 | archived 24 | `p15_outcomes_S10` (MEDIAN agg) | `p15_verdict.ceiling_median_10seed_SB` | B7 |
+
+`functionals.split_half_ceiling` is the same recipe as the archived one — it reproduces all nine
+`p12_ceilings` values to `<1e-12` (`tests/test_pass3.py::test_ceiling_recipe_reproduces_archived_ceilings`),
+so T3/T4 ceilings are constructed identically to T1/T2's, just from a different outcome table.
+
+The T1 → T3 → T4 drift for GradDot_dmean(ALL) on C1 is 0.509 → 0.475 → 0.337; see BLOCKERS #17.

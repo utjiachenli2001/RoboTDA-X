@@ -141,3 +141,79 @@ RESULTS.md is divided by a ceiling inflated by it.
 2. **`k*` rises when Φ is restricted** (1 → 6-9). This is the mechanism claim. Strengthen it
    by sweeping Φ width directly (random parameter subsets of increasing size) and showing
    `k*` and the best-k LDS move together — that turns a 5-group observation into a curve.
+
+---
+
+# Pass 3 follow-ups — read FINDINGS.md §1 first
+
+## What changed about the project's story
+
+Pass 2 ended "generality NO, unification NO, **mechanism YES**". Pass 3 **retracts the
+mechanism claim** (B6: k\* is a property of which subspace, not of p/N — two groups of identical
+dimension differ 6 vs 1, and random subspaces never leave k\* ≈ 1), and adds one thing pass 2
+could not have known: **the demo-grain LDS is mask-draw-dependent at the scale of every effect
+this project chases** (BLOCKERS #17). Four of five preregistered hypotheses failed on a fresh
+mask draw — and so did the baseline.
+
+The one confirmed result is the **datamodel on C2**: 0.639 on the archived masks, **0.729 on the
+fresh masks, p = 0.0002**. Two independent draws.
+
+## Do NOT re-run these
+
+- **B5 (common random seeds).** Retired, not deferred. Stage G is already common-init (read
+  `src/train.py`: the model is seeded before it is built), the batch-order main effect is
+  0.1–0.5% of variance, and the binding noise is the mask×init interaction, which no seeding
+  protocol removes. The three designs differ by ≤0.05 in reliability. See FINDINGS §6.
+- **Either confirmatory family.** Both are consumed (BLOCKERS #18).
+- **Six concurrent trainers.** Slower than three (BLOCKERS #16).
+
+## Open threads, ordered by what would change a conclusion
+
+1. **More masks is now the only thing that moves the needle.** BLOCKERS #17 shows the mask draw
+   is worth ~0.14 in C1 ratio, larger than any estimator effect reported. Everything else is
+   being measured through that noise. A K = 48 draw at 6 seeds costs ~7 solo-h and would roughly
+   halve the sampling error on every comparison; nothing else in the backlog buys as much. This
+   is the one place where spending GPU on *more data* is not a violation of the prime directive
+   but its precondition — the directive was about not buying stability with seeds, and this buys
+   adjudicability with masks.
+2. **Why `embed` and `block_00` and not the others?** B6 establishes that k\* tracks the subspace
+   rather than its size and leaves the obvious question open. The cheap probe is *structured*
+   subspaces of matched size — one attention head at a time, input-side vs output-side
+   projections within a block — to see whether "input-side" or "early" is the predictor. All of
+   it reuses the cached Φ; zero retrains.
+3. **The target functional is the largest untried lever** (+0.161 on C5 dev, vs +0.130 for the
+   whole curvature sweep) and per-frame held-out losses are now on disk, so a **new weighting
+   costs zero GPU**: `functionals.weights()` plus `campaign_outcomes()` give it an outcome and a
+   ceiling immediately. The obvious untried ones are behavioural rather than model-derived, since
+   the two model-derived ones (`ens_var`, `fail_div`) did not transfer across targets.
+4. **The intermediate-checkpoint effect.** Step 6400/8000 attributes better than the final
+   weights on C1 (0.598 vs 0.506) while adjacent checkpoints swing by 0.42. Either there is a
+   real "attribute from the middle of training" effect or the LDS is far noisier than n = 24
+   suggests — and #1 says the second. A denser checkpoint grid on one member separates them for
+   ~0.2 solo-h.
+5. **Rollout-based functionals** remain blocked on LIBERO/robosuite (BLOCKERS #15). Success rate
+   is still the only behaviourally meaningful outcome the study never predicts.
+
+## What is cheap now that was not
+
+- **Per-frame held-out losses for 456 retrains** (`runs/campaigns/{A,B,C}/*.npz`). Any frame
+  weighting `w` yields an outcome `-Σ w_f l2_f / Σ w_f` and its own split-half ceiling for zero
+  GPU. **Machine-local and gitignored (~40 MB); ~11 solo-h to rebuild.** The derived outcome
+  table is committed at `results/campaign_outcomes.parquet` (153 KB) — enough for everything
+  except defining a *new* weighting.
+- **A split init/order trainer** (`retrain.train_one`) the repo's single `--seed` cannot express,
+  with bit-for-bit legacy equivalence pinned by a test.
+- **A regenerated diffusion ensemble with checkpoints** (`runs/regen_dp/`), which p17 never had.
+  Machine-local; 0.46 solo-h to rebuild via `if_repair/regen_dp.sh`.
+- **A ceiling recipe** (`functionals.split_half_ceiling`) that reproduces all nine archived p12
+  ceilings to <1e−12, so any new outcome can be gated the same way the archived ones were.
+
+## Invariants for the next session
+
+- Run from `/mnt/sdb/ljc/RoboTDA-X`; `export CUDA_VISIBLE_DEVICES=0` before anything GPU.
+- Three concurrent trainers.
+- Never mix regenerated Gram numbers with the E=20 cached-Gram rows. **Outcomes are the
+  exception** and the reason is measured (BLOCKERS #12): mask-level outcomes regenerate with
+  Spearman 0.61–0.93.
+- Any estimator fitted on mask outcomes goes through the leave-one-mask-out path.
+- Report LDS, ceiling, ratio, p, pass. Never bare ρ. And after pass 3, never a single mask draw.

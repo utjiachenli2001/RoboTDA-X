@@ -237,3 +237,243 @@ One pass: **datamodel_lasso on C2, ratio 0.639, p = 0.00115**. Everything else f
 
 **Total 0.15 GPU-h of 12.** Phase A (A1–A5) used zero. No GPU was spent on larger ensembles
 or more seeds, per the prime directive.
+
+---
+
+# Pass 3 — Phase B completed, plus a retraction
+
+Pass 2 ran only B1 and left B2/B3/B4/B5 unrun. This pass runs all four, adds the diffusion arm
+(B7) and the width control (B6), retrains the ground truth so that redesigned functionals have
+outcomes of their own, and tests five preregistered hypotheses on a fresh mask draw.
+
+Ensemble for every gradient estimator below: the **regenerated E=5** (BLOCKERS #6). Every
+baseline is recomputed on it. Where an outcome is used it is named explicitly, because this pass
+has two of them — the archived `p12_outcomes_S10` and the regenerated campaign A table.
+
+Full grids are in `if_repair/results/*.csv`; the slices below are the ones that carry the
+conclusions.
+
+## B6 — Φ width vs Φ role (`b6_width.csv`, `b6_kstar_compare.csv`)
+
+`python -m if_repair.b6_width --kstar_compare`
+
+| Φ restricted to | params | k\* (median of 5 members) | per-member |
+|---|---|---|---|
+| ALL | 19,222,091 | 1 | 1,1,1,1,2 |
+| head | 39,499 | 1 | 1,1,1,1,2 |
+| embed | 268,288 | **9** | 9,10,2,7,10 |
+| block_00 | 3,152,384 | **6** | 4,5,11,6,6 |
+| last_block | **3,152,384** | **1** | 1,1,2,1,2 |
+| random ×3 | 1,000 → 3,000,000 | 1–3 | never above 3 |
+| random ×3 | 10,000,000 | 1 | 1,1,1,1,2 |
+
+`block_00` and `last_block` are the same size and differ 6 vs 1; random subsets never leave
+k\* ≈ 1 at any width. **k\* is a property of which subspace, not its dimension** (BLOCKERS #10).
+
+The width curve itself (mean over 3 draws, C1/C5):
+
+| width | frac of model | k\* | ratio at k=0 | best-k ratio | gain |
+|---|---|---|---|---|---|
+| 1,000 | 0.00005 | 1.0 | 0.164 / −0.195 | 0.284 / 0.401 | 0.114 / 0.559 |
+| 10,000 | 0.0005 | 2.0 | 0.121 / 0.323 | 0.220 / 0.454 | 0.094 / 0.123 |
+| 100,000 | 0.005 | 1.3 | 0.457 / 0.098 | 0.505 / 0.544 | 0.046 / 0.419 |
+| 1,000,000 | 0.052 | 1.0 | 0.532 / 0.396 | 0.532 / 0.493 | 0.000 / 0.090 |
+| 19,222,091 | 1.000 | 1.0 | 0.509 / 0.401 | 0.509 / 0.572 | 0.000 / 0.160 |
+
+Spearman(width, k\*) = −0.365; Spearman(k\*, gain from inverting) = +0.455. Both weak, and the
+second is driven by the narrowest cells, where the unpreconditioned score is itself broken
+(C5 at width 1,000 has ratio −0.195 at k=0, so "inverting helps" means it rescues a broken
+score).
+
+## B3 — KFAC / EK-FAC (`b3_kfac.csv`)
+
+`python -m if_repair.b3_kfac`. Φ **and** the preconditioner are restricted together
+(BLOCKERS #13); `method=none` is B1's GradDot on the same restricted Φ.
+
+C1 / C5 ratio-to-ceiling, archived outcomes:
+
+| method, λ_rel | ALL | head | last_block | block_00 | embed |
+|---|---|---|---|---|---|
+| none (GradDot) | 0.509 / 0.401 | 0.506 / 0.413 | 0.470 / 0.399 | 0.042 / 0.559 | 0.277 / 0.485 |
+| kfac 1e−4 | 0.353 / 0.407 | 0.504 / 0.401 | 0.467 / 0.402 | 0.037 / 0.437 | **0.320 / 0.615** |
+| kfac 1e−2 | 0.353 / 0.407 | 0.501 / 0.401 | 0.467 / 0.402 | 0.037 / 0.437 | 0.294 / 0.613 |
+| kfac 1e+0 | 0.353 / 0.407 | 0.506 / 0.401 | 0.467 / 0.402 | 0.037 / 0.437 | 0.243 / 0.498 |
+| kfac 1e+2 | 0.353 / 0.407 | 0.506 / 0.401 | 0.467 / 0.402 | 0.037 / 0.437 | 0.031 / 0.319 |
+| kfac 1e+4 | 0.353 / 0.407 | 0.506 / 0.401 | 0.467 / 0.402 | 0.037 / 0.437 | 0.017 / 0.298 |
+| ekfac 1e−4 | 0.418 / 0.427 | 0.506 / 0.401 | 0.447 / 0.430 | 0.182 / 0.514 | **0.017** / 0.298 |
+
+Fraction of each group's parameters that KFAC actually covers (nn.Linear only; the fused
+attention projection, LayerNorms, biases and positional embeddings stay identity): ALL 0.752,
+head 0.972, embed 0.977, block_00 0.748, last_block 0.748.
+
+`embed` is the only group where preconditioning helps, on both dev targets, with a monotone
+dose-response in λ. EK-FAC — same eigenvectors, eigenvalues re-estimated from the 135 demo
+gradients instead of ~92k frames — takes `embed`/C1 from 0.320 to 0.017 (BLOCKERS #11).
+
+## B4 — TracIn (`b4_tracin.csv`, `b4_single_ckpt.csv`)
+
+`python -m if_repair.b4_tracin` and `--decompose`. Checkpoints at steps 1600–8000; η from the
+frozen cosine schedule (9.46e−5 down to 1.00e−5).
+
+Top C1 cells (archived outcomes, α = 0.025):
+
+| group | density | LR-weighted | estimator | ratio | p |
+|---|---|---|---|---|---|
+| head | last5 | yes | TracIn | **0.602** | 0.0017 |
+| ALL | last3 | no | TracIn_trunc_k1 | 0.594 | 0.0020 |
+| ALL | last5 | yes | TracIn | 0.594 | 0.0020 |
+| head | last2 | no | TracIn | 0.578 | 0.0027 |
+
+Every top C5 cell is `last1` (block_00 0.559, embed 0.485) — trajectory integration does not help
+C5.
+
+Identity check: `last1` with no LR weighting reproduces GradDot_dmean on the same ensemble
+(ALL 0.509, head 0.506), so the sweep contains the baseline as an endpoint.
+
+Per-checkpoint decomposition (Φ = head):
+
+| cell | C1 | C5 |
+|---|---|---|
+| ckpt_0 (step 1600) | 0.215 | 0.134 |
+| ckpt_1 (3200) | 0.550 | 0.104 |
+| ckpt_2 (4800) | 0.436 | 0.131 |
+| ckpt_3 (6400) | **0.598** | 0.217 |
+| ckpt_4 (8000, = GradDot) | 0.506 | **0.413** |
+| last5 LR-weighted | 0.602 | 0.127 |
+| last5 unweighted | 0.553 | 0.192 |
+
+The 5-checkpoint sum equals the best single checkpoint to within 0.004, and adjacent checkpoints
+differ by up to 0.42 — four times the gain over GradDot. The C1 result is an intermediate-
+checkpoint effect sitting inside the n=24 noise, not trajectory integration.
+
+## B2 — target functionals (`b2_ceilings_*.csv`, `b2_scores_*.csv`)
+
+`python -m if_repair.b2_functionals --obs archived` and `--obs campaign`.
+
+Protocol: weighting → outcome → **its own split-half ceiling** → only then score. The ceiling
+recipe reproduces all nine archived `p12` ceilings to <1e−12 (`tests/test_pass3.py`).
+
+Ceilings (campaign A outcomes, 24 masks × 10 seeds): every functional clears the 0.4 gate.
+
+| target | plain | transport | interaction | ens_var | ens_var_q75 | fail_div | fail_div_q75 |
+|---|---|---|---|---|---|---|---|
+| C1 | 0.941 | 0.929 | 0.962 | 0.914 | 0.914 | 0.950 | 0.934 |
+| C5 | 0.920 | 0.912 | 0.924 | 0.929 | 0.898 | 0.929 | 0.917 |
+
+GradDot_dmean ratio-to-ceiling, **campaign A outcomes** (fully self-consistent — regenerated Φ,
+regenerated outcomes):
+
+| functional | C1 | C5 |
+|---|---|---|
+| interaction | **0.526** (p=0.0058, pass) | 0.491 |
+| plain | 0.475 | 0.374 |
+| fail_div_q75 | 0.031 | 0.502 |
+| fail_div | −0.078 | **0.535** (p=0.0067, pass) |
+| ens_var_q75 | 0.274 | 0.430 |
+| ens_var | −0.054 | 0.368 |
+| transport | −0.233 | −0.490 |
+
+Same table against the **archived** outcomes, for the three functionals the archive contains:
+plain 0.509 / 0.401, interaction 0.461 / 0.474, transport −0.239 / −0.502.
+
+`transport` is negative on both targets under both independent ground truths, with ceilings of
+0.89–0.96 throughout.
+
+NOT ATTEMPTED: rollout-visited-state weighting (BLOCKERS #15).
+
+## B5 — init vs order (`b5_variance.csv`, `b5_design_reliability.csv`)
+
+See FINDINGS. The premise was wrong (Stage G is already common-init), the order main effect is
+0.1–0.5%, the binding noise is mask×init at 9.8–34.9%, and the three seeding designs differ by
+≤0.05 without a consistent ordering. Retired.
+
+## B7 — diffusion arm (`b7_diffusion.csv`, `b7_regen_verify.csv`)
+
+`bash if_repair/regen_dp.sh` then `python -m if_repair.b7_diffusion`. Tier `diff_s10`
+(median aggregator, BLOCKERS #4). Groups are role analogues of the BC ones, not name matches.
+
+Regeneration check against the archived p17 cache — far tighter than the BC arm:
+
+| member | G_rel_fro | K_rel_fro | diag ratio | mean K Spearman |
+|---|---|---|---|---|
+| dpens_s621 | 0.131 | 0.081 | 1.115 | 0.997 |
+| dpens_s622 | 0.062 | 0.189 | 0.928 | 0.994 |
+| dpens_s623 | 0.328 | 0.667 | 0.824 | 0.964 |
+| dpens_s624 | 0.053 | 0.114 | 0.956 | 0.996 |
+| dpens_s625 | 0.270 | 0.184 | 0.732 | 0.998 |
+| *BC ens_s201, for contrast* | *0.879* | *0.843* | *0.190* | *0.02–0.85* |
+
+C1 ratio-to-ceiling, plain TracIn:
+
+| density | LR | ALL | act_out | den_blocks_05 | embed | obs_blocks_00 |
+|---|---|---|---|---|---|---|
+| last1 | — | 0.516 | 0.489 | 0.530 | −0.346 | −0.026 |
+| last5 | no | 0.582 | 0.613 | 0.580 | −0.132 | −0.061 |
+| last5 | yes | **0.637** | **0.622** | 0.586 | −0.131 | −0.001 |
+| evenly3 | no | 0.613 | **0.653** | 0.566 | −0.162 | 0.017 |
+
+Best C5 cell is 0.458 (obs_blocks_00, last5, LR, trunc_k1, p=0.031) — fails.
+
+Win-condition-2 transfer: TracIn/last5/LR-weighted passes C1 in both classes and beats its
+GradDot control in both (BC head 0.602 vs 0.506, BC ALL 0.594 vs 0.509, diffusion act_out
+0.622 vs 0.489, diffusion ALL 0.637 vs 0.516).
+
+## Fresh-mask confirmatory family (`confirm3_fresh_masks.csv`)
+
+`python -m if_repair.confirm3`. 24 fresh masks (Stage-G generator, seed 4711; disjoint from the
+archived 24, pinned by `tests/test_pass3.py`), campaign B outcomes at 6 seeds, Bonferroni
+α = 0.025/5 = 0.005. `PREREG` frozen and committed at `aca92e6` with campaign B at zero runs.
+
+Fresh ceilings: plain C1 0.925, C2 0.912, C5 0.936; interaction C1 0.947, C2 0.941, C5 0.900 —
+all far above the 0.4 gate, so every hypothesis was adjudicable.
+
+| hypothesis | weighting | LDS | ceiling | ratio | bar | p | PASS |
+|---|---|---|---|---|---|---|---|
+| H1_datamodel_C2 | plain | 0.6643 | 0.9119 | **0.729** | 0.456 | 0.0002 | **YES** |
+| H2_tracin_head_C1 | plain | 0.3791 | 0.9248 | 0.410 | 0.462 | 0.0338 | no |
+| H3_kfac_embed_C5 | plain | 0.4670 | 0.9357 | 0.499 | 0.468 | 0.0107 | no |
+| H4_interaction_functional_C5 | interaction | −0.0296 | 0.9002 | −0.033 | 0.450 | 0.5545 | no |
+| H5_graddot_head_C1 | plain | 0.3113 | 0.9248 | 0.337 | 0.462 | 0.0693 | no |
+
+Reference rows (not in the family, uncorrected α = 0.025):
+
+| estimator | C1 | C2 | C5 |
+|---|---|---|---|
+| GradDot_dmean, ALL | 0.337 (p 0.069) | 0.493 (p 0.014) | −0.106 (p 0.678) |
+| TracIn head, last1 (= GradDot head) | 0.337 | 0.491 | −0.106 |
+
+The reference rows are the point: the **baseline** also fails on the fresh draw. GradDot_dmean on
+C1 goes 0.509 (archived masks, archived outcomes) → 0.475 (archived masks, campaign A outcomes)
+→ 0.337 (fresh masks). On C5 it goes 0.401 → 0.374 → −0.106. The mask draw is worth ~0.14 on C1
+and a sign flip on C5, which is larger than every estimator effect this project has reported.
+
+## GPU ledger (`gpu_ledger_pass3.csv`)
+
+`python -m if_repair.gpu_ledger`. Three readings, because concurrency makes the single word
+"GPU-hours" ambiguous by a factor of three.
+
+| stage | jobs | job_h | solo_h | occupancy_h |
+|---|---|---|---|---|
+| campaign A | 240 | 10.793 | 5.800 | 3.436 |
+| campaign B | 144 | 5.276 | 3.480 | 1.690 |
+| campaign C | 72 | 2.598 | 1.740 | 0.831 |
+| diffusion regeneration | 5 | 0.656 | 0.460 | overlapped |
+| B7 diffusion TracIn cache | 25 | 1.013 | 1.014 | overlapped |
+| B4 TracIn cache | 25 | 0.064 | 0.064 | overlapped |
+| B3 KFAC | 5 | 0.006 | 0.038 | overlapped |
+| B6 width cache | 5 | 0.016 | 0.013 | overlapped |
+| B2 Gram | 5 | 0.010 | 0.038 | overlapped |
+| **total** | | **20.46** | **12.65** | **6.00** |
+
+`job_h` double-counts contention (3 workers stretch an 87 s retrain to 137–160 s). `solo_h` is
+the work actually done and is the figure comparable to the pass-1/2 ledger, which ran serially.
+Project total **12.80 solo-h against a 12 h budget** — 0.8 h over, spent on the diffusion arm.
+
+## Artifacts
+
+- `results/campaign_outcomes.parquet` — 28,728 rows: every (campaign, weighting, target, mask,
+  seed_init, seed_order) outcome for all three campaigns. 153 KB, committed.
+- `results/campaign_ceilings.csv` — the split-half ceiling of each (campaign, weighting, target).
+- `runs/campaigns/{A,B,C}/*.npz` — the per-frame held-out losses. **Machine-local and gitignored**
+  (~40 MB); rebuilding them costs ~11 solo-h. Keep them if the box survives.
+- `runs/regen_dp/` — the regenerated diffusion ensemble with checkpoints. Machine-local.
