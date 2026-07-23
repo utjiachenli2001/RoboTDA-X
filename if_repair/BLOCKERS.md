@@ -157,3 +157,93 @@ Only B1 was executed from Phase B. This was a wall-clock/session limit, not a re
 data limit: 0.15 of 12 GPU-h were used, and the checkpoint-regeneration path that unblocked
 B1 unblocks the rest equally (including the 5 per-member checkpoints `ckpt_0..4.pt` that B4's
 TracIn density needs). Carried to HANDOFF.md with the exact entry points.
+---
+
+# Pass 3 — additional blockers and corrections
+
+## 10. (CORRECTED — pass 2's mechanism claim is not supported) k\* tracks WHICH subspace, not p/N
+
+Pass 2's FINDINGS said: *"Restricting Φ raises k\* from 1 to 6–9, and only in that regime does
+inverting beat not inverting. … It is a statement about `p/N`, not about influence functions."*
+
+B6 breaks the width/role confound by restricting Φ to **random** parameter subsets. Same code
+path (`spectral.spectrum_null`, 100 permutations, seed 0), same regenerated ensemble:
+
+| Φ | params | k\* |
+|---|---|---|
+| `block_00` | 3,152,384 | 6 |
+| `last_block` | **3,152,384** | **1** |
+| `embed` | 268,288 | 9 |
+| random | 100,000 / 300,000 / 3,000,000 | 1–2 at every width, 3 draws each |
+
+`block_00` and `last_block` have **identical dimension** and differ 6 vs 1; a random subspace
+*larger* than `embed` has k\* = 1 where `embed` has 9. Dimension does not predict k\*.
+
+**Impact.** Every statement of the form "IF fails here because p/N makes curvature unestimable"
+must be withdrawn as written. The supported statement is narrower: *particular* subspaces (the
+input projections, the first observation block) carry demo-to-demo Gram structure that survives
+a permutation null, and the late block, the action head, and random subspaces do not. Why those
+subspaces is not answered here.
+
+The p/N intuition is not dead, but it belongs one level down — see #11.
+
+## 11. (REFINEMENT) The binding sample size is the one the CURVATURE is estimated from
+
+B3 runs KFAC and EK-FAC, which differ in exactly one thing: KFAC's Kronecker factors come from
+~92k training FRAMES; EK-FAC keeps those eigenvectors and re-estimates the eigenvalues from the
+135 demo gradients. On `embed`/C1 that single swap takes ratio-to-ceiling from **0.320 to 0.017**.
+
+So curvature estimated from 92k frames is usable and curvature estimated from 135 demos is not —
+whether it arrives as a 135×135 Gram (Phase A) or as EK-FAC eigenvalues. That is the p/N claim
+pass 2 wanted, at the level where it is actually true.
+
+## 12. (NARROWED) BLOCKERS #6 applies to the GRAM, not to training
+
+#6 measured that a regenerated member's Gram differs from its cached slice (`G_rel_fro` 0.879,
+gradient norms ~5× smaller, K rank-correlations 0.02–0.85) and concluded that regenerated numbers
+must never be mixed with archived ones. That conclusion stands for the Gram. It does **not**
+extend to the outcomes.
+
+Campaign A retrains the archived 24 masks at the archived seeds 401–410 under the archived
+protocol (`retrain.train_one` reproduces `src/train.py` bit-for-bit when init == order; pinned by
+`tests/test_pass3.py`). Matched (mask, seed) outcomes against `p12_outcomes_S10`:
+
+| target | C1 | C2 | C3 | C4 | C5 | C6 | C7 | C8 | C9 |
+|---|---|---|---|---|---|---|---|---|---|
+| Spearman | 0.76 | 0.72 | 0.65 | 0.78 | 0.93 | 0.80 | 0.87 | 0.83 | 0.61 |
+| Pearson | 0.85 | 0.82 | 0.81 | 0.82 | 0.92 | 0.90 | 0.81 | 0.84 | 0.74 |
+
+Means agree to ~1%. **The environment sensitivity is localised to the gradient/Gram computation,
+not to training.** Campaign A is therefore a valid regenerated ground truth, and campaign B's
+fresh-mask outcomes can be trusted as such.
+
+## 13. (BUG, FOUND AND FIXED) Restricting a preconditioner is not restricting Φ
+
+B3's first implementation restricted KFAC to a parameter group but left Φ at full width. For
+`head` that preconditions 0.2% of the score's coordinates, so every "head KFAC" cell was
+reporting GradDot with a rounding error (all λ within 0.007 of the identity). Fixed: Φ and the
+preconditioner are restricted together, and the control row (`method="none"`) is B1's GradDot on
+the *same* restricted Φ. The B3 numbers in RESULTS.md are from the fixed version.
+
+## 14. (BUG, FOUND AND FIXED BY A SMOKE TEST) A redesigned functional scored against the old outcome
+
+`confirm3.py` initially built one ground truth (`weighting="plain"`) and scored every hypothesis
+against it, including H4, whose whole content is that the **interaction-phase** functional beats
+the plain one. Scoring it against the plain outcome gave 0.428 instead of its dev value 0.474 —
+i.e. it measured the mismatch between two functionals, which is exactly the error B2's protocol
+exists to prevent. Caught by a wiring smoke test run on the archived masks *before* campaign B
+produced any data; `fresh_truth` is now keyed by weighting. `PREREG` was not touched.
+
+## 15. (NOT ATTEMPTED, environment) Rollout-visited-state weighting
+
+B2's third proposed functional needs the policy rolled out to collect visited states. Neither
+`libero` nor `robosuite` is importable in this environment, and the functional would additionally
+require re-rolling all 240 mask retrains, which is outside the GPU budget. Not attempted, and the
+B2 conclusions are stated over the four functionals that were.
+
+## 16. (OPERATIONAL) Three concurrent trainers saturate this H200; six is slower
+
+Measured, not assumed. One trainer: 87 s/run. Three: 137 s/run (throughput 1.9×). Six: 314 s/run
+(throughput 1.15× vs three, i.e. a net LOSS). The model is 19.2M parameters at batch 256, so the
+bottleneck is kernel launch and scheduling rather than FLOPs, and oversubscription costs more
+than it buys. Campaign workers are 3.
