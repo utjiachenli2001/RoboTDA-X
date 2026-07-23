@@ -162,3 +162,78 @@ stability was reported alongside, not instead of, faithfulness.
 
 No variant from Tasks 1–3 beats `GradDot_dmean` (0.5930) on C1. See `FINDINGS.md` for the
 frozen hold-out run.
+
+---
+
+# Pass 2 — methods sweep (A4, A5, B1) and GPU ledger
+
+Pass-1 tables above are unchanged. New estimators below; same conventions
+(demo grain, n=24, tier `bc_s10`, reported as LDS / ceiling / ratio / p).
+
+## A4 — design-based datamodel (`results/a4_datamodel.csv`)
+
+Headline `lds` is **out-of-fold** (each mask predicted by a fit excluding it). The in-sample
+column is retained only to expose the circularity (BLOCKERS #7).
+
+| model | target | alpha | LDS (OOF) | ratio | p | pass | LDS in-sample (INVALID) | non-zero coefs |
+|---|---|---|---|---|---|---|---|---|
+| ridge | C1 | 100 | 0.043 | 0.045 | 0.422 | ✗ | 0.793 | 135 |
+| lasso | C1 | 0.001 | 0.397 | 0.417 | 0.028 | ✗ | 0.986 | 19 |
+| elasticnet | C1 | 0.01 | 0.300 | 0.316 | 0.077 | ✗ | 0.891 | 14 |
+| ridge | C5 | 10 | 0.784 | 0.836 | 2.9e−06 | **✓** | 0.978 | 135 |
+| **lasso** | **C5** | 0.001 | **0.824** | **0.879** | 3.7e−07 | **✓** | 0.985 | 19 |
+| elasticnet | C5 | 0.01 | 0.795 | 0.847 | 1.7e−06 | **✓** | 0.970 | 8 |
+
+The in-sample column reaching ratio > 1.0 is the tell. Note the datamodel wins C5 by a wide
+margin (0.879 vs GradDot's 0.416) and loses C1 (0.417 vs 0.624) — exactly opposite to every
+gradient estimator.
+
+## A5 — rank fusion (`results/a5_fusion.csv`), target-blind rules
+
+Ratio-to-ceiling. Recipes containing the datamodel are evaluated leave-one-mask-out.
+
+| recipe | fusion | C1 | C5 |
+|---|---|---|---|
+| gradients_only | z-score avg | **0.649** | 0.429 |
+| gradients_only | borda | 0.626 | 0.400 |
+| GradDot+datamodel | z-score avg | 0.879 | **0.814** |
+| GradDot+HL+datamodel | z-score avg | 0.851 | 0.793 |
+
+`gradients_only` z-avg = **0.6165 LDS (ratio 0.649)** on C1 is a genuine, circularity-free
+improvement over GradDot_dmean (0.5930 / 0.624) — the best C1 number in either pass.
+
+## B1 — layerwise influence (`results/b1_layerwise.csv`), regenerated E=5 ensemble
+
+Ratio-to-ceiling. **Not comparable to the E=20 rows** (BLOCKERS #6).
+
+| group | params | C1 GradDot | C1 best-k | C5 GradDot | C5 best-k |
+|---|---|---|---|---|---|
+| ALL | 19.2M | 0.509 | 0.509 (k=0) | 0.401 | 0.572 (k=20) |
+| head | 39.5K (0.2 %) | **0.506** | 0.506 (k=0) | 0.413 | 0.454 (k=2) |
+| embed | 268K | 0.277 | 0.277 (k=0) | 0.485 | 0.485 (k=0) |
+| block_00 | 3.15M | 0.042 | 0.042 | 0.559 | 0.559 |
+| **block_01** | 3.15M | −0.072 | −0.072 | **0.692** | **0.757 (k=10)** |
+| block_05 / last | 3.15M | 0.470 | 0.470 | 0.399 | 0.489 (k=2) |
+
+`k*` by group (parallel analysis, 100 perms): ALL 1, head 1, last_block 1, **block_00 6,
+embed 9**. Restricting Φ makes curvature estimable, and only there does truncated inversion
+beat GradDot.
+
+## Task 9 — confirmatory hold-out (`results/holdout_phase2.csv`), computed once
+
+C2/C4/C7/C9, Bonferroni over the 16 tested cells (α = 0.00156). Full table in FINDINGS.md.
+One pass: **datamodel_lasso on C2, ratio 0.639, p = 0.00115**. Everything else fails.
+`block_01`/k=10 does not transfer (C7 = −0.142), confirming it as sweep noise.
+
+## GPU ledger (budget 12 h, hard stop)
+
+| # | item | detail | GPU-h | cumulative |
+|---|---|---|---|---|
+| 1 | rate measurement | `ens_s201` retrain, 94 s wall | 0.026 | 0.026 |
+| 2 | Gram rebuild + cache verify | full-width Φ, 135 demos, ~1 s | 0.002 | 0.028 |
+| 3 | member regeneration ×4 | `ens_s202..205`, 93 s each | 0.103 | 0.131 |
+| 4 | B1 layerwise | 5 members × 11 groups, Φ once/member, 19.5 s | 0.005 | 0.136 |
+| 5 | B1 re-run inside `confirm.py` | same, for hold-out | 0.006 | **0.142** |
+
+**Total 0.15 GPU-h of 12.** Phase A (A1–A5) used zero. No GPU was spent on larger ensembles
+or more seeds, per the prime directive.

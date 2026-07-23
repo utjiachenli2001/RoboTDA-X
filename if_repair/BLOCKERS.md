@@ -85,3 +85,75 @@ ln -s ~/code/RoboTDA-X /mnt/sdb/ljc/RoboTDA-X
 host). This box has one GPU (index 0), so the pin selects a nonexistent device — harmless here,
 since Tasks 0–3 and 5 are pure NumPy and torch is only imported, never used for compute.
 `if_repair` code itself derives its own ROOT from `__file__` and does not depend on the symlink.
+
+---
+
+# Pass 2 (methods sweep) — additional blockers
+
+## 6. (RESOLVED with a caveat) Checkpoints are regenerable, but NOT reproducible
+
+Pass 1 recorded (#3) that the repo ships no weights, blocking all of Phase B. That was only
+half right. The training **data** is present (700 `.npz` under `data/proc`; `dataset.Bank`
+builds fine), every member's seed + demo list + cfg is in `runs/stage_E/ens_s*/`, and a
+member trains in **94 s** on the H200. So the checkpoints can be regenerated, which is what
+unblocked B1.
+
+They are **not the original weights**, and this was tested rather than assumed. Rebuilding
+`(G,K)` for a regenerated `ens_s201` and comparing to its cached slice
+(`if_repair/results/regen_verify_ens_s201.json`):
+
+| quantity | value |
+|---|---|
+| `G` relative Frobenius difference | 0.879 |
+| `K` relative Frobenius difference | 0.843 |
+| per-target Spearman of `K` columns | 0.02 … 0.85 |
+| median ratio of `diag(G)` regen/cached | **0.190** |
+
+Gradient norms are ~5× smaller and the rank correlations are partial. The repo's determinism
+gate (`p8b_determinism*.json`) established determinism of *rollouts on the original box*; it
+does not imply bit-reproducibility across a different torch/CUDA/GPU stack, and this is a
+direct measurement that it does not hold here (final loss −18.84 regen vs −18.70 archived).
+
+**Consequence, applied throughout:** every B1 baseline is recomputed on the same regenerated
+E=5 ensemble. B1's internal comparisons (group vs group, k vs k) are valid; B1's absolute
+numbers are **not** comparable to the E=20 cached-Gram rows, and are labelled `regenE5`.
+
+## 7. (RESOLVED) `demo_grain_lds` is circular for any estimator fit on mask outcomes
+
+The demo-grain LDS forms its mask prediction as `sum_{d in mask} score_d`, which for a linear
+datamodel is exactly `X @ beta` — the quantity the datamodel minimised. Scoring in-sample
+coefficients therefore measures fit, not faithfulness, and duly returns ρ up to 0.986 with
+**ratio-to-ceiling above 1.0** — impossible for a real estimator, since the ceiling is the
+reliability of the outcome itself.
+
+This bit twice: first in A4, then again in A5 when datamodel coefficients were fused into a
+rank ensemble (it inflated C5 from an honest 0.43 to a fake 0.97). Both are now evaluated
+**leave-one-mask-out**: each mask is predicted by a fit that excluded it. Gradient estimators
+are unaffected — their scores never touch outcomes — and use the direct path.
+
+Any future estimator that consumes outcome data must go through the LOO path in
+`if_repair/confirm.py`, not `eval.evaluate`.
+
+## 8. (NOT A BUG — real failure mode) The datamodel collapses to a constant on C7/C9
+
+`A4_datamodel_lasso_LOO` returns NaN on hold-out targets C7 and C9. Cause: the
+cross-validated `alpha` is selected at 0.1, which zeroes **every** coefficient, so the model
+predicts the mean for all 24 masks and Spearman is undefined.
+
+| target | selected alpha | non-zero coefs |
+|---|---|---|
+| C2 | 0.01 | 6 |
+| C4 | 0.001 | 22 |
+| C7 | 0.1 | **0** |
+| C9 | 0.1 | **0** |
+
+This is honest behaviour — CV decided the design explains nothing for those targets — but it
+means the datamodel does not degrade gracefully: it either finds structure (C5, C2) or
+returns nothing at all. NaN is scored as a non-pass, never dropped.
+
+## 9. (NOT ATTEMPTED, not blocked) B2 / B3 / B4 were not run
+
+Only B1 was executed from Phase B. This was a wall-clock/session limit, not a resource or
+data limit: 0.15 of 12 GPU-h were used, and the checkpoint-regeneration path that unblocked
+B1 unblocks the rest equally (including the 5 per-member checkpoints `ckpt_0..4.pt` that B4's
+TracIn density needs). Carried to HANDOFF.md with the exact entry points.
