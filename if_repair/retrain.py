@@ -185,10 +185,18 @@ def aggregate_outcomes(l2, nll, fidx):
 
 
 # --------------------------------------------------------------------------- job plans
-def fresh_demo_masks(seed=FRESH_MASK_SEED):
+# Third mask draw (campaign I). Confirms the paired B8 results (KFAC-embed, datamodel on C5)
+# out of sample: by the time B8 ran, the G- and H-series were both consumed dev data, so the
+# 100%-of-draws paired result rides on masks the estimators have effectively seen. A genuinely
+# fresh draw is the only clean confirmation. Seed 9973 is disjoint from 11 (G) and 4711 (H);
+# tests assert the three draws share no mask.
+FRESH_MASK_SEED_I = 9973
+
+
+def fresh_demo_masks(seed=FRESH_MASK_SEED, prefix="H"):
     """The repo's own Stage-G generator at a different seed -> a fresh, disjoint mask draw."""
     masks, cnts, _, _ = MK.build_demo_masks(seed=seed)
-    return [{"mask_id": f"H{k:03d}", "n_demos": len(m), "demos": m}
+    return [{"mask_id": f"{prefix}{k:03d}", "n_demos": len(m), "demos": m}
             for k, m in enumerate(masks)], cnts
 
 
@@ -209,6 +217,11 @@ def jobs(campaign):
         return [{"run_id": f"B_{m['mask_id']}_i{s}_o{s}", "mask_id": m["mask_id"],
                  "demos": m["demos"], "seed_init": s, "seed_order": s}
                 for m in ms for s in B_SEEDS]
+    if campaign == "I":
+        ms, _ = fresh_demo_masks(seed=FRESH_MASK_SEED_I, prefix="I")
+        return [{"run_id": f"I_{m['mask_id']}_i{s}_o{s}", "mask_id": m["mask_id"],
+                 "demos": m["demos"], "seed_init": s, "seed_order": s}
+                for m in ms for s in B_SEEDS]      # same 10-seed depth as A and B
     raise KeyError(campaign)
 
 
@@ -234,7 +247,7 @@ def run_job(job, cfg, fidx, outdir, device="cuda"):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--campaign", required=True, choices=["A", "B", "C"])
+    ap.add_argument("--campaign", required=True, choices=["A", "B", "C", "I"])
     ap.add_argument("--worker", type=int, default=0)
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)
