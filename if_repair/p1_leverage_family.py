@@ -127,9 +127,10 @@ def main():
 
     rows = []      # per (source, agg, lam_rel, beta, target): per-draw + pooled point Delta_rho
     for sname, Z in sources.items():
+        # CANONICAL bar: always GradDot_dmean on the same ensemble (BLOCKERS #1), never the
+        # weaker unit-L2 variant -- even when the family cell uses unit-L2 aggregation.
+        gbase = scores_graddot(Z, normalize_per_member=True)
         for agg in AGGS:
-            gbase = (scores_graddot(Z, normalize_per_member=True) if agg == "dmean"
-                     else _graddot_unitl2(Z))
             for lam_rel in LAM_RELS:
                 for beta in BETAS:
                     sc = family_scores(Z, lam_rel, beta, agg)

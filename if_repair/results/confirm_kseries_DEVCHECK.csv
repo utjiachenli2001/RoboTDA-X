@@ -1,0 +1,4 @@
+name,target,pooled_delta_rho,pooled_p
+K1_leverage_head_l0p3_b1_C2,C2,0.27635217698887393,0.0058
+K2_leverage_head_l0p3_b1_C8,C8,0.3864878770338929,0.0014
+K3_leverage_cachedE20_l1_b1_C7,C7,0.316033185413853,0.0092
