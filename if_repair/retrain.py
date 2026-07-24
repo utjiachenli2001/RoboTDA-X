@@ -206,12 +206,42 @@ FRESH_MASK_SEED_K = 20260724
 # out of sample on an independent draw. Seed 20260725, disjoint from G/H/I/J/K.
 FRESH_MASK_SEED_L = 20260725
 
+# Seventh draw (campaign M) -- the pass-7 resolving campaign. W0.2 (p7_design.py) measured the
+# exchange rate between masks and seeds on this corpus: the paired sd is FLAT in depth (0.179 at
+# 2 seeds vs 0.183 at 10, n=24) and falls as 1/sqrt(n) in masks, so a retrain spent on a new mask
+# is worth about five spent on a new seed. M therefore buys masks: 144 of them at depth 2 (288
+# retrains), which W0.2 predicts gives a paired sd ~0.045 and a 95% CI of width ~0.18 -- the
+# resolution six passes of 24-mask draws never reached, for less GPU than any one of them.
+#
+# build_demo_masks is hardcoded to K_DEMO = 24 (its per-demo inclusion balance depends on it:
+# n8 sums to 24*5), and changing the generator would invalidate every existing draw. So M is SIX
+# sub-draws at six fresh seeds, concatenated. Each sub-draw is a valid 24-mask design from the
+# UNMODIFIED generator, and W0.1 measured the between-draw variance component at zero on every
+# set tested, so pooling them is exactly the operation the pooled analysis is built on. The first
+# digit of the mask id records the sub-draw, so the mask bootstrap can stratify within it.
+FRESH_MASK_SEED_M = (20260726, 20260727, 20260728, 20260729, 20260730, 20260731)
+M_DEPTH = 2
+
 
 def fresh_demo_masks(seed=FRESH_MASK_SEED, prefix="H"):
     """The repo's own Stage-G generator at a different seed -> a fresh, disjoint mask draw."""
     masks, cnts, _, _ = MK.build_demo_masks(seed=seed)
     return [{"mask_id": f"{prefix}{k:03d}", "n_demos": len(m), "demos": m}
             for k, m in enumerate(masks)], cnts
+
+
+def fresh_demo_masks_pooled(seeds=FRESH_MASK_SEED_M, prefix="M"):
+    """-> 24*len(seeds) masks from len(seeds) independent sub-draws of the same generator.
+
+    Mask ids are f"{prefix}{subdraw}{k:02d}" (M000..M023, M100..M123, ...), so the id is unique
+    across sub-draws AND records which sub-draw it came from.
+    """
+    out = []
+    for d, s in enumerate(seeds):
+        masks, _, _, _ = MK.build_demo_masks(seed=s)
+        out += [{"mask_id": f"{prefix}{d}{k:02d}", "n_demos": len(m), "demos": m,
+                 "subdraw": f"{prefix}{d}", "seed": s} for k, m in enumerate(masks)]
+    return out
 
 
 def jobs(campaign):
@@ -251,6 +281,11 @@ def jobs(campaign):
         return [{"run_id": f"L_{m['mask_id']}_i{s}_o{s}", "mask_id": m["mask_id"],
                  "demos": m["demos"], "seed_init": s, "seed_order": s}
                 for m in ms for s in B_SEEDS]      # same 10-seed depth as the others
+    if campaign == "M":
+        ms = fresh_demo_masks_pooled()
+        return [{"run_id": f"M_{m['mask_id']}_i{s}_o{s}", "mask_id": m["mask_id"],
+                 "demos": m["demos"], "seed_init": s, "seed_order": s}
+                for m in ms for s in B_SEEDS[:M_DEPTH]]   # depth 2, by the W0.2 allocation result
     raise KeyError(campaign)
 
 
@@ -276,7 +311,8 @@ def run_job(job, cfg, fidx, outdir, device="cuda"):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--campaign", required=True, choices=["A", "B", "C", "I", "J", "K", "L"])
+    ap.add_argument("--campaign", required=True,
+                    choices=["A", "B", "C", "I", "J", "K", "L", "M"])
     ap.add_argument("--worker", type=int, default=0)
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)
