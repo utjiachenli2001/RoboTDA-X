@@ -646,3 +646,125 @@ on C5 for J and L; leverage>=GradDot on C7 for K) -- a first for the project. Bu
 estimator robustly clears the absolute half-ceiling bar across fresh draws: the one absolute-bar pass
 (RelatIF/C5, J) did not replicate on L. The datamodel remains the only estimator with a large
 replicable OOS advantage. Binding limitation: n=24. Pass 7 should spend GPU on a higher-power draw.
+
+---
+
+# Pass 7 -- full tables
+
+All contrasts are paired against `GradDot_dmean` on the same masks (BLOCKERS #1/#23), with 95% CIs
+from a percentile mask bootstrap stratified within draw. Primary statistic Kendall tau_b, secondary
+Spearman (BLOCKERS #30). "Honest" = the config's discovery draw removed (BLOCKERS #28/#31).
+
+## 7.1 Pooled out-of-sample contrast of the frozen pass-4/5/6 configs (W0.1, zero GPU)
+
+`results/p7_pooled_oos.csv`. Spearman, depth 10.
+
+| config | analysis | draws | n | lds | GradDot | ceiling | ratio | Delta rho | 95% CI | p |
+|---|---|---|---|---|---|---|---|---|---|---|
+| RelatIF/C5 | full information | J+K+L | 72 | 0.184 | 0.100 | 0.964 | 0.190 | +0.083 | [-0.108, +0.284] | 0.202 |
+| RelatIF/C5 | **honest** | K+L | 48 | 0.006 | 0.050 | 0.962 | 0.006 | **-0.044** | [-0.264, +0.185] | 0.659 |
+| surrogate-LOO/C5 | full information | J+K+L | 72 | 0.121 | 0.119 | 0.964 | 0.125 | +0.002 | [-0.330, +0.308] | 0.502 |
+| surrogate-LOO/C5 | **honest** | K+L | 48 | -0.082 | 0.154 | 0.962 | -0.085 | **-0.236** | [-0.628, +0.143] | 0.886 |
+| C5 ensemble | full information | K+L | 48 | -0.044 | 0.050 | 0.962 | -0.046 | -0.094 | [-0.377, +0.175] | 0.753 |
+| leverage/C7 | full information | J+K+L | 72 | 0.307 | 0.209 | 0.960 | 0.320 | +0.098 | [-0.199, +0.403] | 0.255 |
+| leverage/C7 | **honest** | J+L | 48 | 0.268 | 0.240 | 0.950 | 0.282 | **+0.028** | [-0.338, +0.395] | 0.734 |
+
+Per-draw for RelatIF/C5 (`results/p7_per_draw.csv`): G +0.226, H +0.384, I +0.135 (all dev);
+J +0.341 (discovery); **K -0.171**; L +0.075. Between-draw heterogeneity over the OOS draws:
+I^2 = 46%, Cochran Q p = 0.16 -- the draws disagree about as much as sampling alone predicts.
+
+Pooling validity (`results/p7_pooling_validity.csv`): the between-draw variance component is
+**zero to numerical precision** on every set tested (C5 and C7, J+K+L and all six), F = 0.003-0.93,
+p = 0.46-1.00. The six draws are exchangeable, so raw pooling is valid and the prespecified
+within-draw-rank fallback was not triggered.
+
+## 7.2 Allocation -- the exchange rate (W0.2, zero GPU)
+
+`results/p7_allocation.csv`, `results/p7_iso_budget.csv`. Sampling sd of the paired contrast, C5,
+masks bootstrapped with replacement.
+
+| paired sd | depth 2 | depth 3 | depth 5 | depth 8 | depth 10 |
+|---|---|---|---|---|---|
+| 24 masks | 0.179 | 0.187 | 0.172 | 0.182 | 0.183 |
+| 48 masks | 0.127 | 0.127 | 0.121 | 0.121 | 0.129 |
+| 72 masks | 0.103 | 0.108 | 0.107 | 0.097 | 0.098 |
+| 96 masks | 0.089 | 0.082 | 0.082 | 0.085 | 0.082 |
+| 144 masks | 0.078 | 0.073 | 0.070 | 0.066 | 0.069 |
+
+Iso-budget, C5 (BEST per budget in bold):
+
+| budget | split | ceiling | mean ratio | paired sd | 95% CI width | power(0.15) |
+|---|---|---|---|---|---|---|
+| 240 | **120 x 2** | 0.809 | 0.405 | **0.077** | **0.301** | 0.62 |
+| 240 | 48 x 5 | 0.908 | 0.373 | 0.121 | 0.475 | 0.34 |
+| 240 | 24 x 10 (archived) | 0.945 | 0.377 | 0.183 | 0.719 | 0.20 |
+| 720 | **144 x 5** | 0.920 | 0.372 | **0.070** | **0.273** | 0.70 |
+| 720 | 72 x 10 | 0.955 | 0.372 | 0.068 | 0.267 | 0.71 |
+
+Statistic selection (`results/p7_statistic_selection.csv`), scored on reliability and noise only:
+kendall_tau_b **5.32**, pearson_raw 4.61, spearman 4.52, quartile_gap 3.76, top6_overlap 3.57.
+Same winner on C5 and C7.
+
+Baseline instability (`results/p7_baseline_instability.csv`): `GradDot_dmean` C5 LDS spans
+**-0.066 to +0.489** across the six draws (sd 0.217). C5 var(GradDot) 0.047, var(RelatIF) 0.097,
+cov +0.052, var(paired) 0.041. C7 cov is **negative** (-0.009) so var(paired) 0.071 exceeds
+var(level) 0.011.
+
+Contrast under every candidate statistic on the honest sets (`results/p7_contrast_by_statistic.csv`):
+RelatIF/C5 on K+L is negative under all six (kendall -0.051, spearman -0.044, pearson -0.046,
+top6 -0.167, quartile_gap -0.247). leverage/C7 on J+L is null under all six.
+
+## 7.3 Campaign M -- the resolving campaign (W1)
+
+144 virgin masks (6 disjoint sub-draws) x depth 2 = 288 retrains. `PREREG_M` frozen at zero runs
+(`bdab9af`), family of one (alpha_abs = 0.05), scored once. `results/confirm_mseries.csv`.
+
+| statistic | lds | GradDot | ceiling | ratio | p_abs | PASS_abs | Delta rho | 95% CI | p | PASS_paired |
+|---|---|---|---|---|---|---|---|---|---|---|
+| kendall_tau_b (primary) | 0.284 | 0.199 | 0.688* | 0.413 | <1e-4 | no | **+0.085** | [-0.004, +0.171] | **0.031** | **yes** |
+| spearman (secondary) | 0.413 | 0.301 | 0.844 | 0.489 | <1e-4 | no | **+0.111** | [-0.013, +0.231] | **0.041** | **yes** |
+
+\* the Kendall ceiling reuses the archived disjoint-half construction and Spearman-Brown step,
+which is derived for correlations; it is an approximation and the Spearman row is the one
+comparable to project history.
+
+Per sub-draw, Kendall (`results/p7_forest_final_kendall_tau_b.csv`): M0 +0.058, M1 +0.116,
+M2 +0.145, **M3 +0.341 [+0.121, +0.550]**, M4 -0.058, M5 -0.022. **M3 is a single 24-mask draw
+that reproduces campaign J's headline number exactly** -- the clearest possible demonstration that
++0.34 is within the sampling distribution of a 24-mask draw under a true effect of ~+0.06.
+
+Pooled over every clean out-of-sample mask (`results/confirm_mseries_grandpooled.csv`,
+`results/p7_matched_depth.csv`):
+
+| pooling | statistic | n | Delta rho | 95% CI | width | p |
+|---|---|---|---|---|---|---|
+| K+L (pre-M) | kendall | 48 | -0.051 | [-0.197, +0.103] | 0.300 | 0.757 |
+| M alone (virgin) | kendall | 144 | +0.085 | [-0.005, +0.172] | 0.177 | 0.032 |
+| **K+L+M, mixed depth** | **kendall** | **192** | **+0.060** | **[-0.017, +0.136]** | **0.153** | **0.057** |
+| K+L+M, mixed depth | spearman | 192 | +0.084 | [-0.027, +0.193] | 0.220 | 0.064 |
+| K+L+M, matched depth 2 | kendall | 192 | +0.055 | [-0.020, +0.131] | 0.150 | 0.074 |
+| K+L+M, matched depth 2 | spearman | 192 | +0.075 | [-0.034, +0.184] | 0.218 | 0.085 |
+
+K+L alone is negative at both depths (-0.094 at depth 2, -0.051 at depth 10), so depth mixing is
+not driving the pooled sign.
+
+## 7.4 W2 duels -- killed by the pilot
+
+6 duels, depth 4, 48 retrains. `results/p7_duels_pilot.csv`, manifest `results/p7_duel_manifest.json`.
+
+| quantity | value |
+|---|---|
+| mean within-duel abs diff / seed-noise sd | **0.444** (kill threshold 1.0) |
+| mean paired sd | 0.0365 |
+| mean unpaired sd | 0.0872 |
+| **pairing gain** | **2.39x** |
+| RelatIF correct | 1 / 6 (sign test p = 0.98) -- **UNINTERPRETABLE, see BLOCKERS #35** |
+
+Duel availability (`p7_duel_manifest.json → availability`): RelatIF vs GradDot demo-level rank
+correlation **0.547**; disagreeing within-cluster pairs at gap >= {3,4,5,6,7,8,9} =
+{108, 62, 37, 23, 11, 3, 1}; demo-disjoint duels = {29, 18, 12, 11, 5, 1, 1}.
+
+## 7.5 GPU ledger
+
+`results/gpu_ledger_pass7.csv`. W0.1 and W0.2 -- including the result that overturned passes 4-6 --
+cost **zero GPU**.

@@ -427,3 +427,222 @@ J = seed 20260723 (pass-4 confirmation), K = seed 20260724 (pass-5 confirmation)
 tests/test_jseries.py asserts pairwise disjointness of all five draws and freezes both seeds. Both
 PREREG files (confirm_jseries.py, confirm_kseries.py) were committed with the respective campaign at
 ZERO runs (git history), the same integrity mechanism as confirm3/confirm_iseries.
+
+---
+
+# Pass 7 -- new blockers and corrections
+
+## 28. (CORRECTION, and the pass's central result) A frozen config is OUT-OF-SAMPLE on every later draw -- and nobody had scored RelatIF/C5 on campaign K
+
+Passes 4-6 concluded that a leverage / self-influence correction (RelatIF, K/G_dd) is the first
+gradient estimator in the project to beat GradDot out of sample "IN DIRECTION, consistently across
+six mask draws". **That claim is false.** It was true only because one draw had never been scored.
+
+The RelatIF/C5 config was frozen in `PREREG_J` (`c7659cf`) with campaign J at zero runs and never
+retuned. It is therefore legitimately out-of-sample on J, K **and** L. But campaign K's own prereg
+family named C2/C8/C7, so the C5 config was never run against K. Scoring it there (W0.1,
+`p7_pooled_oos.py`) costs zero GPU and reverses the sign:
+
+| draw | role | Delta rho vs GradDot_dmean |
+|---|---|---|
+| G | dev (selection) | +0.226 |
+| H | dev (selection) | +0.384 |
+| I | dev (selection) | +0.135 |
+| J | **discovery** | +0.341 |
+| K | **oos, never scored until pass 7** | **-0.171** |
+| L | oos | +0.075 |
+
+Every draw the effect was selected on or reported on is positive; the one clean draw nobody had
+looked at is negative. Pooled over its winner's-curse-free set (K u L, 48 masks): **Delta rho
+= -0.044, 95% CI [-0.264, +0.185], p = 0.659.** Ratio-to-ceiling 0.006 against a 0.5 bar.
+
+**Two lessons, and the second is the subtle one.**
+
+1. **The confirmation draw you already own is worth more than the estimator you were about to
+   build.** Six draws existed on disk; the analysis that overturned the headline was a re-scoring,
+   not an experiment. Before designing a new estimator, score every frozen config on every draw it
+   is out-of-sample on.
+2. **Frozen-before-the-draw is NOT the same as unselected-upon.** RelatIF/C5 was frozen before J,
+   so J is technically out-of-sample. But J is the draw on which the effect was first *reported as
+   a success*, and conditioning on "this is the hypothesis we followed up" selects for a favourable
+   J. Hence every contrast in pass 7 is reported twice: full-information (all OOS draws) and
+   without the discovery draw. **Believe the second.** With J the pooled estimate is +0.083; without
+   it, -0.044. The winner's curse on a discovery draw is exactly that large.
+
+## 29. (MEASURED) Seed depth buys almost nothing; masks buy everything. The exchange rate is ~5:1
+
+`p7_design.py` resamples the existing 144 masks x 10 seeds. Sampling sd of the paired contrast
+(C5, RelatIF vs GradDot_dmean), masks bootstrapped with replacement:
+
+| paired sd | depth 2 | depth 5 | depth 10 |
+|---|---|---|---|
+| 24 masks | 0.179 | 0.172 | 0.183 |
+| 48 masks | 0.127 | 0.121 | 0.129 |
+| 72 masks | 0.103 | 0.107 | 0.098 |
+| 144 masks | 0.078 | 0.070 | 0.069 |
+
+**Depth is flat. Masks follow 1/sqrt(n) almost exactly.** BLOCKERS #17 guessed seed noise was
+nearly exhausted by depth 4-5; for the PAIRED statistic it is exhausted by depth 2.
+
+Iso-budget, 240 retrains spent three ways: 120x2 gives paired sd 0.077; 48x5 gives 0.121; the
+archived **24x10 gives 0.183**. Same GPU, 2.4x smaller sd, ~5.7x the effective sample size. **The
+archived depth-10 protocol is close to the worst allocation available on this corpus.**
+
+Depth does buy the ceiling (0.809 at depth 2 -> 0.945 at depth 10), but the mean ratio-to-ceiling
+is flat across allocations (0.405 vs 0.377) because rho and the ceiling fall together, so trading
+depth for masks does not harm the absolute bar either.
+
+**Sizing.** A 95% CI of width 0.20 needs paired sd 0.051: ~295 masks at Spearman, or ~112 masks
+under the primary statistic (#30) -- at depth 2, ~224 retrains ~ 5.9 solo-h. The same resolution
+under the archived protocol costs ~2950 retrains ~ 77 solo-h. **Thirteen times the GPU for the
+same answer.** This is why six passes of 24-mask draws resolved nothing.
+
+Methodological trap inside the trap: the first version of this table subsampled masks WITHOUT
+replacement from the 144-mask pool, which carries a finite-population correction (1 - n/144) and
+drives the sd to exactly 0 at n = 144. It inflated the mask advantage and was caught before commit.
+The estimand is a campaign of n FRESH masks, so the nonparametric bootstrap (with replacement) is
+the right model; seeds stay without replacement because a real campaign draws d distinct slots.
+
+## 30. (RESULT) Kendall tau_b resolves this corpus better than Spearman, and the statistic can be chosen without looking at the hypothesis
+
+Candidate LDS statistics scored on RELIABILITY (split-half of the outcome against itself) and NOISE
+(spread of a random predictor) only -- criteria that never touch the estimator-vs-baseline contrast:
+
+| statistic | reliability | null sd | resolution |
+|---|---|---|---|
+| **kendall_tau_b** | 0.763 | 0.145 | **5.32** |
+| pearson_raw | 0.911 | 0.199 | 4.61 |
+| spearman (incumbent) | 0.899 | 0.199 | 4.52 |
+| quartile_gap | 2.278 | 0.596 | 3.76 |
+| top6_overlap | 0.820 | 0.159 | 3.57 |
+
+Same winner on C5 and C7. **The selection method validated itself:** chosen purely on
+estimator-free criteria, Kendall then returned CIs about a third narrower than Spearman on the same
+masks (C5 K u L width 0.306 vs 0.459). Spearman is retained as a mandatory secondary for continuity
+with every historical number in the repo.
+
+The C5 null is robust to this choice -- it is negative under all six statistics, including both
+decision-quality ones. So the passes 4-6 result does not fail merely because Spearman is blunt.
+
+Correction to the pass-7 brief: it lists "Pearson on ranks" as a candidate distinct from Spearman.
+Pearson on ranks IS Spearman by definition.
+
+## 31. (TRAP, redux of #20 one level down) The honest draw set is per-CONFIG, not per-pass
+
+W0.2b initially scored both surviving configs on K u L. That is the honest set for RelatIF/C5,
+whose discovery draw is J -- but **K is the discovery draw for leverage/C7**, so the same call
+scored C7 on the very draw its effect was reported on. It returned Kendall +0.257, CI [0.000,
+0.515], **p = 0.026** -- a publishable-looking out-of-sample win that is nothing of the kind. On
+C7's actual honest set (J u L) the same statistic gives **+0.032, p = 0.406**.
+
+Caught before commit. The honest set is now derived from `CONFIGS[...]["discovery"]` per config and
+can never again be a per-pass constant. Different hypotheses in the same pass have different
+discovery draws, and a single "the fresh draws are K and L" statement is wrong for at least one of
+them.
+
+## 32. (RESULT) Pairing is not always the right statistic -- it depends on the sign of the covariance
+
+BLOCKERS #17 established that the paired contrast beats the level because the mask draw is a shared
+nuisance that cancels. Measured across the six draws, that is true for C5 and **false for C7**:
+
+| target | var(GradDot) | var(estimator) | cov | var(paired Delta) |
+|---|---|---|---|---|
+| C5 | 0.047 | 0.097 | **+0.052** | 0.041 (pairing removes 58% of the challenger's variance) |
+| C7 | 0.043 | 0.011 | **-0.009** | 0.071 (**pairing is worse than the level**) |
+
+When the estimator and the baseline are negatively correlated across draws, differencing them adds
+variance instead of removing it. Nothing in the repo checked the sign before adopting the paired
+statistic universally. Check `cov` before choosing.
+
+Also worth recording: **GradDot_dmean is itself a moving target.** Its C5 LDS ranges from -0.066
+(H) to +0.489 (I) across the six draws, sd 0.217 -- larger than most effects anyone has claimed on
+this corpus. A "win over GradDot" on one draw is substantially a statement about which GradDot you
+happened to draw.
+
+## 33. (RESULT) RelatIF and GradDot mostly AGREE -- which is why the LDS cannot separate them
+
+Building the W2 duel design surfaced the mechanism behind six passes of failure to discriminate.
+The two estimators rank-correlate **0.547** over the 135 demos (0.566 within cluster). Of the 945
+possible within-cluster demo pairs, only 6.6% disagree at a rank gap >= 4:
+
+| min rank gap | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+|---|---|---|---|---|---|---|---|
+| disagreeing pairs | 108 | 62 | 37 | 23 | 11 | 3 | 1 |
+| demo-disjoint duels | 29 | 18 | 12 | 11 | 5 | 1 | 1 |
+
+On a random 68-of-135 mask the two summed scores nearly coincide, so almost all of the outcome
+variation an LDS sees carries no information about which estimator is right. **This is independent
+of sample size** -- it is why more masks help slowly (#29) and why the duel design exists at all.
+It also caps the duel design: demo-disjointness is what makes the duels independent and the sign
+test valid, and it limits the corpus to n = 18 usable duels, not the 32-40 the brief assumed.
+
+## 34. (RESULT, and the pass's answer) The C5 effect is real, small, and about a quarter of what was claimed
+
+Campaign M -- 144 virgin masks in 6 disjoint sub-draws at depth 2, 288 retrains, PREREG_M frozen
+at zero runs (`bdab9af`), family of one, scored once.
+
+| statistic | lds | GradDot | ceiling | ratio | paired Delta | 95% CI | p | bars |
+|---|---|---|---|---|---|---|---|---|
+| kendall_tau_b (primary) | 0.284 | 0.199 | 0.688 | 0.413 | **+0.085** | [-0.004, +0.171] | 0.031 | PAIRED pass, ABS fail |
+| spearman (secondary) | 0.413 | 0.301 | 0.844 | 0.489 | **+0.111** | [-0.013, +0.231] | 0.041 | PAIRED pass, ABS fail |
+
+**The first time any gradient-side estimator in this project has cleared paired p < 0.05 on a
+virgin preregistered draw.** The absolute half-ceiling bar still fails (Spearman misses by 0.011).
+
+**Pooled over every clean out-of-sample mask (K u L u M, 192 masks, 8 draws) -- quote this, not M
+alone, which is the single most favourable slice:**
+
+| pooling | Delta rho | 95% CI | p |
+|---|---|---|---|
+| mixed depth (10/10/2), kendall | **+0.060** | [-0.015, +0.137] | 0.057 |
+| mixed depth, spearman | +0.084 | [-0.027, +0.193] | 0.064 |
+| matched depth 2, kendall | +0.055 | [-0.020, +0.131] | 0.074 |
+
+Depth mixing is not the driver: K u L is negative at BOTH depths (-0.094 at 2, -0.051 at 10) and
+the mixed/matched pooled estimates agree to 0.005-0.009, as W0.2 predicted when it measured the
+paired mean to be flat across allocations.
+
+**Campaign J's +0.341 is decisively excluded** -- it lies far outside the upper bound of every
+pooled interval. Passes 4-6 over-estimated the effect roughly 4x. That is the size of a discovery
+draw's winner's curse on this corpus, now measured rather than feared.
+
+Two reporting traps, both recorded because either alone would mislead: quoting only the pre-M
+estimate (K u L, -0.044) gives "resolved negative"; quoting only M's p = 0.031 gives "confirmed".
+The pooled interval is the answer, and it says **small, positive, not separable from zero at
+alpha = 0.05.**
+
+**The design analysis predicted its own result.** W0.2 forecast a 95% CI of width ~0.18 for a
+144-mask depth-2 campaign before it ran; the measured width is 0.175. And it cost 288 retrains --
+FEWER than any single prior campaign (A/B/I/J/K/L used 240 each at 24 masks) -- for an interval
+less than half as wide.
+
+## 35. (NEGATIVE DESIGN RESULT) One-demo counterfactuals are below this corpus's noise floor; the duel design is not viable
+
+W2 built pairs of masks differing in exactly one demo, at matched seed slots, where the two
+estimators disagree about which demo matters more. The mandatory pilot (6 duels, depth 4, 48
+retrains) killed it.
+
+**The pairing premise was correct.** Within a pair sharing 67 of 68 demos, the mask x init
+interaction that B5 identified as the binding noise does difference out: mean paired sd 0.0365 vs
+mean unpaired sd 0.0872, a **2.39x noise reduction**. So matched seeds inside a swap-pair really
+are a different design from B5's common random seeds, and B5 stays correctly retired for the
+general question. This is the measurement the brief asked for instead of an assertion.
+
+**The signal is smaller than the noise anyway.** Swapping one demo out of 68 moves the C5 held-out
+loss by only **0.44 seed-noise sd** on average (per-duel signal-to-paired-noise 0.09-1.41, mean
+~0.81). Even after the 2.4x reduction the per-duel sign is not resolvable at depth 4.
+
+**The sign test from a killed pilot is uninterpretable and must not be quoted.** RelatIF picked
+the more influential demo in 1 of 6 duels (p = 0.98). That is not evidence against RelatIF -- by
+the pilot's own diagnostic those six signs are close to coin flips. The instrument returned
+nothing; it did not return a negative.
+
+To resolve a duel sign would need ~(1.96/0.8)^2 ~ 6x the depth, i.e. depth ~24 per arm: 864
+retrains ~ 22 solo-h for ONE binomial test at n = 18. Strictly worse than spending the same GPU
+on masks (#29). **Do not attempt the duel design on this corpus again.**
+
+Taken with #33 this is the same statement from both sides. The estimator side: the two estimators
+rank-correlate 0.547 and rarely disagree. The outcome side: when they do disagree, the thing they
+disagree about is too small to measure one demo at a time. Demo-grain attribution on 135 demos is
+signal-starved at the level of individual demos; only aggregate many-demo contrasts carry
+measurable information.

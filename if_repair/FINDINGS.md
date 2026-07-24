@@ -470,3 +470,136 @@ draw-dependent; it does not robustly clear the half-ceiling bar.
 6. The n=24 single-draw paired bar remains THE binding limitation: even the confirmed C5 effect
    (+0.34 over GradDot on J) clears only the absolute bar, missing the strict paired-p<0.05. Real
    progress on this corpus needs more masks per draw, not more estimators.
+
+---
+
+# Pass 7: fix the measurement -- and the measurement changed the answer
+
+> One-line status: passes 4-6 reported a leverage / self-influence correction (RelatIF, K/G_dd)
+> as the first gradient estimator to beat GradDot out of sample, "in direction, consistently
+> across six mask draws", with campaign J giving +0.341. Pass 7 spent its first hour scoring that
+> FROZEN config on the one draw nobody had ever run it against (campaign K) and the sign reversed.
+> It then measured what a resolving campaign actually costs, found the archived protocol is close
+> to the worst allocation available, and ran one -- 144 masks at depth 2, FEWER retrains than any
+> previous campaign -- to close the interval. **The answer: Delta rho = +0.06, 95% CI
+> [-0.02, +0.14] over 192 out-of-sample masks. The effect is real in direction, small in size, and
+> about a quarter of what was claimed.** No gradient estimator clears the absolute half-ceiling
+> bar. The binding constraint was never the estimator; it was the number of counterfactual
+> retrains, and pass 7 quantifies the exchange rate.
+
+## 1. The correction: a frozen config had never been scored on an available draw (W0.1)
+
+RelatIF/C5 was frozen in `PREREG_J` (`c7659cf`) with campaign J at zero runs and never retuned, so
+it is legitimately out-of-sample on J, K **and** L. But campaign K's own prereg family named
+C2/C8/C7, so the C5 config was never run against K. Running it costs zero GPU:
+
+| draw | role | Delta rho vs GradDot_dmean |
+|---|---|---|
+| G / H / I | dev (selection) | +0.226 / +0.384 / +0.135 |
+| J | **discovery** | +0.341 |
+| K | **oos, never scored until pass 7** | **-0.171** |
+| L | oos | +0.075 |
+
+Every draw the effect was selected on or reported on is positive; the one clean draw nobody had
+looked at is negative. `FINDINGS.md`'s claim of consistency "across six mask draws" was true only
+of the five that had been looked at. **The confirmation draw you already own is worth more than
+the estimator you were about to build.**
+
+The second lesson is subtler and is now BLOCKERS #28: *frozen before a draw* is not the same as
+*unselected-upon*. J is technically out-of-sample for RelatIF, but it is the draw the effect was
+first reported a success on, so conditioning on "this is the hypothesis we followed up" selects a
+favourable J. Every pass-7 contrast is therefore reported twice -- with and without the discovery
+draw -- and the second is the one to believe. With J: +0.083. Without: -0.044.
+
+## 2. The measurement study: masks beat seeds about 5 to 1 (W0.2)
+
+Resampling the 144 masks x 10 seeds already on disk (the six draws are exchangeable -- a one-way
+ANOVA puts the between-draw variance component at zero on every set tested):
+
+- **Paired sd is FLAT in seed depth** (0.179 at depth 2 vs 0.183 at depth 10, n=24) and falls as
+  **1/sqrt(n) in masks**. BLOCKERS #17 guessed depth 4-5 exhausted seed noise; for the paired
+  statistic it is exhausted by depth 2.
+- At 240 retrains: 120x2 -> paired sd 0.077, 48x5 -> 0.121, the archived **24x10 -> 0.183**. The
+  protocol this project used for six passes is close to the worst allocation available.
+- **Kendall tau_b resolves this corpus better than Spearman** (resolution 5.32 vs 4.52), chosen on
+  reliability and noise alone -- criteria that never touch the hypothesis. It then returned CIs a
+  third narrower, validating the selection method after the fact.
+- **GradDot_dmean is itself a moving target**: its C5 LDS spans -0.066 to +0.489 across the six
+  draws, sd 0.217 -- larger than most effects anyone has claimed here.
+- **Pairing is not always right**: for C7 the estimator and baseline are NEGATIVELY correlated
+  across draws, so var(paired) 0.071 exceeds var(level) 0.011 (BLOCKERS #32).
+
+## 3. The resolving campaign (W1 / campaign M)
+
+144 virgin masks in 6 disjoint sub-draws at depth 2, 288 retrains, ~7.5 solo-h, family of one,
+scored once. Paired bar **PASS** under both statistics (kendall +0.085 p=0.031; spearman +0.111
+p=0.041) -- a project first on a virgin preregistered draw. Absolute bar **FAIL** (ratio 0.413 /
+0.489 against 0.5).
+
+Pooled over all 192 clean out-of-sample masks: **+0.060, CI [-0.015, +0.137], p = 0.057** (kendall)
+/ +0.084, CI [-0.027, +0.193], p = 0.064 (spearman). Matched-depth pooling agrees to 0.005-0.009.
+
+**Campaign J's +0.341 is decisively excluded.** The discovery-draw winner's curse on this corpus
+is about 4x, now measured.
+
+And the campaign demonstrated it in miniature. M's six 24-mask sub-draws give +0.058, +0.116,
++0.145, **+0.341**, -0.058, -0.022. **Sub-draw M3 reproduces campaign J's headline number exactly**
+-- a single 24-mask draw landing on +0.341 with CI [+0.121, +0.550], which in isolation would have
+been written up as a confirmation. Six draws from one campaign, one of them "confirms" a +0.34
+effect that the pooled 144 masks put at +0.085. That is what n=24 does, and it is why this project
+spent six passes chasing effects that evaporated.
+
+W0.2 forecast a CI width of ~0.18 before the campaign ran; measured 0.175. The design analysis
+predicted its own result to within 0.005, using 288 retrains -- fewer than any prior campaign.
+
+## 4. The duel design: a clean negative (W2)
+
+Mask pairs differing in exactly one demo, matched seed slots, chosen where the estimators disagree.
+Killed by its own preregistered pilot.
+
+- **The pairing premise was right**: within a swap-pair the mask x init interaction differences out,
+  2.39x noise reduction. Matched seeds inside a swap-pair genuinely differ from B5's common random
+  seeds; B5 stays retired for the general question.
+- **The signal is smaller still**: swapping one demo of 68 moves the C5 held-out loss by 0.44
+  seed-noise sd. Not resolvable at depth 4, and reaching resolution would cost ~22 solo-h for one
+  n=18 binomial test -- strictly worse than spending it on masks.
+- **The 1-of-6 sign test is uninterpretable and is not reported as a result.** By the pilot's own
+  diagnostic those signs are coin flips. The instrument returned nothing; it did not return a
+  negative.
+
+Read with #33 (the two estimators rank-correlate 0.547 and only 6.6% of within-cluster demo pairs
+disagree confidently), this is the same fact from both sides: **demo-grain attribution on 135 demos
+is signal-starved at the level of individual demos.**
+
+## Corrections I made to my own work, in order
+
+Four, each caught before it was committed:
+
+- **The passes 4-6 six-draw consistency claim** (see §1). Not mine, but corrected here, and the
+  correction is the pass's central result.
+- **Finite-population sampling in the allocation study.** Subsampled masks WITHOUT replacement from
+  a 144-mask pool, which carries a (1 - n/144) correction and drove the paired sd to exactly 0 at
+  n=144, inflating the mask advantage. The estimand is a campaign of n FRESH masks, so the
+  nonparametric bootstrap is right.
+- **Scoring C7 on its own discovery draw.** W0.2b initially used K u L for both configs; K is C7's
+  discovery draw, and that call returned a publishable-looking kendall +0.257, p = 0.026. On C7's
+  actual honest set (J u L) it is +0.032, p = 0.406. The honest draw set is per-CONFIG, not
+  per-pass (BLOCKERS #31).
+- **A suspected ensemble bug in campaign L that was a genuine coincidence.** L's ensemble and
+  RelatIF rows are identical to 16 digits, which looks exactly like a silently zeroed component.
+  They are different predictors (mask-level Spearman 0.80, different bootstrap p) that both land on
+  sum d^2 = 1800 over 24 masks. Chased and cleared rather than assumed either way.
+
+## What pass 7 established
+
+1. **The C5 self-influence effect is real in direction and small: +0.06, CI [-0.02, +0.14] on 192
+   out-of-sample masks.** It clears the paired bar on the largest virgin draw and not when pooled;
+   it clears the absolute bar nowhere. The +0.34 of passes 4-6 was a discovery-draw artifact.
+2. **The binding constraint is retrains, and the exchange rate is ~5:1 in favour of masks over
+   seeds.** The archived 24x10 protocol is close to the worst allocation available; 144x2 costs
+   less and resolves more.
+3. **A frozen config is out-of-sample on every later draw** -- and this project had an unscored one
+   sitting on disk for a whole pass. Score what you own before you build.
+4. **Statistic choice is worth ~33% of CI width and can be made without looking at the hypothesis.**
+5. **Individual demos are below the noise floor** on this corpus; only aggregate contrasts carry
+   measurable information. The duel design is not viable here at any reachable budget.

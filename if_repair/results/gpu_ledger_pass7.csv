@@ -1,0 +1,7 @@
+item,n_jobs,job_h,solo_h,occupancy_h,note
+W0.1 pooled out-of-sample analysis (the pass's main result),0,0.0,0.0,0.0,ZERO GPU -- re-scored frozen configs against outcomes already on disk
+W0.2 allocation / statistic / baseline-instability study,0,0.0,0.0,0.0,ZERO GPU -- resampled the existing 144 masks x 10 seeds
+"campaign M -- 144 FRESH masks (6 sub-draws) x depth 2, the resolving campaign",288,9.965,6.96,3.294,3 workers
+"campaign D -- W2 duels, one-demo-different mask pairs at matched seeds",48,1.652,1.16,0.517,3 workers
+"W0.1 surrogate-LOO feature passes (b12, ~4 scoring runs x 5 members)",20,0.0,0.051,0.0,no disk cache; overlapped
+"regenE5 head-Gram builds (b1 build_ensemble, ~4 calls x 5 members)",20,0.0,0.051,0.0,overlapped

@@ -269,3 +269,103 @@ b11_unlearn.py, b12_headloo.py (exact frozen-trunk LOO + feature extraction), b1
 b14_rescoring.py (RelatIF), b15_ckptgrid.py, b16_hybrid.py, p1_leverage_family.py (the family +
 generality scan), p2_ensemble.py, p4_why.py, confirm_jseries.py, confirm_kseries.py, campaigns J/K
 wired in retrain.py, tests/test_jseries.py.
+
+---
+
+# HANDOFF -- pass 7 (for pass 8)
+
+## The state pass 8 inherits
+
+The question passes 4-6 opened is **closed to the resolution this corpus can support**. The C5
+self-influence effect (RelatIF, K/G_dd) is **Delta rho = +0.06, 95% CI [-0.02, +0.14]** over 192
+out-of-sample masks across 8 independent draws. Real in direction, small in size, about a quarter
+of the +0.34 the discovery draw suggested, clearing the paired bar on the largest virgin draw
+(p=0.031) but not when pooled (p=0.057), and clearing the absolute half-ceiling bar nowhere.
+
+The write-up sentence this pass earned:
+
+> A self-influence correction of GradDot improves demo-grain attribution on this corpus by
+> Delta rho = +0.06, 95% CI [-0.02, +0.14], measured on 192 out-of-sample masks across 8
+> independent draws -- an effect roughly a quarter of what its discovery draw suggested and not
+> separable from zero at the sample sizes any comparable study uses. The binding constraint on
+> demo-grain TDA benchmarks is the number of counterfactual retrains, not the estimator; we
+> quantify the exchange rate at about five seeds per mask.
+
+## Do NOT re-run
+
+- **Everything in the passes 4-6 "do not re-run" list**, unchanged (W1 unlearning-LOO, W5
+  mid-training GradDot, W6 win-condition-2, benchmarking against `GradDot_unitL2`, six concurrent
+  trainers, robust aggregation / spectral sweeps / EK-FAC / KFAC subspaces / TracIn density, the
+  redesigned target functionals).
+- **The W2 duel design** (BLOCKERS #35). Killed by its own pilot: one demo out of 68 moves the
+  outcome by 0.44 seed-noise sd, and resolving a duel sign would cost ~22 solo-h for a single n=18
+  binomial test. Not viable at any budget this project can reach. The pairing premise DID hold
+  (2.39x noise reduction) -- that part is settled and needs no re-measurement.
+- **The archived 24 masks x 10 seeds allocation** (BLOCKERS #29). It is close to the worst
+  allocation available. Any new campaign buys masks at depth 2-3.
+- **W3 (wider / second-order exact LOO).** Dropped in `p7_prereg.md` §7: its gate was "+0.10 above
+  the current C5 champion" and the champion is now measured at +0.06 with an interval touching
+  zero, so the gate no longer identifies anything worth confirming.
+- **Extending campaign M to chase significance.** `p7_prereg.md` §7 fixed score-once with no
+  optional stopping, and p = 0.057 is exactly the situation that rule exists to protect. Adding
+  masks until p < 0.05 would invalidate the result. A larger campaign must be preregistered fresh,
+  as its own confirmation, with the sizing below.
+
+## If pass 8 wants significance rather than an interval
+
+It is cheap now, and the sizing is measured rather than guessed. Pooled paired sd at 192 masks is
+~0.038 (kendall). For a one-sided alpha=0.05 test of the observed +0.060 at 80% power you need
+sd ~0.029, i.e. **~330 masks**; from a standing start at depth 2 that is ~660 retrains ~ 17 solo-h.
+Preregister it as a fresh single-hypothesis confirmation, score once. Note honestly that a result
+which needs 330 masks to separate from zero is, for most purposes, the same as no effect.
+
+## The three things worth carrying to another corpus
+
+1. **Score every frozen config on every draw it is out-of-sample on, before building anything.**
+   This project carried an unscored draw for a whole pass, and scoring it reversed the headline
+   (BLOCKERS #28). Zero GPU.
+2. **Measure the mask/seed exchange rate first.** On LIBERO-goal at 135 demos it is ~5:1 for
+   masks, and the conventional depth-10 protocol wastes most of its GPU (BLOCKERS #29). The
+   measurement costs nothing once one campaign exists.
+3. **Choose the LDS statistic on reliability and noise, never on the contrast.** Worth ~33% of CI
+   width here, and the choice is defensible precisely because it cannot see the hypothesis
+   (BLOCKERS #30).
+
+## Open threads, ordered by what would change a conclusion
+
+1. **Port to a corpus with more demos.** BLOCKERS #33/#35 say the demo grain is signal-starved at
+   135 demos from both the estimator side (the two estimators rank-correlate 0.547) and the outcome
+   side (one demo = 0.44 seed-noise sd). Whether "self-influence correction helps a little" is a
+   property of influence functions or of 135 demos is not answerable from inside this repo. A
+   corpus with 500+ demos would make the per-demo signal measurable and is the single highest-value
+   move left.
+2. **The datamodel remains the only estimator with a large replicable OOS advantage**, and pass 7
+   did not touch it. It is outcome-consuming, so it plays by different input rules, but it is the
+   result to defend if the paper needs a positive.
+3. **Cluster grain instead of demo grain.** Everything above says individual demos are too small a
+   unit on this corpus. The cluster-grain masks (Stage F, 72 masks x 5 of 9 clusters) already exist
+   in `masks.py` and were never used for attribution. A grain where the unit is 15 demos rather
+   than 1 should sit far above the noise floor measured in #35.
+4. **The absolute half-ceiling bar may be the wrong bar.** Nothing in seven passes has cleared it
+   out of sample, while the paired bar has now been cleared once. If the bar is unreachable for
+   every estimator anyone would try, it is not discriminating between hypotheses -- it is only
+   measuring the ceiling. Worth an explicit argument in the paper rather than another attempt.
+
+## Reproducing pass 7
+
+```bash
+python -m if_repair.p7_pooled_oos --stage validity    # the pooling rule, zero GPU
+python -m if_repair.p7_pooled_oos --stage contrast    # the correction to passes 4-6
+python -m if_repair.p7_design --stage allocation      # the exchange rate
+python -m if_repair.p7_design --stage statistic       # primary statistic, hypothesis-blind
+python -m if_repair.p7_design --stage bystat          # robustness across statistics
+python -m if_repair.p7_duels --stage select           # duel manifest (frozen)
+# GPU:
+python -m if_repair.retrain --campaign M --worker {0,1,2} --nworkers 3   # 288 retrains
+python -m if_repair.confirm_mseries                                      # score ONCE
+python -m if_repair.retrain --campaign D --limit 48 --worker {0,1,2} --nworkers 3
+python -m if_repair.p7_duels --stage pilot                               # kill rule
+```
+
+`P7_SLOW=1` enables the GPU-dependent surrogate reproduction tests. Everything else in
+`pytest if_repair/tests -q` is CPU and runs in ~25 s.
