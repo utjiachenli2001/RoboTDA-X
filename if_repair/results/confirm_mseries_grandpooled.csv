@@ -1,0 +1,3 @@
+name,scope,statistic,n_masks,paired_delta,paired_p,ci_lo,ci_hi,ci_width
+M1_relatif_lin_unitL2_C5,K+L+M (mixed depth 10/10/2),kendall_tau_b,192,0.06020942408376964,0.0568,-0.015347060577882377,0.13707090767862645,0.15241796825650883
+M1_relatif_lin_unitL2_C5,K+L+M (mixed depth 10/10/2),spearman,192,0.08384084312182946,0.0636,-0.02714683708867575,0.19326718365951503,0.22041402074819078
