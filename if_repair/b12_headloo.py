@@ -61,9 +61,12 @@ def features(model, S, L, device="cuda", batch=4096):
     return out
 
 
-def member_scores(member, device="cuda"):
+def member_scores(member, device="cuda", targets=None):
     """-> {target: {demo_id: score}} for one regenerated member, per lambda. Also returns the
-    per-lambda held-out-L2 of the full surrogate for diagnostics."""
+    per-lambda held-out-L2 of the full surrogate for diagnostics. `targets` defaults to the dev
+    triple; pass a wider list (e.g. all 9 clusters) to use the surrogate as a full attribution
+    view (P6 multi-view)."""
+    targets = list(targets) if targets is not None else list(DEV_TARGETS)
     model = EV.load_model(os.path.join(GR.REGEN, member, "final.pt"), device=device)
 
     train_ids, _ = dataset.train_pool()
@@ -85,12 +88,12 @@ def member_scores(member, device="cuda"):
     PtP = Phi.T @ Phi                                          # (512,512)
     PtA = Phi.T @ A                                            # (512,7)
     mean_eig = np.trace(PtP) / d
-    # held-out rows per dev target
-    rows_t = {t: np.nonzero(cluster_of_row == t)[0] for t in DEV_TARGETS}
+    # held-out rows per requested target
+    rows_t = {t: np.nonzero(cluster_of_row == t)[0] for t in targets}
 
     def heldout_l2(W):
         return {t: float(np.mean(np.sum((PhiH[rows_t[t]] @ W - AH[rows_t[t]]) ** 2, axis=1)))
-                for t in DEV_TARGETS}
+                for t in targets}
 
     out = {}     # lam -> {target: {demo: score}}
     diag = {}
@@ -99,7 +102,7 @@ def member_scores(member, device="cuda"):
         M = PtP + lam * np.eye(d)
         Minv_PtA = np.linalg.solve(M, PtA)
         base = heldout_l2(Minv_PtA)
-        sc = {t: {} for t in DEV_TARGETS}
+        sc = {t: {} for t in targets}
         for demo in train_ids:
             r = slices[demo]
             Pd = Phi[r]                                        # (nd, 512)
@@ -107,7 +110,7 @@ def member_scores(member, device="cuda"):
             bd = PtA - Pd.T @ A[r]
             Wd = np.linalg.solve(Md, bd)
             l2d = heldout_l2(Wd)
-            for t in DEV_TARGETS:
+            for t in targets:
                 sc[t][demo] = l2d[t] - base[t]                # removal raises loss => positive
         out[lr] = sc
         diag[lr] = base
