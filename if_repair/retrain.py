@@ -192,6 +192,11 @@ def aggregate_outcomes(l2, nll, fidx):
 # tests assert the three draws share no mask.
 FRESH_MASK_SEED_I = 9973
 
+# Fourth mask draw (campaign J) -- the pass-4 out-of-sample confirmation draw. Seed 20260723
+# (the pass-4 date) is disjoint from 11 (G), 4711 (H) and 9973 (I); tests/test_jseries.py asserts
+# all four draws are pairwise disjoint. Frozen here BEFORE campaign J is launched.
+FRESH_MASK_SEED_J = 20260723
+
 
 def fresh_demo_masks(seed=FRESH_MASK_SEED, prefix="H"):
     """The repo's own Stage-G generator at a different seed -> a fresh, disjoint mask draw."""
@@ -222,6 +227,11 @@ def jobs(campaign):
         return [{"run_id": f"I_{m['mask_id']}_i{s}_o{s}", "mask_id": m["mask_id"],
                  "demos": m["demos"], "seed_init": s, "seed_order": s}
                 for m in ms for s in B_SEEDS]      # same 10-seed depth as A and B
+    if campaign == "J":
+        ms, _ = fresh_demo_masks(seed=FRESH_MASK_SEED_J, prefix="J")
+        return [{"run_id": f"J_{m['mask_id']}_i{s}_o{s}", "mask_id": m["mask_id"],
+                 "demos": m["demos"], "seed_init": s, "seed_order": s}
+                for m in ms for s in B_SEEDS]      # same 10-seed depth as A, B and I
     raise KeyError(campaign)
 
 
@@ -247,7 +257,7 @@ def run_job(job, cfg, fidx, outdir, device="cuda"):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--campaign", required=True, choices=["A", "B", "C", "I"])
+    ap.add_argument("--campaign", required=True, choices=["A", "B", "C", "I", "J"])
     ap.add_argument("--worker", type=int, default=0)
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)
