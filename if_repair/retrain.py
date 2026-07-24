@@ -286,6 +286,22 @@ def jobs(campaign):
         return [{"run_id": f"M_{m['mask_id']}_i{s}_o{s}", "mask_id": m["mask_id"],
                  "demos": m["demos"], "seed_init": s, "seed_order": s}
                 for m in ms for s in B_SEEDS[:M_DEPTH]]   # depth 2, by the W0.2 allocation result
+    if campaign == "D":
+        # W2 duels. Each duel is a pair of 68-demo masks differing in exactly ONE demo, trained
+        # at MATCHED seed slots so the shared mask x init interaction differences out. The
+        # manifest is frozen and committed by p7_duels.py --stage select before any training.
+        # Pilot duels come first in the list, so `--limit 48` runs exactly the pilot arm.
+        with open(os.path.join(HERE, "results", "p7_duel_manifest.json")) as fh:
+            man = json.load(fh)
+        out = []
+        for d in sorted(man["duels"], key=lambda x: (x["arm"] != "pilot", x["duel_id"])):
+            depth = man["pilot_depth"] if d["arm"] == "pilot" else man["full_depth"]
+            for side in ("a", "b"):
+                for s in man["duel_seeds"][:depth]:
+                    out.append({"run_id": f"D_{d['duel_id']}{side}_i{s}_o{s}",
+                                "mask_id": f"{d['duel_id']}{side}",
+                                "demos": d[f"mask_{side}"], "seed_init": s, "seed_order": s})
+        return out
     raise KeyError(campaign)
 
 
@@ -312,7 +328,7 @@ def run_job(job, cfg, fidx, outdir, device="cuda"):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--campaign", required=True,
-                    choices=["A", "B", "C", "I", "J", "K", "L", "M"])
+                    choices=["A", "B", "C", "I", "J", "K", "L", "M", "D"])
     ap.add_argument("--worker", type=int, default=0)
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)
