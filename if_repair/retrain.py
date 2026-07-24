@@ -201,6 +201,11 @@ FRESH_MASK_SEED_J = 20260723
 # generality claim (P1). Seed 20260724 is disjoint from G/H/I/J; tests/test_jseries.py asserts it.
 FRESH_MASK_SEED_K = 20260724
 
+# Sixth mask draw (campaign L) -- the pass-6 capstone: a SECOND fresh draw for the C5 leverage win
+# (RelatIF, the exact surrogate-LOO, and their ensemble), so the campaign-J C5 result is replicated
+# out of sample on an independent draw. Seed 20260725, disjoint from G/H/I/J/K.
+FRESH_MASK_SEED_L = 20260725
+
 
 def fresh_demo_masks(seed=FRESH_MASK_SEED, prefix="H"):
     """The repo's own Stage-G generator at a different seed -> a fresh, disjoint mask draw."""
@@ -241,6 +246,11 @@ def jobs(campaign):
         return [{"run_id": f"K_{m['mask_id']}_i{s}_o{s}", "mask_id": m["mask_id"],
                  "demos": m["demos"], "seed_init": s, "seed_order": s}
                 for m in ms for s in B_SEEDS]      # same 10-seed depth as the others
+    if campaign == "L":
+        ms, _ = fresh_demo_masks(seed=FRESH_MASK_SEED_L, prefix="L")
+        return [{"run_id": f"L_{m['mask_id']}_i{s}_o{s}", "mask_id": m["mask_id"],
+                 "demos": m["demos"], "seed_init": s, "seed_order": s}
+                for m in ms for s in B_SEEDS]      # same 10-seed depth as the others
     raise KeyError(campaign)
 
 
@@ -266,7 +276,7 @@ def run_job(job, cfg, fidx, outdir, device="cuda"):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--campaign", required=True, choices=["A", "B", "C", "I", "J", "K"])
+    ap.add_argument("--campaign", required=True, choices=["A", "B", "C", "I", "J", "K", "L"])
     ap.add_argument("--worker", type=int, default=0)
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)

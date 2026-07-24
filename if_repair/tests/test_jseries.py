@@ -27,6 +27,7 @@ def test_all_draws_pairwise_disjoint():
         "I": _masks(RT.FRESH_MASK_SEED_I, "I"),
         "J": _masks(RT.FRESH_MASK_SEED_J, "J"),
         "K": _masks(RT.FRESH_MASK_SEED_K, "K"),
+        "L": _masks(RT.FRESH_MASK_SEED_L, "L"),
     }
     for name, ms in draws.items():
         assert len(set(ms)) == 24, f"{name} has duplicate masks within the draw"
@@ -41,3 +42,4 @@ def test_seeds_are_frozen():
     # Guard against an accidental change to the frozen confirmation seeds.
     assert RT.FRESH_MASK_SEED_J == 20260723
     assert RT.FRESH_MASK_SEED_K == 20260724
+    assert RT.FRESH_MASK_SEED_L == 20260725
