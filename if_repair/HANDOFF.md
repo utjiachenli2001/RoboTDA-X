@@ -228,3 +228,44 @@ The most robust single result is the **datamodel**: C2 confirmed on two independ
   Spearman 0.61–0.93.
 - Any estimator fitted on mask outcomes goes through the leave-one-mask-out path.
 - Report LDS, ceiling, ratio, p, pass. Never bare ρ. And after pass 3, never a single mask draw.
+
+---
+
+# HANDOFF -- passes 4-6 (for pass 7)
+
+## The state pass 6 inherits
+Pass 4 attacked demo attribution from four untried directions and found the FIRST gradient-side
+estimators to beat GradDot out of sample (RelatIF/C5, TRAK-head/C2, exact-surrogate-LOO/C5). Pass 5
+unified them into a two-parameter leverage family that beats the canonical GradDot_dmean OOS on 5
+targets (per-target configs) and 2 with one config. Two fresh-draw confirmations were run: campaign
+J (pass 4) and campaign K (pass 5). [J/K verdicts: TBD]
+
+## Do NOT re-run
+- W1 unlearning-LOO (ascent/finetune-forget/scrub-lite): screened negative, killed. A converged
+  model barely moves in 200 SGD steps; the held-out effect is noise.
+- W5 mid-training GradDot: single-checkpoint LDS swings +-1.0 between adjacent 400-step ckpts. There
+  is no "attribute from the middle of training" effect; it is checkpoint noise.
+- W6 win-condition-2 (does a gradient prior let the datamodel hit 24-mask LDS with 12 masks): no.
+- Benchmarking any unit-L2-aggregated estimator against GradDot_unitL2 (BLOCKERS #23).
+
+## What pass 7 should do (updated after J/K/L)
+1. **Fix the measurement, not the estimator.** The binding constraint is n=24: even the confirmed
+   C5 effect (+0.34 over GradDot on J) clears only the absolute bar, missing paired-p<0.05, and
+   dev wins on 4 targets evaporated on fresh draws. The single highest-value spend is a
+   48- or 72-mask confirmation draw (or pooling several fresh 24-draws preregistered together), which
+   halves the paired sd and would actually adjudicate C5 (and tell whether C7 is real). More masks
+   beats more estimators on this corpus.
+2. **The C5 self-influence result is the one to defend.** RelatIF (K/G_dd) confirmed on J; [campaign
+   L: TBD]. It plus its near-orthogonal exact-LOO partner (ensemble dev +0.298) is the project's
+   strongest gradient attributor. Any pass-7 estimator work should build here, not chase new targets.
+3. Wider / second-order exact LOO (P3, not run): the exact frozen-trunk surrogate beats GradDot on
+   C5; extend the exact counterfactual to wider Phi (early blocks) or a Gauss-Newton influence on
+   the true GMM head. Closed-form, ~0.5 GPU-h. Only worth it if #1 gives it the power to be tested.
+4. Do NOT re-chase C2/C8/C7 as single-draw wins -- K showed C2/C8 are dev overfitting and C7 is
+   underpowered. They return only with the higher-power protocol in #1.
+
+## Machinery added in pass 4/5 (all under if_repair/)
+b11_unlearn.py, b12_headloo.py (exact frozen-trunk LOO + feature extraction), b13_trak.py,
+b14_rescoring.py (RelatIF), b15_ckptgrid.py, b16_hybrid.py, p1_leverage_family.py (the family +
+generality scan), p2_ensemble.py, p4_why.py, confirm_jseries.py, confirm_kseries.py, campaigns J/K
+wired in retrain.py, tests/test_jseries.py.

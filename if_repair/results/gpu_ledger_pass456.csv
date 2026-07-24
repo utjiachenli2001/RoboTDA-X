@@ -1,0 +1,8 @@
+item,n_jobs,job_h,solo_h,occupancy_h,note
+campaign J -- 24 FRESH J-series x 10 seeds (pass-4 confirmation),240,8.318,5.8,2.745,3 workers
+campaign K -- 24 FRESH K-series x 10 seeds (pass-5 confirmation),240,8.209,5.8,2.71,3 workers
+campaign L -- 24 FRESH L-series x 10 seeds (pass-6 C5 capstone),240,8.145,5.8,2.687,3 workers
+"W1 unlearning pilot (1 member, 2 variants, k<=200)",1,0.167,0.167,0.0,"one-member screen, killed"
+W2/P2/P6/L surrogate feature passes (~6 x 5-member forward+LOO),30,0.0,0.077,0.0,overlapped campaigns
+"regenE5 head-Gram builds (b1 build_ensemble, ~8 calls x 5 members)",40,0.0,0.102,0.0,overlapped campaigns
+W5 mid-training ckpt grid (1 retrain + 20 head-Gram builds),1,0.0,0.024,0.0,one member

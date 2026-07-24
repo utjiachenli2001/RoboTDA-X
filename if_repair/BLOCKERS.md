@@ -377,3 +377,53 @@ EARLY, not input-side. Every structured subspace beats its size-matched random c
 1-2), so the structure is real, not a dimension artefact. And k* does NOT predict where inverting
 helps: mean gain-from-inverting k*>=3 vs k*<=1 is +0.008/+0.001 (C1), +0.093/+0.106 (C5) --
 indistinguishable. The subspaces richest in estimable curvature are not where preconditioning pays.
+
+---
+
+# Passes 4-6 -- new blockers and lessons
+
+## 22. (METHODOLOGICAL) The kill rule works; killed W1 on a 1-member pilot
+W1 (unlearning-LOO) was screened on a 1-member ascent/finetune-forget pilot showing no beat vs
+GradDot (best paired Delta < +0.10 on C1/C5), and killed before the full 5-member sweep. The full
+sweep would have cost ~4-5 GPU-h to confirm a negative already visible in the pilot. The kill rule
+("one screen, stop if best paired Delta < +0.10 on both dev targets") is the reason pass 4 finished
+inside budget. Do NOT run a full multi-member unlearning sweep unless a 1-member pilot shows signal.
+
+## 23. (TRAP, redux of #1) The leverage family's unit-L2 aggregation invites the wrong baseline
+The RelatIF/leverage family aggregates per-member scores by unit-L2 (the aggregation that won in
+W4). It is tempting to benchmark a unit-L2-aggregated estimator against GradDot_unitL2 (0.513-class).
+That is the BLOCKERS #1 trap wearing a new hat: the bar is ALWAYS GradDot_dmean (0.593-class),
+recomputed on the same ensemble, regardless of how the challenger aggregates. Measured cost of the
+mistake: the leverage family "generalizes to >=3 targets (C2,C3,C8)" ONLY against the unit-L2
+baseline; against GradDot_dmean the best single config reaches 2 (C2,C8) and C3 collapses. p1's
+generality scan was corrected to always pair against dmean (commit 5a5d554).
+
+## 24. (RESULT) The leverage correction is target-specific in its Phi, not just its lambda
+The family diag(G)^-beta (G+lam I)^-1 K beats GradDot_dmean OOS on 5 targets, but the winning Phi
+differs by target: C5 lives on the cached E=20 FULL-model Gram (head-Phi is negative on C5, -0.22),
+while C2/C8 live on the regen E=5 HEAD-Phi Gram. beta=1 (full self-influence normalization) is the
+load-bearing ingredient across all of them; the Gram inversion (finite lambda) only adds breadth.
+So there is no single (Phi, lambda, beta) that covers all wins -- "generality" is a family property,
+not a single-estimator property, on this corpus.
+
+## 25. (RESULT) Leverage correction complements the outcome-consuming datamodel
+Per-target leverage responsiveness correlates with the datamodel's per-target LDS (Spearman +0.66),
+but the leverage family additionally wins on C7 and C8 where the datamodel COLLAPSES to a constant
+(LDS NaN, BLOCKERS #8). A zero-outcome gradient estimator therefore reaches targets the
+outcome-based datamodel cannot -- the first time in the project the two estimator classes are shown
+to be complementary rather than the datamodel strictly dominating.
+
+## 27. (RESULT, humbling) Pass-5 dev wins mostly did not survive a fresh draw
+The leverage family beat GradDot on 5 dev targets (pooled G/H/I paired). Fresh-draw confirmation:
+campaign J confirmed RelatIF/C5 on the absolute bar (ratio 0.533, p=0.005); campaign K scored the
+pass-5 configs 0/3 -- C2 unresolvable (outcome negative for GradDot too, as on J), C8's +0.387 dev
+win did NOT replicate (GradDot itself is strong on C8/K), C7 kept its sign (+0.29) but missed both
+bars. So 4 of the 5 dev "wins" were the mask-draw overfitting this project catches every pass; only
+C5 is robust. Report leverage-family targets as DEV unless a fresh draw confirmed them (only C5 has).
+
+## 26. (SEEDS) Campaign J, K and L draws
+J = seed 20260723 (pass-4 confirmation), K = seed 20260724 (pass-5 confirmation). Both 24 masks,
+10 seeds, archived protocol, disjoint from G(11)/H(4711)/I(9973) and from each other;
+tests/test_jseries.py asserts pairwise disjointness of all five draws and freezes both seeds. Both
+PREREG files (confirm_jseries.py, confirm_kseries.py) were committed with the respective campaign at
+ZERO runs (git history), the same integrity mechanism as confirm3/confirm_iseries.

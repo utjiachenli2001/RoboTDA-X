@@ -536,3 +536,113 @@ baseline on the same masks.
 2 of 5, vs 1 of 5 at depth 6. H3 crossed the bar (0.499 -> 0.563) purely from matching the seed
 depth to the dev protocol. Reference GradDot_ALL at depth 10: C1 0.283, C2 0.448, C5 −0.189 --
 the baseline fails its own absolute bar on the fresh draw, which is BLOCKERS #17.
+
+---
+
+# Passes 4-6 -- new estimator classes, the leverage family, and six-draw confirmation
+
+All numbers demo-grain LDS, n=24 masks. Bar = GradDot_dmean recomputed on the same ensemble
+(BLOCKERS #1/#23). "Pooled paired Delta_rho" = point Spearman(estimator) - Spearman(GradDot) over
+the pooled 72 G/H/I masks; per-draw signs show out-of-sample robustness. Bootstrap p one-sided.
+
+## Pass 4 -- four new estimator classes
+
+### W4 -- RelatIF (b14_rescoring.py), cached E=20 Gram, vs GradDot_dmean
+| estimator | C1 | C5 |
+|---|---|---|
+| GradDot_dmean (bar) | 0.593 | 0.390 |
+| relatif_lin/unitL2 (K/G_dd) | 0.424 | **0.611** |
+RelatIF paired vs GradDot_dmean, C5: G +0.226, H +0.384, I +0.135, **pooled +0.210 (p=0.016)**.
+C1 is a wash. (relatif_sqrt/unitL2 C5 +0.100; relatif_lin/unitL2 is the winner.)
+
+### W3 -- TRAK exact dual (b13_trak.py), regen E=5 head-Phi, per-target lambda
+| Phi | lambda_rel | C2 ratio | note |
+|---|---|---|---|
+| regen E=5 head | 0.1 | 0.68 | inverting the head Gram |
+TRAK-head/C2 paired vs GradDot_head: **pooled +0.222 (p=0.016)**. At lambda->inf TRAK == GradDot
+(A4 identity), so per-target lambda is essential; a C5-only selection misses this.
+
+### W2 -- exact frozen-trunk head surrogate-LOO (b12_headloo.py), regen E=5
+Freeze trunk, ridge head W=(PhiT Phi + lam I)^-1 PhiT A on 512-D features, exact LOO by downdating
+the 512x512 normal equations, score_d = Delta held-out L2. lambda_rel=0.001.
+Paired vs GradDot_head: C5 pooled **+0.222 (p=0.044)** (G+0.18,H+0.36,I+0.22); C1 +0.17 ns, C2 +0.01
+ns -- so exact LOO beats GradDot on C5 (real leave-one-out structure) but not C1/C2 (linearization
+exonerated there).
+
+### W1/W5/W6 negatives
+- W1 unlearning-LOO: 1-member pilot, ascent ~= GradDot (C1 -0.04, C5 +0.06), finetune-forget dead. Killed.
+- W5 mid-training GradDot: 20-ckpt grid, adjacent-ckpt LDS swing up to 1.03 -> ckpt noise. Closed.
+- W6 hybrid datamodel: win-cond-2 fails (no hybrid@12 reaches plain datamodel@24 on C2 gate 0.324 /
+  C5 gate 0.560). Secondary: the gradient prior regularizes the datamodel at low K (kernel-ridge@12
+  beats plain-lasso@12 by +0.43 on C5, +0.22 on C2); GradDot-alone dominates the datamodel to K~16-20.
+
+## Pass 5 -- the unified leverage family
+
+### P1 (p1_leverage_family.py) -- family = diag(G)^-beta (G+lam I)^-1 K, unit-L2 then mean
+Per-target best pooled paired Delta_rho vs GradDot_dmean, sign-consistent (beats GradDot on ALL of
+G/H/I):
+| target | best config | pooled Delta | sign-consistent |
+|---|---|---|---|
+| C8 | regenE5-head/dmean/lam0.3/beta1 | +0.387 | yes |
+| C7 | cachedE20-full/dmean/lam1/beta1 | +0.316 | yes |
+| C2 | regenE5-head/dmean/lam0.3/beta1 | +0.276 | yes |
+| C5 | cachedE20-full/dmean/lam-inf/beta0.5 | +0.243 | yes |
+| C4 | (weak) | +0.146 | yes |
+| C1,C3,C6,C9 | - | - | no |
+Best SINGLE config vs GradDot_dmean: regenE5-head/dmean/lam0.3/beta1 -> C2,C8 (2 targets). No config
+reaches 3 vs the strict bar; the C2,C3,C8 "generality" held only vs the unit-L2 baseline (#23).
+
+### P4 (p4_why.py) -- predictors of leverage responsiveness (n=9 targets, descriptive)
+Spearman(predictor, best leverage Delta): datamodel_lds **+0.66**, contam_cached +0.45,
+contam_head -0.18, ceiling -0.10, outcome_var -0.05. Leverage correction tracks the datamodel but
+also wins where the datamodel collapses (C7,C8). diag(G) dispersion CV ~1.2.
+
+### P2 (p2_ensemble.py) -- complementarity + ensemble
+Rank corr over 135 demos: C5 RelatIF vs surrogate-LOO **+0.20** (complementary); C2 TRAK vs leverage
++0.81 (same). Ensemble (z-avg) pooled vs GradDot_dmean: **C5 +0.298 (p=0.0018)** (> either
+component), C2 +0.289 (p=0.0010).
+
+### P6.1 (p6_multiview.py) -- multi-view fixed estimator, vs MAX(GradDot cached, GradDot head)
+| MV variant | qualifying targets (sign-consistent + pooled Delta>=+0.10 vs max-bar) |
+|---|---|
+| MV-A (z-avg of 3 views) | C7 only (1) |
+| MV-B (rank-avg) | none |
+| MV-C (z-avg of 2 leverage views) | none |
+Averaging across target-specific views dilutes; a fixed single estimator does not generalize.
+
+## Campaign J confirmation (pass 4, seed 20260723, PREREG_J, scored once)
+| hypothesis | lds | GradDot | ceiling | ratio | abs pass | paired Delta | paired p |
+|---|---|---|---|---|---|---|---|
+| J1 RelatIF/C5 | 0.516 | 0.175 | 0.968 | **0.533** | **YES** (p=0.005) | +0.341 | 0.073 |
+| J3 surrogate-LOO/C5 | 0.464 | 0.124 | 0.968 | 0.479 | no (0.479<0.5) | +0.340 | 0.128 |
+| J2 TRAK-head/C2 | -0.301 | -0.337 | 0.902 | -0.334 | no | +0.036 | 0.47 |
+RelatIF/C5 clears the absolute half-ceiling bar out of sample (first gradient estimator to do so);
+both C5 estimators beat GradDot by +0.34, but the paired p misses 0.05 at n=24. C2 unresolvable on
+the J draw (GradDot itself -0.34).
+
+## Campaign K confirmation (pass 5, seed 20260724, PREREG_K, scored once)
+| hypothesis | lds | GradDot | ceiling | ratio | abs pass | paired Delta | paired p |
+|---|---|---|---|---|---|---|---|
+| K1 leverage-head/C2 | -0.166 | -0.162 | 0.938 | -0.177 | no | -0.004 | 0.50 |
+| K2 leverage-head/C8 | 0.420 | 0.471 | 0.927 | 0.453 | no | -0.051 | 0.61 |
+| K3 leverage-cachedE20/C7 | 0.416 | 0.130 | 0.970 | 0.429 | no | +0.286 | 0.195 |
+0/3 confirm. C2 unresolvable (both negative); C8 dev win did not replicate (GradDot strong on K);
+C7 keeps the right direction (+0.29 over GradDot) but misses both bars at n=24. The pass-5 family
+dev wins were largely mask-draw overfitting; only C5 (campaign J) survived a fresh draw.
+
+## Campaign L confirmation (pass 6 C5 capstone, seed 20260725, PREREG_L, scored once)
+| hypothesis | lds | GradDot | ceiling | ratio | paired Delta | paired p |
+|---|---|---|---|---|---|---|
+| L1 C5 ensemble | 0.217 | 0.143 | 0.958 | 0.227 | +0.075 | 0.36 |
+| L2 RelatIF/C5 | 0.217 | 0.143 | 0.958 | 0.227 | +0.075 | 0.38 |
+| L3 surrogate-LOO/C5 | 0.127 | 0.212 | 0.958 | 0.133 | -0.085 | 0.63 |
+0/3. Same estimator as campaign J (ratio 0.533, paired +0.34) now scores ratio 0.227, paired +0.075
+-- J was a favourable draw. Across J+L the C5 effect is directional but small and not robust to the
+draw; the surrogate even loses to GradDot on L.
+
+## Verdict across all six draws (G/H/I/J/K/L)
+Gradient leverage/self-influence corrections beat GradDot in DIRECTION out of sample (RelatIF>=GradDot
+on C5 for J and L; leverage>=GradDot on C7 for K) -- a first for the project. But no gradient
+estimator robustly clears the absolute half-ceiling bar across fresh draws: the one absolute-bar pass
+(RelatIF/C5, J) did not replicate on L. The datamodel remains the only estimator with a large
+replicable OOS advantage. Binding limitation: n=24. Pass 7 should spend GPU on a higher-power draw.

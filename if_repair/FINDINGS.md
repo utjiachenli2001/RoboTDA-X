@@ -354,3 +354,119 @@ time — the honest measure of work done, and the one comparable to the pass-1/2
 the bulk, and each earned its place — A gives every future functional a free outcome, B and I are
 the two independent confirmation draws without which the KFAC-embed result would still be reported
 as a win. Recorded in full; `results/gpu_ledger_pass3.csv` regenerates it.
+
+---
+
+# Passes 4-6: the first gradient-side estimators to beat GradDot out of sample
+
+> One-line status: passes 1-3 found NO gradient estimator that beats GradDot out of sample (only
+> the outcome-consuming datamodel did). Passes 4-6 find that a **leverage / self-influence
+> correction** of GradDot's raw kernel beats GradDot out of sample **in direction, consistently
+> across six mask draws** -- the first gradient estimators in the project to do so. But the
+> magnitude is small: across the three preregistered fresh-draw confirmations (J, K, L), only C5 on
+> campaign J cleared the absolute bar, and it did NOT replicate on campaign L (ratio 0.533 -> 0.227).
+> No gradient estimator robustly clears the bar across draws. Generality is a property of the
+> leverage FAMILY at best (per-target Phi), and a single fixed multi-view estimator fails to capture
+> it. The binding limitation is n=24, not estimator design.
+
+Pass 4 attacked demo attribution from four untried directions; pass 5 (planned with a Fable model,
+executed with Opus) unified the winners into a two-parameter family and asked whether one member
+generalizes; pass 6 tested a fixed multi-view estimator as the generality shot. The arc:
+
+## 1. The three pass-4 winners are one family (P1)
+Every gradient estimator that beats GradDot out of sample is a corner of
+```
+S_m(lam_rel, beta)[:, t] = diag(G_m)^(-beta) . (G_m + lam I)^(-1) . K_m[:, t]     lam = lam_rel * mean(diag G_m)
+```
+- (inf, 0) = GradDot ; (inf, 1) = RelatIF (W4) ; (0.1, 0) = TRAK on head-Phi (W3).
+- The exact frozen-trunk surrogate-LOO (W2) is the nonlinear exact limit of the same idea: it
+  computes the true leave-one-demo-out effect on the head's ridge fit by downdating the 512x512
+  normal equations, and beats GradDot on C5 (Delta +0.22) but not C1/C2 -- so linearization error
+  is real only on C5.
+
+beta=1 (self-influence normalization) is the load-bearing ingredient; a mild Gram inversion
+(lam_rel 0.3-3) adds breadth. Against the canonical GradDot_dmean bar (BLOCKERS #1/#23 -- never the
+weaker unit-L2 GradDot, even when the challenger aggregates by unit-L2), the family beats GradDot
+out of sample, sign-consistent across all three dev draws G/H/I, on FIVE targets with per-target
+configs: C2 (+0.28), C4 (+0.15), C5 (+0.24), C7 (+0.32), C8 (+0.39). The winning Phi is
+target-specific: C5/C7 live on the cached E=20 FULL-model Gram, C2/C8 on the regen E=5 HEAD Gram.
+
+## 2. No single estimator generalizes (P1, P6.1)
+Against the strict dmean bar, the best SINGLE config (regenE5-head/dmean/lam0.3/beta1) reaches only
+2 targets (C2, C8). The "C2,C3,C8 generality" first observed held only against the weaker unit-L2
+baseline and was retracted. Pass 6's fixed multi-view estimator (z/rank-average of the head-leverage,
+cached-leverage, and exact-LOO views, judged against the MAX of both GradDot bars) qualifies on just
+1 target (C7): averaging DILUTES, because the views help different Phi-specific targets, so for any
+one target most views are noise. The P2 C5 ensemble works only because both its views target C5.
+**Generality is a family property (per-target Phi selection), not a single-estimator property.**
+
+## 3. The C5 winners are complementary (P2)
+RelatIF (self-influence norm, cached Gram) and the exact surrogate-LOO (regen head) rank-correlate
+only 0.20 over the 135 demos -- they see different aspects of C5's structure. Their z-score ensemble
+reaches C5 pooled Delta +0.298 (p=0.0018), the best C5 number in the project. (TRAK-head and the
+head-leverage config rank-correlate 0.81 -- same mechanism, as expected.)
+
+## 4. Leverage correction complements the datamodel (P4)
+Per-target leverage responsiveness correlates with the datamodel's per-target LDS (Spearman +0.66):
+both exploit learnable demo structure. But the leverage family also wins on C7 and C8, where the
+datamodel COLLAPSES to a constant (LDS NaN, BLOCKERS #8) -- so a zero-outcome gradient estimator
+reaches targets the outcome-based datamodel cannot. The two classes are complementary, not the
+datamodel strictly dominating. The self-influence-contamination diagnostic corr(|K[:,t]|,diagG) is
+weak; datamodel-LDS is the best (imperfect) outcome-free predictor of responsiveness.
+
+## 5. Out-of-sample confirmation
+**Campaign J (pass 4, seed 20260723, PREREG_J frozen at zero runs).** Scored once:
+- **RelatIF/C5: lds 0.516 vs GradDot 0.175, ratio 0.533, ABSOLUTE PASS (p=0.005)** -- the first
+  gradient estimator to clear the half-ceiling bar out of sample. Paired Delta_rho +0.341 but the
+  one-sided bootstrap p (0.073) narrowly misses 0.05 at n=24.
+- surrogate-LOO/C5: lds 0.464, ratio 0.479 (just under 0.5), paired Delta +0.340 -- corroborates.
+- TRAK-head/C2: does NOT confirm; the C2 outcome is negative for GradDot too on the J masks, so the
+  draw cannot adjudicate C2 (BLOCKERS #17, the n=24 single-draw resolution limit).
+
+**Campaign K (pass 5, seed 20260724, PREREG_K frozen at zero runs).** Scored once: **0/3 confirm.**
+- leverage-head/C2: lds -0.166 vs GradDot -0.162 -- C2 outcome negative for both estimators on K
+  too (unresolvable, as on J).
+- leverage-head/C8: lds 0.420 vs GradDot 0.471, paired -0.051 -- the dev C8 win (+0.387) did NOT
+  replicate; GradDot itself is strong on C8/K.
+- leverage-cachedE20/C7: lds 0.416 vs GradDot 0.130, paired +0.286 (p=0.195) -- right sign, misses
+  both bars at n=24.
+So the pass-5 leverage FAMILY dev wins (5 targets) were largely mask-draw overfitting: on a fresh
+draw C2/C8 do not survive, and only C7 keeps the right direction (underpowered). This is the same
+n=24 lesson as pass 3 (BLOCKERS #17/#20), and it sharpens the verdict below.
+
+**Campaign L (pass 6 capstone, seed 20260725, PREREG_L frozen at zero runs).** Second fresh draw
+for the C5 self-influence win. Scored once: **0/3.**
+- RelatIF/C5 and the C5 ensemble: lds 0.217 vs GradDot 0.143, ratio 0.227, paired +0.075 (p=0.36).
+- surrogate-LOO/C5: lds 0.127 vs GradDot 0.212 -- loses to GradDot on this draw.
+Campaign J gave RelatIF/C5 ratio 0.533 and paired +0.34; campaign L gives ratio 0.227 and paired
++0.075 for the SAME estimator. **So J's absolute-bar pass was substantially a favourable draw.**
+Across two fresh draws the C5 effect is real in DIRECTION (RelatIF >= GradDot on both) but small and
+draw-dependent; it does not robustly clear the half-ceiling bar.
+
+## Negatives (clean, some preregisterable)
+- **W1 unlearning-LOO:** ascent-unlearn ~= GradDot, finetune-forget dead. Killed on a 1-member pilot.
+- **W5 mid-training GradDot:** single-checkpoint LDS swings +-1.0 between adjacent 400-step ckpts;
+  pass-3 B4's step-6400 "signal" was one lucky draw. No mid-training effect.
+- **W6 hybrid datamodel:** a gradient prior does NOT let the datamodel hit its 24-mask LDS with 12
+  masks (win-condition-2 fails). It DOES regularize the datamodel at low mask counts (+0.43 on C5@12).
+- **P6.1 multi-view:** a single fixed estimator does not generalize (see #2).
+
+## What passes 4-6 established
+1. A leverage / self-influence correction of GradDot (RelatIF, K/G_dd) is the first gradient-side
+   estimator in the project to beat GradDot out of sample IN DIRECTION -- RelatIF >= GradDot on C5
+   on every fresh draw (J +0.34, L +0.075) and leverage-cachedE20 >= GradDot on C7 (K +0.29). This
+   directional consistency across six draws is real and new.
+2. But no gradient estimator ROBUSTLY clears the absolute bar. RelatIF/C5 cleared it on campaign J
+   (ratio 0.533) yet fell to 0.227 on campaign L -- J was a favourable draw. Dev over-promises at
+   n=24: the family beat GradDot on 5 dev targets, but on fresh draws C5 is small/draw-dependent,
+   C7 underpowered, and C2/C8 do not replicate (K). Same mask-draw overfitting caught every pass.
+3. "Generality" is not achieved and is a FAMILY property at best: the effect is target-specific in
+   both Phi and lambda, and a fixed multi-view estimator (P6.1) fails to capture it (1 target).
+4. The C5 win rests on two near-orthogonal mechanisms (self-influence norm + exact frozen-trunk LOO,
+   rank-corr 0.20), whose ensemble is the strongest single attributor on dev (+0.298) -- but campaign
+   L showed even the ensemble does not robustly replicate (ratio 0.227, paired +0.075).
+5. Leverage gradients and the outcome-consuming datamodel are complementary (P4): leverage wins on
+   C7/C8 where the datamodel collapses, though neither C7 nor C8 survived their fresh draw.
+6. The n=24 single-draw paired bar remains THE binding limitation: even the confirmed C5 effect
+   (+0.34 over GradDot on J) clears only the absolute bar, missing the strict paired-p<0.05. Real
+   progress on this corpus needs more masks per draw, not more estimators.
