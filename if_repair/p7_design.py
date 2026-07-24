@@ -329,11 +329,22 @@ def main():
             print(f"\n  {t}: highest resolution = {s.loc[s.resolution.idxmax()].statistic}")
 
     else:
-        by = pd.concat([contrast_by_statistic("C5", "relatif_C5"),
-                        contrast_by_statistic("C7", "leverage_C7")], ignore_index=True)
+        # Each config gets BOTH its full out-of-sample set and its honest set (discovery draw
+        # removed). The honest set differs per config: J is RelatIF/C5's discovery draw, K is
+        # leverage/C7's. Using one draw set for both would silently score C7 on the draw its
+        # effect was reported on -- the exact error BLOCKERS #20 exists to prevent.
+        frames = []
+        for t, c in (("C5", "relatif_C5"), ("C7", "leverage_C7")):
+            oos = tuple(P7.CONFIGS[c]["oos"])
+            honest = tuple(d for d in oos if d != P7.CONFIGS[c]["discovery"])
+            frames.append(contrast_by_statistic(t, c, oos).assign(analysis="full_information"))
+            frames.append(contrast_by_statistic(t, c, honest).assign(
+                analysis="without_discovery_draw"))
+        by = pd.concat(frames, ignore_index=True)
         by.to_csv(os.path.join(RESULTS, "p7_contrast_by_statistic.csv"), index=False)
         print("=" * 120)
-        print("W0.2(b) CONTRAST UNDER EVERY CANDIDATE STATISTIC (clean OOS draws K+L)")
+        print("W0.2(b) CONTRAST UNDER EVERY CANDIDATE STATISTIC "
+              "(each config on its own OOS and honest draw sets)")
         print("=" * 120)
         print(by.round(4).to_string(index=False))
 
