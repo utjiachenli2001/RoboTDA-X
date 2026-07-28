@@ -75,6 +75,29 @@ def achieved_depth(raw_by_mask, n_expected):
     return d, seeds[:d]
 
 
+def analysis_depth(achieved):
+    """Largest EVEN depth <= achieved. Used for BOTH the LDS and the ceiling.
+
+    DEFECT FOUND BEFORE ANY CONTRAST WAS COMPUTED (2026-07-27, campaign N still running, no
+    result file written). The split-half ceiling recipe -- `confirm_mseries.ceiling`, the one
+    PREREG_N names -- builds two DISJOINT EQUAL halves and drops any split whose remainder is the
+    wrong size (`h = S // 2`, `if len(rest) != h: continue`). At odd S every split is dropped and
+    it returns NaN. Verified: S=2,4,6 give a ceiling; S=3,5 give NaN. PREREG_N specifies depth 5,
+    so scoring at the achieved depth would have produced a NaN bar and failed the primary for a
+    mechanical reason rather than a scientific one.
+
+    The fix is to analyse at the largest even depth. Both quantities use it, rather than only the
+    ceiling, because the Spearman-Brown step extrapolates from half-depth to full S: a ceiling
+    built on 4 seeds is the bar for a depth-4 outcome, and testing a depth-5 LDS against it would
+    be ANTI-CONSERVATIVE -- a lower bar than the estimate deserves. Matching them is the
+    conservative choice and keeps the ratio internally consistent.
+
+    This changes no hypothesis, no target, no statistic and no direction. The full achieved depth
+    is still reported as a secondary robustness read.
+    """
+    return 2 * (achieved // 2)
+
+
 def conditional_masks(target, masks):
     """Masks that CONTAIN the target cluster.
 
@@ -99,6 +122,12 @@ def evaluate(campaign="N"):
             raise SystemExit(
                 f"campaign {campaign}: no depth is complete across all {len(ms)} conditional "
                 f"masks for {t}; the preregistered stopping rule has nothing to analyse yet")
+        d_even = analysis_depth(depth)
+        if d_even == 0:
+            raise SystemExit(
+                f"campaign {campaign}: achieved depth {depth} has no even prefix; the split-half "
+                "ceiling needs two disjoint equal halves (see analysis_depth)")
+        seeds_full, seeds = list(seeds), list(seeds)[:d_even]
         raw = {m: {s: v[s] for s in seeds} for m, v in raw.items() if all(s in v for s in seeds)}
         obs = F.seed_mean(raw)
         use = [m for m in ms if m["mask_id"] in obs]
@@ -114,7 +143,10 @@ def evaluate(campaign="N"):
             rows.append({
                 "name": name, "target": t, "statistic": sname,
                 "primary": sname == PRIMARY_STAT, "grain": "cluster",
-                "n_masks": len(o), "depth": depth, "seeds": ",".join(map(str, seeds)),
+                "n_masks": len(o), "depth": d_even, "depth_achieved": depth,
+                "seeds": ",".join(map(str, seeds)),
+                "depth_note": (f"analysed at even depth {d_even} of {len(seeds_full)} achieved; "
+                               "the split-half ceiling needs disjoint equal halves"),
                 "lds": rho, "ceiling": c,
                 "ratio": rho / c if np.isfinite(c) and c else np.nan,
                 "p_abs": p_abs, "alpha_abs": ALPHA_ABS,
@@ -138,8 +170,9 @@ def secondary(campaign="N"):
         ms = conditional_masks(t, masks_all)
         raw = {m["mask_id"]: raw_all[m["mask_id"]] for m in ms if m["mask_id"] in raw_all}
         depth, seeds = achieved_depth(raw, len(ms))
-        if depth == 0:
+        if analysis_depth(depth) == 0:
             continue
+        seeds = list(seeds)[:analysis_depth(depth)]
         raw = {m: {s: v[s] for s in seeds} for m, v in raw.items() if all(s in v for s in seeds)}
         obs = F.seed_mean(raw)
         use = [m for m in ms if m["mask_id"] in obs]
@@ -151,7 +184,8 @@ def secondary(campaign="N"):
         for sname, fn in STATS.items():
             d0, pp, lo, hi = stratified_bootstrap(px, pg, o, st, fn)
             rows.append({"config": cname, "label": cfg["label"], "target": t,
-                         "statistic": sname, "n_masks": len(o), "depth": depth,
+                         "statistic": sname, "n_masks": len(o),
+                         "depth": analysis_depth(depth), "depth_achieved": depth,
                          "lds": fn(px, o), "graddot_lds": fn(pg, o),
                          "paired_delta": d0, "paired_p": pp, "ci_lo": lo, "ci_hi": hi})
             for s in np.unique(st):

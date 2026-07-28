@@ -146,3 +146,26 @@ def test_statistic_choice_was_made_without_a_contrast_column():
     cols = set(pd.read_csv(p).columns)
     banned = {"delta", "paired_delta", "lds", "rho", "contrast", "graddot_lds", "ratio"}
     assert not (cols & banned), cols & banned
+
+
+# ------------------------------------------------------------------ even-depth ceiling defect
+def test_split_half_ceiling_is_nan_at_odd_depth():
+    """The defect analysis_depth() exists to route around. Pinned so it cannot regress silently."""
+    from if_repair.confirm_mseries import ceiling, STATS
+    rng = np.random.default_rng(0)
+    truth = rng.normal(size=30)
+
+    def mk(S):
+        return {f"m{i}": {s: float(truth[i] + 0.3 * rng.normal()) for s in range(S)}
+                for i in range(30)}
+    assert np.isfinite(ceiling(mk(4), STATS["spearman"]))
+    assert np.isnan(ceiling(mk(5), STATS["spearman"]))
+
+
+def test_analysis_depth_is_the_largest_even_prefix():
+    assert [CN.analysis_depth(d) for d in (0, 1, 2, 3, 4, 5, 6)] == [0, 0, 2, 2, 4, 4, 6]
+
+
+def test_analysis_depth_never_exceeds_achieved():
+    for d in range(0, 12):
+        assert CN.analysis_depth(d) <= d
