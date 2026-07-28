@@ -1,0 +1,5 @@
+stage,target,statistic,sd_model_c_over_sqrt_n,fresh_5of9_masks_available,sd_at_fresh_5of9_cap,sd_at_100_masks_multistratum,sd_at_200_masks_multistratum,note
+allocation_advice,C5,kendall_tau_b,0.5144903604410668,54,0.07001327003673406,0.05144903604410668,0.036379962272298935,"conditional masks are ~40/72 of a draw, so a stratified multi-|S| design is the only way past the 5-of-9 cap of 54 fresh masks"
+allocation_advice,C5,spearman,0.6863145772412139,54,0.09339558429305148,0.0686314577241214,0.04852976915944409,"conditional masks are ~40/72 of a draw, so a stratified multi-|S| design is the only way past the 5-of-9 cap of 54 fresh masks"
+allocation_advice,C7,kendall_tau_b,0.3898852260322077,54,0.05305665900158854,0.03898852260322077,0.02756904872118239,"conditional masks are ~40/72 of a draw, so a stratified multi-|S| design is the only way past the 5-of-9 cap of 54 fresh masks"
+allocation_advice,C7,spearman,0.5080583069189978,54,0.06913797841854849,0.05080583069189978,0.035925147406057956,"conditional masks are ~40/72 of a draw, so a stratified multi-|S| design is the only way past the 5-of-9 cap of 54 fresh masks"

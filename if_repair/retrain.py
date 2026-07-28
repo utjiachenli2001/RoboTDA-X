@@ -222,6 +222,14 @@ FRESH_MASK_SEED_L = 20260725
 FRESH_MASK_SEED_M = (20260726, 20260727, 20260728, 20260729, 20260730, 20260731)
 M_DEPTH = 2
 
+# Campaign N (pass 8) -- CLUSTER grain. Masks come from p8_masks.manifest(): the complete
+# enumeration of |S| in {4,5,6} minus Stage F's signatures, 278 masks. Depth 5, and the job list
+# is ordered SEED-MAJOR so that every prefix is a complete balanced design -- the campaign is
+# time-boxed and its prespecified stopping rule reads the largest fully-completed depth off the
+# run directory. Mask-major ordering would leave a truncated run with some masks at full depth
+# and others missing entirely, which is not a design.
+N_DEPTH = 5
+
 
 def fresh_demo_masks(seed=FRESH_MASK_SEED, prefix="H"):
     """The repo's own Stage-G generator at a different seed -> a fresh, disjoint mask draw."""
@@ -286,6 +294,12 @@ def jobs(campaign):
         return [{"run_id": f"M_{m['mask_id']}_i{s}_o{s}", "mask_id": m["mask_id"],
                  "demos": m["demos"], "seed_init": s, "seed_order": s}
                 for m in ms for s in B_SEEDS[:M_DEPTH]]   # depth 2, by the W0.2 allocation result
+    if campaign == "N":
+        from if_repair import p8_masks as P8M
+        ms = P8M.manifest()["masks"]
+        return [{"run_id": f"N_{m['mask_id']}_i{sd}_o{sd}", "mask_id": m["mask_id"],
+                 "demos": m["demos"], "seed_init": sd, "seed_order": sd}
+                for sd in B_SEEDS[:N_DEPTH] for m in ms]      # SEED-MAJOR: see N_DEPTH note
     if campaign == "D":
         # W2 duels. Each duel is a pair of 68-demo masks differing in exactly ONE demo, trained
         # at MATCHED seed slots so the shared mask x init interaction differences out. The
@@ -328,7 +342,7 @@ def run_job(job, cfg, fidx, outdir, device="cuda"):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--campaign", required=True,
-                    choices=["A", "B", "C", "I", "J", "K", "L", "M", "D"])
+                    choices=["A", "B", "C", "I", "J", "K", "L", "M", "D", "N"])
     ap.add_argument("--worker", type=int, default=0)
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)
