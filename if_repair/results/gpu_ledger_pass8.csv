@@ -1,0 +1,5 @@
+item,n_jobs,job_h,solo_h,occupancy_h,note
+W1 cluster-grain OOS scan of every frozen config on Stage F,0,0.0,0.0,0.0,ZERO GPU beyond re-deriving cached estimator scores -- Stage F's 168 retrains were paid for by the original project and never used for attribution
+W2 design: ceiling / allocation / statistic,0,0.0,0.0,0.0,ZERO GPU -- resampled Stage F
+"p8_masks: complete enumeration of |S| in {4,5,6} minus Stage F",0,0.0,0.0,0.0,"ZERO GPU -- combinatorial construction, no sampling"
+campaign N -- 278 fresh CLUSTER masks x depth 5 (seed-major),525,17.843,12.688,5.931,3 workers; the pass's entire GPU spend
