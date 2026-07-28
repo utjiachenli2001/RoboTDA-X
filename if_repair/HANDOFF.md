@@ -369,3 +369,81 @@ python -m if_repair.p7_duels --stage pilot                               # kill 
 
 `P7_SLOW=1` enables the GPU-dependent surrogate reproduction tests. Everything else in
 `pytest if_repair/tests -q` is CPU and runs in ~25 s.
+
+---
+
+# HANDOFF -- pass 8 (for pass 9)
+
+## The state pass 9 inherits
+
+Pass 8 changed the unit of attribution from one demonstration to a cluster of fifteen, and the
+answer is unambiguous in both directions:
+
+- **Plain GradDot_dmean, no correction at all, clears the absolute half-ceiling bar**: ratio
+  **0.707** Kendall (0.834 Spearman), 149 out-of-sample masks, preregistered as a family of one
+  and scored once. No estimator cleared that bar out of sample in seven passes at demo grain.
+- **Every self-influence and leverage correction from passes 4-7 reverses**, to between -0.47 and
+  -0.75 paired, with intervals nowhere near zero -- replicating across two independent draws and
+  two different outcome pipelines.
+
+The bar was never the problem and the estimator was never the problem. **The unit was too small.**
+
+**The caveat that must travel with the headline:** a coarser grain is partly an easier prediction
+problem. Normalising by the cluster-grain ceiling controls outcome noise but not degrees of
+freedom. Pass 8 shows the measurement works at cluster grain and that demo-grain corrections do
+not survive a grain with signal. It does **not** rescue per-demo attribution.
+
+## Do NOT re-run
+
+- **Everything on the passes 4-7 do-not-re-run lists**, unchanged.
+- **The self-influence / leverage corrections, anywhere, without re-testing them at the grain the
+  new corpus supports.** BLOCKERS #37. They are not a general improvement; on present evidence
+  they are a demo-grain noise artifact.
+- **A fresh cluster draw at |S| in {4,5,6}.** Campaign N consumed all 278 that Stage F left. The
+  strata are exhausted. What remains unused is |S| in {2,3,7,8} -- 36 + 84 + 36 + 9 masks -- at
+  training-set sizes (30/45/105/120 demos) far enough from the others that |S| stops being a
+  controllable covariate and becomes the experiment.
+- **An ODD seed depth in any prereg.** BLOCKERS #39: the split-half ceiling silently returns NaN.
+
+## Open threads, ordered by what would change a conclusion
+
+1. **Find the crossover. Pass 8 jumped from 1 demo to 15 and learned only that the floor is
+   somewhere in between.** Intermediate grains -- groups of 3 and 5 demos, within or across
+   clusters -- would locate the unit size at which attribution becomes measurable on this corpus.
+   That number is the transferable quantity: it is what tells another project what unit to design
+   its benchmark around, and nothing in the literature reports it. Mask space at sub-cluster grain
+   is large again, so the demo-grain allocation rule (#29) applies rather than #38.
+
+2. **The datamodel at cluster grain -- pass 8 did not touch it.** It remains the only estimator
+   with a large replicable OOS advantage at demo grain (C5 ratio 0.882, Delta rho +0.358). Does
+   that advantage survive the grain change, or does it evaporate the way every gradient-side
+   correction just did? It is outcome-consuming, so it must be scored leave-one-mask-out, and
+   campaign N's 1390 retrains make this **zero additional GPU**. This is the cheapest remaining
+   experiment with a real chance of changing a conclusion.
+
+3. **Why do the corrections reverse?** RelatIF divides by self-influence; a cluster prediction sums
+   75 such scores, so a handful of demos with tiny `G_dd` could dominate the sum. If the reversal
+   is a scaling pathology it is fixable and the correction may be salvageable; if the ranking
+   itself is wrong the correction is simply false. Diagnosing it costs no GPU -- the scores and
+   the outcomes are all on disk -- and it decides whether BLOCKERS #37 is a caveat or an epitaph.
+
+4. **Port to a corpus with 500+ demos** (pass 7's thread #1, still open and still the biggest
+   move). Pass 8 sharpens the question from "does attribution work?" to "at what unit size does
+   attribution become measurable, as a function of corpus size?" -- which is answerable, and a
+   better paper.
+
+## Reproducing pass 8
+
+```bash
+export CUDA_VISIBLE_DEVICES=0          # REQUIRED, see BLOCKERS #40
+python -m if_repair.p8_cluster_grain               # Stage F OOS scan, zero GPU
+python -m if_repair.p8_design --stage all          # ceiling / allocation / statistic, zero GPU
+python -m if_repair.p8_masks                       # 278 fresh masks, zero GPU
+# GPU (15.75 h wall, 33.59 solo-GPU-h):
+python -m if_repair.retrain --campaign N --worker {0,1,2} --nworkers 3    # 1390 retrains
+python -m if_repair.confirm_nseries --i_understand_this_scores_once       # score ONCE
+python -m if_repair.p8_figs
+python -m if_repair.gpu_ledger_pass8
+```
+
+`pytest if_repair/tests -q` -> 116 passed, 3 skipped, ~25 s, all CPU.

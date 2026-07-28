@@ -646,3 +646,90 @@ rank-correlate 0.547 and rarely disagree. The outcome side: when they do disagre
 disagree about is too small to measure one demo at a time. Demo-grain attribution on 135 demos is
 signal-starved at the level of individual demos; only aggregate many-demo contrasts carry
 measurable information.
+
+## 36. (RESULT, and the pass's answer) The absolute half-ceiling bar is REACHABLE -- it was measuring the grain
+
+Seven passes failed the `ratio >= 0.5` bar out of sample at demo grain, and pass 7's HANDOFF
+open thread #4 raised the possibility that it is unreachable for any estimator and therefore
+measures the ceiling rather than discriminating hypotheses.
+
+At cluster grain, **plain GradDot_dmean with no correction at all** reaches ratio **0.707**
+(Kendall tau_b, LDS 0.4747 vs ceiling 0.6715) and **0.834** (Spearman, 0.6789 vs 0.8141) on 149
+out-of-sample conditional masks from campaign N, depth 4. Preregistered as a family of one,
+frozen while the campaign had zero runs, scored once.
+
+The bar is fine. The unit was too small.
+
+**Caveat that belongs next to the number every time it is quoted:** a coarser grain is partly an
+easier prediction problem -- among masks containing the target, the variation is which 4-5 of the
+other 8 clusters are present, which has far fewer degrees of freedom than 135 demos. Normalising
+by the cluster-grain ceiling controls outcome noise, not this. Pass 8 shows the measurement works
+at cluster grain; it does not rescue per-demo attribution.
+
+## 37. (RESULT, and it overturns three passes of work) Every self-influence / leverage correction REVERSES at cluster grain
+
+On campaign N (fresh, disjoint, 278 masks), Kendall tau_b, paired against GradDot_dmean:
+
+    relatif_C5     -0.627  [-0.735, -0.518]      (demo grain, pass 7: +0.06 [-0.02, +0.14])
+    surrogate_C5   -0.539  [-0.661, -0.414]
+    ensemble_C5    -0.751  [-0.858, -0.638]
+    leverage_C7    -0.474  [-0.585, -0.360]
+
+and it replicates the independent Stage F scan (-0.28 to -0.63) on a **different draw** and a
+**different outcome pipeline** (probe battery vs `heldout_frame_losses`).
+
+Given pass 7 measured the demo-grain benefit of the same frozen config at +0.06 with an interval
+touching zero, the parsimonious reading is that **the correction was fitting demo-grain noise**.
+Where signal is abundant it does not merely fail to help -- it destroys a ranking that was
+already good. Do not carry these corrections to a new corpus without re-testing them at the grain
+that corpus actually supports.
+
+## 38. (DESIGN) At cluster grain the mask axis is CAPPED, which inverts BLOCKERS #29
+
+BLOCKERS #29 measured masks beating seeds ~5:1 and concluded "buy masks at depth 2". That was
+measured where the mask supply is effectively unlimited: demo masks are 68-of-135 subsets.
+
+The cluster space is finite and small:
+
+    C(9,4) = 126     C(9,5) = 126     C(9,6) = 84     total 336
+
+Stage F consumed 58 distinct 5-of-9 subsets; campaign N took all 278 that remain. **With the mask
+axis exhausted, depth is the only axis left to buy.** This is a consequence of the combinatorics,
+not a contradiction of #29 -- but it means the demo-grain allocation rule must not be applied at
+cluster grain without re-deriving it.
+
+Two measurement traps found while re-deriving it, both of which would have undersized the campaign:
+
+- **Subsampling n of n is deterministic**, so its paired sd is identically 0. Including that point
+  in a `sd ~ c/sqrt(n)` fit drags `c` down by (k-1)/k.
+- **Seed depth cannot be measured from a 4-seed pool.** Sampling depth d without replacement from
+  4 seeds shrinks toward the full mean by construction, hitting sd = 0 at d = 4. Only the 1->2
+  step is interpretable. The apparent "seeds help a lot at cluster grain" is mostly this artifact.
+
+## 39. (TRAP) The split-half noise ceiling returns NaN at ODD seed depth
+
+`confirm_mseries.ceiling` -- the recipe PREREG_M and PREREG_N both name -- builds two DISJOINT
+EQUAL halves (`h = S // 2`) and drops any split whose remainder is the wrong size. At odd S every
+split is dropped and it returns **NaN**, silently. Verified: S = 2, 4, 6 give a ceiling; S = 3, 5
+give NaN.
+
+PREREG_N specified depth 5, so scoring at the achieved depth would have produced a NaN bar and
+failed the primary for a mechanical reason. `confirm_nseries.analysis_depth()` analyses at the
+largest EVEN depth, and applies it to **both** the LDS and the ceiling -- not the ceiling alone,
+because Spearman-Brown extrapolates from half-depth to full S, so a 4-seed ceiling tested against
+a depth-5 LDS is anti-conservative.
+
+Found and fixed while campaign N was still running, with no result file written and no contrast
+computed (commit 7937ca1). Pinned in `tests/test_p8.py` so it cannot regress silently.
+
+**Any future prereg that names a seed depth should name an EVEN one.**
+
+## 40. (INFRA) src/bootstrap.py disables CUDA on any box that is not the original 8-GPU machine
+
+`ALLOWED_GPUS = (4, 5, 6, 7)`. On a 1-GPU box the `nvidia-smi -i 4,5,6,7` probe raises, the
+`except` pins `CUDA_VISIBLE_DEVICES=4`, no device is visible, and `torch.cuda.is_available()`
+becomes False -- surfacing much later as a confusing `torch.load` deserialization error rather
+than as a GPU-selection failure.
+
+`_pin_allowed_gpu` respects an already-set value, so the fix is environmental and needs no repo
+edit: **export `CUDA_VISIBLE_DEVICES=0` on every command.** Do not "fix" bootstrap.py for one box.

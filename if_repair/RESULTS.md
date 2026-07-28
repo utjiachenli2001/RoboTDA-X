@@ -768,3 +768,70 @@ correlation **0.547**; disagreeing within-cluster pairs at gap >= {3,4,5,6,7,8,9
 
 `results/gpu_ledger_pass7.csv`. W0.1 and W0.2 -- including the result that overturned passes 4-6 --
 cost **zero GPU**.
+
+---
+
+# 8. PASS 8 -- cluster grain (campaign N)
+
+**Grain: cluster (9 units of 15 demos).** Masks: 278, the complete enumeration of |S| in {4,5,6}
+minus Stage F's 58 distinct signatures. Depth 5 achieved, **analysed at even depth 4** (BLOCKERS
+#39). Conditional on target-in-mask. Outcome functional `plain`, as everywhere else in if_repair.
+
+## 8.1 PRIMARY -- PREREG_N, family of one, alpha_abs = 0.05, scored once
+
+`results/confirm_nseries.csv`
+
+| config | target | statistic | n | depth | LDS | ceiling | ratio | p | PASS |
+|---|---|---|---|---|---|---|---|---|---|
+| GradDot_dmean | C5 | Kendall tau_b (primary) | 149 | 4 | 0.4747 | 0.6715 | **0.7069** | <0.05 | **YES** |
+| GradDot_dmean | C5 | Spearman (secondary) | 149 | 4 | 0.6789 | 0.8141 | **0.8338** | <0.05 | **YES** |
+
+The Kendall ceiling applies Spearman-Brown, which is derived for correlations, so it is an
+approximation and labelled as such.
+
+## 8.2 SECONDARY -- do the pass-4/7 corrections replicate their Stage F reversal? (descriptive)
+
+`results/confirm_nseries_secondary.csv`
+
+| config | target | statistic | n | LDS | GradDot | paired delta | 95% CI |
+|---|---|---|---|---|---|---|---|
+| relatif_C5 | C5 | Kendall | 149 | -0.1520 | 0.4747 | **-0.6267** | [-0.7348, -0.5180] |
+| relatif_C5 | C5 | Spearman | 149 | -0.2229 | 0.6789 | -0.9018 | [-1.0441, -0.7399] |
+| surrogate_C5 | C5 | Kendall | 149 | -0.0241 | 0.5144 | -0.5385 | [-0.6614, -0.4142] |
+| surrogate_C5 | C5 | Spearman | 149 | -0.0309 | 0.7189 | -0.7498 | [-0.9126, -0.5733] |
+| ensemble_C5 | C5 | Kendall | 149 | -0.2761 | 0.4747 | -0.7508 | [-0.8581, -0.6383] |
+| ensemble_C5 | C5 | Spearman | 149 | -0.4050 | 0.6789 | -1.0839 | [-1.2179, -0.9227] |
+| leverage_C7 | C7 | Kendall | 151 | -0.1922 | 0.2823 | -0.4745 | [-0.5853, -0.3599] |
+| leverage_C7 | C7 | Spearman | 151 | -0.2773 | 0.4279 | -0.7052 | [-0.8554, -0.5384] |
+
+## 8.3 The Stage F scan that motivated the campaign (zero GPU, independent draw + pipeline)
+
+`results/p8_stageF_oos.csv`, conditional n=40, Kendall tau_b. Every config OOS by construction.
+
+| config | target | LDS | GradDot | delta | 95% CI |
+|---|---|---|---|---|---|
+| relatif_C5 | C5 | -0.224 | +0.239 | -0.463 | [-0.728, -0.219] |
+| surrogate_C5 | C5 | -0.079 | +0.198 | -0.277 | [-0.582, +0.035] |
+| ensemble_C5 | C5 | -0.239 | +0.239 | -0.479 | [-0.745, -0.230] |
+| leverage_C7 | C7 | -0.198 | +0.427 | -0.625 | [-0.834, -0.430] |
+
+Same sign and comparable magnitude to campaign N on a different draw and a different outcome
+pipeline.
+
+## 8.4 Design (hypothesis-blind, committed before any contrast)
+
+`results/p8_design_*.csv`. Statistic chosen by resolution = reliability / noise:
+
+| statistic | split-half r | Spearman-Brown | noise c | resolution |
+|---|---|---|---|---|
+| Kendall tau_b | 0.437 | 0.579 | 0.543 | **10.68** |
+| Spearman | 0.499 | 0.622 | 0.717 | 8.67 |
+
+At cluster grain reliability favours Spearman and noise favours Kendall -- they disagree, unlike
+at demo grain -- and resolution settles it for Kendall, the same primary as pass 7.
+
+## 8.5 GPU ledger
+
+`results/gpu_ledger_pass8.csv`. Campaign N: 1390 retrains, **47.19 job-h, 33.59 solo-GPU-h,
+15.75 h wall** on 3 workers. Stage F's 168 retrains are listed as inherited at zero cost. The
+scan that reframed the pass, the design study, and the mask construction cost **zero GPU**.

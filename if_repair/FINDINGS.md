@@ -603,3 +603,88 @@ Four, each caught before it was committed:
 4. **Statistic choice is worth ~33% of CI width and can be made without looking at the hypothesis.**
 5. **Individual demos are below the noise floor** on this corpus; only aggregate contrasts carry
    measurable information. The duel design is not viable here at any reachable budget.
+
+---
+
+# PASS 8 -- the binding constraint was the GRAIN, not the estimator
+
+> One-line status: at cluster grain a **plain, uncorrected GradDot clears the absolute
+> half-ceiling bar** (ratio 0.71 Kendall / 0.83 Spearman on 149 out-of-sample masks) -- the bar
+> nothing cleared out of sample in seven passes at demo grain. **Every self-influence and leverage
+> correction from passes 4-7 is strongly NEGATIVE at this grain**, replicating across two
+> independent draws and two outcome pipelines.
+
+## What pass 8 established
+
+**1. The absolute bar is reachable. It was measuring the grain.**
+
+Pass 7's HANDOFF open thread #4 asked whether the half-ceiling bar is unreachable for every
+estimator anyone would try, in which case it measures the ceiling rather than discriminating
+hypotheses. It is reachable. Campaign N, 278 fresh cluster masks, C5, depth 4, conditional n=149:
+
+| statistic | LDS | ceiling | ratio | bar | verdict |
+|---|---|---|---|---|---|
+| Kendall tau_b (primary) | 0.4747 | 0.6715 | **0.707** | 0.5 | **PASS** |
+| Spearman (secondary) | 0.6789 | 0.8141 | **0.834** | 0.5 | **PASS** |
+
+Preregistered as a family of one in `p8_prereg.md`, frozen at 956c061 while campaign N had zero
+runs, scored once.
+
+**2. Every correction passes 4-7 built REVERSES at cluster grain.**
+
+The estimators that were the entire subject of three passes are not merely unhelpful here; they
+are strongly harmful, on a fresh disjoint draw, with intervals nowhere near zero:
+
+| config | demo grain (pass 7) | cluster grain (campaign N, Kendall) | 95% CI |
+|---|---|---|---|
+| relatif_C5 | **+0.06** [-0.02, +0.14] | **-0.627** | [-0.735, -0.518] |
+| surrogate_C5 | (dev +0.298) | -0.539 | [-0.661, -0.414] |
+| ensemble_C5 | -- | -0.751 | [-0.858, -0.638] |
+| leverage_C7 | +0.032, p=0.406 | -0.474 | [-0.585, -0.360] |
+
+This replicates the Stage F scan (deltas -0.28 to -0.63) on a **different draw** and a
+**different outcome pipeline** -- Stage F outcomes come from the original project's probe battery,
+campaign N's from `heldout_frame_losses`. Agreement across both is the strongest form of
+robustness available inside this repo.
+
+The parsimonious reading, given pass 7 measured the demo-grain benefit at +0.06 with an interval
+touching zero: **the self-influence correction was fitting demo-grain noise.** Where signal is
+abundant it does not merely fail to help, it destroys a ranking that was already good.
+
+**3. What this does NOT show, and the write-up must not claim.**
+
+A higher LDS at a coarser grain is partly a property of the task being easier. Among masks that
+contain the target, the remaining variation is *which 4-5 of the other 8 clusters are present* --
+a prediction problem with far fewer degrees of freedom than 135 demos. Normalising by the
+cluster-grain noise ceiling controls for outcome noise but not for this.
+
+So: pass 8 shows the **measurement** works at cluster grain, and that the demo-grain corrections
+do not survive contact with a grain that has signal. It does **not** rescue per-demo attribution,
+and it is not evidence that influence functions are good at the demo question. The honest claim is
+about where the noise floor sits, which is exactly what BLOCKERS #33/#35 said was the open
+question.
+
+**4. Stage F had been sitting unused for the entire project.**
+
+168 retrains, built as attribution-agnostic ground truth, never used for attribution. Every frozen
+config was out-of-sample on all of them by construction -- a cleaner provenance than anything
+pass 7 had, with no discovery draw to discount. The scan that reframed this pass cost **zero GPU**.
+This is BLOCKERS #28's lesson applied a second time, and it paid a second time.
+
+**5. Stage F's 72 masks are really 58.**
+
+Its randomized construction plus swap repair drew from a space of only C(9,5)=126 and repeated 14
+subsets. A repeated cluster subset is not a second mask -- both copies train on identical data, so
+the repeat buys seed depth, not design coverage. Every conditional-n ever reported against Stage F
+is optimistic by that factor. Campaign N replaces sampling with **complete enumeration**, which at
+this size is strictly better: exact balance, uniform co-inclusion, exact disjointness.
+
+## The write-up sentence this pass earned
+
+> Raising the unit of attribution from one demonstration to a cluster of fifteen moves
+> leave-one-out attribution from below the noise floor to 71% of the achievable ceiling
+> (Kendall tau_b, 149 out-of-sample masks, preregistered), using a plain gradient dot product
+> with no correction at all. The self-influence corrections that a demo-grain analysis selects --
+> and which improve demo-grain attribution by a measured +0.06 -- are strongly harmful at this
+> grain, reversing to -0.63. The binding constraint on demo-grain TDA benchmarks is neither the
+> estimator nor the number of retrains but the size of the unit being attributed.

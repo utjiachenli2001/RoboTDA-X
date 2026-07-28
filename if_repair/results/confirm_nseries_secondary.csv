@@ -1,0 +1,33 @@
+config,label,target,statistic,n_masks,depth,depth_achieved,lds,graddot_lds,paired_delta,paired_p,ci_lo,ci_hi,stratum
+relatif_C5,"RelatIF K/G_dd (cached E=20, unitL2)",C5,kendall_tau_b,149,4,5.0,-0.1520043533466352,0.47469617268274983,-0.626700526029385,1.0,-0.7347562897970779,-0.5180167136023173,
+relatif_C5,"RelatIF K/G_dd (cached E=20, unitL2)",C5,kendall_tau_b,56,5,,-0.251948051948052,0.20779220779220783,-0.4597402597402598,,,,4of9
+relatif_C5,"RelatIF K/G_dd (cached E=20, unitL2)",C5,kendall_tau_b,37,5,,-0.2672672672672673,0.25825825825825827,-0.5255255255255256,,,,5of9
+relatif_C5,"RelatIF K/G_dd (cached E=20, unitL2)",C5,kendall_tau_b,56,5,,-0.27012987012987016,0.16883116883116886,-0.438961038961039,,,,6of9
+relatif_C5,"RelatIF K/G_dd (cached E=20, unitL2)",C5,spearman,149,4,5.0,-0.22290948666787597,0.678860874297116,-0.9017703609649919,1.0,-1.0441411318366765,-0.7398950736371993,
+relatif_C5,"RelatIF K/G_dd (cached E=20, unitL2)",C5,spearman,56,5,,-0.36356801093643204,0.2907723855092276,-0.6543403964456597,,,,4of9
+relatif_C5,"RelatIF K/G_dd (cached E=20, unitL2)",C5,spearman,37,5,,-0.3857278330962541,0.40445708866761493,-0.790184921763869,,,,5of9
+relatif_C5,"RelatIF K/G_dd (cached E=20, unitL2)",C5,spearman,56,5,,-0.406015037593985,0.2550922761449077,-0.6611073137388928,,,,6of9
+surrogate_C5,"exact frozen-trunk surrogate-LOO (regen E=5 head, lam=1e-3)",C5,kendall_tau_b,149,4,5.0,-0.02412479593687647,0.5144204607291855,-0.5385452566660619,1.0,-0.6614421169067182,-0.4141898771054328,
+surrogate_C5,"exact frozen-trunk surrogate-LOO (regen E=5 head, lam=1e-3)",C5,kendall_tau_b,56,5,,-0.06753246753246754,0.22727272727272727,-0.2948051948051948,,,,4of9
+surrogate_C5,"exact frozen-trunk surrogate-LOO (regen E=5 head, lam=1e-3)",C5,kendall_tau_b,37,5,,-0.048048048048048055,0.3483483483483484,-0.39639639639639646,,,,5of9
+surrogate_C5,"exact frozen-trunk surrogate-LOO (regen E=5 head, lam=1e-3)",C5,kendall_tau_b,56,5,,-0.03376623376623377,0.1987012987012987,-0.2324675324675325,,,,6of9
+surrogate_C5,"exact frozen-trunk surrogate-LOO (regen E=5 head, lam=1e-3)",C5,spearman,149,4,5.0,-0.030948666787592963,0.7188536187193906,-0.7498022855069836,1.0,-0.9126154545623593,-0.573270689739038,
+surrogate_C5,"exact frozen-trunk surrogate-LOO (regen E=5 head, lam=1e-3)",C5,spearman,56,5,,-0.11517429938482569,0.34511278195488726,-0.46028708133971297,,,,4of9
+surrogate_C5,"exact frozen-trunk surrogate-LOO (regen E=5 head, lam=1e-3)",C5,spearman,37,5,,-0.05452821242294926,0.4724988146040777,-0.527027027027027,,,,5of9
+surrogate_C5,"exact frozen-trunk surrogate-LOO (regen E=5 head, lam=1e-3)",C5,spearman,56,5,,-0.05311004784688996,0.2799726589200274,-0.3330827067669173,,,,6of9
+ensemble_C5,z-avg ensemble of RelatIF + surrogate-LOO,C5,kendall_tau_b,149,4,5.0,-0.27607473245057135,0.47469617268274983,-0.7507709051333211,1.0,-0.8580810223246191,-0.6383098189552233,
+ensemble_C5,z-avg ensemble of RelatIF + surrogate-LOO,C5,kendall_tau_b,56,5,,-0.2324675324675325,0.20779220779220783,-0.44025974025974035,,,,4of9
+ensemble_C5,z-avg ensemble of RelatIF + surrogate-LOO,C5,kendall_tau_b,37,5,,-0.23723723723723725,0.25825825825825827,-0.49549549549549554,,,,5of9
+ensemble_C5,z-avg ensemble of RelatIF + surrogate-LOO,C5,kendall_tau_b,56,5,,-0.2298701298701299,0.16883116883116886,-0.3987012987012988,,,,6of9
+ensemble_C5,z-avg ensemble of RelatIF + surrogate-LOO,C5,spearman,149,4,5.0,-0.40500634863050977,0.678860874297116,-1.0838672229276258,1.0,-1.2179307140640516,-0.9227229627838861,
+ensemble_C5,z-avg ensemble of RelatIF + surrogate-LOO,C5,spearman,56,5,,-0.3357484620642516,0.2907723855092276,-0.6265208475734791,,,,4of9
+ensemble_C5,z-avg ensemble of RelatIF + surrogate-LOO,C5,spearman,37,5,,-0.36510194404931245,0.40445708866761493,-0.7695590327169274,,,,5of9
+ensemble_C5,z-avg ensemble of RelatIF + surrogate-LOO,C5,spearman,56,5,,-0.35953520164046476,0.2550922761449077,-0.6146274777853724,,,,6of9
+leverage_C7,"leverage family lam_rel=1 beta=1 (cached E=20, dmean)",C7,kendall_tau_b,151,4,5.0,-0.19222958057395143,0.28229580573951435,-0.47452538631346575,1.0,-0.5852775842255704,-0.35988620199146515,
+leverage_C7,"leverage family lam_rel=1 beta=1 (cached E=20, dmean)",C7,kendall_tau_b,56,5,,-0.13246753246753248,0.3350649350649351,-0.4675324675324676,,,,4of9
+leverage_C7,"leverage family lam_rel=1 beta=1 (cached E=20, dmean)",C7,kendall_tau_b,39,5,,-0.23616734143049933,0.20377867746288802,-0.43994601889338736,,,,5of9
+leverage_C7,"leverage family lam_rel=1 beta=1 (cached E=20, dmean)",C7,kendall_tau_b,56,5,,-0.27662337662337666,0.21428571428571433,-0.49090909090909096,,,,6of9
+leverage_C7,"leverage family lam_rel=1 beta=1 (cached E=20, dmean)",C7,spearman,151,4,5.0,-0.2773335657023353,0.42788428023701636,-0.7052178459393517,1.0,-0.8554409733521173,-0.5384475738721897,
+leverage_C7,"leverage family lam_rel=1 beta=1 (cached E=20, dmean)",C7,spearman,56,5,,-0.2115516062884484,0.5168831168831168,-0.7284347231715652,,,,4of9
+leverage_C7,"leverage family lam_rel=1 beta=1 (cached E=20, dmean)",C7,spearman,39,5,,-0.35283400809716603,0.34979757085020247,-0.7026315789473685,,,,5of9
+leverage_C7,"leverage family lam_rel=1 beta=1 (cached E=20, dmean)",C7,spearman,56,5,,-0.39706083390293917,0.35639097744360904,-0.7534518113465483,,,,6of9
