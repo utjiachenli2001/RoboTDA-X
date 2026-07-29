@@ -468,3 +468,96 @@ Three things that will otherwise cost an hour to rediscover:
    `campaign_outcomes.parquet` -- is in git and clones fine.
 3. **`ssh -A h200-1` when pushing.** This host has no `ForwardAgent` in the Mac's ssh config, and a
    detached/nohup job has no agent at all, so pushes must be a foreground step.
+
+---
+
+# HANDOFF -- pass 9 (for pass 10)
+
+## The state pass 10 inherits
+
+Pass 9 set out to locate the grain crossover and instead corrected the result it was building on.
+
+- **Campaign N's committed primary is substantially a training-set-SIZE effect.** GradDot is a fixed
+  estimator, yet on outcomes shuffled within stratum it still scores Kendall 0.353 pooled against a
+  real 0.475 -- which cannot be leakage. Within stratum the null collapses to ~0.000 and the
+  half-ceiling bar is cleared in NO stratum (ratios 0.411 / 0.496 / 0.317). BLOCKERS #41.
+- **At a fixed 75-demo training set, no grain clears the bar.** Campaign O, 800 fresh masks scored
+  once: k=3 ratio 0.356 [0.180, 0.550], k=5 0.365 [0.204, 0.559], k=15 0.666 [0.194, 2.349]. All
+  three beat their permutation nulls, so the attribution is real -- it is just weak.
+- **The corrections are dead.** Neither rank/scale swap recovers them, and within stratum their
+  ordering is actively anti-predictive. BLOCKERS #37 is an epitaph, #43 has the 2x2.
+- **The datamodel is the last estimator standing.** It beats GradDot within every stratum by
+  +0.31..+0.38 Kendall at cluster grain -- but at that grain it faces 149 masks against 9
+  coefficients, against the demo-grain 24-vs-135 it earned its reputation on. Not like-for-like, and
+  it has not been scored at sub-cluster grain on campaign O's masks (see thread 2 below).
+- **Every ratio in this repo is on an inflated scale.** The ceiling is a Spearman-Brown reliability
+  r; the attainable maximum is ~sqrt(r). BLOCKERS #42. Two ratios at different seed depths are not
+  comparable, which is why campaign O is depth-matched.
+
+## Do NOT re-run
+
+- Everything on the passes 4-8 do-not-re-run lists, unchanged.
+- **The self-influence / leverage corrections, anywhere.** #37 + #43. Not a caveat any more.
+- **A fresh cluster draw at |S| in {4,5,6}.** Exhausted since pass 8.
+- **Campaign O's masks.** Scored once, `results/confirm_oseries.csv` is frozen.
+- **Any pooled-over-|S| absolute bar.** #41. It flatters whatever it is applied to; the same effect
+  silently changed a verdict in #43.
+
+## Open threads, ordered by what would change a conclusion
+
+1. **Finish the k=15 rung for 66 retrains (~45 min). The cheapest experiment left in the project.**
+   Conditional on C5 the 5of9 stratum has C(8,4) = 70 masks; campaign N holds 37 and Stage F holds
+   the other 33. Re-running Stage F's 33 through `retrain.heldout_frame_losses` at depth 2 gives the
+   complete 70-mask enumeration in ONE pipeline and roughly doubles n on the only rung whose interval
+   is currently useless ([0.19, 2.35]). Until that is done the grain trend -- the pass's whole
+   subject -- stays suggestive and unestablished. Do it first; it is 45 minutes.
+
+2. **Score the datamodel at sub-cluster grain on campaign O -- zero additional GPU.** It is the only
+   estimator with a surviving advantage, campaign O's 1600 retrains already exist, and the fixed
+   training-set size means the result cannot be an |S| artifact. It must be leave-one-mask-out with
+   alpha refit inside each fold, and note that at sub-cluster grain the design matrix regains real
+   width (45 or 27 columns against 400 masks), so unlike cluster grain this is closer to the
+   estimation problem the datamodel was actually celebrated for.
+
+3. **Raise depth before adding masks.** Campaign O's ceilings are 0.376 / 0.386 at depth 2 -- the
+   noisiest allocation available. #42 means low depth inflates the ratio, so the failure is robust,
+   but a depth-4 re-read of the SAME 800 masks (another 1600 retrains, ~18 h) would tighten the
+   ceiling and give a non-inflated read. BLOCKERS #29's masks-beat-seeds rule was measured for a
+   PAIRED statistic; campaign O's primary is absolute, and the two do not have the same allocation
+   optimum. That mismatch was noted in the pass-9 prereg as a stated proxy and is still unresolved.
+
+4. **Ask whether the half-ceiling bar is the right standard at all.** Eight passes have now failed
+   it, and pass 9 showed the one apparent success was a confound. Either the bar is the wrong
+   standard for this corpus, or per-demo/per-small-group attribution genuinely does not work at 135
+   demos. Distinguishing those is a better paper than another estimator. The `rho/sqrt(r)` scale
+   (#42) is the honest place to argue it.
+
+5. **Port to a corpus with 500+ demos** (pass 7 thread #1, pass 8 thread #4, still open and still the
+   biggest move). Pass 9 sharpens the question again: not "does attribution work?" nor "at what unit
+   size?", but "is the signal weak because the unit is small, or because the corpus is?" A 500-demo
+   corpus separates those; nothing on this one can.
+
+## Reproducing pass 9
+
+```bash
+export CUDA_VISIBLE_DEVICES=0          # REQUIRED, see BLOCKERS #40
+python -m if_repair.p9_grain                       # the grain ladder, zero GPU
+python -m if_repair.p9_stratum_control             # the |S| correction, zero GPU
+python -m if_repair.p9_datamodel_cluster           # thread 2 at cluster grain, zero GPU
+python -m if_repair.p9_why_reverse                 # the rank/scale 2x2, zero GPU
+python -m if_repair.p9_masks                       # 800 masks at a fixed 75 demos, zero GPU
+# GPU (18.2 h wall, 1600 retrains, 3 workers):
+python -m if_repair.retrain --campaign O --worker {0,1,2} --nworkers 3
+python -m if_repair.confirm_oseries --i_understand_this_scores_once     # score ONCE
+```
+
+`pytest if_repair/tests -q` -> 151 passed, 3 skipped, ~36 s, all CPU.
+
+## The write-up sentence this pass earned
+
+> Holding the training set fixed at 75 demonstrations, leave-one-out attribution on this corpus
+> reaches 22-45% of the achievable ceiling at every unit size from 3 demos to 15, and clears a
+> half-ceiling bar at none of them. The previously reported cluster-grain success -- 71% of ceiling
+> -- was substantially an artifact of pooling over training-set size: a fixed estimator reproduces
+> three quarters of that correlation on shuffled outcomes. Attribution at this corpus size is real,
+> weak, and not obviously improved by coarsening the unit.

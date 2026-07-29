@@ -789,20 +789,58 @@ amending, and the pass-8 section should not be quoted without this paragraph:
    pass 8 established. What pass 8 established is that *something* about the coarser design makes
    the pooled number large, and part of that something is the training set getting bigger.
 
-## 5. Campaign O -- in flight
+## 5. Campaign O: at a fixed training-set size, NO grain clears the bar
 
-The crossover cannot be located at cluster grain: BLOCKERS #38 caps the mask axis at 336 subsets,
+The crossover cannot be located at cluster grain -- BLOCKERS #38 caps the mask axis at 336 subsets,
 campaign N consumed 278, and the per-stratum n is stuck at 56/37/56. Sub-cluster grain escapes the
-cap combinatorially -- a 75-demo mask keeps 25 of 45 groups at k=3, and C(45,25) ~ 3e12 -- so
-hundreds of masks can share **exactly one training-set size**, which removes the section-1 confound
-by construction rather than adjusting for it afterwards.
+cap combinatorially: a 75-demo mask keeps 25 of 45 groups at k=3, and C(45,25) ~ 3e12. So hundreds
+of masks can share **exactly one training-set size**, which removes section 1's confound by
+construction instead of adjusting for it afterwards.
 
-Campaign O is 800 masks (400 each at k=3 and k=5), every mask at exactly 75 retained demos, exact
-group balance, zero signature collisions with consumed cluster masks, depth 2 in seed slots
-{4401, 4402} matched to the k=15 rung that campaign N's 5of9 stratum supplies free. Preregistered in
-`p9_prereg.md` at zero runs; the primary is a bootstrap CI lower bound on the ratio with the ceiling
-recomputed per resample, because campaign N's rule attached alpha to a p-value against rho > 0 that
-is never the binding constraint at n ~ 150. Results to follow in this section.
+Campaign O: 800 masks (400 each at k=3, k=5), every mask at exactly 75 retained demos, conditioning
+"all C5 groups retained", exact group balance, 0 signature collisions with consumed cluster masks,
+depth 2 in seed slots {4401, 4402} matched to the k=15 rung. 1600 retrains, 18.2 h wall, 0 failures.
+Preregistered in `p9_prereg.md` at zero runs and scored exactly once.
+
+| rung | n | LDS | ceiling | ratio | ratio 95% CI | rho/sqrt(r) | perm null (97.5th) | beats null | clears bar |
+|---|---|---|---|---|---|---|---|---|---|
+| k=3 | 400 | 0.1338 | 0.3759 | 0.356 | [0.180, 0.550] | 0.218 | -0.000 (0.068) | yes | **no** |
+| k=5 | 400 | 0.1411 | 0.3862 | 0.365 | [0.204, 0.559] | 0.227 | -0.001 (0.063) | yes | **no** |
+| k=15 | 37 | 0.3003 | 0.4512 | 0.666 | [0.194, 2.349] | 0.447 | 0.002 (0.228) | yes | **no** |
+
+Kendall tau_b, primary. Spearman agrees throughout (0.392 / 0.410 / 0.783, same verdicts).
+
+**The preregistered branch is "neither clears, k=15 does not either".** By PREREG_O's decision rule
+that reads: at a fixed training-set size, attribution on this corpus is not measurable to the
+half-ceiling standard at ANY grain, and pass 8's positive result was substantially the |S| effect
+that section 1 identified.
+
+**Three things this result is NOT.**
+
+1. **It is not "no signal".** All three rungs beat their permutation nulls decisively -- the nulls
+   sit at ~0.000 with 97.5th percentiles of 0.063-0.228, against observed LDS of 0.134-0.300. The
+   attribution is real. What fails is the *half-ceiling bar*, which is a standard for usefulness,
+   not a test of existence. The honest summary is that attribution here is real and weak.
+2. **It is not a generous test that barely failed.** The ratios above use this repo's `rho/r`
+   convention at the noisiest available depth, and BLOCKERS #42 shows that convention is inflated by
+   ~1/sqrt(r) and inflated *more* as r falls. These are therefore the most flattering numbers the
+   design can produce, and they still fail. On the attainable `rho/sqrt(r)` scale the rungs reach
+   **22%, 23% and 45%** of achievable.
+3. **It is not a located crossover.** k=3 and k=5 are statistically indistinguishable (0.356 vs
+   0.365, near-identical intervals), so nothing happens between 3 and 5. k=15's point estimate is
+   ~1.8x higher, which is the direction the grain hypothesis predicts, but n=37 makes its interval
+   [0.19, 2.35] -- it overlaps k=3 and k=5 completely. **The grain trend is suggestive and
+   unestablished.** If a transition exists it is above k=5.
+
+**The structural problem that blocks the obvious next step.** k=15's precision cannot be improved by
+drawing more cluster masks: campaign N exhausted the |S|=5 space. But it can be improved another
+way, and cheaply. Conditional on C5, the 5of9 stratum has C(8,4) = 70 possible masks; campaign N
+holds 37 of them and **Stage F holds the other 33**. Stage F's outcomes came from the original
+project's probe battery (`src/evaluate.py`) rather than `retrain.heldout_frame_losses`, so they
+cannot simply be pooled -- but re-running those 33 masks through the campaign pipeline at depth 2
+costs **66 retrains, ~45 minutes**, and yields the complete 70-mask enumeration at k=15 in one
+consistent pipeline. That roughly doubles n on the only rung that is currently unresolvable, and it
+is the cheapest remaining experiment in the project.
 
 ## Corrections I made to my own work, in order
 
@@ -822,3 +860,17 @@ is never the binding constraint at n ~ 150. Results to follow in this section.
 4. **A monitor I wrote fired a false "campaign died" alarm** -- unquoted `$st` under zsh, which does
    not word-split, so every field landed in `$1`. The campaign was never at risk. Mentioned because
    the same bug would silently mis-read any future watchdog on this box.
+5. **I nearly let a partial campaign consume the one-shot score.** The seed-major job list makes
+   k=3 analysable at job 1200 and k=5 only at job 1600. `confirm_oseries` refuses to overwrite, so
+   scoring anywhere in that ~4.6 h window would have answered O1 and left O2 permanently
+   unanswerable. Caught with about an hour to spare and fixed with a guard that refuses unless every
+   preregistered grain has a complete even depth. Seed-major ordering was inherited from campaign N
+   without re-examination; at depth 5 its even prefixes give real optionality, at depth 2 they give
+   none, and the complementary-pair mask construction would have made mask-major ordering strictly
+   better here.
+6. **A sed-style patch of this very file duplicated 250 lines** because the end anchor
+   ("## Corrections I made to my own work, in order") also appears in the pass-7 section, so
+   `str.index` matched the earlier copy and the splice re-included everything from pass 7 onward.
+   Caught by a line count, reverted from git, and redone with the end anchor searched from the start
+   index. Append-only documents accumulate duplicate headings; never anchor a splice on one without
+   asserting uniqueness.
