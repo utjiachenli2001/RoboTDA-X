@@ -733,3 +733,119 @@ than as a GPU-selection failure.
 
 `_pin_allowed_gpu` respects an already-set value, so the fix is environmental and needs no repo
 edit: **export `CUDA_VISIBLE_DEVICES=0` on every command.** Do not "fix" bootstrap.py for one box.
+
+## 41. (CORRECTION, and it qualifies pass 8's headline) The cluster-grain primary is pooled over |S|, and a large part of it is training-set SIZE
+
+`p8_prereg.md` is explicit that "|S| is a stratum, not a covariate to pool over. It sets the
+training-set size (60/75/90 demos), which moves the outcome directly", and promises the result
+"pooled with |S| controlled". `confirm_nseries.evaluate` computes the PRIMARY absolute bar as
+`rho = fn(pg, o)` over all 149 conditional masks with no stratum control; `st` is built there and
+then used only by the secondary paired analysis. The control was promised and not applied to the
+number that carries the claim.
+
+`p9_stratum_control.py`, target C5, Kendall tau_b, depth 4, on the same committed data and the same
+frozen `p7_pooled_oos._graddot("cached")` object:
+
+| scope | n | LDS | ceiling | ratio | ratio 95% CI | perm null | clears 0.5 |
+|---|---|---|---|---|---|---|---|
+| POOLED (the committed primary) | 149 | 0.4747 | 0.6715 | **0.7069** | [0.612, 0.817] | **0.3530** | yes |
+| within 4of9 | 56 | 0.2078 | 0.5053 | 0.4112 | [0.092, 0.777] | 0.0009 | no |
+| within 5of9 | 37 | 0.2583 | 0.5211 | 0.4956 | [0.115, 0.943] | 0.0022 | no |
+| within 6of9 | 56 | 0.1688 | 0.5324 | 0.3171 | [-0.017, 0.719] | -0.0020 | no |
+
+The pooled row reproduces `results/confirm_nseries.csv` exactly (asserted in `tests/test_p9.py`), so
+this is the same computation and not a rival one.
+
+**The permutation null is the argument.** Outcomes are shuffled WITHIN stratum and correlated
+against GradDot's predictions. GradDot is a **fixed** estimator -- nothing is fit to anything -- so
+a correlation surviving an outcome shuffle cannot be leakage under any definition. Pooled it
+survives at **0.353** of a real 0.475. The mechanism is arithmetic: |S| sets the training-set size,
+size moves the outcome directly, and every estimator's mask prediction is a SUM over kept demos via
+`P7.mask_pred`, so it grows with the count too. Both sides earn credit for counting. Within stratum
+the same null collapses to ~0.000, which is what a working control looks like.
+
+**What survives.** There is still real attribution signal within stratum -- the observed LDS beats
+the within-stratum null's 97.5th percentile in 4of9 and 5of9 -- but **the half-ceiling bar is not
+cleared in any stratum**, and the per-stratum CIs are far too wide to resolve it either way. So
+pass 8's "the bar is reachable" (#36) is not refuted; it is **unproven**, and the specific number
+0.707 should not be quoted without this qualification.
+
+**The general lesson, which is the transferable part:** when the design has a nuisance axis that
+moves the outcome AND moves every estimator's prediction the same way, pooling over it credits both
+sides for the nuisance. The cheap detector is a permutation null run on a FIXED estimator -- shuffle
+the outcome within the nuisance stratum and see what correlation survives. It costs no GPU and it
+cannot be confused with leakage.
+
+## 42. (UNITS, and it affects every ratio in this repo) The ceiling is a reliability r, so the attainable maximum is ~sqrt(r) and a ratio above 1 is not prima facie evidence of a bug
+
+`confirm_mseries.ceiling` is a mean split-half statistic with a Spearman-Brown step -- an estimate
+of the **reliability r** of the depth-d seed-mean outcome. The largest correlation an oracle
+predictor can have with an observation of reliability r is about **sqrt(r)**, not r. So
+`ratio = rho/r` is inflated by roughly 1/sqrt(r), and it tops out near 1/sqrt(r) rather than at 1.
+
+At the cluster-grain Kendall ceiling of 0.6715 the attainable maximum is ~1.22, so a ratio between
+1 and 1.22 is a saturating estimator, not a broken one. The pass-9 datamodel result (#43) lands at
+1.01 and was nearly discarded as leakage before this was worked out.
+
+**Two consequences.** First, `rho/sqrt(r)` is now reported alongside `rho/r` everywhere pass 9
+reports a ratio; it tops out at 1 and is the honest scale for cross-depth comparison. Second, the
+inflation **grows as r falls**, and r falls with seed depth -- so a low-depth arm gets a higher
+ratio for free. Any curve whose points differ in depth is confounded with protocol, which is why
+campaign O is depth-matched and why campaign N's committed depth-4 0.7069 is used only as a
+regression check and never as a curve point. Measured directly: the same 5of9 masks give ratio
+0.496 at depth 4 and **0.666** at depth 2, because the ceiling falls from 0.521 to 0.451.
+
+Every historical ratio in this repo uses the r convention. They are not wrong, but they are not
+"fraction of achievable" either, and comparing two of them at different depths is not valid.
+
+## 43. (RESULT) The correction reversal is NOT a scaling pathology -- rescaling does not salvage it, so #37 is an epitaph
+
+#37 records that every self-influence / leverage correction reverses at cluster grain but not why.
+The suspicion was mechanical: RelatIF divides by self-influence, a cluster prediction sums 75 such
+scores, and a handful of demos with tiny `G_dd` could dominate the sum. If that were the whole
+story the ranking would be fine and the correction salvageable.
+
+`p9_why_reverse.py` separates the two hypotheses with a rank/scale 2x2. An estimator contributes an
+ORDER and a MARGINAL DISTRIBUTION to a summed prediction, and rank transforms swap them
+independently. Paired vs GradDot, Kendall, campaign N, n=149 (151 for C7):
+
+| config | as-is | est order, GradDot scale | GradDot order, est scale |
+|---|---|---|---|
+| relatif_C5 | -0.627 | **-0.284** | -0.308 |
+| surrogate_C5 | -0.539 | **-0.104** | -0.147 |
+| ensemble_C5 | -0.751 | **-0.251** | -0.265 |
+| leverage_C7 | -0.475 | **-0.251** | -0.102 |
+
+**Neither swap recovers to baseline.** Keeping the correction's order on a well-behaved scale still
+reverses; keeping its heavy tail on an order known to work on these same masks also reverses. Both
+factors contribute and neither alone explains the effect, so there is no rescaling, winsorisation or
+rank transform that rescues these corrections at this grain. The concentration diagnostic agrees
+that the tail is real -- median top-5 share of a mask's summed |contribution| is 0.20-0.34 for the
+corrections against 0.16-0.17 for GradDot -- but fixing it is not sufficient.
+
+**#37 is therefore an epitaph, not a caveat.** Do not carry these corrections to a new corpus in the
+hope that a better aggregation saves them.
+
+Caveat that travels with this: the paired contrast is computed pooled, and #41 shows pooling is
+confounded for the ABSOLUTE bar. A paired contrast is far more robust to that -- both estimators
+face the same |S| structure and `stratified_bootstrap` pairs within stratum -- but the per-stratum
+read has not been computed and should be, before this is quoted as a stratum-level result.
+
+## 44. (DESIGN) The cluster grain cannot control |S| for itself; only a sub-cluster grain can hold the training set fixed
+
+The obvious repair for #41 is to report within stratum. That runs straight into #38: the cluster
+mask axis is capped at C(9,4)+C(9,5)+C(9,6) = 336 subsets and campaign N consumed 278, so the
+per-stratum n is stuck at 56/37/56 and the ratio CIs are [0.09,0.78], [0.12,0.94], [-0.02,0.72].
+Nothing can be added at those sizes -- the strata are exhausted. **The cluster grain cannot answer
+its own question**, and no amount of further GPU at that grain changes it.
+
+Sub-cluster grain escapes the cap for a purely combinatorial reason. A mask keeping 75 demos keeps
+25 of 45 groups at k=3 -- C(45,25) ~ 3e12 -- and 15 of 27 at k=5. Hundreds of masks can therefore
+share EXACTLY one training-set size, which turns the #41 confound from a covariate to be adjusted
+into a channel that does not exist. That is the design campaign O uses: 400 masks per grain, all at
+75 retained demos, with the k=15 rung supplied free by campaign N's 5of9 stratum at matched depth.
+
+**The transferable rule:** if a nuisance axis cannot be held fixed within a design's reachable mask
+space, the answer is a finer grain, not a bigger sample at the same grain. Verified in passing --
+the permutation null on the fixed-75-demo k=15 rung is 0.0019, i.e. the size channel really is gone
+once the size is constant.
