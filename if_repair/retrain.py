@@ -316,6 +316,32 @@ def jobs(campaign):
                  "demos": m["demos"], "seed_init": sd, "seed_order": sd}
                 for sd in B_SEEDS[:P9M.DEPTH] for m in ms]
 
+    if campaign == "P":
+        # PASS 10 -- the k=15 CENSUS. The 33 C5-conditional 5of9 cluster masks that campaign N does
+        # not hold, which completes the C(8,4)=70 conditional population on one outcome pipeline.
+        #
+        # DESCRIPTIVE ONLY. These 33 are the Stage F DISCOVERY DRAW for the cluster-grain hypothesis
+        # (p8_cluster_grain's W1 scan selected it on them), so no alpha is available here -- see
+        # BLOCKERS #28 and #31. Campaign N's 37 were the only unselected-upon masks of this kind that
+        # will ever exist on this corpus, and pass 9 spent them. Depth 4 to match N's on-disk depth.
+        from if_repair import p10_k15_census as P10C
+        ms = P10C.manifest()["masks"]
+        return [{"run_id": f"P_{m['mask_id']}_i{sd}_o{sd}", "mask_id": m["mask_id"],
+                 "demos": m["demos"], "seed_init": sd, "seed_order": sd}
+                for sd in B_SEEDS[:P10C.SEED_SLOTS] for m in ms]
+
+    if campaign == "R":
+        # PASS 10 -- the SECOND independent partition at k=3 and k=5. Identical to campaign O in
+        # every respect except the partition seed, which is the whole experiment: pass 9's rungs rest
+        # on one committed partition and therefore carry partition-sampling variance the k=15 rung
+        # structurally cannot. p9_prereg named this check; the curve came out close (0.356 vs 0.365).
+        # Verified at build time to share ZERO groups with pass 9's partition. Seed-major.
+        from if_repair import p10_masks2 as P10M
+        ms = P10M.all_masks()
+        return [{"run_id": f"R_{m['mask_id']}_i{sd}_o{sd}", "mask_id": m["mask_id"],
+                 "demos": m["demos"], "seed_init": sd, "seed_order": sd}
+                for sd in B_SEEDS[:P10M.DEPTH] for m in ms]
+
     if campaign == "D":
         # W2 duels. Each duel is a pair of 68-demo masks differing in exactly ONE demo, trained
         # at MATCHED seed slots so the shared mask x init interaction differences out. The
@@ -358,7 +384,7 @@ def run_job(job, cfg, fidx, outdir, device="cuda"):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--campaign", required=True,
-                    choices=["A", "B", "C", "I", "J", "K", "L", "M", "D", "N", "O"])
+                    choices=["A", "B", "C", "I", "J", "K", "L", "M", "D", "N", "O", "P", "R"])
     ap.add_argument("--worker", type=int, default=0)
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)
