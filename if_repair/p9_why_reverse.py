@@ -137,40 +137,70 @@ def evaluate(campaign="N"):
                 rows.append({
                     "config": cname, "label": cfg["label"], "target": t, "arm": arm,
                     "statistic": sname, "primary": sname == PRIMARY_STAT,
-                    "n_masks": int(ok.sum()), "depth": d_even,
+                    "stratum": "pooled", "n_masks": int(ok.sum()), "depth": d_even,
                     "lds": fn(px[ok], o[ok]), "graddot_lds": fn(pg[ok], o[ok]),
                     "paired_delta": d0, "paired_p": pp, "ci_lo": lo, "ci_hi": hi,
                     "top5_share": concentration(sc, use),
                 })
+                # Per-stratum read. BLOCKERS #41 showed pooling is confounded by |S| for the
+                # ABSOLUTE bar. A PAIRED contrast is far more robust -- both estimators face the
+                # same |S| structure, and `stratified_bootstrap` already pairs within stratum --
+                # but "far more robust" is not "checked", so it is checked here. If the reversal
+                # is an |S| artifact it will shrink toward zero within stratum.
+                for s in sorted(set(st[ok])):
+                    j = ok & (st == s)
+                    if j.sum() < 8 or np.std(px[j]) == 0 or np.std(pg[j]) == 0:
+                        continue
+                    rows.append({
+                        "config": cname, "label": cfg["label"], "target": t, "arm": arm,
+                        "statistic": sname, "primary": sname == PRIMARY_STAT,
+                        "stratum": s, "n_masks": int(j.sum()), "depth": d_even,
+                        "lds": fn(px[j], o[j]), "graddot_lds": fn(pg[j], o[j]),
+                        "paired_delta": fn(px[j], o[j]) - fn(pg[j], o[j]),
+                        "top5_share": concentration(sc, [m for m, q in zip(use, j) if q]),
+                    })
     return pd.DataFrame(rows)
 
 
 def verdict(df):
-    """Read the 2x2 per config, on the primary statistic only."""
+    """Read the 2x2 per config, on the primary statistic only.
+
+    THE VERDICT IS TAKEN WITHIN STRATUM, NOT POOLED. An earlier version read the pooled row and
+    called surrogate_C5 "MIXED / UNDETERMINED" off a delta of -0.104; within stratum that config is
+    -0.25 to -0.41, the same ranking error as the other three. BLOCKERS #41 explains why: pooling
+    over |S| lifts every estimator's correlation, the correction included, so a pooled paired
+    contrast FLATTERS whatever it is applied to. The pooled row is still reported for continuity
+    and for its bootstrap CI, but it does not decide the verdict.
+    """
     out = []
     d = df[df.primary]
     for cname, g in d.groupby("config"):
-        a = g.set_index("arm")
-        if not {"as_is", "est_order_base_scale", "base_order_est_scale"} <= set(a.index):
+        pooled = g[g.stratum == "pooled"].set_index("arm")
+        strata = g[g.stratum != "pooled"]
+        if not {"as_is", "est_order_base_scale", "base_order_est_scale"} <= set(pooled.index):
             continue
-        as_is = a.loc["as_is", "paired_delta"]
-        keep_order = a.loc["est_order_base_scale", "paired_delta"]
-        keep_scale = a.loc["base_order_est_scale", "paired_delta"]
-        ci_lo = a.loc["est_order_base_scale", "ci_lo"]
-        recovered = ci_lo > -0.05          # order-preserving arm is no longer clearly negative
-        if recovered:
+        ko_strata = strata[strata.arm == "est_order_base_scale"]["paired_delta"]
+        n_neg = int((ko_strata < 0).sum())
+        n_cells = int(len(ko_strata))
+        worst = float(ko_strata.max()) if n_cells else np.nan   # least-negative stratum
+        ci_lo = pooled.loc["est_order_base_scale", "ci_lo"]
+
+        if n_cells and n_neg == n_cells and worst < -0.15:
+            v = "RANKING ERROR -- order reverses in EVERY stratum on a well-behaved scale"
+        elif ci_lo > -0.05 and (not n_cells or n_neg == 0):
             v = "SCALING PATHOLOGY -- ranking survives, heavy tail destroys the sum"
-        elif keep_order < -0.2:
-            v = "RANKING ERROR -- order still reverses on a well-behaved scale"
         else:
             v = "MIXED / UNDETERMINED"
-        out.append({"config": cname, "as_is_delta": as_is,
-                    "est_order_base_scale_delta": keep_order,
-                    "base_order_est_scale_delta": keep_scale,
+        out.append({"config": cname,
+                    "as_is_delta": pooled.loc["as_is", "paired_delta"],
+                    "keep_order_pooled": pooled.loc["est_order_base_scale", "paired_delta"],
+                    "keep_order_worst_stratum": worst,
+                    "strata_negative": f"{n_neg}/{n_cells}",
+                    "keep_scale_pooled": pooled.loc["base_order_est_scale", "paired_delta"],
                     "verdict": v,
-                    "top5_share_as_is": a.loc["as_is", "top5_share"],
-                    "top5_share_base": a.loc["base", "top5_share"]
-                    if "base" in a.index else np.nan})
+                    "top5_share_as_is": pooled.loc["as_is", "top5_share"],
+                    "top5_share_base": pooled.loc["base", "top5_share"]
+                    if "base" in pooled.index else np.nan})
     return pd.DataFrame(out)
 
 
@@ -183,8 +213,9 @@ def main():
     os.makedirs(RESULTS, exist_ok=True)
     df.to_csv(a.out, index=False)
     with pd.option_context("display.width", 220, "display.max_columns", 60):
-        print(df[df.primary][["config", "arm", "n_masks", "lds", "graddot_lds", "paired_delta",
-                              "ci_lo", "ci_hi", "top5_share"]].to_string(index=False))
+        print(df[df.primary][["config", "arm", "stratum", "n_masks", "lds", "graddot_lds",
+                              "paired_delta", "ci_lo", "ci_hi",
+                              "top5_share"]].to_string(index=False))
         print()
         print(verdict(df).to_string(index=False))
     print(f"\n[p9/why-reverse] -> {a.out}")

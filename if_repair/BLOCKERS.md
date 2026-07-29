@@ -826,10 +826,34 @@ corrections against 0.16-0.17 for GradDot -- but fixing it is not sufficient.
 **#37 is therefore an epitaph, not a caveat.** Do not carry these corrections to a new corpus in the
 hope that a better aggregation saves them.
 
-Caveat that travels with this: the paired contrast is computed pooled, and #41 shows pooling is
-confounded for the ABSOLUTE bar. A paired contrast is far more robust to that -- both estimators
-face the same |S| structure and `stratified_bootstrap` pairs within stratum -- but the per-stratum
-read has not been computed and should be, before this is quoted as a stratum-level result.
+**The per-stratum read, computed after the above, and it makes the conclusion STRONGER rather than
+weaker.** #41 shows pooling is confounded by |S| for the absolute bar, so the paired contrast was
+re-read within stratum. Order-preserving arm (`est_order_base_scale`), paired delta vs GradDot,
+Kendall:
+
+| config | pooled | 4of9 | 5of9 | 6of9 |
+|---|---|---|---|---|
+| relatif_C5 | -0.284 | -0.470 | -0.535 | -0.431 |
+| surrogate_C5 | -0.104 | -0.305 | -0.411 | -0.248 |
+| ensemble_C5 | -0.251 | -0.496 | -0.559 | -0.470 |
+| leverage_C7 | -0.251 | -0.601 | -0.540 | -0.516 |
+
+**Pooling was propping the corrections UP, not dragging them down.** Within stratum the
+order-preserving arm's own LDS goes NEGATIVE -- relatif_C5 scores -0.262 / -0.276 / -0.262 against
+GradDot's +0.208 / +0.258 / +0.169 -- so the correction's ordering is actively anti-predictive at
+cluster grain once training-set size is removed, not merely uninformative. The pooled numbers looked
+milder only because the shared |S| component lifted every estimator's pooled correlation, the
+correction included.
+
+12 of 12 config x stratum cells are negative. That consistency is the evidence; per-stratum
+bootstrap CIs were not computed (n = 37-56 each, so individually they would be wide) and the claim
+rests on the sign pattern across all twelve rather than on any one cell.
+
+**This also overturns the one soft verdict.** `p9_why_reverse.verdict()` read surrogate_C5 as
+"MIXED / UNDETERMINED" from its pooled delta of -0.104. Within stratum it is -0.25 to -0.41, the
+same ranking error as the other three. The pooled verdict was an artifact of the #41 confound --
+which is a second, smaller instance of the same lesson: **a pooled contrast on this design flatters
+whatever it is applied to.**
 
 ## 44. (DESIGN) The cluster grain cannot control |S| for itself; only a sub-cluster grain can hold the training set fixed
 
