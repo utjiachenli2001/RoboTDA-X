@@ -688,3 +688,137 @@ this size is strictly better: exact balance, uniform co-inclusion, exact disjoin
 > and which improve demo-grain attribution by a measured +0.06 -- are strongly harmful at this
 > grain, reversing to -0.63. The binding constraint on demo-grain TDA benchmarks is neither the
 > estimator nor the number of retrains but the size of the unit being attributed.
+
+---
+
+# PASS 9 -- the grain result was partly a training-set SIZE result
+
+Pass 8 ended with a strong claim: at cluster grain a plain, uncorrected GradDot clears the absolute
+half-ceiling bar at ratio 0.707, the first estimator to clear it in eight passes. Pass 9 set out to
+locate the crossover between k=1 and k=15 and instead spent its first hours discovering that the
+0.707 is not what it appears to be. The crossover campaign was redesigned around what was found and
+is still running; this section records everything that is settled.
+
+## 1. The correction: the primary is pooled over |S|, and a large part of it is training-set size
+
+`p8_prereg.md` states that "|S| is a stratum, not a covariate to pool over. It sets the
+training-set size (60/75/90 demos), which moves the outcome directly", and promises the result
+"pooled with |S| controlled". `confirm_nseries.evaluate` computes the primary absolute bar over all
+149 conditional masks with no stratum control -- `st` is built there and used only by the secondary
+paired analysis. The control was promised and not applied to the number carrying the claim.
+
+`p9_stratum_control.py`, C5, Kendall tau_b, depth 4, same committed data, same frozen
+`p7_pooled_oos._graddot("cached")`:
+
+| scope | n | LDS | ceiling | ratio | ratio 95% CI | perm null | clears 0.5 |
+|---|---|---|---|---|---|---|---|
+| POOLED (committed primary) | 149 | 0.4747 | 0.6715 | **0.7069** | [0.612, 0.817] | **0.3530** | yes |
+| within 4of9 | 56 | 0.2078 | 0.5053 | 0.4112 | [0.092, 0.777] | 0.0009 | no |
+| within 5of9 | 37 | 0.2583 | 0.5211 | 0.4956 | [0.115, 0.943] | 0.0022 | no |
+| within 6of9 | 56 | 0.1688 | 0.5324 | 0.3171 | [-0.017, 0.719] | -0.0020 | no |
+
+The pooled row reproduces `results/confirm_nseries.csv` exactly -- asserted as a regression test --
+so this is the same computation, not a competing one.
+
+**The permutation null carries the argument.** Outcomes are shuffled within stratum and correlated
+against GradDot's predictions. GradDot is a *fixed* estimator: nothing is fit, so a correlation
+surviving an outcome shuffle cannot be leakage under any definition. Pooled, **0.353 of the 0.475
+survives the shuffle**. The mechanism is arithmetic -- |S| sets the training-set size, size moves
+the outcome, and every estimator's mask prediction is a sum over kept demos, so it grows with the
+count as well. Both sides earn credit for counting demos. Within stratum the same null collapses to
+~0.000, which is what a working control looks like.
+
+**What survives and what does not.** Real attribution signal remains within stratum: the observed
+LDS beats the within-stratum null's 97.5th percentile in 4of9 and 5of9 (not in 6of9). But the
+half-ceiling bar is **not cleared in any stratum**, and the per-stratum CIs are far too wide to
+settle it either way. Pass 8's #36, "the absolute bar is REACHABLE", is therefore **not refuted --
+it is unproven.** The specific figure 0.707 should not be quoted without this qualification.
+
+## 2. The datamodel survives the grain change (thread 2), with a units caveat that matters
+
+The design-based datamodel was the one estimator pass 8 never touched, and the only one with a
+large replicable demo-grain OOS advantage (pass 3: C5 ratio 0.882). At cluster grain, scored
+leave-one-mask-out on campaign N's existing retrains with alpha refit inside every fold -- zero
+additional GPU -- it beats GradDot within **every** stratum by +0.31 to +0.38 Kendall.
+
+Its ratio comes out at 1.01, which nearly got it discarded as leakage. It is not.
+`confirm_mseries.ceiling` is a Spearman-Brown **reliability r**, and the largest correlation any
+predictor can have with an observation of reliability r is about **sqrt(r)**, not r. The attainable
+maximum on this scale is ~1/sqrt(0.6715) ~ 1.22, so a ratio between 1 and 1.22 is a saturating
+estimator rather than a broken one. This is BLOCKERS #42 and it applies to **every historical ratio
+in this repo**: they are not "fraction of achievable", and two of them measured at different seed
+depths are not comparable.
+
+Honest framing for the datamodel result: at demo grain the estimator is badly underdetermined (24
+observations, 135 coefficients) and that difficulty is most of what it has to survive. At cluster
+grain it inverts -- ~149 masks against 9 identifiable coefficients -- so this is not a like-for-like
+improvement on 0.882. It is the same estimator facing a much easier estimation problem.
+
+## 3. The corrections' reversal is a ranking error, not a scaling pathology (thread 3)
+
+BLOCKERS #37 recorded that every self-influence / leverage correction reverses at cluster grain but
+not why, and the difference decides whether the correction is salvageable. `p9_why_reverse.py`
+separates the hypotheses with a rank/scale 2x2: an estimator contributes an ORDER and a MARGINAL
+DISTRIBUTION to a summed prediction, and rank transforms swap them independently.
+
+Neither swap recovers to baseline. Keeping the correction's order on GradDot's scale still reverses;
+keeping its heavy tail on GradDot's order also reverses. **Read within stratum it is worse**: the
+order-preserving arm's own LDS goes negative (relatif_C5: -0.262 / -0.276 / -0.262 against GradDot's
++0.208 / +0.258 / +0.169), so the correction's ordering is actively anti-predictive once
+training-set size is removed. 12 of 12 config x stratum cells negative.
+
+Pooling had been *propping the corrections up* -- the shared |S| component lifted every estimator's
+pooled correlation. That is a second, smaller instance of section 1's lesson, and it changed a
+verdict: `verdict()` originally read surrogate_C5 as "MIXED" off a pooled -0.104; within stratum it
+is -0.25 to -0.41, the same ranking error as the rest. **#37 is an epitaph. Do not carry these
+corrections to a new corpus hoping a better aggregation saves them.**
+
+## 4. What this does to pass 8's write-up sentence
+
+The sentence at the end of the pass-8 section claims the grain change "lifts leave-one-out
+attribution from below the noise floor to 71% of the achievable ceiling". Three things in it need
+amending, and the pass-8 section should not be quoted without this paragraph:
+
+1. **"71% of the achievable ceiling"** is pooled over |S|, and ~0.353 of the underlying 0.475 is
+   reproducible from training-set size alone by a fixed estimator on shuffled outcomes. Within
+   stratum the ratio is 0.32-0.50 and clears nothing.
+2. **"achievable ceiling"** overstates what the denominator is. It is a reliability, not an
+   attainable maximum (BLOCKERS #42).
+3. **The conclusion "the binding constraint is the size of the unit being attributed"** is still the
+   most likely reading, but it is now a hypothesis campaign O is testing rather than something
+   pass 8 established. What pass 8 established is that *something* about the coarser design makes
+   the pooled number large, and part of that something is the training set getting bigger.
+
+## 5. Campaign O -- in flight
+
+The crossover cannot be located at cluster grain: BLOCKERS #38 caps the mask axis at 336 subsets,
+campaign N consumed 278, and the per-stratum n is stuck at 56/37/56. Sub-cluster grain escapes the
+cap combinatorially -- a 75-demo mask keeps 25 of 45 groups at k=3, and C(45,25) ~ 3e12 -- so
+hundreds of masks can share **exactly one training-set size**, which removes the section-1 confound
+by construction rather than adjusting for it afterwards.
+
+Campaign O is 800 masks (400 each at k=3 and k=5), every mask at exactly 75 retained demos, exact
+group balance, zero signature collisions with consumed cluster masks, depth 2 in seed slots
+{4401, 4402} matched to the k=15 rung that campaign N's 5of9 stratum supplies free. Preregistered in
+`p9_prereg.md` at zero runs; the primary is a bootstrap CI lower bound on the ratio with the ceiling
+recomputed per resample, because campaign N's rule attached alpha to a p-value against rho > 0 that
+is never the binding constraint at n ~ 150. Results to follow in this section.
+
+## Corrections I made to my own work, in order
+
+1. **The pass-9 plan's first version was killed before any GPU was spent.** An adversarial review
+   found the proposed four-point curve was not one estimand -- points differed in seed depth, in
+   mask geometry (demo-grain masks retain 7-8 of every cluster and never remove one whole), and in
+   an unspecified conditioning rule -- and that its "blind design" stage was uncomputable, because
+   no sub-cluster outcomes exist in the repo to resample. It also noted the depth-2 choice biases
+   the absolute bar *toward* the pass's own hypothesis.
+2. **A leakage control failed and I initially suspected the wrong thing.** The datamodel's
+   permutation control returned 0.425 where it had to return ~0. The first hypothesis was leakage in
+   the LOO fold construction. It was not: the control was shuffling within stratum while the
+   statistic was pooled across strata, and what survived was |S|. That misread is what led to
+   section 1.
+3. **My first `verdict()` was computed pooled** and called surrogate_C5 undetermined. Fixed to
+   decide within stratum; all four configs are now unanimous.
+4. **A monitor I wrote fired a false "campaign died" alarm** -- unquoted `$st` under zsh, which does
+   not word-split, so every field landed in `$1`. The campaign was never at risk. Mentioned because
+   the same bug would silently mis-read any future watchdog on this box.
