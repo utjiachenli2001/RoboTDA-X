@@ -140,11 +140,25 @@ def evaluate():
     return pd.DataFrame(rows)
 
 
+def missing_grains(df):
+    """Preregistered grains with no scored rung in `df`, as sorted strings.
+
+    Extracted from main() so the guard is testable: the failure mode it prevents (a partial score
+    consuming the one-shot write) cannot be exercised through main() without actually writing.
+    """
+    scored = {r.split("=")[1] for r in df["rung"].unique() if str(r).startswith("k=")}
+    wanted = {str(spec["k"]) for spec in PREREG_O.values()}
+    return sorted(wanted - scored, key=int)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(RESULTS, "confirm_oseries.csv"))
     ap.add_argument("--i_understand_this_scores_once", action="store_true",
                     help="required acknowledgement; the result file is never overwritten")
+    ap.add_argument("--allow_partial_score", action="store_true",
+                    help="deliberate protocol deviation: score before every preregistered grain "
+                         "has a complete even depth. Recorded in the output.")
     a = ap.parse_args()
 
     if os.path.exists(a.out):
@@ -155,6 +169,20 @@ def main():
     df = evaluate()
     if df.empty:
         raise SystemExit("nothing scored -- the stopping rule has no complete even depth yet")
+
+    # ---- do not let a partial campaign consume the one-shot score.
+    missing = missing_grains(df)
+    if missing and not a.allow_partial_score:
+        raise SystemExit(
+            f"REFUSING to score: grain(s) k={','.join(missing)} have no complete even depth yet, "
+            f"but the result file is written ONCE. Scoring now would answer "
+            f"{sorted(scored)} and leave k={','.join(missing)} permanently unanswerable "
+            f"(PREREG_O is a family of two). Wait for the campaign, or pass "
+            f"--allow_partial_score to record a deliberate protocol deviation.")
+    df["partial_score"] = bool(missing)
+    if missing:
+        df["partial_note"] = (f"DEVIATION: scored while k={','.join(missing)} was incomplete; "
+                              f"those grains are not answerable from this file")
     os.makedirs(RESULTS, exist_ok=True)
     df.to_csv(a.out, index=False)
     with pd.option_context("display.width", 220, "display.max_columns", 60):

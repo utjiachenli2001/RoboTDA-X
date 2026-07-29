@@ -268,3 +268,22 @@ def test_prereg_and_manifest_agree_on_the_design():
     prereg = open(os.path.join(HERE, "p9_prereg.md")).read()
     assert str(P9M.RETAINED_DEMOS) in prereg
     assert "ZERO runs" in prereg
+
+
+def test_partial_score_guard_names_every_unscored_prereg_grain():
+    """The seed-major job list makes k=3 analysable ~4.6h before k=5. Scoring in that window would
+    satisfy the scored-once guard forever and leave O2 permanently unanswerable."""
+    only_k15 = pd.DataFrame({"rung": ["k=15"]})
+    assert CO.missing_grains(only_k15) == ["3", "5"]
+
+    k3_and_ref = pd.DataFrame({"rung": ["k=3", "k=15"]})
+    assert CO.missing_grains(k3_and_ref) == ["5"], "the dangerous window must be detected"
+
+    complete = pd.DataFrame({"rung": ["k=3", "k=5", "k=15"]})
+    assert CO.missing_grains(complete) == []
+
+
+def test_partial_score_guard_ignores_the_non_prereg_reference_rung():
+    """k=15 is inherited and carries no alpha, so its presence must never satisfy the guard."""
+    assert "15" not in {str(s["k"]) for s in CO.PREREG_O.values()}
+    assert CO.missing_grains(pd.DataFrame({"rung": ["k=15"]})) == ["3", "5"]
