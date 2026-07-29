@@ -447,3 +447,24 @@ python -m if_repair.gpu_ledger_pass8
 ```
 
 `pytest if_repair/tests -q` -> 116 passed, 3 skipped, ~25 s, all CPU.
+
+## Where this project now lives (moved 2026-07-28)
+
+**The box is `h200-1`, not h200-3.** `~/code/RoboTDA-X`, migrated after pass 8 and verified by
+re-deriving the Stage F scan and diffing it bit-for-bit against the committed
+`results/p8_stageF_oos.csv`. RoboTDA-X was then deleted from h200-3.
+
+Three things that will otherwise cost an hour to rediscover:
+
+1. **`export CUDA_VISIBLE_DEVICES=0` on every command** (BLOCKERS #40). Both h200-1 and h200-3 are
+   1-GPU boxes and `src/bootstrap.py` pins `ALLOWED_GPUS = (4,5,6,7)` from the original 8-GPU
+   machine. It respects an already-set value, so never edit bootstrap.py for one box.
+2. **`if_repair/runs/` is gitignored and is NOT recoverable from GitHub.** 6.1G: the `regen`
+   ensemble checkpoints every estimator score reads, the cached Grams, and the campaign A-N npz.
+   Moving this project again means an rsync, not a clone. Between Nebius boxes it runs ~300 MB/s
+   (6.5G in 21 s) with agent forwarding:
+   `ssh -A <src> 'rsync -a if_repair/runs/ jli@<dst-ip>:~/code/RoboTDA-X/if_repair/runs/'`
+   Everything else -- code, `runs/` stage outcomes, `data/proc`, `results/` including
+   `campaign_outcomes.parquet` -- is in git and clones fine.
+3. **`ssh -A h200-1` when pushing.** This host has no `ForwardAgent` in the Mac's ssh config, and a
+   detached/nohup job has no agent at all, so pushes must be a foreground step.
