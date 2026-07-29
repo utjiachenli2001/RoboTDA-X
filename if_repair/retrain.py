@@ -300,6 +300,22 @@ def jobs(campaign):
         return [{"run_id": f"N_{m['mask_id']}_i{sd}_o{sd}", "mask_id": m["mask_id"],
                  "demos": m["demos"], "seed_init": sd, "seed_order": sd}
                 for sd in B_SEEDS[:N_DEPTH] for m in ms]      # SEED-MAJOR: see N_DEPTH note
+    if campaign == "O":
+        # PASS 9 -- sub-cluster grain at a FIXED 75-demo training set, so |S| variation does not
+        # exist rather than being controlled after the fact. `p9_stratum_control` found campaign
+        # N's pooled primary is substantially a training-set-SIZE effect: GradDot is a fixed
+        # estimator yet still scores Kendall 0.353 pooled on outcomes shuffled within stratum,
+        # against a real 0.475. Fixing the retained size removes that channel by construction.
+        #
+        # SEED-MAJOR, like campaign N: every prefix of the job list is a complete balanced design,
+        # so the preregistered stopping rule can analyse the largest complete depth whenever the
+        # box stops, without the analysis depending on which masks happened to finish.
+        from if_repair import p9_masks as P9M
+        ms = P9M.all_masks()
+        return [{"run_id": f"O_{m['mask_id']}_i{sd}_o{sd}", "mask_id": m["mask_id"],
+                 "demos": m["demos"], "seed_init": sd, "seed_order": sd}
+                for sd in B_SEEDS[:P9M.DEPTH] for m in ms]
+
     if campaign == "D":
         # W2 duels. Each duel is a pair of 68-demo masks differing in exactly ONE demo, trained
         # at MATCHED seed slots so the shared mask x init interaction differences out. The
@@ -342,7 +358,7 @@ def run_job(job, cfg, fidx, outdir, device="cuda"):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--campaign", required=True,
-                    choices=["A", "B", "C", "I", "J", "K", "L", "M", "D", "N"])
+                    choices=["A", "B", "C", "I", "J", "K", "L", "M", "D", "N", "O"])
     ap.add_argument("--worker", type=int, default=0)
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)

@@ -11,3 +11,4 @@ __pycache__/
 
 # Media
 *.mp4
+.venv/
