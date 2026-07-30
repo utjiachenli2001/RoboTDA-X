@@ -342,6 +342,24 @@ def jobs(campaign):
                  "demos": m["demos"], "seed_init": sd, "seed_order": sd}
                 for sd in B_SEEDS[:P10M.DEPTH] for m in ms]
 
+    if campaign == "Q":
+        # PASS 11 -- two ADDITIONAL seed slots on campaign O's identical 800 masks, taking that
+        # campaign from depth 2 to depth 4. The masks are unchanged, so the depth-2 and depth-4 reads
+        # differ ONLY in depth and the comparison is not confounded with a fresh draw.
+        #
+        # Why it is worth running now, having been deferred twice as a footnote: BLOCKERS #42 shows
+        # the ratio is INFLATED at low depth, so pass 9/10's NEGATIVE results at depth 2 were already
+        # conservative and a stricter denominator cannot rescue them. But #50's POSITIVE result -- the
+        # datamodel clearing the bar, including out of partition -- is also at depth 2, and a positive
+        # claim deserves the unbiased ceiling. This asks whether it survives one.
+        #
+        # Campaign O's own scoring stays frozen; this writes a separate result file.
+        from if_repair import p9_masks as P9M
+        ms = P9M.all_masks()
+        return [{"run_id": f"Q_{m['mask_id']}_i{sd}_o{sd}", "mask_id": m["mask_id"],
+                 "demos": m["demos"], "seed_init": sd, "seed_order": sd}
+                for sd in B_SEEDS[2:4] for m in ms]
+
     if campaign == "D":
         # W2 duels. Each duel is a pair of 68-demo masks differing in exactly ONE demo, trained
         # at MATCHED seed slots so the shared mask x init interaction differences out. The
@@ -384,7 +402,7 @@ def run_job(job, cfg, fidx, outdir, device="cuda"):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--campaign", required=True,
-                    choices=["A", "B", "C", "I", "J", "K", "L", "M", "D", "N", "O", "P", "R"])
+                    choices=["A", "B", "C", "I", "J", "K", "L", "M", "D", "N", "O", "P", "R", "Q"])
     ap.add_argument("--worker", type=int, default=0)
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)

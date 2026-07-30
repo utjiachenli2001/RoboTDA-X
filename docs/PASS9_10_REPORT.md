@@ -115,8 +115,28 @@ is ~1/√r ≈ 1.6 here. Permutation control ≈ 0, so this is not leakage.*
 This reaches 64–67% of attainable against the gradient estimator's 22–23%. **But it is the only
 competitor that sees outcomes at all** — gradient estimators never observe an outcome — and here it
 is heavily over-determined (400 observations, 45 or 27 parameters), the opposite of the
-under-determined regime where it originally earned its reputation. Whether it is *attributing* or
-*fitting the outcome surface* is the open question. This read is descriptive, not preregistered.
+under-determined regime where it originally earned its reputation. This read is descriptive, not
+preregistered.
+
+**(d) The datamodel attributes — added 2026-07-30, and it settles (b)'s open question.** Whether the
+datamodel was attributing or fitting its own mask ensemble is answerable for free, because the two
+partitions are independent: fit on the first, map each group coefficient to its demonstrations,
+aggregate over the *second* partition's masks, and score against outcomes it never saw.
+
+| grain | transfer (fit A → score B) | within-campaign | GradDot |
+|---|---|---|---|
+| k=3 | **0.781** | 0.839 | 0.200 |
+| k=5 | **0.754** | 1.104 | 0.320 |
+
+It transfers and still clears the bar out of partition, at 4.0× and 2.4× the gradient estimator on
+identical masks (z = 5.3 and 4.1). A method fitting only its own ensemble would collapse here.
+Qualifications: at k=5 the within-campaign figure overstates it (transfer loses 32% of the LDS,
+z = 3.7; at k=3 the loss is undetectable), and coefficient stability across disjoint halves of one
+campaign is 0.69 (k=3) and 0.90 (k=5) Pearson.
+
+**This strengthens §1's headline rather than softening it.** Attribution on this corpus is achievable
+— by a method that reads retraining outcomes. What is not achievable, at any unit size from 3 to 15,
+is reaching that bar from gradients alone.
 
 **(c) Partition robustness (preregistered).** The sub-cluster results depend on one arbitrary
 partition of each cluster into groups. A second, fully independent partition (sharing zero groups),
@@ -145,7 +165,8 @@ is unaffected.
 ## 5. What is established, and what is not
 
 **Established**
-- Attribution signal on this corpus is real and weak (22–45% of attainable) at every unit size tested.
+- Gradient attribution signal on this corpus is real and weak (12–45% of attainable) at every unit size tested.
+- A design-based datamodel reaches 75–78% of attainable **out of partition**, so attribution here is achievable by a method that reads retraining outcomes.
 - The published cluster-grain success was substantially a training-set-size artifact.
 - The self-influence / leverage corrections developed over three earlier passes are **not salvageable**:
   keeping their ranking on a well-behaved scale still reverses, and within stratum their ordering is
@@ -156,7 +177,8 @@ is unaffected.
 - Whether attribution improves with unit size. The point estimates rise (0.36 → 0.37 → 0.49–0.67) but
   intervals overlap, and this is now **unresolvable on this corpus**: the k=15 population is capped at
   70 masks and has been exhausted. No purchasable design tightens it below a CI width of ~0.6.
-- Whether the datamodel's advantage reflects attribution or outcome-surface fitting.
+- Why the datamodel's k=5 transfer loses 32% of its within-campaign performance while k=3 loses
+  nothing detectable.
 - Whether the sub-cluster rungs are partition-sensitive. Two independent partitions differ by 1.2σ
   (k=3) and 0.1σ (k=5) — unresolved, and not resolvable at a feasible retrain budget.
 - Whether the half-ceiling bar is the right standard. Nine passes have failed it; the one apparent

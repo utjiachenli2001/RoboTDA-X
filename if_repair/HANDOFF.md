@@ -642,3 +642,53 @@ python -m if_repair.p10_bar                          # every bar attempt on one 
 > directly clears the same bar comfortably. The bar is therefore reachable and does discriminate; what
 > it discriminates against is the gradient approach at this corpus size. Whether that is a property of
 > the corpus or of the approach is the question the next corpus has to answer.
+
+---
+
+# HANDOFF -- pass 11 (for pass 12)
+
+## The state pass 12 inherits
+
+- **The datamodel attributes** (#50). Fit on one partition and scored on an independent one it reaches
+  ratio 0.781 (k=3) and 0.754 (k=5), clearing the bar at 4.0x and 2.4x GradDot on the same masks.
+- **Gradient attribution reaches 12-45% of attainable and clears the bar nowhere** once size and depth
+  are controlled (#48). Unchanged by #50.
+- **Partition sensitivity is unresolved and unresolvable at a feasible budget** (#47, corrected).
+- **The grain question is closed on this corpus** -- the k=15 population is capped at 70 and exhausted
+  (#45).
+- **The back catalogue is clear of the ceiling-noise effect** (#49).
+
+## Do NOT re-run
+
+- Everything on the passes 4-10 lists, unchanged.
+- A third partition at k=3 or k=5 (#47 corrected: ~10-15% power).
+- Any alpha-bearing test at k=15 (#45), or on the 33 Stage F masks (#28, #31).
+- Campaign O's or campaign R's SCORING -- both frozen. Adding seed depth to campaign O's masks is a
+  different operation and is thread 1 below.
+
+## Open threads
+
+1. **Depth-4 re-read of campaign O (campaign Q, in flight at handoff).** Previously a footnote,
+   deferred twice on the argument that its direction is already measured (#42). It is worth more now
+   than when it was deferred: pass 9/10's negatives are at depth 2 where #42 says the ratio is
+   INFLATED, so those negatives are already conservative -- but **#50's positive is at depth 2 too**,
+   and a positive result deserves the stricter denominator. The question this answers is whether the
+   datamodel's bar-clearing survives an unbiased ceiling.
+
+2. **Port to a corpus of 500+ demonstrations.** Still the only route to the grain question (#45), and
+   still the only clean discriminator for whether the gradient failure in #48 is a corpus-size limit
+   or a limit of the approach. **Off-box: this is a resource decision, not a plan.** Everything else
+   on this corpus is now either answered or shown unanswerable.
+
+3. **The datamodel's k=5 transfer gap.** 32% of its within-campaign LDS is ensemble-specific at k=5
+   and undetectably little at k=3 (#50). Why the finer grain transfers better is unexplained. Cheap
+   reads exist -- cross-grain transfer (fit k=3, score the k=5 masks via demo-level mapping) is zero
+   GPU and would say whether the gap is about grain or about coefficient count.
+
+## The write-up sentence this pass earned
+
+> A design-based datamodel fit on one arbitrary partition of a 135-demonstration corpus predicts
+> retraining outcomes on a completely different partition at 75-78% of the achievable ceiling, four
+> times better than a gradient estimator on the identical masks. Attribution on this corpus is
+> therefore achievable -- by a method that reads retraining outcomes. What is not achievable, at any
+> unit size from 3 demonstrations to 15, is reaching that bar from gradients alone.

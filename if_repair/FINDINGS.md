@@ -966,3 +966,70 @@ claiming it is. Corpus-size scaling is the discriminator, and it is off-box.
    uncertainty is binding.
 4. **I nearly let a partial campaign consume a one-shot score** (recorded in pass 9) and had to build
    the same guard again for campaign R.
+
+---
+
+# PASS 11 -- the datamodel attributes, and a claim of mine did not survive its own error bar
+
+Pass 11 spent no GPU. It produced the project's strongest positive result and retracted one of its
+own, both from the same adversarial review of a plan that was never run.
+
+## 1. CORRECTION: the k=3 partition effect I reported is 1.2 sigma (BLOCKERS #47, corrected)
+
+Pass 10 reported "k=3 is partition-sensitive" from a 42% LDS movement between campaigns O and R. I
+never computed what mask-sampling noise alone produces at n=400. A 4000-resample bootstrap on both
+campaigns' frozen outcomes: k=3 differs by **z = 1.23**, k=5 by **z = 0.11**. A 1.2-sigma difference
+is routine. **Partition sensitivity is unresolved at both grains**, and the design cannot resolve it --
+the data-consistent between-partition SD (~0.021) sits below one partition's own SE (~0.032), so a
+six-partition test has ~10-15% power and settling it would need ~20 partitions and ~50,000 retrains.
+
+This killed pass 11's planned GPU spend. A third partition would have returned a near-certain null.
+
+## 2. The datamodel ATTRIBUTES -- it transfers across an independent re-partition (BLOCKERS #50)
+
+Pass 10 left open whether the datamodel's bar-clearing performance was attribution or fitting the
+outcome surface of its own mask ensemble. Campaigns O and R are two independent partitions of the
+same 135 demos sharing zero groups, so the test is free: fit on O, map each group coefficient to its
+demos, aggregate over R's masks, score against R's frozen outcomes.
+
+| grain | arm | LDS | SE | ratio | rho/sqrt(r) |
+|---|---|---|---|---|---|
+| k=3 | fit O -> score R (**transfer**) | 0.3057 | 0.0296 | **0.781** | 0.488 |
+| k=3 | fit R -> score R (within) | 0.3287 | 0.0296 | 0.839 | 0.525 |
+| k=3 | GradDot | 0.0781 | 0.0318 | 0.200 | 0.125 |
+| k=5 | fit O -> score R (**transfer**) | 0.3210 | 0.0311 | **0.754** | 0.492 |
+| k=5 | fit R -> score R (within) | 0.4699 | 0.0258 | 1.104 | 0.720 |
+| k=5 | GradDot | 0.1362 | 0.0323 | 0.320 | 0.209 |
+
+**It transfers and still clears the bar out of partition**, at 4.0x and 2.4x GradDot on identical
+masks (z = 5.3 and 4.1). Qualifications: at k=5 the within-campaign number overstates it (transfer
+loses 32% of the LDS, z = 3.7; at k=3 the loss is undetectable), and coefficient stability across
+disjoint halves of campaign O is 0.690 Pearson at k=3, 0.899 at k=5.
+
+So **#48 survives its strongest available test** -- the bar is reachable, by a method whose advantage
+is not an artifact of the ensemble it trained on -- and what #48 says about GRADIENT attribution is
+untouched.
+
+## 3. What the pass did not do, and why
+
+Pass 11's first plan proposed two units and both were void:
+
+- **A subsampling ladder** walking masks-per-coefficient below 1.0, to test whether the datamodel's
+  win was an over-determination artifact. It could not have worked: the datamodel's LOO prediction is
+  refit on n-1 masks while GradDot's is a fixed cached score independent of n, so the paired delta
+  shrinks **mechanically** as n falls, for any regression, informative or not. A decaying curve was
+  guaranteed by estimation theory. The transfer test in section 2 replaced it and answers the question
+  directly, because both arms score the identical 400 campaign-R masks.
+- **A third partition**, killed by section 1's power calculation.
+
+Also corrected in passing: the plan's GPU budget was off by 2x (a "full partition" is 400 masks *per
+grain*, so 800 masks and 1600 retrains, not 400/800), and its U1-gates-U2 dependency was decorative --
+U1 concerned the datamodel and U2 the gradient estimator's partition variance, which are uncoupled.
+
+## Corrections I made to my own work, in order
+
+1. **BLOCKERS #47 overstated a null as a finding.** I read a 42% percentage movement as partition
+   sensitivity without computing the noise floor. Corrected in #47, the FINDINGS pass-10 section, the
+   HANDOFF, and `docs/PASS9_10_REPORT.md` -- which had already gone out for external reading.
+2. **My replacement probe was mechanically incapable of answering its question** (section 3).
+3. **My budget arithmetic was off by a factor of two**, and a stated gate was decorative.
