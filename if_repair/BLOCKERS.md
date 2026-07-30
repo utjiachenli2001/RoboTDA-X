@@ -968,3 +968,53 @@ regime it originally earned its reputation in. Its read is descriptive, not prer
 established is: *the bar is reachable by some method on this corpus, and gradient-based attribution
 does not reach it at 135 demos.* Whether that is a corpus-size limit or a limit of gradient
 attribution as such remains open, and corpus-size scaling is the discriminator.
+
+## 49. (AUDIT, and it CLEARS the back catalogue) The #46(b) ceiling effect is real but does not touch the historical conclusions
+
+#46(b) found the ratio's denominator can drive a comparison on its own, which put every cross-subset
+ratio comparison in nine passes under suspicion. `p11_ceiling_audit.py` decomposes every committed
+comparison. For two rows with ratio r = L/C,
+
+    log(r_A / r_B) = log(L_A / L_B) - log(C_A / C_B)
+
+so the gap splits additively in logs into an ESTIMATOR term and a CEILING term. Logs, not raw
+differences, because the ratio is multiplicative in its two parts.
+
+**Coverage: 5,535 pairwise comparisons across 34 of 38 audit-eligible result files (89%).** Four
+files yield no comparisons (single-row or no label column): `b2_scores_campaign.csv`,
+`confirm_mseries.csv`, `confirm_nseries.csv`, `p7_pooled_oos.csv`.
+
+**Result: 32 comparisons (1%) are denominator-driven. Median ceiling share is 0.102.**
+
+A flag requires BOTH a denominator-dominated split AND material movement. That second condition was
+missing from the first version of this audit and it mattered: a high ceiling SHARE is meaningless when
+nothing moved. `TracIn` vs `TracIn_trunc_k1` sits at ratios 0.3897 vs 0.3949 with a 1.3% ceiling
+spread -- the estimator term is ~0, so the share computes to 1.0 while the comparison is a near-tie
+nobody draws a conclusion from. **5,406 of the 5,535 comparisons are immaterial in exactly this way**,
+and reporting share alone produced a "worst offenders" list made entirely of noise.
+
+**Where the 32 live, and why none of them overturns anything:**
+
+- `p10_bar_attempts.csv` -- cross-design rows in pass 10's assembled overview (e.g. pass 8's pooled
+  headline against the sub-cluster datamodel). These compare different designs at different depths on
+  purpose; the table exists to show the spread, and no conclusion rests on any single pair.
+- `p9_datamodel_cluster.csv` -- pooled-vs-stratum rows, which pass 9 already identified as confounded
+  and re-reported per stratum.
+
+**Zero flagged comparisons anywhere in passes 1-8** -- the `b*` families, the confirm I/J/K/L series,
+`p7_*`, `exp_*`, `holdout_*`. The back catalogue is clear.
+
+**And the two load-bearing pass-9/10 conclusions are estimator-driven, checked directly:**
+
+| conclusion | ceiling share | estimator term | ceiling term |
+|---|---|---|---|
+| k=3 partition sensitivity (#47) | 0.071 | +0.538 | +0.041 |
+| the \|S\| correction (#41) | 0.294 | +0.609 | **-0.254** |
+
+The |S| correction's ceiling term is NEGATIVE -- the denominator worked *against* the observed gap, so
+that finding is understated by the ratio rather than inflated by it.
+
+**What this does and does not settle.** It settles that no committed conclusion needs amending for
+ceiling noise. It does not repeal #46(b): the effect is real, it is large where it bites (the census
+halves, 0.90 share), and any FUTURE cross-subset ratio comparison at n ~ 40-150 should be decomposed
+before it is believed. Paired contrasts sharing masks share a ceiling and are structurally immune.

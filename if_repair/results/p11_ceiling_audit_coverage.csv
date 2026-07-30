@@ -1,0 +1,39 @@
+source,rows,pairs,skipped
+a4_datamodel.csv,6,15,
+a5_fusion.csv,24,271,
+b10_scores.csv,12,28,
+b11_unlearn_gseries_pilot.csv,21,78,
+b12_headloo_gseries.csv,15,91,
+b13_trak_gseries.csv,42,378,
+b14_relatif_cached.csv,12,66,
+b1_layerwise.csv,176,600,TRUNCATED to worst 600
+b2_scores_archived.csv,36,227,
+b2_scores_campaign.csv,84,0,
+b3_kfac.csv,110,600,TRUNCATED to worst 600
+b4_tracin.csv,330,600,TRUNCATED to worst 600
+b7_diffusion.csv,270,600,TRUNCATED to worst 600
+confirm3_fresh_masks.csv,11,25,
+confirm3_fresh_masks_d10.csv,11,25,
+confirm_iseries.csv,3,3,
+confirm_jseries.csv,3,1,
+confirm_jseries_SMOKE_iseries.csv,3,3,
+confirm_kseries.csv,3,1,
+confirm_lseries.csv,3,2,
+confirm_mseries.csv,2,0,
+confirm_nseries.csv,2,0,
+confirm_oseries.csv,6,3,
+confirm_rseries.csv,4,1,
+dev_table.csv,16,102,
+diffusion_table.csv,4,4,
+exp_01_bc_s10.csv,70,600,TRUNCATED to worst 600
+exp_01_dev_s6.csv,70,600,TRUNCATED to worst 600
+exp_02_bc_s10.csv,24,157,
+holdout_phase2.csv,20,136,
+holdout_table.csv,8,28,
+p10_bar_attempts.csv,12,66,
+p10_datamodel_subcluster.csv,4,1,
+p10_k15_census.csv,6,3,
+p7_per_draw.csv,23,189,
+p7_pooled_oos.csv,7,0,
+p9_datamodel_cluster.csv,16,25,
+p9_stratum_control.csv,8,6,

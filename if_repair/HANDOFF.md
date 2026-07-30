@@ -592,10 +592,12 @@ python -m if_repair.confirm_oseries --i_understand_this_scores_once     # score 
    whether the gradient failure in #48 is a corpus-size limit or a limit of the approach. Everything
    else on this list is secondary to it.
 
-2. **Audit the historical ratio comparisons for the #46(b) ceiling effect.** Which committed
-   conclusions rest on a ratio difference that is actually a ceiling difference? This is cheap, zero
-   GPU, and it is the one item that could revise earlier passes rather than extend them. **Jiachen
-   asked for this explicitly (2026-07-29), deferred until pass 10 closed. It is now due.**
+2. ~~**Audit the historical ratio comparisons for the #46(b) ceiling effect.**~~ **DONE** --
+   BLOCKERS #49. 5,535 comparisons across 89% of eligible files; 32 (1%) denominator-driven, all in
+   pass-10's cross-design overview table or in pass-9 rows already known to be confounded. **Zero
+   flagged anywhere in passes 1-8, and both load-bearing pass-9/10 conclusions are estimator-driven.**
+   No committed conclusion needs amending. #46(b) is NOT repealed: future cross-subset ratio
+   comparisons at n ~ 40-150 still need decomposing before they are believed.
 
 3. **A third partition at k=3.** Two draws gave 0.356 and 0.200. That is enough to know the rung is
    unstable and not enough to characterise it. 1600 retrains (~18 h) would say whether k=3 is
