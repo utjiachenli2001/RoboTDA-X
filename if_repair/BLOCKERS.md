@@ -919,7 +919,7 @@ sample sizes**, and comparing ratios across mask subsets conflates estimator per
 reliability. Any historical cross-subset ratio comparison in this repo inherits this; auditing which
 conclusions turn on a ceiling difference rather than an estimator difference is queued work.
 
-## 47. (RESULT) The k=3 sub-cluster rung is PARTITION-SENSITIVE; k=5 is not
+## 47. (CORRECTED 2026-07-30 -- the original claim was NOT significant) Partition sensitivity is UNRESOLVED at both sub-cluster grains
 
 Sub-cluster masks require partitioning each cluster into groups, and that partition is arbitrary.
 Campaign R redrew it (a fully independent partition sharing zero groups) and re-ran the identical
@@ -940,8 +940,31 @@ while its LDS halved, so the partition genuinely changes predictive performance 
 denominator. And **both rungs read lower on the second partition**, so pass 9's sub-cluster numbers
 were if anything optimistic and its negative conclusion is reinforced.
 
-**Do not quote pass 9's k=3 rung without this.** It is one draw of an arbitrary partition and a
-second draw of the same design moved it 44%. Why k=3 and not k=5 is open; no mechanism is asserted.
+**CORRECTION (2026-07-30). The paragraph above overstated this, and the error was mine: I read a
+raw 42% LDS movement as a finding without computing what mask-sampling noise alone produces at
+n=400.** A 4000-resample bootstrap on both campaigns' frozen outcomes:
+
+| grain | campaign O | SE | campaign R | SE | diff | SD(diff) | **z** |
+|---|---|---|---|---|---|---|---|
+| k=3 | 0.1338 | 0.0324 | 0.0781 | 0.0317 | 0.0557 | 0.0453 | **1.23** |
+| k=5 | 0.1411 | — | 0.1362 | — | 0.0049 | 0.0455 | **0.11** |
+
+**A 1.23-sigma difference is not evidence of a partition effect.** What survives is much weaker than
+what was written: k=3 moved more than k=5 (1.23 vs 0.11 sigma), which is *consistent with* k=3 being
+the more partition-sensitive grain, and is nowhere near establishing it. Neither grain shows a
+partition effect distinguishable from mask sampling.
+
+**And the design cannot currently resolve one.** Under a method-of-moments decomposition the
+data-consistent between-partition SD is ~0.021 tau-units -- smaller than a single partition's own SE
+(~0.032). Testing sigma_b = 0 with six partitions has ~10-15% power at that effect size; resolving it
+would need on the order of 20 partitions at 800 masks, ~50,000 retrains. **A third partition would
+not have settled this**, which is why pass 11 dropped the plan to buy one.
+
+The methodological lesson, which is the transferable part: **two point estimates are not a variance.**
+Before quoting a difference between draws as a finding, compute what the within-draw sampling noise
+alone would produce. The raw movement here was 42% and the effect was 1.2 sigma.
+
+**Pass 9's k=3 rung remains one draw of an arbitrary partition**, and a second draw differed by 1.2 sigma -- worth stating as a limitation, not as a measured instability. Why k=3 and not k=5 is open; no mechanism is asserted.
 A third partition would establish whether k=3 is systematically unstable or this was one bad draw.
 
 ## 48. (RESULT, and it answers pass 7's HANDOFF #4) The half-ceiling bar is REACHABLE -- what fails is GRADIENT attribution specifically

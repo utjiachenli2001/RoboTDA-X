@@ -573,7 +573,7 @@ python -m if_repair.confirm_oseries --i_understand_this_scores_once     # score 
 - **The bar is reachable and discriminates** -- the datamodel clears it at both sub-cluster grains
   (0.640 / 0.674 attainable) while 10 gradient attempts across 5 designs clear it nowhere once size
   and depth are controlled (12-45%) (#48). Pass 7's HANDOFF #4 is answered.
-- **k=3 is partition-sensitive** (42% LDS movement across two partitions); k=5 is not (#47).
+- **Partition sensitivity is UNRESOLVED** at both grains: the two partitions differ by z = 1.23 at k=3 and z = 0.11 at k=5, so the originally-reported 42% movement is noise-consistent (#47, corrected).
 - **The ceiling is noisy enough at these n to drive a ratio comparison on its own** (#46b).
 - **No alpha remains at k=15, ever.** The unselected-upon masks are spent (#45 corollary).
 
@@ -599,10 +599,11 @@ python -m if_repair.confirm_oseries --i_understand_this_scores_once     # score 
    No committed conclusion needs amending. #46(b) is NOT repealed: future cross-subset ratio
    comparisons at n ~ 40-150 still need decomposing before they are believed.
 
-3. **A third partition at k=3.** Two draws gave 0.356 and 0.200. That is enough to know the rung is
-   unstable and not enough to characterise it. 1600 retrains (~18 h) would say whether k=3 is
-   systematically unstable or the second draw was unlucky -- and partition variance is a property of
-   the sub-cluster design that any future corpus inherits.
+3. ~~**A third partition at k=3.**~~ **DROPPED, and do not revive it at this scale.** The two draws
+   differ by 1.23 sigma (#47 corrected), the data-consistent between-partition SD (~0.021) sits below
+   a single partition's own SE (~0.032), and a six-partition test of sigma_b = 0 has ~10-15% power at
+   that effect size. Resolving it needs ~20 partitions at 800 masks (~50,000 retrains). A third
+   partition would return a near-certain null that says nothing.
 
 4. **Settle whether the datamodel attributes or fits the outcome surface.** It is the only method
    clearing the bar and the only one reading outcomes. The clean test needs a design where it is not

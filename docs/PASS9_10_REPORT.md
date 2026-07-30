@@ -127,11 +127,18 @@ partition of each cluster into groups. A second, fully independent partition (sh
 | k=3 | 0.356 | **0.200** | −0.156 | yes, by 0.020 |
 | k=5 | 0.365 | 0.320 | −0.045 | yes, comfortably |
 
-Both preregistered hypotheses pass, but that is the least informative part. **k=5 is
-partition-robust; k=3 is not** — its LDS nearly halved and it stayed inside the interval only because
-that interval is wide. The movement is in the LDS, not the ceiling, so it is a genuine change in
-predictive performance rather than the denominator artifact from (a). **Both rungs read lower on the
-second partition**, so the earlier figures were if anything optimistic.
+Both preregistered hypotheses pass. **Correction (2026-07-30): an earlier version of this report said
+"k=5 is partition-robust; k=3 is not". That overstated the evidence.** A bootstrap on both campaigns'
+frozen outcomes puts the k=3 difference at **z = 1.23** and k=5 at **z = 0.11** — a 1.2σ difference is
+routine under mask-sampling noise at n=400, and the original claim read a 42% percentage movement as a
+finding without computing that noise floor.
+
+**Partition sensitivity is therefore unresolved at both grains.** k=3 moved more than k=5 in a way
+consistent with, but not establishing, greater sensitivity. The design cannot resolve it: the
+data-consistent between-partition SD (~0.021) is below a single partition's own standard error
+(~0.032), and separating them would require roughly 20 partitions (~50,000 retrains). **Both rungs did
+read lower on the second partition**, so the earlier figures were if anything optimistic — that part
+is unaffected.
 
 ---
 
@@ -143,13 +150,15 @@ second partition**, so the earlier figures were if anything optimistic.
 - The self-influence / leverage corrections developed over three earlier passes are **not salvageable**:
   keeping their ranking on a well-behaved scale still reverses, and within stratum their ordering is
   actively anti-predictive.
-- k=5 sub-cluster results are partition-robust.
+- Both rungs read lower on an independent second partition, so the reported sub-cluster figures are not optimistic.
 
 **Not established**
 - Whether attribution improves with unit size. The point estimates rise (0.36 → 0.37 → 0.49–0.67) but
   intervals overlap, and this is now **unresolvable on this corpus**: the k=15 population is capped at
   70 masks and has been exhausted. No purchasable design tightens it below a CI width of ~0.6.
 - Whether the datamodel's advantage reflects attribution or outcome-surface fitting.
+- Whether the sub-cluster rungs are partition-sensitive. Two independent partitions differ by 1.2σ
+  (k=3) and 0.1σ (k=5) — unresolved, and not resolvable at a feasible retrain budget.
 - Whether the half-ceiling bar is the right standard. Nine passes have failed it; the one apparent
   success was a confound. Either the bar is mis-specified for a 135-demo corpus, or small-unit
   attribution genuinely does not work at this scale. **The evidence in hand does not discriminate

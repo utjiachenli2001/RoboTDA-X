@@ -902,17 +902,28 @@ own** -- two halves of one population at one depth gave ceilings of 0.521 and 0.
 stayed flat. That second point casts a shadow over historical cross-subset ratio comparisons and is
 queued for audit.
 
-## 3. k=3 is partition-sensitive (BLOCKERS #47)
+## 3. Partition sensitivity is UNRESOLVED -- the original claim did not survive its own error bar (BLOCKERS #47)
 
-Campaign R redrew the partition (zero shared groups) and re-ran the identical design. k=5 moved 3% in
-LDS; **k=3 moved 42%**, its ratio falling 0.356 -> 0.200. Both passed the preregistered containment
-test, but only because campaign O's k=3 interval is wide -- the preregistered signed difference is the
-informative read. Both rungs read lower on the second partition, so pass 9's numbers were optimistic
-and its negative conclusion is reinforced.
+Campaign R redrew the partition (zero shared groups) and re-ran the identical design. Both rungs
+passed the preregistered containment test. The raw movement was large at k=3 (LDS 0.1338 -> 0.0781,
+42%) and small at k=5 (3%).
 
-This is the result that justified spending the pass's 18 GPU-hours here rather than on a depth-4
-re-read: the partition threat's direction was unknown and it turned out to be real and large, while
-the depth threat's direction was already measured.
+**I initially reported that as "k=3 is partition-sensitive". That was wrong, and the correction is
+recorded in #47.** A bootstrap on both campaigns' frozen outcomes puts the k=3 difference at
+**z = 1.23** and k=5 at **z = 0.11** -- a 1.2-sigma difference is routine under mask-sampling noise
+alone at n=400. I read a percentage movement as a finding without computing the noise floor.
+
+What stands: **partition sensitivity is unresolved at both grains**, k=3 moved more than k=5 in a way
+consistent with (but not establishing) greater sensitivity, and the design cannot resolve the question
+-- the data-consistent between-partition SD (~0.021) is below a single partition's own SE (~0.032),
+and separating them would take ~20 partitions and ~50,000 retrains.
+
+Both rungs did read lower on the second partition, so pass 9's numbers were if anything optimistic and
+its negative conclusion is reinforced. That part is unaffected.
+
+The 18 GPU-hours still went to the right threat -- the partition threat's direction was genuinely
+unknown, where the depth threat's was already measured -- but the honest return on them is a **null
+with a bound**, not the effect the first write-up claimed.
 
 ## 4. The datamodel clears the bar -- and it is the one estimator that sees outcomes
 
