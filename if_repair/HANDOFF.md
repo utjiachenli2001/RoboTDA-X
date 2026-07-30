@@ -561,3 +561,77 @@ python -m if_repair.confirm_oseries --i_understand_this_scores_once     # score 
 > -- was substantially an artifact of pooling over training-set size: a fixed estimator reproduces
 > three quarters of that correlation on shuffled outcomes. Attribution at this corpus size is real,
 > weak, and not obviously improved by coarsening the unit.
+
+---
+
+# HANDOFF -- pass 10 (for pass 11)
+
+## The state pass 11 inherits
+
+- **The grain question is closed on this corpus.** The k=15 conditional population is capped at 70
+  and campaign P exhausted it. No design tightens that rung below a CI width of ~0.6 (#45).
+- **The bar is reachable and discriminates** -- the datamodel clears it at both sub-cluster grains
+  (0.640 / 0.674 attainable) while 10 gradient attempts across 5 designs clear it nowhere once size
+  and depth are controlled (12-45%) (#48). Pass 7's HANDOFF #4 is answered.
+- **k=3 is partition-sensitive** (42% LDS movement across two partitions); k=5 is not (#47).
+- **The ceiling is noisy enough at these n to drive a ratio comparison on its own** (#46b).
+- **No alpha remains at k=15, ever.** The unselected-upon masks are spent (#45 corollary).
+
+## Do NOT re-run
+
+- Everything on the passes 4-9 lists, unchanged.
+- The self-influence / leverage corrections, anywhere (#37, #43).
+- Any pooled-over-|S| absolute bar (#41).
+- Any alpha-bearing test at k=15, or on the 33 Stage F masks (#28, #31, #45).
+- Campaign O's or campaign R's masks -- both scored once, both result files frozen.
+
+## Open threads, ordered by what would change a conclusion
+
+1. **Port to a corpus of 500+ demonstrations.** No longer merely the biggest move -- for the grain
+   question it is now the ONLY move (#45), and it is simultaneously the only clean discriminator for
+   whether the gradient failure in #48 is a corpus-size limit or a limit of the approach. Everything
+   else on this list is secondary to it.
+
+2. **Audit the historical ratio comparisons for the #46(b) ceiling effect.** Which committed
+   conclusions rest on a ratio difference that is actually a ceiling difference? This is cheap, zero
+   GPU, and it is the one item that could revise earlier passes rather than extend them. **Jiachen
+   asked for this explicitly (2026-07-29), deferred until pass 10 closed. It is now due.**
+
+3. **A third partition at k=3.** Two draws gave 0.356 and 0.200. That is enough to know the rung is
+   unstable and not enough to characterise it. 1600 retrains (~18 h) would say whether k=3 is
+   systematically unstable or the second draw was unlucky -- and partition variance is a property of
+   the sub-cluster design that any future corpus inherits.
+
+4. **Settle whether the datamodel attributes or fits the outcome surface.** It is the only method
+   clearing the bar and the only one reading outcomes. The clean test needs a design where it is not
+   over-determined, which this corpus cannot supply at any grain -- so this likely rides along with
+   thread 1.
+
+5. **Depth-4 re-read of campaign O / R.** Deferred twice on the argument that its direction is already
+   measured (#42). Still true, still a footnote, still the right thing to run only if the box would
+   otherwise idle.
+
+## Reproducing pass 10
+
+```bash
+export CUDA_VISIBLE_DEVICES=0          # REQUIRED, see BLOCKERS #40
+python -m if_repair.p10_k15_census --manifest-only   # the 70/37/33 gate, zero GPU
+python -m if_repair.retrain --campaign P --worker {0,1,2} --nworkers 3   # 132 retrains, 1.5 h
+python -m if_repair.p10_k15_census                   # the census read
+python -m if_repair.p10_masks2                       # second partition, zero GPU
+python -m if_repair.retrain --campaign R --worker {0,1,2} --nworkers 3   # 1600 retrains, 18.2 h
+python -m if_repair.confirm_rseries --i_understand_this_scores_once      # score ONCE
+python -m if_repair.p10_datamodel_subcluster         # zero GPU
+python -m if_repair.p10_bar                          # every bar attempt on one scale
+```
+
+`pytest if_repair/tests -q` -> 151 passed, 3 skipped.
+
+## The write-up sentence this pass earned
+
+> On a 135-demonstration corpus, gradient-based training-data attribution reaches 12-45% of the
+> achievable ceiling at every unit size from 3 demonstrations to 15, and clears a half-ceiling
+> usefulness bar at none of them -- while a design-based datamodel that reads retraining outcomes
+> directly clears the same bar comfortably. The bar is therefore reachable and does discriminate; what
+> it discriminates against is the gradient approach at this corpus size. Whether that is a property of
+> the corpus or of the approach is the question the next corpus has to answer.

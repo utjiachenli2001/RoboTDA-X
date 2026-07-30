@@ -873,3 +873,98 @@ into a channel that does not exist. That is the design campaign O uses: 400 mask
 space, the answer is a finer grain, not a bigger sample at the same grain. Verified in passing --
 the permutation null on the fixed-75-demo k=15 rung is 0.0019, i.e. the size channel really is gone
 once the size is constant.
+
+## 45. (STRUCTURAL) The k=15 conditional population is capped at 70 and is now EXHAUSTED -- the grain question is closed on this corpus
+
+The pass-9 estimand at cluster grain conditions on the target cluster being retained, at a fixed
+75-demo training set. That conditions the mask universe to C(8,4) = **70** subsets. Not a sampling
+budget -- a combinatorial cap. Campaign N held 37 of them; pass 10's campaign P completed the other
+33. There are no more.
+
+Bootstrap width scales ~1/sqrt(n), and the measured width at n=37 was 2.155. So n=70 gives ~1.57 at
+depth 2 and ~0.60 at depth 4. The sub-cluster rungs have intervals of width ~0.37 centred near 0.36.
+**A k=15 interval of width 0.60 cannot be separated from them, and no purchasable design on this
+corpus makes it narrower.** The grain trend is therefore not "unestablished" but
+**unestablishable here**, which is the more useful statement: it tells the next corpus what to design
+for. The only escapes are a larger corpus or a different estimand.
+
+Corollary worth stating separately: **campaign N's 37 were the only winner's-curse-free masks of this
+kind that will ever exist on this corpus**, because the remaining 33 are the Stage F discovery draw
+for the cluster-grain hypothesis (`p8_cluster_grain`'s W1 scan). Pass 9 spent them. No alpha-bearing
+test at k=15 is available again, ever.
+
+## 46. (METHODS, two-part) The winner's curse depends on WHAT was selected; and the ratio's denominator can dominate a comparison
+
+Pass 10's census completed the 70 and read the two halves separately, at depth 4:
+
+| subset | n | LDS | ceiling | ratio | rho/sqrt(r) |
+|---|---|---|---|---|---|
+| 37 (campaign N, unselected-upon) | 37 | 0.2583 | 0.5211 | 0.4956 | 0.358 |
+| 33 (Stage F DISCOVERY draw) | 33 | 0.2652 | **0.6678** | 0.3971 | 0.324 |
+| 70 (complete population) | 70 | 0.2795 | 0.5738 | 0.4871 | 0.369 |
+
+**(a) No detectable winner's curse here, and the reason generalises.** The discovery draw reads LOWER,
+and the LDS is essentially identical across the halves (0.2583 vs 0.2652). BLOCKERS #28 measured ~4x
+inflation, but that was selection over many CONFIGS. Here the W1 scan selected the **grain**, and
+plain `GradDot_dmean` is a single estimator that was never itself selected -- so there was almost
+nothing for the curse to act on. **The curse scales with the size of the selection set over the thing
+being tested, not with "was this draw looked at".** #28 stands for config selection; it does not
+transfer automatically to design selection.
+
+**(b) At these n the ceiling is noisy enough to drive a ratio comparison on its own.** Two halves of
+the same population at the same depth give ceilings of 0.5211 and 0.6678 -- a 28% spread. The entire
+ratio gap between the halves comes from that, not from the estimator: LDS was stable at
+0.258/0.265/0.280 while the ratio swung 0.397-0.496. **Normalising by the ceiling ADDS noise at these
+sample sizes**, and comparing ratios across mask subsets conflates estimator performance with subset
+reliability. Any historical cross-subset ratio comparison in this repo inherits this; auditing which
+conclusions turn on a ceiling difference rather than an estimator difference is queued work.
+
+## 47. (RESULT) The k=3 sub-cluster rung is PARTITION-SENSITIVE; k=5 is not
+
+Sub-cluster masks require partitioning each cluster into groups, and that partition is arbitrary.
+Campaign R redrew it (a fully independent partition sharing zero groups) and re-ran the identical
+design, 1600 retrains:
+
+| grain | first partition | second partition | delta | LDS change |
+|---|---|---|---|---|
+| k=3 | 0.356 | **0.200** | -0.156 | 0.1338 -> 0.0781 (-42%) |
+| k=5 | 0.365 | 0.320 | -0.045 | 0.1411 -> 0.1362 (-3%) |
+
+Both rungs passed the preregistered containment test (each fell inside campaign O's CI), but that is
+the weak read: k=3 stayed inside only because campaign O's interval is 0.37 wide, with 0.1995 sitting
+0.020 above the lower bound. **Passing a containment test against a wide interval is not evidence of
+agreement.** The preregistered secondary -- the signed difference -- is what carries the finding.
+
+Two separations that matter. This is **not** #46(b): k=3's ceiling barely moved (0.3759 -> 0.3916)
+while its LDS halved, so the partition genuinely changes predictive performance rather than the
+denominator. And **both rungs read lower on the second partition**, so pass 9's sub-cluster numbers
+were if anything optimistic and its negative conclusion is reinforced.
+
+**Do not quote pass 9's k=3 rung without this.** It is one draw of an arbitrary partition and a
+second draw of the same design moved it 44%. Why k=3 and not k=5 is open; no mechanism is asserted.
+A third partition would establish whether k=3 is systematically unstable or this was one bad draw.
+
+## 48. (RESULT, and it answers pass 7's HANDOFF #4) The half-ceiling bar is REACHABLE -- what fails is GRADIENT attribution specifically
+
+Pass 7's HANDOFF open thread #4 asked whether the half-ceiling bar is unreachable for every estimator
+anyone would try, in which case it measures the ceiling rather than discriminating hypotheses. Pass
+10 answers it. Assembling all twelve committed absolute-bar attempts on one scale
+(`p10_bar.py` -> `results/p10_bar_attempts.csv`):
+
+- **10 gradient attempts across 5 independent designs. ZERO clear the bar** once training-set size is
+  controlled AND depth inflation is accounted for. The one apparent exception, k=15 at depth 2
+  (0.666, n=37), is contradicted by the depth-4 census on the *complete* population (0.487) -- which
+  is #42's inflation behaving exactly as predicted. Range: **12-45% of attainable** (`rho/sqrt(r)`).
+- **The design-based datamodel clears it at both sub-cluster grains** (0.640 and 0.674 attainable),
+  at a fixed training-set size, with a permutation control at ~0.
+
+So the bar is **not** unreachable and it is **not** measuring the ceiling: something on this corpus
+clears it, and comfortably. #4 is answered in the negative -- the bar discriminates.
+
+**The caveat that makes this a sharpening rather than a resolution.** The method that clears it is the
+only competitor that READS OUTCOMES; every gradient estimator is outcome-blind. And it clears while
+heavily over-determined (400 observations, 45 or 27 parameters), the opposite of the under-determined
+regime it originally earned its reputation in. Its read is descriptive, not preregistered. So what is
+established is: *the bar is reachable by some method on this corpus, and gradient-based attribution
+does not reach it at 135 demos.* Whether that is a corpus-size limit or a limit of gradient
+attribution as such remains open, and corpus-size scaling is the discriminator.

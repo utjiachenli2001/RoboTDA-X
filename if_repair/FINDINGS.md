@@ -874,3 +874,84 @@ is the cheapest remaining experiment in the project.
    Caught by a line count, reverted from git, and redone with the end anchor searched from the start
    index. Append-only documents accumulate duplicate headings; never anchor a splice on one without
    asserting uniqueness.
+
+---
+
+# PASS 10 -- the bar is reachable, and gradient attribution does not reach it
+
+Pass 9 corrected the cluster-grain headline and left three things open: whether the grain trend could
+be resolved, whether the datamodel survives a fair design, and whether the half-ceiling bar is the
+right standard at all. Pass 10 answers the first and third, and sharpens the second.
+
+## 1. The grain question is CLOSED on this corpus (BLOCKERS #45)
+
+The k=15 estimand's mask universe is C(8,4) = 70 -- a combinatorial cap. Campaign P completed it (132
+retrains). At n=70 the interval is ~1.57 wide at depth 2 and ~0.60 at depth 4, against sub-cluster
+intervals of ~0.37 centred near 0.36. **Nothing purchasable separates them.** The trend is not
+unestablished but unestablishable here.
+
+The census itself reads **0.487 at depth 4 on the complete population -- below the bar**, confirming
+pass 9 on the whole population rather than a 37-mask sample.
+
+## 2. Two methods results fell out of the census (BLOCKERS #46)
+
+**No winner's curse was detectable**, because the selection was over the GRAIN rather than over a set
+of configs, and the estimator itself was never selected. The curse scales with the selection set over
+the thing being tested. And **the ratio's denominator is noisy enough to drive a comparison on its
+own** -- two halves of one population at one depth gave ceilings of 0.521 and 0.668 while the LDS
+stayed flat. That second point casts a shadow over historical cross-subset ratio comparisons and is
+queued for audit.
+
+## 3. k=3 is partition-sensitive (BLOCKERS #47)
+
+Campaign R redrew the partition (zero shared groups) and re-ran the identical design. k=5 moved 3% in
+LDS; **k=3 moved 42%**, its ratio falling 0.356 -> 0.200. Both passed the preregistered containment
+test, but only because campaign O's k=3 interval is wide -- the preregistered signed difference is the
+informative read. Both rungs read lower on the second partition, so pass 9's numbers were optimistic
+and its negative conclusion is reinforced.
+
+This is the result that justified spending the pass's 18 GPU-hours here rather than on a depth-4
+re-read: the partition threat's direction was unknown and it turned out to be real and large, while
+the depth threat's direction was already measured.
+
+## 4. The datamodel clears the bar -- and it is the one estimator that sees outcomes
+
+At a fixed 75-demo training set, LOO over masks with regularisation refit inside every fold:
+k=3 ratio 1.044 (0.640 attainable), k=5 1.084 (0.674), against GradDot's 0.356 and 0.365 (0.218,
+0.227). Paired deltas +0.259 [0.185, 0.329] and +0.278 [0.209, 0.345]. Permutation control ~0, so not
+leakage; ratio > 1 is expected because the ceiling is a reliability and the attainable maximum is
+~1/sqrt(r) ~ 1.6 (#42).
+
+Three caveats travel with it: it is **outcome-consuming** where every gradient estimator is
+outcome-blind; it is **over-determined** here (400 observations, 45 or 27 parameters) against the
+under-determined 24-vs-135 regime it earned its reputation in -- the opposite regime, and this corpus
+cannot supply p >> n at any grain; and the read is **descriptive, not preregistered**.
+
+## 5. The bar-standard question, answered in part (BLOCKERS #48)
+
+Pass 7 asked whether the bar is unreachable for anything anyone would try. Across all twelve
+committed attempts: **10 gradient attempts across 5 designs, none clearing once size and depth are
+controlled** (12-45% of attainable), and **the datamodel clearing comfortably at both grains**. So the
+bar is reachable and does discriminate -- it is not measuring the ceiling.
+
+What that leaves is sharper than where the pass started: **gradient-based attribution does not reach
+the bar at 135 demonstrations, while an outcome-consuming method does.** Whether the gradient failure
+is a corpus-size limit or a limit of the approach is not decided by anything in hand, and I am not
+claiming it is. Corpus-size scaling is the discriminator, and it is off-box.
+
+## Corrections I made to my own work, in order
+
+1. **The pass-10 plan's first version was killed before any GPU was spent.** Its only alpha-bearing
+   test was preregistered on the 33 masks the hypothesis had been *selected* on -- the Stage F
+   discovery draw -- and my defence ("never scored through the campaign pipeline") was a pipeline
+   distinction, not an inferential one. It also hand-waved arithmetic that, once computed, showed the
+   test was **unpassable** rather than underpowered: at n=33 the CI width is ~2.3, so clearing the bar
+   needed a point ratio ~1.0 against an adjoining measurement of 0.30.
+2. **I had the datamodel's regime backwards**, in the plan and inherited from my own pass-9 HANDOFF.
+   Sub-cluster grain is 400/45 = 8.9 and 400/27 = 14.8 masks per coefficient -- *over*-determined --
+   against demo grain's 24/135 = 0.18. The opposite of what I wrote.
+3. **My first pass-10 falsification map named a unit that could not do the job**: it listed the
+   depth-4 re-read as the trend's rescue, but that unit touches only k=3/k=5 and never k=15, whose
+   uncertainty is binding.
+4. **I nearly let a partial campaign consume a one-shot score** (recorded in pass 9) and had to build
+   the same guard again for campaign R.

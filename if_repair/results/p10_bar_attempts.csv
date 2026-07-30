@@ -1,0 +1,13 @@
+pass,attempt,n_masks,depth,lds,ceiling,ratio_r,ratio_sqrt_r,clears_bar_on_ratio_r,training_set_size_controlled,outcome_consuming,note
+8,"cluster grain, POOLED over |S| (the published headline)",149,4,0.4746961726827498,0.6715129121651471,0.7069055026093175,0.5792800156547943,True,False,False,pass 9: ~0.353 of the 0.475 survives an outcome shuffle -- a size effect
+9,"cluster grain, within 4of9",56,4,0.2077922077922078,0.505338078291815,0.41119443936345346,0.29230634681308426,False,True,False,the same computation with |S| held constant
+9,"cluster grain, within 5of9",37,4,0.2582582582582582,0.5210954848260547,0.4956064018564018,0.35776311453960247,False,True,False,the same computation with |S| held constant
+9,"cluster grain, within 6of9",56,4,0.1688311688311688,0.5324015247776367,0.317112481790286,0.23138381739353925,False,True,False,the same computation with |S| held constant
+9,"sub-cluster k=3, fixed 75 demos (preregistered)",400,2,0.1338345864661654,0.3759361771409964,0.35600347772853524,0.21827867102013251,False,True,False,campaign O; size channel removed by construction
+9,"sub-cluster k=5, fixed 75 demos (preregistered)",400,2,0.1410526315789474,0.3862487360970678,0.3651860016533481,0.226959129688582,False,True,False,campaign O; size channel removed by construction
+9,"sub-cluster k=15, fixed 75 demos (preregistered)",37,2,0.3003003003003003,0.4511627906976745,0.6656140676759232,0.4470840015111077,True,True,False,campaign O; size channel removed by construction
+10,"k=15 CENSUS, complete conditional population",70,4,0.2795031055900621,0.5738188976377953,0.4870928907024067,0.3689769310704442,False,True,False,all 70 masks; the population is exhausted
+10,"sub-cluster k=3, SECOND partition (preregistered)",400,2,0.0781453634085213,0.3916154388793711,0.19954617630024624,0.12487437072419465,False,True,False,campaign R; k=3 moved 44% from the first partition
+10,"sub-cluster k=5, SECOND partition (preregistered)",400,2,0.1361904761904762,0.4257560513700656,0.319879132080967,0.20872108499503142,False,True,False,campaign R; k=3 moved 44% from the first partition
+10,"DATAMODEL, sub-cluster k=3, fixed 75 demos",400,2,0.3925814536340852,0.3759361771409964,1.0442768680037036,0.6402841016590555,True,True,True,"reads outcomes directly; over-determined; descriptive, not preregistered"
+10,"DATAMODEL, sub-cluster k=5, fixed 75 demos",400,2,0.4188721804511279,0.3862487360970678,1.0844622682360352,0.6739815093257411,True,True,True,"reads outcomes directly; over-determined; descriptive, not preregistered"
