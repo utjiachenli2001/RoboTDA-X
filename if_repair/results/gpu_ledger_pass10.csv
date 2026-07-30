@@ -1,0 +1,4 @@
+item,n_jobs,job_h,solo_h,occupancy_h,note
+p10_k15_census / p10_masks2 / p10_datamodel_subcluster / confirm_rseries,0,0.0,0.0,0.0,ZERO GPU -- census read and the sub-cluster datamodel both ran on retrains already on disk
+campaign P -- the 33 Stage F masks completing the C(8;4)=70 k=15 census x depth 4,132,4.53,1.51,1.51,3 workers; descriptive census only; 0 failures
+campaign R -- second independent partition at k=3/k=5 x depth 2 (seed-major),1600,54.4,18.15,18.16,3 workers; the pass prereg test; 0 failures
