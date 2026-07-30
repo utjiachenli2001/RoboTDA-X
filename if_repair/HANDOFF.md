@@ -605,10 +605,14 @@ python -m if_repair.confirm_oseries --i_understand_this_scores_once     # score 
    that effect size. Resolving it needs ~20 partitions at 800 masks (~50,000 retrains). A third
    partition would return a near-certain null that says nothing.
 
-4. **Settle whether the datamodel attributes or fits the outcome surface.** It is the only method
-   clearing the bar and the only one reading outcomes. The clean test needs a design where it is not
-   over-determined, which this corpus cannot supply at any grain -- so this likely rides along with
-   thread 1.
+4. ~~**Settle whether the datamodel attributes or fits the outcome surface.**~~ **DONE, zero GPU** --
+   BLOCKERS #50. It ATTRIBUTES: fit on campaign O and scored on campaign R's independent partition it
+   reaches ratio 0.781 (k=3) and 0.754 (k=5), still clearing the bar, at 4.0x and 2.4x GradDot on the
+   same masks. Two qualifications: at k=5 the within-campaign figure overstates it (transfer loses 32%
+   of the LDS, z=3.7; at k=3 the loss is undetectable), and coefficient stability across disjoint
+   halves is 0.69 (k=3) / 0.90 (k=5) Pearson. The design the earlier HANDOFF said this needed -- one
+   where the datamodel is not over-determined -- turned out to be unnecessary; two independent
+   partitions answered it directly.
 
 5. **Depth-4 re-read of campaign O / R.** Deferred twice on the argument that its direction is already
    measured (#42). Still true, still a footnote, still the right thing to run only if the box would

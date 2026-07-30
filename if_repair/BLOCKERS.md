@@ -1041,3 +1041,47 @@ that finding is understated by the ratio rather than inflated by it.
 ceiling noise. It does not repeal #46(b): the effect is real, it is large where it bites (the census
 halves, 0.90 share), and any FUTURE cross-subset ratio comparison at n ~ 40-150 should be decomposed
 before it is believed. Paired contrasts sharing masks share a ceiling and are structurally immune.
+
+## 50. (RESULT, and it settles HANDOFF thread 4) The datamodel ATTRIBUTES -- it transfers across an independent re-partition
+
+Pass 10 left the datamodel's win ambiguous: with 400 masks against 45 or 27 coefficients it is a
+well-posed regression of outcomes on an inclusion matrix, so is it attributing influence to
+demonstrations or fitting the outcome surface of its own mask ensemble?
+
+**The test that answers it costs no GPU, because campaigns O and R are two INDEPENDENT partitions of
+the same 135 demos sharing zero groups.** Fit on campaign O, map each group coefficient to its demos
+(evenly -- within a group the demos are collinear and no other split is identifiable), then aggregate
+over campaign R's masks and score against R's frozen outcomes. Out-of-sample AND out-of-partition;
+nothing about R is seen during the fit. A method that attributes to demonstrations transfers across an
+arbitrary re-grouping; one that fits its own ensemble does not.
+
+| grain | arm | LDS | SE | ratio | rho/sqrt(r) |
+|---|---|---|---|---|---|
+| k=3 | fit O -> score R (**transfer**) | 0.3057 | 0.0296 | **0.781** | 0.488 |
+| k=3 | fit R -> score R (within, LOO) | 0.3287 | 0.0296 | 0.839 | 0.525 |
+| k=3 | GradDot (campaign-independent) | 0.0781 | 0.0318 | 0.200 | 0.125 |
+| k=5 | fit O -> score R (**transfer**) | 0.3210 | 0.0311 | **0.754** | 0.492 |
+| k=5 | fit R -> score R (within, LOO) | 0.4699 | 0.0258 | 1.104 | 0.720 |
+| k=5 | GradDot (campaign-independent) | 0.1362 | 0.0323 | 0.320 | 0.209 |
+
+**It transfers, and it still clears the bar out of partition** -- 0.781 and 0.754 against a 0.5 bar,
+at 4.0x and 2.4x GradDot on the same masks (z = 5.3 and 4.1). The datamodel is not merely fitting its
+own mask ensemble.
+
+**Two qualifications that must travel with it.** At k=5 the within-campaign figure **overstates** the
+method: transfer loses 32% of the LDS (0.4699 -> 0.3210, z = 3.7), which is real ensemble-specific
+fitting. At k=3 the loss is not detectable (z = 0.55). And coefficient stability across disjoint
+halves of campaign O is substantial but not perfect -- Pearson 0.690 / Spearman 0.686 at k=3, 0.899 /
+0.867 at k=5 -- so the coefficients are measuring a property of the groups rather than noise, more
+cleanly where there are fewer of them.
+
+So **#48 survives its strongest available test**: the bar is reachable, and reachable by a method
+whose advantage is not an artifact of the ensemble it was trained on. What #48 says about GRADIENT
+attribution is untouched -- GradDot sits at 0.200 and 0.320 on these same masks.
+
+**Note on what replaced what.** Pass 11's first plan proposed answering this by subsampling masks to
+walk masks-per-coefficient below 1.0. That could not have worked: the datamodel's LOO prediction is
+refit on n-1 masks while GradDot's is a fixed cached score independent of n, so the paired delta
+shrinks **mechanically** as n falls for any regression, informative or not. A decaying curve would
+have been guaranteed by estimation theory rather than evidence of anything. The transfer design has no
+such asymmetry -- both arms are scored on the identical 400 campaign-R masks.
