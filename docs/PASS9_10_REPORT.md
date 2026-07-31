@@ -1,11 +1,11 @@
-# RoboTDA-X `if_repair` — progress report, passes 9 and 10
+# RoboTDA-X `if_repair` — progress report, passes 9-12
 
 **Jiachen Li · 2026-07-30 · repo at `cb0dfea` (github.com/utjiachenli2001/RoboTDA-X, branch `main`)**
 
 Corpus: 135 robot imitation-learning demonstrations in 9 clusters of 15. The measurement is LDS
 (linear datamodeling score) — how well an estimator's per-demo influence scores predict the actual
 outcome change when a subset of demos is removed and the model is retrained. Compute: one H200,
-~38 GPU-hours across these two passes (3,332 retrains).
+~75 GPU-hours across passes 9-12 (6,532 retrains), all preregistered and scored once.
 
 ---
 
@@ -134,6 +134,27 @@ Qualifications: at k=5 the within-campaign figure overstates it (transfer loses 
 z = 3.7; at k=3 the loss is undetectable), and coefficient stability across disjoint halves of one
 campaign is 0.69 (k=3) and 0.90 (k=5) Pearson.
 
+**(e) Both conclusions survive an unbiased ceiling — added 2026-07-31.** Every number above uses the
+project's historical `ρ/r` convention, where `r` is a reliability rather than an attainable maximum,
+which inflates the ratio and inflates it *more* at lower seed depth. The negative results were
+therefore already measured on the most generous scale available. The positive one was too, so it was
+re-measured: 1,600 further retrains added two seed slots to the identical masks, taking them from
+depth 2 to depth 4. The ceiling rose 45%.
+
+| grain | arm | depth 2 | **depth 4** | clears bar |
+|---|---|---|---|---|
+| k=3 | GradDot | 0.356 | **0.225** | no |
+| k=3 | datamodel | 1.044 | **0.849** | **yes** |
+| k=5 | GradDot | 0.365 | **0.239** | no |
+| k=5 | datamodel | 1.084 | **0.881** | **yes** |
+
+The datamodel clears the bar with room to spare on the honest denominator; the gradient negatives are
+reinforced. Two further reads: the datamodel's **raw LDS rises** with depth (+18%, +16%) while
+GradDot's falls slightly — cleaner outcomes help the estimator capturing real structure and not the
+one that is not, which separates the methods without invoking the contested denominator at all — and
+on the attainable scale the datamodel is depth-stable (0.640 → 0.627) while GradDot decays
+(0.218 → 0.166). The gap widens from 2.9× to 3.8×.
+
 **This strengthens §1's headline rather than softening it.** Attribution on this corpus is achievable
 — by a method that reads retraining outcomes. What is not achievable, at any unit size from 3 to 15,
 is reaching that bar from gradients alone.
@@ -190,9 +211,10 @@ is unaffected.
 
 ## 6. Next
 
-1. **Port to a corpus of 500+ demonstrations.** This has moved from "the biggest available move" to
-   "the only move" for the grain question, and it is also the only clean discriminator for the
-   bar-standard question, since it varies corpus size directly.
+1. **Port to a corpus of 500+ demonstrations. This is now the only remaining experiment.** Every
+   question this corpus can answer has been answered or shown unanswerable, and the last on-box GPU
+   run has completed. It is simultaneously the only route to the grain question and the only clean
+   discriminator for whether the gradient failure reflects corpus size or the approach itself.
 2. **Audit historical ratio comparisons** for the ceiling-noise effect in §4(a).
 3. **Resolve the datamodel question** with a design where it is not over-determined — which this
    corpus cannot supply at any grain.
