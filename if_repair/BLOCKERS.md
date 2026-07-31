@@ -1085,3 +1085,43 @@ refit on n-1 masks while GradDot's is a fixed cached score independent of n, so 
 shrinks **mechanically** as n falls for any regression, informative or not. A decaying curve would
 have been guaranteed by estimation theory rather than evidence of anything. The transfer design has no
 such asymmetry -- both arms are scored on the identical 400 campaign-R masks.
+
+## 51. (RESULT, and it closes the on-box campaign) At an UNBIASED ceiling the datamodel still clears the bar and gradient attribution still does not
+
+Campaign Q added two seed slots to campaign O's identical 800 masks, taking that campaign from depth 2
+to depth 4. Same masks, same estimators, same everything -- only the depth changes, so this is not
+confounded with a fresh draw. 1600 retrains, 18.4 h, 0 failures.
+
+| grain | arm | d2 ratio | **d4 ratio** | d2 rho/sqrt(r) | d4 rho/sqrt(r) | clears bar |
+|---|---|---|---|---|---|---|
+| k=3 | GradDot | 0.356 | **0.225** | 0.218 | 0.166 | no |
+| k=3 | datamodel (LOO) | 1.044 | **0.849** | 0.640 | 0.627 | **yes** |
+| k=5 | GradDot | 0.365 | **0.239** | 0.227 | 0.178 | no |
+| k=5 | datamodel (LOO) | 1.084 | **0.881** | 0.674 | 0.655 | **yes** |
+
+**The ceiling rises 45%** (0.3759 -> 0.5452 at k=3; 0.3862 -> 0.5524 at k=5), which is #42 behaving
+exactly as it predicted: the depth-2 ratio was inflated, and this is the unbiased read.
+
+**Both pass-10/11 conclusions survive it, in the direction each needed.** #48's negative is
+reinforced -- gradient ratios fall by ~35% and clear nothing by a wider margin. #50's positive
+survives the stricter denominator with room to spare: 0.849 and 0.881 against a 0.5 bar. **A positive
+result measured on an inflated scale has now been re-measured on the honest one and stands.**
+
+**Two things worth recording that were not anticipated.**
+
+1. **The datamodel's raw LDS RISES with depth** (0.3926 -> 0.4631 at k=3, +18%; 0.4189 -> 0.4865 at
+   k=5, +16%) while GradDot's falls slightly (0.1338 -> 0.1227; 0.1411 -> 0.1319). Cleaner outcomes
+   help the estimator that is capturing real structure and do not help the one that is not. That is a
+   sharper discriminator between the two methods than the ratio, because it does not involve the
+   contested denominator at all.
+2. **On the attainable `rho/sqrt(r)` scale the datamodel is essentially depth-STABLE** (0.640 ->
+   0.627, 0.674 -> 0.655) while GradDot decays (0.218 -> 0.166, 0.227 -> 0.178). The datamodel is
+   tracking a fixed fraction of what is achievable as the achievable ceiling moves; GradDot is not.
+   The gap widens from 2.9x to 3.8x (k=3) and 3.0x to 3.7x (k=5).
+
+**Limitation stated rather than papered over:** the cross-partition TRANSFER arm of #50 could not be
+fully re-read at depth 4, because campaign R has only depth-2 outcomes and none were bought for it.
+Only the fit side of that arm can improve. The transfer result stands at depth 2 as reported.
+
+**Campaign O's own scoring remains frozen** -- `confirm_oseries.csv` is untouched and this is a
+separate descriptive file (`results/p11_depth.csv`), carrying no alpha.

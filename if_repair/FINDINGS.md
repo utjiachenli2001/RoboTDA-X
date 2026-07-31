@@ -1033,3 +1033,53 @@ U1 concerned the datamodel and U2 the gradient estimator's partition variance, w
    HANDOFF, and `docs/PASS9_10_REPORT.md` -- which had already gone out for external reading.
 2. **My replacement probe was mechanically incapable of answering its question** (section 3).
 3. **My budget arithmetic was off by a factor of two**, and a stated gate was decorative.
+
+---
+
+# PASS 12 -- the unbiased ceiling, and the end of what this corpus can answer
+
+Pass 11 closed with campaign Q in flight: two extra seed slots on campaign O's identical masks, taking
+them from depth 2 to depth 4. It was a footnote for two passes and then stopped being one, for a
+reason worth stating plainly. The project's **negative** results all sat at depth 2 where BLOCKERS #42
+says the ratio is inflated -- so they were measured on the most generous scale available and a
+stricter denominator could only push them further down. But pass 11's **positive** result sat at depth
+2 as well. A positive claim measured on an inflated scale has to be re-measured on the honest one.
+
+**It survives** (BLOCKERS #51). At depth 4 the ceiling rises 45% and:
+
+- **The datamodel still clears the bar** -- 0.849 (k=3) and 0.881 (k=5) against 0.5.
+- **Gradient attribution still clears nothing**, and by a wider margin: 0.225 and 0.239.
+- The gap widens from ~2.9x to ~3.8x.
+
+Two unanticipated reads came out of it. The datamodel's **raw LDS rises** with depth (+18% / +16%)
+while GradDot's falls slightly -- cleaner outcomes help the estimator capturing real structure and do
+not help the one that is not, which discriminates the two methods without involving the contested
+denominator at all. And on the attainable scale the datamodel is **depth-stable** (0.640 -> 0.627)
+while GradDot decays (0.218 -> 0.166).
+
+## Where this leaves the project
+
+Every question this corpus can answer has been answered:
+
+| question | status |
+|---|---|
+| Does the grain matter? | **Closed by combinatorics** (#45) -- the k=15 population is 70 and exhausted |
+| Are the sub-cluster rungs partition-sensitive? | **Unresolvable** at a feasible budget (#47 corrected) |
+| Does the datamodel attribute or fit its ensemble? | **It attributes** (#50) |
+| Is the half-ceiling bar the right standard? | **It is reachable and discriminates** (#48) |
+| Do historical ratio comparisons survive the ceiling effect? | **Yes** (#49) |
+| Do the conclusions survive an unbiased ceiling? | **Yes** (#51) |
+
+What remains is **off-box and is a resource decision, not a plan**: port to a corpus of 500+
+demonstrations. It is simultaneously the only route to the grain question and the only clean
+discriminator for whether the gradient failure is a limit of the corpus size or of the approach.
+
+## The sentence the whole campaign earned
+
+> On a 135-demonstration corpus, a design-based datamodel fit on one arbitrary partition predicts
+> retraining outcomes on a completely independent partition at 75-78% of the achievable ceiling, and
+> clears a half-ceiling usefulness bar at both an inflated and an unbiased denominator. Gradient-based
+> attribution, on the identical masks, reaches 17-23% and clears that bar at no unit size from 3
+> demonstrations to 15. Attribution on this corpus is achievable -- by a method that reads retraining
+> outcomes. Reaching the same bar from gradients alone is not, and whether that is a property of the
+> corpus or of the approach is the question the next corpus has to answer.

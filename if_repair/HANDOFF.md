@@ -692,3 +692,41 @@ python -m if_repair.p10_bar                          # every bar attempt on one 
 > times better than a gradient estimator on the identical masks. Attribution on this corpus is
 > therefore achievable -- by a method that reads retraining outcomes. What is not achievable, at any
 > unit size from 3 demonstrations to 15, is reaching that bar from gradients alone.
+
+---
+
+# HANDOFF -- pass 12 (for whoever picks this up)
+
+## There is no remaining on-box experiment
+
+This is the state to inherit, and it is unusual: **the corpus is exhausted as a research instrument.**
+Every open thread from pass 10 and 11 is now answered or shown unanswerable, and campaign Q was the
+last GPU spend with a question attached to it.
+
+- **The datamodel attributes and clears the bar at both depths** (#50, #51): transfer 0.781 / 0.754
+  across an independent partition at depth 2; within-campaign 0.849 / 0.881 at depth 4.
+- **Gradient attribution clears the bar nowhere** (#48, #51): 17-23% of attainable at depth 4, 12-45%
+  across every design tried.
+- **The grain question is closed** (#45), **partition sensitivity is unresolvable** (#47 corrected),
+  **the back catalogue is clean** (#49).
+
+## Do NOT re-run
+
+Everything on the passes 4-11 lists, plus: campaign O and R scoring are frozen; no third partition
+(#47, ~10-15% power); no alpha-bearing test at k=15 (#45); no further depth on these masks -- #51 is
+the unbiased read and a depth-6 arm would answer nothing new.
+
+## The only thread left
+
+**Port to a corpus of 500+ demonstrations.** Off-box. It is the only route to the grain question
+(#45) and the only clean discriminator for whether the gradient failure is about corpus size or about
+gradients. Everything needed to justify the request is now assembled: a positive result that survives
+every control this corpus supports, a negative result that survives them too, and a demonstrated
+reason why neither can be pushed further here.
+
+Two cheap things that could ride along if that corpus appears, neither worth a pass on its own:
+- **The datamodel's k=5 transfer gap** (32% of within-campaign LDS is ensemble-specific at k=5,
+  undetectably little at k=3). Cross-grain transfer would say whether it is about grain or about
+  coefficient count. Zero GPU on existing data.
+- **The transfer arm at depth 4**, which #51 could not do because campaign R has no depth-4 outcomes.
+  800 retrains (~9 h) would buy it if the box is otherwise idle.
