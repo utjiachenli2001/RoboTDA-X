@@ -725,8 +725,10 @@ every control this corpus supports, a negative result that survives them too, an
 reason why neither can be pushed further here.
 
 Two cheap things that could ride along if that corpus appears, neither worth a pass on its own:
-- **The datamodel's k=5 transfer gap** (32% of within-campaign LDS is ensemble-specific at k=5,
-  undetectably little at k=3). Cross-grain transfer would say whether it is about grain or about
-  coefficient count. Zero GPU on existing data.
+- ~~**The datamodel's k=5 transfer gap.**~~ **DONE, zero GPU** -- BLOCKERS #52. It is about
+  COEFFICIENT COUNT, not grain: the loss follows the fitting grain (k=5 fits lose 17% moved to k=3;
+  k=3 fits lose 10% moved to k=5), so over-determination is the cause. Design rule for the next
+  corpus: prefer the grain that leaves the fit LESS over-determined, even though its within-sample
+  number looks worse.
 - **The transfer arm at depth 4**, which #51 could not do because campaign R has no depth-4 outcomes.
   800 retrains (~9 h) would buy it if the box is otherwise idle.

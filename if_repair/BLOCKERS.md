@@ -1125,3 +1125,40 @@ Only the fit side of that arm can improve. The transfer result stands at depth 2
 
 **Campaign O's own scoring remains frozen** -- `confirm_oseries.csv` is untouched and this is a
 separate descriptive file (`results/p11_depth.csv`), carrying no alpha.
+
+## 52. (RESULT) The datamodel's transfer loss is about COEFFICIENT COUNT, not grain -- and it follows the FIT, not the target
+
+#50 left an unexplained asymmetry: transferring across an independent partition, the datamodel loses
+32% of its within-campaign LDS at k=5 (z = 3.7) but nothing detectable at k=3 (z = 0.55). The FINER
+grain transfers better, which is the opposite of the naive expectation.
+
+Two hypotheses, separable on data already on disk: (a) something about 5-demo groups ties the
+coefficients to their grouping, or (b) k=5's fit is more over-determined (27 coefficients against 400
+masks = 14.8 per coefficient, versus k=3's 45 and 8.9), so it absorbs more ensemble-specific structure
+and loses more when that structure is removed.
+
+**The test transfers ACROSS GRAINS within one campaign** -- fit at one grain, map coefficients to
+per-demo scores, score the other grain's mask set. A k=3 mask's demo set is not a union of k=5 groups,
+so this is out-of-sample in mask space while crossing the grouping without crossing the partition.
+
+| scored on | own LOO (honest same-grain) | cross-grain fit | loss |
+|---|---|---|---|
+| k=3 | 0.3926 | fit k=5 -> **0.3275** | **17%** |
+| k=5 | 0.4189 | fit k=3 -> **0.3755** | **10%** |
+
+**The loss follows the FITTING grain, not the scoring grain.** Fits made at k=5 degrade more wherever
+they are scored (17% when moved to k=3) than fits made at k=3 do (10% when moved to k=5). The cause
+travels with the fit, which is **(b): coefficient count**. And it agrees with the cross-partition
+direction in #50 -- there too it was the k=5 fits that lost.
+
+**The mechanism, stated as the transferable part:** the more over-determined a datamodel fit is, the
+more of the mask ensemble's specific structure it can absorb, and the more it loses when moved to any
+new mask set -- another partition or another grouping. Over-determination buys within-sample
+performance and pays for it in transfer. That is a design rule for the next corpus: **prefer the grain
+that leaves the fit LESS over-determined, even though its within-sample number will look worse.**
+
+**One trap this table contains on purpose.** The `fit k=X (IN-SAMPLE)` rows -- 0.4659 at k=3 and
+0.4641 at k=5 -- are the full-fit model scored on the very masks it was fit on. They are NOT transfer
+numbers and are labelled in the output so they cannot be misread as such. They are kept beside the LOO
+arm because the gap between them (0.4659 vs 0.3926 at k=3) is a direct measure of how much the
+in-sample read inflates on this design: about 19%.

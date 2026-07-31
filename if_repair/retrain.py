@@ -360,6 +360,23 @@ def jobs(campaign):
                  "demos": m["demos"], "seed_init": sd, "seed_order": sd}
                 for sd in B_SEEDS[2:4] for m in ms]
 
+    if campaign == "S":
+        # PASS 13 -- two ADDITIONAL seed slots on campaign R's identical 800 masks, depth 2 -> 4.
+        #
+        # #51 re-read the WITHIN-campaign datamodel at an unbiased ceiling and it survived, but the
+        # cross-partition TRANSFER arm -- #50, the project's headline positive -- could not be
+        # re-read, because the scoring side is campaign R and campaign R had only depth 2. Only the
+        # fit side could improve. This buys the missing half: with R at depth 4, the transfer claim
+        # can be stated at the same unbiased denominator as everything else.
+        #
+        # Campaign R's own preregistered scoring stays frozen (confirm_rseries.csv untouched); this
+        # feeds a separate descriptive read, exactly as campaign Q did for campaign O.
+        from if_repair import p10_masks2 as P10M
+        ms = P10M.all_masks()
+        return [{"run_id": f"S_{m['mask_id']}_i{sd}_o{sd}", "mask_id": m["mask_id"],
+                 "demos": m["demos"], "seed_init": sd, "seed_order": sd}
+                for sd in B_SEEDS[2:4] for m in ms]
+
     if campaign == "D":
         # W2 duels. Each duel is a pair of 68-demo masks differing in exactly ONE demo, trained
         # at MATCHED seed slots so the shared mask x init interaction differences out. The
@@ -402,7 +419,7 @@ def run_job(job, cfg, fidx, outdir, device="cuda"):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--campaign", required=True,
-                    choices=["A", "B", "C", "I", "J", "K", "L", "M", "D", "N", "O", "P", "R", "Q"])
+                    choices=["A", "B", "C", "I", "J", "K", "L", "M", "D", "N", "O", "P", "R", "Q", "S"])
     ap.add_argument("--worker", type=int, default=0)
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)
