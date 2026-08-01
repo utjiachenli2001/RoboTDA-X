@@ -1,0 +1,5 @@
+grain,comparison,n_demos,pearson,spearman,kendall,shuffle_null_mean,shuffle_null_p97.5,note
+k=3,"CROSS-PARTITION (O vs R, disjoint groupings)",135,0.524070626836724,0.484872471416007,0.36326530612244895,5.7346108801917037e-05,0.170451438526473,the literal attribution test -- two arbitrary re-groupings of the same 135 demos
+k=3,within-campaign halves (same grouping),135,0.6900585111567055,0.6864116094986807,0.5244897959183674,,,agreement ceiling: best achievable without crossing partitions
+k=5,"CROSS-PARTITION (O vs R, disjoint groupings)",135,0.46570998208981085,0.4869193154034231,0.3610344827586207,0.0010611539048527453,0.16078155977120268,the literal attribution test -- two arbitrary re-groupings of the same 135 demos
+k=5,within-campaign halves (same grouping),135,0.8991493055056469,0.8673594132029342,0.7011494252873564,,,agreement ceiling: best achievable without crossing partitions

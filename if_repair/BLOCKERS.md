@@ -1199,3 +1199,49 @@ buys within-sample performance and pays for it exactly where it matters most.**
 
 **GradDot at the unbiased ceiling on campaign R falls further still** -- 0.133 (k=3) and 0.158 (k=5),
 against 0.200 and 0.320 at depth 2. The negative is reinforced at every control added.
+
+## 54. (RESULT, and it separates two claims the project had been conflating) The PREDICTIONS transfer better than the ATTRIBUTIONS do
+
+#50 established that the datamodel fit on one partition predicts another partition's outcomes far
+better than any gradient estimator, and called that "it attributes". That is a claim about
+PREDICTION. It is not the claim the word attribution makes, and the two are separable.
+
+A summed mask prediction is an average over 75 demos, so it is robust to substantial per-demo
+disagreement: two fits could both capture whatever coarse structure carries most of the predictable
+variance, transfer well to each other's masks, and still assign quite different influence to any
+particular demonstration. The transfer test cannot see that, because it only ever looks at summed
+predictions.
+
+**The literal test.** Campaigns O and R are independent partitions of the same 135 demonstrations
+sharing zero groups. Fit each, map each set of group coefficients down to 135 per-demo scores, and
+correlate the vectors directly. The two partitions group different demos together, so agreement is not
+forced by construction -- a demo's score comes from one set of groupmates under O and a disjoint set
+under R.
+
+| grain | cross-partition (O vs R) | within-campaign halves (ceiling) | % of ceiling | shuffle null (97.5th) |
+|---|---|---|---|---|
+| k=3 | **0.524** | 0.690 | **76%** | 0.000 (0.170) |
+| k=5 | **0.466** | 0.899 | **52%** | 0.001 (0.161) |
+
+Pearson on the 135-demo vectors; Spearman and Kendall agree (0.485/0.363 and 0.487/0.361).
+
+**The attribution is real but only moderately consistent.** Both grains sit far above a shuffle null
+that collapses to ~0, so the per-demo scores are not noise. But at ~0.5 correlation, two arbitrary
+re-groupings of the same corpus agree about half as much as the vectors' own scale allows. **Anyone
+using these scores per-demonstration -- to prune, select or reweight data, which is what TDA is FOR --
+inherits that, and it is much weaker than the 4.8x predictive advantage suggests.**
+
+**Read cross-partition against the within-campaign ceiling, not against 1.0.** Two fits on disjoint
+halves of ONE campaign at the same grain agree at 0.690 (k=3) and 0.899 (k=5); that is the best
+achievable without crossing partitions, and it is well short of 1.0 on its own.
+
+**The over-determination story appears a third time, and this is its cleanest form.** k=5 is MORE
+self-consistent inside its own grouping (0.899 vs k=3's 0.690) and yet agrees LESS across partitions
+(52% of its ceiling versus 76%). Higher within, lower across, is the textbook over-fitting signature,
+and it is now visible in the attributions themselves rather than only in prediction (#52) or in the
+bar test (#53). **Prefer the grain that leaves the fit less over-determined** -- the design rule from
+#52 is reinforced by the quantity that actually matters for using a TDA method.
+
+**How #50 should now be quoted:** the datamodel attributes in the predictive sense -- fit on one
+partition it predicts another's outcomes at 4.8x GradDot -- and its per-demo attributions agree across
+partitions at roughly half their achievable ceiling. Both halves of that sentence are needed.

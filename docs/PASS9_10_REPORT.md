@@ -165,9 +165,25 @@ one that is not, which separates the methods without invoking the contested deno
 on the attainable scale the datamodel is depth-stable (0.640 → 0.627) while GradDot decays
 (0.218 → 0.166). The gap widens from 2.9× to 3.8×.
 
-**This strengthens §1's headline rather than softening it.** Attribution on this corpus is achievable
-— by a method that reads retraining outcomes. What is not achievable, at any unit size from 3 to 15,
-is reaching that bar from gradients alone.
+**(f) The predictions transfer better than the attributions do — added 2026-08-01.** Everything above
+concerns *prediction*: can a model fit on one partition predict another's outcomes? A summed mask
+prediction averages over 75 demonstrations, so it tolerates substantial per-demonstration
+disagreement. Correlating the two partitions' inferred per-demo scores directly:
+
+| grain | cross-partition | within-campaign ceiling | % of ceiling |
+|---|---|---|---|
+| k=3 | 0.524 | 0.690 | 76% |
+| k=5 | 0.466 | 0.899 | 52% |
+
+Against a shuffle null of ~0, so the attributions are real — but at ~0.5 correlation they are far
+weaker than the 4.8× predictive advantage implies. **Anyone using these scores per-demonstration — to
+prune, select or reweight training data, which is what TDA is for — inherits the ~0.5, not the 4.8×.**
+This is the number a downstream application should be designed against.
+
+**This qualifies §1's headline without reversing it.** Attribution on this corpus is achievable — by a
+method that reads retraining outcomes — in the predictive sense, with per-demonstration attributions
+that agree across partitions at roughly half their achievable ceiling. What is not achievable, at any
+unit size from 3 to 15, is reaching that bar from gradients alone.
 
 **(c) Partition robustness (preregistered).** The sub-cluster results depend on one arbitrary
 partition of each cluster into groups. A second, fully independent partition (sharing zero groups),

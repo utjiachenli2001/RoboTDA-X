@@ -716,6 +716,16 @@ Everything on the passes 4-11 lists, plus: campaign O and R scoring are frozen; 
 (#47, ~10-15% power); no alpha-bearing test at k=15 (#45); no further depth on these masks -- #51 is
 the unbiased read and a depth-6 arm would answer nothing new.
 
+## Added after pass 13 (BLOCKERS #54)
+
+**The predictions transfer better than the attributions do.** Two independent partitions agree on
+per-demo influence at only ~0.5 Pearson (76% of the within-campaign ceiling at k=3, 52% at k=5),
+against a ~0 shuffle null. The attribution is real and moderately consistent -- much weaker than the
+4.8x predictive advantage suggests. **Any downstream use of these scores per-demonstration inherits
+that, not the predictive number.** If the next corpus is meant to support data pruning or selection,
+this agreement figure is the one to design against, and it should be measured early rather than
+inferred from a transfer result.
+
 ## The only thread left
 
 **Port to a corpus of 500+ demonstrations.** Off-box. It is the only route to the grain question
