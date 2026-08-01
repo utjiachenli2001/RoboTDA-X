@@ -1280,3 +1280,59 @@ established.**
 **How #50 should now be quoted:** the datamodel attributes in the predictive sense -- fit on one
 partition it predicts another's outcomes at 4.8x GradDot -- and its per-demo attributions agree across
 partitions at roughly half their achievable ceiling. Both halves of that sentence are needed.
+
+## 55. (NEGATIVE, and it retires the over-determination story) Varying masks-per-coefficient 6x at FIXED grain changes ensemble-specificity not at all
+
+The 2026-08-01 audit downgraded #52 on an identification argument: with only two grains, "coefficient
+count" is confounded with everything else distinguishing k=5 fits from k=3 fits. That confound is
+removable at fixed grain, on data already on disk, and this entry removes it.
+
+**The design.** Hold the grain constant; vary the number of campaign-O masks the model is FIT on.
+Masks-per-coefficient then moves ~6x without changing the grouping, the estimand, or anything else.
+The same fit is scored two ways:
+
+    within    -> campaign O's HELD-OUT masks (a different sample of the SAME partition)
+    transfer  -> campaign R's masks (a DIFFERENT partition)
+
+`transfer / within` divides out fit quality -- a worse fit at small n hurts both arms together -- so
+what survives is how much of the fit is specific to its own mask ensemble. **This is not the pass-11
+ladder that was killed for mechanical shrinkage**: there, one arm refit while GradDot's cached score
+did not; here both arms share one fit.
+
+**The prediction, stated before looking:** if over-determination causes ensemble-specific absorption,
+`transfer/within` must DECREASE as n grows.
+
+| grain | masks/coef | within | transfer | transfer/within | SE |
+|---|---|---|---|---|---|
+| k=3 | 1.11 | 0.232 | 0.183 | 0.815 | 0.061 |
+| k=3 | 2.22 | 0.303 | 0.232 | 0.768 | 0.027 |
+| k=3 | 4.44 | 0.356 | 0.275 | 0.774 | 0.017 |
+| k=3 | 6.67 | 0.403 | 0.296 | 0.747 | 0.031 |
+| k=5 | 1.85 | 0.302 | 0.251 | 0.836 | 0.044 |
+| k=5 | 3.70 | 0.359 | 0.292 | 0.813 | 0.022 |
+| k=5 | 7.41 | 0.400 | 0.311 | 0.784 | 0.023 |
+| k=5 | 11.11 | 0.389 | 0.319 | 0.834 | 0.035 |
+
+Slope of `transfer/within` against masks-per-coefficient, bootstrap CI: **k=3 -0.0098 [-0.029,
++0.009]; k=5 -0.0005 [-0.011, +0.009]**. Both directionally negative, both intervals containing zero,
+across a 6x range. 12 independent subsamples per point.
+
+**The over-determination hypothesis is not supported.** It was proposed in #52, used as
+corroboration in #53, and used again in #54 (whose grain contrast the audit then retracted outright).
+Tested directly, with the confound removed, it produces no measurable effect. **The design rule
+derived from it -- "prefer the grain that leaves the fit less over-determined" -- is WITHDRAWN. Do not
+carry it to the next corpus.**
+
+**What survives, and it is worth keeping.** There is a real and remarkably STABLE transfer penalty:
+`transfer/within` sits at 0.75-0.84 at every fit size and both grains. **Roughly a fifth of the
+datamodel's within-partition performance does not cross to an independent partition, and that fraction
+is a property of the method on this corpus rather than of how much data it was fit on.** That is a
+cleaner and more useful statement than the mechanism it replaces, and it is the number a next-corpus
+design should budget for.
+
+**What is now unexplained.** #50's asymmetry -- k=5 losing 32% in cross-partition transfer against
+k=3's undetectable loss -- stands as an observation with ~2 sigma behind it and no supported
+mechanism. Three attempts to explain it (#52 cross-grain, #53 the bar contrast, #54 agreement) are
+respectively unidentified, ~1.3 sigma, and retracted. **The honest position is that it may not be a
+real asymmetry at all**: at these sample sizes a single ~2-sigma observation re-described four times
+is exactly what this campaign has twice mistaken for a finding.

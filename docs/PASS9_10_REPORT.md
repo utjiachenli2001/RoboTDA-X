@@ -141,10 +141,13 @@ holds at one grain, not both. The gradient estimator falls further at that denom
 Two further qualifications: at k=5 the within-campaign figure overstates transfer (it loses 32% of the
 LDS, z = 3.7; at k=3 the loss is undetectable), and coefficient stability across disjoint halves of one
 campaign is 0.69 (k=3) and 0.90 (k=5) Pearson. The transfer loss follows the fitting grain in
-direction (k=5 fits lose 17% moved to k=3, k=3 fits 10% moved to k=5), which is **consistent with**
-over-determination buying within-sample performance and paying for it in transfer — but that
-difference is within noise, and with only two grains the coefficient count is confounded with
-everything else that distinguishes them. Treat it as a working hypothesis, not a result.
+direction (k=5 fits lose 17% moved to k=3, k=3 fits 10% moved to k=5), but that difference is within
+noise. **The over-determination explanation for it has since been tested directly and is not
+supported** (2026-08-01): varying masks-per-coefficient ~6× at fixed grain leaves the transfer
+penalty unchanged (slopes −0.010 and −0.001, both CIs containing zero). What replaces it is simpler
+and more useful — **a stable transfer penalty of ~20%: roughly a fifth of the datamodel's
+within-partition performance does not cross to an independent partition, at every fit size and both
+grains.** That is the figure a next-corpus design should budget for.
 
 **(e) Both conclusions survive an unbiased ceiling — added 2026-07-31.** Every number above uses the
 project's historical `ρ/r` convention, where `r` is a reliability rather than an attainable maximum,

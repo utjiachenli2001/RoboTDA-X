@@ -1,0 +1,3 @@
+grain,slope_per_mask_per_coef,ci_lo,ci_hi,negative_as_predicted,verdict
+k=3,-0.009792350946813822,-0.028968702011535896,0.009454170719097802,False,no trend -- hypothesis unsupported
+k=5,-0.0005329675295766611,-0.010885029390281955,0.009439524871056442,False,no trend -- hypothesis unsupported

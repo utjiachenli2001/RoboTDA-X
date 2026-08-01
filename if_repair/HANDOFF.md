@@ -737,9 +737,9 @@ reason why neither can be pushed further here.
 Two cheap things that could ride along if that corpus appears, neither worth a pass on its own:
 - ~~**The datamodel's k=5 transfer gap.**~~ **DONE, zero GPU** -- BLOCKERS #52. It is about
   COEFFICIENT COUNT, not grain: the loss follows the fitting grain (k=5 fits lose 17% moved to k=3;
-  k=3 fits lose 10% moved to k=5), so over-determination is the cause. Design rule for the next
-  corpus: prefer the grain that leaves the fit LESS over-determined, even though its within-sample
-  number looks worse.
+  k=3 fits lose 10% moved to k=5), so over-determination is the cause. ~~Design rule: prefer the grain that leaves the fit LESS
+  over-determined.~~ **WITHDRAWN by #55** (tested at fixed grain, no effect across 6x). What replaces
+  it: budget for a stable ~20% transfer penalty, which is a property of the method, not of fit size.
 - ~~**The transfer arm at depth 4.**~~ **DONE** -- BLOCKERS #53 (campaign S, 1600 retrains -- the
   "800 retrains (~9 h)" written here was wrong by 2x; a full campaign is 800 masks across both
   grains). It QUALIFIES #50: out of partition AND at the unbiased ceiling, the datamodel clears the
