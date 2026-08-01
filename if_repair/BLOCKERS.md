@@ -1165,6 +1165,23 @@ so this is out-of-sample in mask space while crossing the grouping without cross
 scored (17% moved to k=3) than fits made at k=3 do (10% moved to k=5), agreeing with the
 cross-partition direction in #50 where it was also the k=5 fits that lost.
 
+**VERIFIED 2026-08-01 under #56's corrected method, and the downgrade holds.** #56 established that
+dividing by a denominator from a DIFFERENT fit imports that fit's luck -- which is exactly what this
+entry's original 17%-vs-10% comparison did, since each cross-grain arm was divided by a different LOO
+fit. Re-done with the **fit held fixed**, each fit scored on its own grain and on the other:
+
+| fit | in-domain | moved to other grain | retained | 95% CI |
+|---|---|---|---|---|
+| k=3 | 0.4659 | 0.3755 | **0.806** | [0.668, 0.961] |
+| k=5 | 0.4641 | 0.3275 | **0.706** | [0.562, 0.858] |
+
+Difference in retention (k=5 fit minus k=3 fit): **-0.104, CI [-0.308, +0.100]**, P(direction as
+claimed) = 0.84. So the direction survives the corrected comparison at ~1 sigma and remains **not
+established** -- which is what this entry now says. The denominators here are in-sample and therefore
+inflated, but inflated consistently, and the comparison holds the fit fixed. Unlike #50's asymmetry,
+which #56 showed was manufactured entirely by its denominator, this one is real in direction and
+merely underpowered.
+
 **CORRECTION 2026-08-01 -- this entry originally asserted the mechanism and it is not established.**
 The contrast is 0.0650 vs 0.0434 tau, a difference of **0.022** against per-arm SEs of ~0.028-0.029
 (`p13_crossgrain.csv`). Unpaired that is **z ~ 0.4**; even generous pairing leaves it near 1 sigma. No
