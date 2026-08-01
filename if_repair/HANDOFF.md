@@ -703,8 +703,10 @@ This is the state to inherit, and it is unusual: **the corpus is exhausted as a 
 Every open thread from pass 10 and 11 is now answered or shown unanswerable, and campaign Q was the
 last GPU spend with a question attached to it.
 
-- **The datamodel attributes and clears the bar at both depths** (#50, #51): transfer 0.781 / 0.754
-  across an independent partition at depth 2; within-campaign 0.849 / 0.881 at depth 4.
+- **The datamodel attributes** (#50, #51, #53): transfer 0.781 / 0.754 across an independent partition
+  at depth 2, and at the unbiased depth-4 ceiling it clears the bar at k=3 but not k=5 (#53). The
+  transfer penalty is **~22% at BOTH grains** (#55, #56) -- the apparent grain asymmetry in #50 was a
+  denominator artifact and is withdrawn.
 - **Gradient attribution clears the bar nowhere** (#48, #51): 17-23% of attainable at depth 4, 12-45%
   across every design tried.
 - **The grain question is closed** (#45), **partition sensitivity is unresolvable** (#47 corrected),

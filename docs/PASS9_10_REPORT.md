@@ -138,9 +138,13 @@ P(clear) = 0.77). So the strongest form of the claim — out of partition *and* 
 holds at one grain, not both. The gradient estimator falls further at that denominator (0.133 and
 0.158), so the comparison widens to 4.8× and 3.4× even as the absolute claim narrows.
 
-Two further qualifications: at k=5 the within-campaign figure overstates transfer (it loses 32% of the
-LDS, z = 3.7; at k=3 the loss is undetectable), and coefficient stability across disjoint halves of one
-campaign is 0.69 (k=3) and 0.90 (k=5) Pearson. The transfer loss follows the fitting grain in
+Two further qualifications. **Corrected 2026-08-01:** an earlier version reported that transfer loses
+32% of the LDS at k=5 and nothing detectable at k=3. **That asymmetry was an artifact of the
+comparison arm** — it divided transfer by a fit made on the *other* campaign, whose k=3 draw happened
+to run 1.2σ low. Measured against the within-fit from the same source campaign the loss is **~22% at
+both grains** (0.779 and 0.766), and an independent test across a 6× range of fit sizes agrees
+(0.75–0.84, flat). Coefficient stability across disjoint halves of one campaign is 0.69 (k=3) and 0.90
+(k=5) Pearson. The transfer loss follows the fitting grain in
 direction (k=5 fits lose 17% moved to k=3, k=3 fits 10% moved to k=5), but that difference is within
 noise. **The over-determination explanation for it has since been tested directly and is not
 supported** (2026-08-01): varying masks-per-coefficient ~6× at fixed grain leaves the transfer
@@ -243,8 +247,12 @@ is unaffected.
 - Whether attribution improves with unit size. The point estimates rise (0.36 → 0.37 → 0.49–0.67) but
   intervals overlap, and this is now **unresolvable on this corpus**: the k=15 population is capped at
   70 masks and has been exhausted. No purchasable design tightens it below a CI width of ~0.6.
-- Why the datamodel's k=5 transfer loses 32% of its within-campaign performance while k=3 loses
-  nothing detectable.
+- ~~Why the datamodel's k=5 transfer loses 32% while k=3 loses nothing.~~ **Resolved 2026-08-01: it
+  does not.** That gap was a denominator artifact; the loss is ~22% at both grains. Three separate
+  attempts to explain the "asymmetry" failed because there was no asymmetry to explain — which is
+  itself the campaign's sharpest methodological lesson: *a ratio inherits the noise of its
+  denominator, and a denominator built from a different fit on a different draw inherits that draw's
+  luck.*
 - Whether the sub-cluster rungs are partition-sensitive. Two independent partitions differ by 1.2σ
   (k=3) and 0.1σ (k=5) — unresolved, and not resolvable at a feasible retrain budget.
 - Whether the half-ceiling bar is the right standard. Nine passes have failed it; the one apparent

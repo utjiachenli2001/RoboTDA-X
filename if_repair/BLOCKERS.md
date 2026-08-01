@@ -1077,9 +1077,13 @@ arbitrary re-grouping; one that fits its own ensemble does not.
 at 4.0x and 2.4x GradDot on the same masks (z = 5.3 and 4.1). The datamodel is not merely fitting its
 own mask ensemble.
 
-**Two qualifications that must travel with it.** At k=5 the within-campaign figure **overstates** the
-method: transfer loses 32% of the LDS (0.4699 -> 0.3210, z = 3.7), which is real ensemble-specific
-fitting. At k=3 the loss is not detectable (z = 0.55). And coefficient stability across disjoint
+**Two qualifications that must travel with it. THE FIRST IS WITHDRAWN BY #56.** ~~At k=5 the
+within-campaign figure overstates the method: transfer loses 32% of the LDS (z = 3.7), while at k=3
+the loss is not detectable (z = 0.55).~~ **That asymmetry was a denominator artifact**: it divided
+transfer by a LOO fit on campaign R, a different fit on a different campaign whose k=3 draw ran 1.2
+sigma low (#47). Dividing by the within-fit from the SAME source campaign gives **0.779 (k=3) and
+0.766 (k=5) -- no asymmetry**, agreeing with #55's independent measurement. The transfer loss is
+~22-23% at both grains. And coefficient stability across disjoint
 halves of campaign O is substantial but not perfect -- Pearson 0.690 / Spearman 0.686 at k=3, 0.899 /
 0.867 at k=5 -- so the coefficients are measuring a property of the groups rather than noise, more
 cleanly where there are fewer of them.
@@ -1336,3 +1340,65 @@ mechanism. Three attempts to explain it (#52 cross-grain, #53 the bar contrast, 
 respectively unidentified, ~1.3 sigma, and retracted. **The honest position is that it may not be a
 real asymmetry at all**: at these sample sizes a single ~2-sigma observation re-described four times
 is exactly what this campaign has twice mistaken for a finding.
+
+## 56. (RESOLUTION) #50's grain asymmetry was a DENOMINATOR ARTIFACT -- there was never anything to explain
+
+#55 closed by admitting that #50's asymmetry -- the datamodel losing 32% in cross-partition transfer
+at k=5 against an undetectable loss at k=3 -- stood with no supported mechanism after three failed
+attempts (#52 unidentified, #53 ~1.3 sigma, #54 retracted). It also noted that #55's own measurements
+pointed the other way: `transfer/within` came out 0.75-0.82 at k=3 and 0.78-0.84 at k=5, with k=5
+losing LESS.
+
+Those two cannot both be right, and the contradiction identifies the error. **#50 and #55 divide by
+different denominators.**
+
+    #50's within  =  LOO on campaign R          <- a DIFFERENT fit, on a DIFFERENT campaign,
+                                                   in R's grouping
+    #55's within  =  the SAME fit, scored on campaign O's held-out masks
+
+Only the second isolates transfer. The first mixes the partition change together with whatever
+happens to differ between campaign O's and campaign R's own within-campaign fits.
+
+**The apples-to-apples numbers, dividing transfer by the within-fit from the SAME source campaign:**
+
+| grain | transfer (fit O -> R) | within-O (LOO on O) | ratio | #50's ratio (vs within-R) |
+|---|---|---|---|---|
+| k=3 | 0.3057 | 0.3926 | **0.779** | 0.930 |
+| k=5 | 0.3210 | 0.4189 | **0.766** | 0.683 |
+
+**0.779 versus 0.766. There is no grain asymmetry in transfer.** It agrees with #55's independent
+measurement (0.75-0.84 at both grains, flat across a 6x range of fit sizes) and with the transfer LDS
+values themselves, which are nearly identical at the two grains (0.3057 and 0.3210).
+
+**Where the apparent asymmetry came from.** Campaign R's own within-campaign fits, relative to
+campaign O's:
+
+| grain | within-O | within-R | R/O |
+|---|---|---|---|
+| k=3 | 0.3926 | 0.3287 | **0.837** |
+| k=5 | 0.4189 | 0.4699 | **1.122** |
+
+Campaign R happened to yield a weak k=3 fit and a strong k=5 fit. Dividing a nearly grain-invariant
+transfer number by those two manufactures an asymmetry that is not in the transfer at all.
+
+**And this is the same campaign-R k=3 weakness #47 already recorded**, where GradDot's k=3 LDS on
+campaign R came in at 0.078 against campaign O's 0.134 -- a 1.23-sigma draw-level dip. It shows up in
+BOTH estimators on that campaign, which is what a draw-level effect looks like and what an
+estimator-specific or grain-specific effect does not.
+
+**Consequences, and they are large for how this campaign's story should be told:**
+
+1. **#50's "at k=5 the within-campaign figure overstates it (32%), at k=3 undetectably little" is
+   withdrawn.** The transfer loss is ~22-23% at BOTH grains.
+2. **#52, #53 and #54 were three attempts to explain a phenomenon that does not exist.** They are
+   already downgraded, qualified and retracted respectively; #56 records that the target itself was
+   spurious, which is why none of them could find a mechanism.
+3. **#53's substantive finding is unaffected** -- at the unbiased ceiling the transfer arm's CI
+   excludes 0.5 at k=3 and straddles it at k=5. That is a statement about the bar, and #53 already
+   states the between-grain difference is only ~1.3 sigma.
+
+**The transferable lesson, and it is the sharpest one this campaign produced:** *a ratio inherits the
+noise of its denominator, and a denominator computed from a different fit on a different draw
+inherits that draw's luck.* Four entries chased a mechanism for what was, in the end, campaign R's
+k=3 draw coming in 1.2 sigma low. **The fix is to hold the fit fixed and vary only the target** --
+exactly what #55 did, which is why #55 and #56 agree and the earlier entries did not.
