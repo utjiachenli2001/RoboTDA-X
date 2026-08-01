@@ -1162,3 +1162,40 @@ that leaves the fit LESS over-determined, even though its within-sample number w
 numbers and are labelled in the output so they cannot be misread as such. They are kept beside the LOO
 arm because the gap between them (0.4659 vs 0.3926 at k=3) is a direct measure of how much the
 in-sample read inflates on this design: about 19%.
+
+## 53. (RESULT, and it QUALIFIES #50) Out of partition AND at an unbiased ceiling, the datamodel clears the bar at k=3 but not at k=5
+
+#50 measured the cross-partition transfer arm at depth 2 and reported it as clearing the bar at both
+grains (0.781 / 0.754). #42 says the depth-2 ratio is inflated. #51 re-read the WITHIN-campaign arm at
+depth 4 and it survived, but could not touch the transfer arm, because the SCORING side is campaign R
+and campaign R had only depth-2 outcomes. Campaign S bought the missing half: two more seed slots on
+campaign R's identical 800 masks, 1600 retrains, 18.4 h, 0 failures.
+
+Transfer arm (fit on campaign O, scored on campaign R), ratio bootstrap with the ceiling recomputed on
+every resample:
+
+| grain | depth | ratio | 95% CI | P(ratio >= 0.5) | clears on the CI rule |
+|---|---|---|---|---|---|
+| k=3 | 2 | 0.780 | [0.619, 0.991] | 1.000 | yes |
+| k=3 | **4** | 0.638 | **[0.537, 0.745]** | 0.997 | **yes** |
+| k=5 | 2 | 0.757 | [0.603, 0.945] | 1.000 | yes |
+| k=5 | **4** | 0.538 | **[0.437, 0.642]** | 0.774 | **NO** |
+
+**The strongest form of the claim -- out of partition AND on the honest denominator -- holds at k=3
+and does not hold at k=5.** At k=5 the interval straddles the bar. #50 should not be quoted as
+"clears the bar out of partition at both grains" without this.
+
+**What is NOT qualified.** The datamodel still transfers far above GradDot everywhere: at depth 4 the
+transfer arm is 0.638 vs GradDot's 0.133 at k=3, and 0.538 vs 0.158 at k=5 -- 4.8x and 3.4x. **It
+still attributes**; #50's central finding stands. And the within-campaign arm clears comfortably at
+both grains at depth 4 (0.823 / 0.960). It is specifically the CONJUNCTION of out-of-partition and
+unbiased-ceiling that k=5 fails.
+
+**This is mechanistically consistent with #52 rather than a separate surprise.** k=5 is the more
+over-determined fit (27 coefficients against 400 masks versus k=3's 45), #52 showed such fits absorb
+more ensemble-specific structure and lose more in transfer, and the honest denominator removes the
+inflation that was hiding the consequence. Three findings pointing the same way: **over-determination
+buys within-sample performance and pays for it exactly where it matters most.**
+
+**GradDot at the unbiased ceiling on campaign R falls further still** -- 0.133 (k=3) and 0.158 (k=5),
+against 0.200 and 0.320 at depth 2. The negative is reinforced at every control added.

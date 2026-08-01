@@ -1,0 +1,3 @@
+item,n_jobs,job_h,solo_h,occupancy_h,note
+p13_crossgrain / p13_transfer_d4 scoring,0,0.0,0.0,0.0,ZERO GPU -- both ran on frozen outcomes
+campaign S -- depth-4 for campaign R identical 800 masks (slots 4403/4404),1600,55.2,18.40,18.41,3 workers; bought the missing half of the transfer arm; 0 failures

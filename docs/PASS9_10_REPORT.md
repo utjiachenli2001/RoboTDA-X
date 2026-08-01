@@ -128,11 +128,21 @@ aggregate over the *second* partition's masks, and score against outcomes it nev
 | k=3 | **0.781** | 0.839 | 0.200 |
 | k=5 | **0.754** | 1.104 | 0.320 |
 
-It transfers and still clears the bar out of partition, at 4.0× and 2.4× the gradient estimator on
-identical masks (z = 5.3 and 4.1). A method fitting only its own ensemble would collapse here.
-Qualifications: at k=5 the within-campaign figure overstates it (transfer loses 32% of the LDS,
-z = 3.7; at k=3 the loss is undetectable), and coefficient stability across disjoint halves of one
-campaign is 0.69 (k=3) and 0.90 (k=5) Pearson.
+It transfers at 4.0× and 2.4× the gradient estimator on identical masks (z = 5.3 and 4.1). A method
+fitting only its own ensemble would collapse here, so **it attributes**.
+
+**Qualification added 2026-08-01, after buying depth-4 outcomes for the second partition.** The
+figures above are at depth 2, where the ratio is inflated. On the unbiased denominator the transfer
+arm clears the bar at k=3 (0.638, CI [0.537, 0.745]) but **not** at k=5 (0.538, CI [0.437, 0.642],
+P(clear) = 0.77). So the strongest form of the claim — out of partition *and* on the honest scale —
+holds at one grain, not both. The gradient estimator falls further at that denominator (0.133 and
+0.158), so the comparison widens to 4.8× and 3.4× even as the absolute claim narrows.
+
+Two further qualifications: at k=5 the within-campaign figure overstates transfer (it loses 32% of the
+LDS, z = 3.7; at k=3 the loss is undetectable), and coefficient stability across disjoint halves of one
+campaign is 0.69 (k=3) and 0.90 (k=5) Pearson. The transfer loss tracks **coefficient count, not
+grain**: fits made at k=5 degrade more wherever they are scored, so over-determination buys
+within-sample performance and pays for it in transfer.
 
 **(e) Both conclusions survive an unbiased ceiling — added 2026-07-31.** Every number above uses the
 project's historical `ρ/r` convention, where `r` is a reliability rather than an attainable maximum,

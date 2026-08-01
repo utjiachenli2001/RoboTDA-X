@@ -730,5 +730,9 @@ Two cheap things that could ride along if that corpus appears, neither worth a p
   k=3 fits lose 10% moved to k=5), so over-determination is the cause. Design rule for the next
   corpus: prefer the grain that leaves the fit LESS over-determined, even though its within-sample
   number looks worse.
-- **The transfer arm at depth 4**, which #51 could not do because campaign R has no depth-4 outcomes.
-  800 retrains (~9 h) would buy it if the box is otherwise idle.
+- ~~**The transfer arm at depth 4.**~~ **DONE** -- BLOCKERS #53 (campaign S, 1600 retrains -- the
+  "800 retrains (~9 h)" written here was wrong by 2x; a full campaign is 800 masks across both
+  grains). It QUALIFIES #50: out of partition AND at the unbiased ceiling, the datamodel clears the
+  bar at k=3 (CI [0.537, 0.745]) but NOT at k=5 (CI [0.437, 0.642], P=0.77). It still transfers at
+  4.8x and 3.4x GradDot, so it still attributes -- but the strongest form of the claim holds at one
+  grain only.
