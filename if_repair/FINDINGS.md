@@ -1076,10 +1076,41 @@ discriminator for whether the gradient failure is a limit of the corpus size or 
 
 ## The sentence the whole campaign earned
 
-> On a 135-demonstration corpus, a design-based datamodel fit on one arbitrary partition predicts
+> **SUPERSEDED 2026-08-01 -- this sentence was written before passes 13-14 and is wrong in two ways:
+> it quotes `rho/r` ratios in "achievable ceiling" units (the attainable figures are ~47-49%, #42),
+> and its "clears at both an inflated and an unbiased denominator" is contradicted by #53, which finds
+> k=5 does not clear at the unbiased ceiling. The corrected sentence is in the pass-14 section.**
+>
+> ~~On a 135-demonstration corpus, a design-based datamodel fit on one arbitrary partition predicts
 > retraining outcomes on a completely independent partition at 75-78% of the achievable ceiling, and
-> clears a half-ceiling usefulness bar at both an inflated and an unbiased denominator. Gradient-based
-> attribution, on the identical masks, reaches 17-23% and clears that bar at no unit size from 3
-> demonstrations to 15. Attribution on this corpus is achievable -- by a method that reads retraining
-> outcomes. Reaching the same bar from gradients alone is not, and whether that is a property of the
-> corpus or of the approach is the question the next corpus has to answer.
+> clears a half-ceiling usefulness bar at both an inflated and an unbiased denominator...~~
+
+---
+
+# PASS 14 -- what the campaign actually established, after auditing its own claims
+
+An adversarial audit of every committed claim in BLOCKERS #41-54 against the committed CSVs found
+that the measurement layer reproduces cleanly and the **interpretation layer had over-reached in the
+two most recent passes**. One entry was retracted (#54's grain contrast), one downgraded from result
+to hypothesis (#52), three qualified (#48, #51, #53), one factual error corrected (#49), and the
+advisor report was corrected in five places including a units error that inflated the headline.
+
+**The pattern is the same one that forced the #47 retraction**: quoting a difference between two
+numbers as a finding without computing whether it exceeds the noise in either. It recurred in #52
+(z ~ 0.4), #53's between-grain contrast (z ~ 1.3), #54's grain contrast (&lt;1 sigma, reversing under
+two of three statistics), and #51's "GradDot falls" (z ~ 0.24). **Having a written rule against a
+failure mode did not prevent repeating it four times**, which is itself the most transferable thing
+this campaign learned.
+
+## The corrected write-up sentence
+
+> On a 135-demonstration corpus, a design-based datamodel fit on one arbitrary partition predicts
+> retraining outcomes on a completely independent partition at **~47-49% of the achievable ceiling**,
+> clearing a half-ceiling usefulness bar at the unbiased denominator **at the 3-demo grain and not at
+> the 5-demo grain**. Gradient-based attribution on the same masks reaches 10-21% and clears that bar
+> at no unit size from 3 demonstrations to 15. Its per-demonstration attributions agree across
+> independent partitions at **~0.5 correlation** -- real, far above a null, and much weaker than the
+> predictive comparison implies, which is the figure any downstream use of these scores inherits.
+> Attribution on this corpus is achievable, at that strength, by a method that reads retraining
+> outcomes. Reaching the same bar from gradients alone is not, and whether that reflects the corpus
+> or the approach is the question the next corpus has to answer.

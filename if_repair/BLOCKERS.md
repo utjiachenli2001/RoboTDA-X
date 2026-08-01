@@ -977,7 +977,11 @@ anyone would try, in which case it measures the ceiling rather than discriminati
 - **10 gradient attempts across 5 independent designs. ZERO clear the bar** once training-set size is
   controlled AND depth inflation is accounted for. The one apparent exception, k=15 at depth 2
   (0.666, n=37), is contradicted by the depth-4 census on the *complete* population (0.487) -- which
-  is #42's inflation behaving exactly as predicted. Range: **12-45% of attainable** (`rho/sqrt(r)`).
+  is #42's inflation behaving as predicted -- though 0.487 and 0.666 [0.19, 2.35] are statistically
+  indistinguishable, so "contradicted" overstates it: the depth-2 read is SUPERSEDED by a
+  lower-variance, depth-honest one in the direction #42 predicts. Note also the census clears the bar
+  under Spearman (0.571) and not under Kendall (0.487), so the census verdict is primary-statistic
+  specific. Range: **12-45% of attainable** (`rho/sqrt(r)`).
 - **The design-based datamodel clears it at both sub-cluster grains** (0.640 and 0.674 attainable),
   at a fixed training-set size, with a permutation control at ~0.
 
@@ -1024,8 +1028,13 @@ and reporting share alone produced a "worst offenders" list made entirely of noi
 - `p9_datamodel_cluster.csv` -- pooled-vs-stratum rows, which pass 9 already identified as confounded
   and re-reported per stratum.
 
-**Zero flagged comparisons anywhere in passes 1-8** -- the `b*` families, the confirm I/J/K/L series,
-`p7_*`, `exp_*`, `holdout_*`. The back catalogue is clear.
+**CORRECTED 2026-08-01: that is false, and the entry originally accounted for only 26 of its own 32
+flags.** The true distribution is `p9_datamodel_cluster.csv` 16, `p10_bar_attempts.csv` 10,
+`p10_k15_census.csv` 3, and **three in the back catalogue** -- `p7_per_draw.csv` (relatif_C5 vs
+surrogate_C5, ceiling share 0.67), `holdout_table.csv` (0.63) and `holdout_phase2.csv` (0.50). The
+back catalogue is **nearly** clear, not clear: 3 of ~5,000 comparisons are denominator-driven, all
+three are near-ties whose conclusions do not appear to turn on them, but the sentence as originally
+written was contradicted by this entry's own CSV.
 
 **And the two load-bearing pass-9/10 conclusions are estimator-driven, checked directly:**
 
@@ -1110,10 +1119,12 @@ result measured on an inflated scale has now been re-measured on the honest one 
 **Two things worth recording that were not anticipated.**
 
 1. **The datamodel's raw LDS RISES with depth** (0.3926 -> 0.4631 at k=3, +18%; 0.4189 -> 0.4865 at
-   k=5, +16%) while GradDot's falls slightly (0.1338 -> 0.1227; 0.1411 -> 0.1319). Cleaner outcomes
-   help the estimator that is capturing real structure and do not help the one that is not. That is a
-   sharper discriminator between the two methods than the ratio, because it does not involve the
-   contested denominator at all.
+   k=5, +16%), which is ~2 sigma unpaired and consistent across all four cells. **Qualified
+   2026-08-01:** GradDot's apparent fall (0.1338 -> 0.1227) is **z ~ 0.24** against SEs of ~0.032 --
+   *unchanged within noise*, not a fall. The original entry read that as "cleaner outcomes do not help
+   the estimator that is not capturing real structure", which assigned meaning to noise on one side of
+   the contrast. No paired test was computed for the rise, the non-fall, or the difference between
+   them, so "a sharper discriminator between the two methods" is not supported as stated.
 2. **On the attainable `rho/sqrt(r)` scale the datamodel is essentially depth-STABLE** (0.640 ->
    0.627, 0.674 -> 0.655) while GradDot decays (0.218 -> 0.166, 0.227 -> 0.178). The datamodel is
    tracking a fixed fraction of what is achievable as the achievable ceiling moves; GradDot is not.
@@ -1126,7 +1137,7 @@ Only the fit side of that arm can improve. The transfer result stands at depth 2
 **Campaign O's own scoring remains frozen** -- `confirm_oseries.csv` is untouched and this is a
 separate descriptive file (`results/p11_depth.csv`), carrying no alpha.
 
-## 52. (RESULT) The datamodel's transfer loss is about COEFFICIENT COUNT, not grain -- and it follows the FIT, not the target
+## 52. (HYPOTHESIS, downgraded from RESULT on 2026-08-01) The datamodel's transfer loss follows the FIT rather than the target; coefficient count is the candidate mechanism
 
 #50 left an unexplained asymmetry: transferring across an independent partition, the datamodel loses
 32% of its within-campaign LDS at k=5 (z = 3.7) but nothing detectable at k=3 (z = 0.55). The FINER
@@ -1146,10 +1157,18 @@ so this is out-of-sample in mask space while crossing the grouping without cross
 | k=3 | 0.3926 | fit k=5 -> **0.3275** | **17%** |
 | k=5 | 0.4189 | fit k=3 -> **0.3755** | **10%** |
 
-**The loss follows the FITTING grain, not the scoring grain.** Fits made at k=5 degrade more wherever
-they are scored (17% when moved to k=3) than fits made at k=3 do (10% when moved to k=5). The cause
-travels with the fit, which is **(b): coefficient count**. And it agrees with the cross-partition
-direction in #50 -- there too it was the k=5 fits that lost.
+**The loss follows the FITTING grain in DIRECTION.** Fits made at k=5 degrade more wherever they are
+scored (17% moved to k=3) than fits made at k=3 do (10% moved to k=5), agreeing with the
+cross-partition direction in #50 where it was also the k=5 fits that lost.
+
+**CORRECTION 2026-08-01 -- this entry originally asserted the mechanism and it is not established.**
+The contrast is 0.0650 vs 0.0434 tau, a difference of **0.022** against per-arm SEs of ~0.028-0.029
+(`p13_crossgrain.csv`). Unpaired that is **z ~ 0.4**; even generous pairing leaves it near 1 sigma. No
+SE, CI or z appeared anywhere in the original entry -- **the same defect that forced the #47
+retraction, repeated.** Separately, with exactly TWO grains the coefficient count is perfectly
+confounded with every other property distinguishing k=5 fits from k=3 fits, so the cross-grain design
+identifies "follows the fit, not the target" and cannot identify *which* property of the fit is
+responsible.
 
 **The mechanism, stated as the transferable part:** the more over-determined a datamodel fit is, the
 more of the mask ensemble's specific structure it can absorb, and the more it loses when moved to any
@@ -1184,6 +1203,12 @@ every resample:
 **The strongest form of the claim -- out of partition AND on the honest denominator -- holds at k=3
 and does not hold at k=5.** At k=5 the interval straddles the bar. #50 should not be quoted as
 "clears the bar out of partition at both grains" without this.
+
+**Qualification added 2026-08-01: this is a difference in SIGNIFICANCE, not a significant
+difference.** The two ratios are 0.638 (SE ~0.053) and 0.538 (SE ~0.052), i.e. **z ~ 1.3 between
+grains**. One CI excluding 0.5 and the other straddling it does NOT establish that k=5 fails where
+k=3 holds. The correct reading is that the transfer arm's interval excludes the bar at k=3 and
+includes it at k=5; the between-grain difference itself is not established.
 
 **What is NOT qualified.** The datamodel still transfers far above GradDot everywhere: at depth 4 the
 transfer arm is 0.638 vs GradDot's 0.133 at k=3, and 0.538 vs 0.158 at k=5 -- 4.8x and 3.4x. **It
@@ -1235,12 +1260,22 @@ inherits that, and it is much weaker than the 4.8x predictive advantage suggests
 halves of ONE campaign at the same grain agree at 0.690 (k=3) and 0.899 (k=5); that is the best
 achievable without crossing partitions, and it is well short of 1.0 on its own.
 
-**The over-determination story appears a third time, and this is its cleanest form.** k=5 is MORE
-self-consistent inside its own grouping (0.899 vs k=3's 0.690) and yet agrees LESS across partitions
-(52% of its ceiling versus 76%). Higher within, lower across, is the textbook over-fitting signature,
-and it is now visible in the attributions themselves rather than only in prediction (#52) or in the
-bar test (#53). **Prefer the grain that leaves the fit less over-determined** -- the design rule from
-#52 is reinforced by the quantity that actually matters for using a TDA method.
+**RETRACTED 2026-08-01: the grain contrast in this entry does not survive the project's own secondary
+statistics.** The original claim was that k=5 agrees LESS across partitions (52% of its ceiling versus
+76%), completing an over-determination story. Under Pearson the cross-partition values are 0.524
+(k=3) and 0.466 (k=5) -- a **&lt;1 sigma** difference -- and under the repo's other two statistics the
+effect **reverses or vanishes**: Spearman 0.485 vs **0.487**, Kendall 0.363 vs 0.361. The entry's own
+line "Spearman and Kendall agree" was true of the above-null claim and NOT of the grain contrast,
+which is the claim it was used to support.
+
+The "% of ceiling" framing made it worse: those denominators (0.690 vs 0.899) are correlations over
+45 and 27 coefficient pairs from half-campaign fits, so the contrast was substantially
+denominator-driven -- exactly what #46(b) warns against, in an entry written after #46(b).
+
+**What stands from this entry:** cross-partition per-demo agreement is ~0.47-0.52 at BOTH grains, far
+above a ~0 shuffle null and well below the within-campaign half-agreement of 0.69/0.90. The
+predictions transfer better than the attributions do. **A grain difference in that agreement is not
+established.**
 
 **How #50 should now be quoted:** the datamodel attributes in the predictive sense -- fit on one
 partition it predicts another's outcomes at 4.8x GradDot -- and its per-demo attributions agree across

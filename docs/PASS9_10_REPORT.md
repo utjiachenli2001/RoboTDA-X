@@ -1,11 +1,11 @@
-# RoboTDA-X `if_repair` — progress report, passes 9-12
+# RoboTDA-X `if_repair` — progress report, passes 9-14
 
-**Jiachen Li · 2026-07-30 · repo at `cb0dfea` (github.com/utjiachenli2001/RoboTDA-X, branch `main`)**
+**Jiachen Li · 2026-08-01 · repo at `db4c857` (github.com/utjiachenli2001/RoboTDA-X, branch `main`)**
 
 Corpus: 135 robot imitation-learning demonstrations in 9 clusters of 15. The measurement is LDS
 (linear datamodeling score) — how well an estimator's per-demo influence scores predict the actual
 outcome change when a subset of demos is removed and the model is retrained. Compute: one H200,
-~75 GPU-hours across passes 9-12 (6,532 retrains), all preregistered and scored once.
+~75 GPU-hours across passes 9-13 (6,532 retrains; 4,932 of them in passes 9-12). Campaigns O and R were preregistered and scored exactly once; campaigns P, Q and S and every datamodel analysis are descriptive and carry no alpha.
 
 ---
 
@@ -140,9 +140,11 @@ holds at one grain, not both. The gradient estimator falls further at that denom
 
 Two further qualifications: at k=5 the within-campaign figure overstates transfer (it loses 32% of the
 LDS, z = 3.7; at k=3 the loss is undetectable), and coefficient stability across disjoint halves of one
-campaign is 0.69 (k=3) and 0.90 (k=5) Pearson. The transfer loss tracks **coefficient count, not
-grain**: fits made at k=5 degrade more wherever they are scored, so over-determination buys
-within-sample performance and pays for it in transfer.
+campaign is 0.69 (k=3) and 0.90 (k=5) Pearson. The transfer loss follows the fitting grain in
+direction (k=5 fits lose 17% moved to k=3, k=3 fits 10% moved to k=5), which is **consistent with**
+over-determination buying within-sample performance and paying for it in transfer — but that
+difference is within noise, and with only two grains the coefficient count is confounded with
+everything else that distinguishes them. Treat it as a working hypothesis, not a result.
 
 **(e) Both conclusions survive an unbiased ceiling — added 2026-07-31.** Every number above uses the
 project's historical `ρ/r` convention, where `r` is a reliability rather than an attainable maximum,
@@ -165,18 +167,27 @@ one that is not, which separates the methods without invoking the contested deno
 on the attainable scale the datamodel is depth-stable (0.640 → 0.627) while GradDot decays
 (0.218 → 0.166). The gap widens from 2.9× to 3.8×.
 
+**Units note, and it applies to every figure in this report.** The `ratio` this project has always
+quoted is `ρ/r`, where `r` is a reliability rather than an attainable maximum; the largest correlation
+any predictor can achieve against an outcome of reliability `r` is about `√r`. "Percent of attainable"
+therefore means `ρ/√r`, and the two must never be mixed in one comparison. An earlier version of this
+report did exactly that — quoting the datamodel in `ρ/r` against the gradient estimator in `ρ/√r` —
+which inflated the gap by construction. Corrected throughout on 2026-08-01.
+
 **(f) The predictions transfer better than the attributions do — added 2026-08-01.** Everything above
 concerns *prediction*: can a model fit on one partition predict another's outcomes? A summed mask
 prediction averages over 75 demonstrations, so it tolerates substantial per-demonstration
 disagreement. Correlating the two partitions' inferred per-demo scores directly:
 
-| grain | cross-partition | within-campaign ceiling | % of ceiling |
-|---|---|---|---|
-| k=3 | 0.524 | 0.690 | 76% |
-| k=5 | 0.466 | 0.899 | 52% |
+| grain | cross-partition (Pearson) | Spearman | Kendall | within-campaign ceiling |
+|---|---|---|---|---|
+| k=3 | 0.524 | 0.485 | 0.363 | 0.690 |
+| k=5 | 0.466 | 0.487 | 0.361 | 0.899 |
 
 Against a shuffle null of ~0, so the attributions are real — but at ~0.5 correlation they are far
-weaker than the 4.8× predictive advantage implies. **Anyone using these scores per-demonstration — to
+weaker than the 4.8× predictive advantage implies. **A difference between the grains is NOT
+established**: it appears only under Pearson (0.524 vs 0.466, &lt;1σ) and reverses under Spearman
+(0.485 vs 0.487). **Anyone using these scores per-demonstration — to
 prune, select or reweight training data, which is what TDA is for — inherits the ~0.5, not the 4.8×.**
 This is the number a downstream application should be designed against.
 
@@ -212,13 +223,18 @@ is unaffected.
 ## 5. What is established, and what is not
 
 **Established**
-- Gradient attribution signal on this corpus is real and weak (12–45% of attainable) at every unit size tested.
-- A design-based datamodel reaches 75–78% of attainable **out of partition**, so attribution here is achievable by a method that reads retraining outcomes.
+- Gradient attribution signal on this corpus is real and weak (12–45% of attainable) at every unit
+  size tested **except the 90-demo cluster stratum, where it does not beat its permutation null**
+  (LDS 0.169 against a null 97.5th percentile of 0.178).
+- A design-based datamodel reaches **~47–49% of attainable out of partition** — 0.64 (k=3) and 0.54
+  (k=5) on the `ρ/r` convention at the unbiased ceiling, clearing the half-ceiling bar at k=3 only.
+  Attribution here is achievable by a method that reads retraining outcomes, at that strength.
 - The published cluster-grain success was substantially a training-set-size artifact.
 - The self-influence / leverage corrections developed over three earlier passes are **not salvageable**:
   keeping their ranking on a well-behaved scale still reverses, and within stratum their ordering is
   actively anti-predictive.
-- Both rungs read lower on an independent second partition, so the reported sub-cluster figures are not optimistic.
+- Both rungs read lower on an independent second partition (1.2σ and 0.1σ — a direction, not an
+  effect), so the reported sub-cluster figures are if anything optimistic.
 
 **Not established**
 - Whether attribution improves with unit size. The point estimates rise (0.36 → 0.37 → 0.49–0.67) but
