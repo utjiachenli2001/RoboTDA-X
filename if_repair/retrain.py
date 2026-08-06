@@ -393,20 +393,39 @@ def jobs(campaign):
                                 "mask_id": f"{d['duel_id']}{side}",
                                 "demos": d[f"mask_{side}"], "seed_init": s, "seed_order": s})
         return out
+
+    if campaign == "T":
+        # PASS 18 -- the CORPUS-SIZE LADDER. A different corpus (libero_goal only), a different
+        # held-out bank (p18_eval), and the only campaign here whose training-set size is the
+        # independent variable rather than something held fixed.
+        #
+        # Four rungs N in {50, 100, 200, 370}, two independent partitions each, masks at exactly
+        # 50% retained. WITHIN a rung every mask trains on the same number of demos, so #41's
+        # nuisance axis does not exist; ACROSS rungs it is the estimand, and nothing is ever
+        # pooled over it. Seed-major and rung-major, so every prefix is a complete balanced
+        # design (see N_DEPTH). Jobs are deduped by training-set signature: a demo set reachable
+        # from both partitions is the same model at the same seed and is retrained once.
+        from if_repair import p18_masks as P18M
+        return P18M.jobs()
     raise KeyError(campaign)
 
 
 # --------------------------------------------------------------------------- driver
-def run_job(job, cfg, fidx, outdir, device="cuda"):
+def run_job(job, cfg, fidx, outdir, device="cuda", ev=None):
+    """`ev` selects the outcome pipeline: None = the 9-cluster bank every campaign A-S used;
+    `p18_eval` = campaign T's own 100-demo libero_goal bank. The two never mix."""
     out_npz = os.path.join(outdir, job["run_id"] + ".npz")
     if os.path.exists(out_npz):
         return "skip"
     model, meta = train_one(job["demos"], job["seed_init"], job["seed_order"], cfg,
                             device=device)
-    l2, nll = heldout_frame_losses(model, device=device)
+    if ev is None:
+        l2, nll = heldout_frame_losses(model, device=device)
+    else:
+        l2, nll = ev.heldout_frame_losses(model, device=device)
     del model
     torch.cuda.empty_cache()
-    agg = aggregate_outcomes(l2, nll, fidx)
+    agg = aggregate_outcomes(l2, nll, fidx) if ev is None else ev.aggregate(l2, nll, fidx)
     tmp = out_npz + ".tmp.npz"
     np.savez_compressed(tmp, l2=l2.astype(np.float32), nll=nll.astype(np.float32),
                         meta=json.dumps({**meta, "run_id": job["run_id"],
@@ -419,7 +438,8 @@ def run_job(job, cfg, fidx, outdir, device="cuda"):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--campaign", required=True,
-                    choices=["A", "B", "C", "I", "J", "K", "L", "M", "D", "N", "O", "P", "R", "Q", "S"])
+                    choices=["A", "B", "C", "I", "J", "K", "L", "M", "D", "N", "O", "P", "R", "Q",
+                             "S", "T"])
     ap.add_argument("--worker", type=int, default=0)
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)
@@ -441,12 +461,17 @@ def main():
     mine = [j for k, j in enumerate(J) if k % a.nworkers == a.worker]
     if a.reverse:
         mine = mine[::-1]
-    fidx = frame_index()
+    if a.campaign == "T":
+        from if_repair import p18_eval as EVT
+        ev, fidx = EVT, EVT.frame_index()
+    else:
+        ev, fidx = None, frame_index()
     print(f"[retrain {a.campaign}] worker {a.worker}/{a.nworkers}: {len(mine)} of {len(J)} jobs,"
-          f" steps={cfg['total_steps']}", flush=True)
+          f" steps={cfg['total_steps']} bank={'p18' if ev else 'base'}"
+          f"({fidx['n'] if ev else len(fidx['owner'])} frames)", flush=True)
     t0 = time.time()
     for k, j in enumerate(mine):
-        r = run_job(j, cfg, fidx, outdir)
+        r = run_job(j, cfg, fidx, outdir, ev=ev)
         if r == "skip":
             continue
         print(f"[retrain {a.campaign}] {k+1}/{len(mine)} {j['run_id']} "

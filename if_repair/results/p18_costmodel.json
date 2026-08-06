@@ -1,0 +1,76 @@
+{
+  "device": "NVIDIA H200",
+  "total_steps": 8000,
+  "batch_size": 256,
+  "free_pool_size": 475,
+  "rows": [
+    {
+      "n_demos": 27,
+      "repeat": 0,
+      "train_s": 92.16,
+      "eval_s": 0.13,
+      "total_s": 92.29,
+      "n_windows": 3922,
+      "steps": 8000,
+      "final_loss": -23.182115109761558,
+      "n_eval_frames": 14461,
+      "retrains_per_hour_1gpu": 39.0
+    },
+    {
+      "n_demos": 55,
+      "repeat": 0,
+      "train_s": 93.09,
+      "eval_s": 0.13,
+      "total_s": 93.22,
+      "n_windows": 8321,
+      "steps": 8000,
+      "final_loss": -21.49790477156639,
+      "n_eval_frames": 14461,
+      "retrains_per_hour_1gpu": 38.6
+    },
+    {
+      "n_demos": 110,
+      "repeat": 0,
+      "train_s": 94.68,
+      "eval_s": 0.13,
+      "total_s": 94.81,
+      "n_windows": 18725,
+      "steps": 8000,
+      "final_loss": -17.712279047636365,
+      "n_eval_frames": 14461,
+      "retrains_per_hour_1gpu": 38.0
+    },
+    {
+      "n_demos": 258,
+      "repeat": 0,
+      "train_s": 92.41,
+      "eval_s": 0.13,
+      "total_s": 92.54,
+      "n_windows": 34899,
+      "steps": 8000,
+      "final_loss": -16.07147061524271,
+      "n_eval_frames": 14461,
+      "retrains_per_hour_1gpu": 38.9
+    },
+    {
+      "n_demos": 470,
+      "repeat": 0,
+      "train_s": 93.89,
+      "eval_s": 0.13,
+      "total_s": 94.01,
+      "n_windows": 59908,
+      "steps": 8000,
+      "final_loss": -14.505815223195148,
+      "n_eval_frames": 14461,
+      "retrains_per_hour_1gpu": 38.3
+    }
+  ],
+  "scaling": {
+    "small_n": 27,
+    "small_total_s": 92.29,
+    "large_n": 470,
+    "large_total_s": 94.01,
+    "size_ratio": 17.41,
+    "cost_ratio": 1.019
+  }
+}
