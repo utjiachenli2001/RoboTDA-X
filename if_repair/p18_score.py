@@ -133,6 +133,19 @@ def datamodel_prediction(pool, fit_partition, score_partition, table, alpha=1.0)
 
 
 # --------------------------------------------------------------------------- statistics
+def r2_from_kendall(tau):
+    """Split-half KENDALL (a depth-1 rank quantity) -> the variance-based depth-2 reliability.
+
+        rho1 = sin(tau * pi/2)     Kendall -> Pearson under bivariate normality
+        r2   = 2*rho1/(1+rho1)     Spearman-Brown, depth 1 -> depth 2
+
+    Both identities are already used elsewhere in the frozen prereg (§0(a), §3.1). See AMENDMENT 1
+    in `p18_prereg.md` for why both scales are reported.
+    """
+    rho1 = np.sin(np.clip(tau, -1, 1) * np.pi / 2)
+    return float(2 * rho1 / (1 + rho1)) if rho1 > -1 else float("nan")
+
+
 def split_half_kendall(table, pool, partition, sigs=None):
     """Ceiling r: Kendall tau between the two seeds' outcome rankings. No S-B correction."""
     cell = table[(pool, partition)]
@@ -181,8 +194,11 @@ def arm_curve(table, arm):
             taus.append(t)
             rs.append(r)
             cells.append({"partition": part, "n_masks": len(sigs), "tau": t, "r": r,
+                          "r2": r2_from_kendall(r),
                           "ratio_rho_over_sqrt_r": t / np.sqrt(r) if r > 0 else float("nan")})
-        out[pool] = {"tau": float(np.mean(taus)), "r": float(np.mean(rs)), "cells": cells}
+        rbar = float(np.mean(rs))
+        out[pool] = {"tau": float(np.mean(taus)), "r": rbar,
+                     "r2": r2_from_kendall(rbar), "cells": cells}
     return out
 
 
@@ -280,22 +296,29 @@ def score(force=False, n_boot=N_BOOT):
         res["arms"][arm] = {
             "alpha_carrying": arm in ("H1", "H2"),
             "per_pool": {str(p): {"tau": curve[p]["tau"], "r": curve[p]["r"],
-                                  "cells": curve[p]["cells"]} for p in C.RUNGS},
+                                  "r2": curve[p]["r2"], "cells": curve[p]["cells"]}
+                         for p in C.RUNGS},
             "slope_tau": float(np.mean(sl)), "ci": [float(lo), float(hi)],
             "verdict": tost(lo, hi),
             "slope_r": float(np.mean(rsl)), "r_trend_ci": [float(rlo), float(rhi)],
-            "r_in_band": all(R_BAND[0] <= curve[p]["r"] <= R_BAND[1] for p in C.RUNGS),
+            # AMENDMENT 1: the band is reported on BOTH scales. §3.1's statistic is a depth-1
+            # split-half Kendall; §3.3's band, §7's gate and §3.5's C are all on the depth-2
+            # variance-based r2. Neither reading is suppressed.
+            "r_in_band_kendall_scale": all(R_BAND[0] <= curve[p]["r"] <= R_BAND[1]
+                                           for p in C.RUNGS),
+            "r_in_band_r2_scale": all(R_BAND[0] <= curve[p]["r2"] <= R_BAND[1]
+                                      for p in C.RUNGS),
             "permutation_null_slope_abs_p95": (float(np.percentile(np.abs(nullsl), 95))
                                                if nullsl is not None else None),
         }
     os.makedirs(RESULTS, exist_ok=True)
     json.dump(res, open(OUT_CSV.replace(".csv", ".json"), "w"), indent=1)
     with open(OUT_CSV, "w") as fh:
-        fh.write("arm,pool,tau,r,ratio,n_masks_A,n_masks_B\n")
+        fh.write("arm,pool,tau,r_kendall,r2,ratio,n_masks_A,n_masks_B\n")
         for arm, a in res["arms"].items():
             for p in C.RUNGS:
                 d = a["per_pool"][str(p)]
-                fh.write(f"{arm},{p},{d['tau']:.6f},{d['r']:.6f},"
+                fh.write(f"{arm},{p},{d['tau']:.6f},{d['r']:.6f},{d['r2']:.6f},"
                          f"{d['tau'] / np.sqrt(d['r']) if d['r'] > 0 else float('nan'):.6f},"
                          f"{d['cells'][0]['n_masks']},{d['cells'][1]['n_masks']}\n")
     return res
@@ -326,11 +349,13 @@ def main():
             print(f"\n[{arm}] ({tag})  slope={d['slope_tau']:+.5f} "
                   f"CI [{d['ci'][0]:+.5f}, {d['ci'][1]:+.5f}]  -> {d['verdict'].upper()}")
             print(f"      r trend CI [{d['r_trend_ci'][0]:+.4f}, {d['r_trend_ci'][1]:+.4f}]  "
-                  f"r in band: {d['r_in_band']}  null |slope| p95="
+                  f"r in band (kendall/r2): {d['r_in_band_kendall_scale']}/"
+                  f"{d['r_in_band_r2_scale']}  null |slope| p95="
                   f"{d['permutation_null_slope_abs_p95']}")
             for p in C.RUNGS:
                 x = d["per_pool"][str(p)]
-                print(f"      pool {p:3d}: tau={x['tau']:+.4f}  r={x['r']:.4f}")
+                print(f"      pool {p:3d}: tau={x['tau']:+.4f}  "
+                      f"r_kendall={x['r']:.4f}  r2={x['r2']:.4f}")
 
 
 if __name__ == "__main__":

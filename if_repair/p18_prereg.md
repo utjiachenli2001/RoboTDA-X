@@ -522,3 +522,81 @@ subset-removal evaluation rather than of any estimator.
 
 `confirm_useries.py` writes once, refuses to overwrite, and refuses to write at all unless every
 arm in §4 has usable data.
+
+---
+
+## AMENDMENT 1 — the ceiling's scale, recorded before the score was consumed
+
+**Found during the pre-score dry run, after the outcome table existed and before
+`confirm_useries.csv` was written.** Recorded here in full because the reconciliation was chosen
+knowing which reading yields a result, and a reader is entitled to weigh that.
+
+**The defect.** §3.1 defines the reported ceiling as a **split-half Kendall τ** between the two
+seeds' outcome rankings — a *depth-1 rank* quantity, and §3.1 explicitly says it "understates the
+depth-2 reliability". But §3.3's band [0.65, 0.95], §7's gate values (0.872/0.849/0.871/0.833) and
+§3.5's `C = (2/π)·arcsin(√r̄₂)` are all on the **variance-based depth-2 `r₂`**. Every quantity in
+this document is on `r₂` except the ceiling statistic itself. The band was therefore being applied
+to a number it was never calibrated against.
+
+**What the two readings give.**
+
+| pool | split-half Kendall (A/B) | → r₂ | §7 gate r₂ (n=30) | in band on Kendall scale | in band on r₂ scale |
+|---|---|---|---|---|---|
+| 50 | 0.4825 / 0.4664 | 0.8082 | 0.8720 | no | yes |
+| 100 | 0.5252 / 0.5368 | 0.8510 | 0.8490 | no | yes |
+| 200 | 0.5568 / 0.5698 | 0.8725 | 0.8710 | no | yes |
+| 370 | 0.5682 / 0.5759 | 0.8779 | 0.8330 | no | yes |
+
+Converted to `r₂` the campaign reproduces the gate — pools 100 and 200 to three decimals — so the
+data are not in question; only which scale the veto is read on is.
+
+**Disposition: both readings are reported, neither is suppressed.** `confirm_useries` emits
+`r_in_band_kendall_scale` and `r_in_band_r2_scale` side by side. Read literally (Kendall scale) the
+§3.3 veto fires at every pool and **no trend claim stands**. Read on the scale the rest of the
+document uses (`r₂`) the veto does not fire and the τ trend is interpretable. The slope, its CI,
+the TOST verdict and the permutation null are **identical under both**, because the band is a veto
+gate and not an input to any of them.
+
+**Honest weighting.** This is a post-hoc reconciliation of a preregistration defect, and reporting
+a veto condition on two scales is weaker than having gotten the scale right in advance. It is
+recorded as such rather than resolved silently — which is the failure mode `WHAT_STANDS` §4 exists
+to prevent, and which this campaign has already had to withdraw one table over.
+
+---
+
+## AMENDMENT 2 — two scoring defects found on reading the scored output
+
+Both are defects in `p18_score.py`, not in the campaign. Recorded with their consequences.
+
+**(a) The two arms predict opposite-signed quantities, and `score()` regressed the raw signed τ.**
+H1/H1f sum GradDot influence, where a *higher* score means a training set expected to *lower*
+held-out loss — so a working estimator gives **negative** τ. H2 regresses the outcome directly on
+group indicators, so a working estimator gives **positive** τ. Regressing raw τ therefore compared
+a slope in "influence" units against one in "predicted outcome" units. On the **quality** scale
+(oriented so higher = better) the arms read:
+
+| arm | pool 50 | 100 | 200 | 370 | quality slope (unweighted) |
+|---|---|---|---|---|---|
+| H1 | +0.0568 | +0.0360 | +0.1299 | +0.0318 | +0.0028 |
+| H2 | +0.1282 | +0.2034 | +0.2148 | +0.2262 | +0.0319 |
+
+H1's headline `slope=+0.0355 → TREND` was a sign artefact: on the quality scale its slope is
+**+0.0028**, and its own permutation null puts |slope| at p95 = 0.0234 — an order of magnitude
+larger. **There is no H1 trend.**
+
+**(b) The §5 non-monotonicity branch was never implemented**, though §5 gives it precedence over
+slope/TOST. Computed now (max deviation of an interior pool from the fitted line, against
+Δ_τ = 0.04966):
+
+| arm | max interior deviation | branch |
+|---|---|---|
+| H1 | 0.0648 | **FIRES** |
+| H2 | 0.0253 | does not fire |
+| H1f | 0.0838 | **FIRES** |
+
+**Under the preregistered precedence, H1 is reported as NON-MONOTONE and no slope is quoted for
+it.** Pool 200 sits 0.065 off the line — H1's τ is noise around zero, not a curve.
+
+**What stands.** H2 is monotone; its preregistered inverse-variance-weighted slope is **+0.0182,
+CI [−0.0047, +0.0409]**, inside ±Δ_τ → **FLAT** by TOST. H1 carries no trend claim; what it carries
+is a **level**: 5.6%–23.1% of attainable at the four pools, against the datamodel's 27%–40%.

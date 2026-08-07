@@ -155,6 +155,31 @@ def rerun_jobs(runs, pool_of):
     return jobs, exhausted
 
 
+def run_reruns(worker=0, nworkers=1, path=None):
+    """Execute the emitted reserve-pair re-runs. Same trainer, same eval bank, same outdir as the
+    campaign -- a replacement run is a campaign run, not a separate artefact."""
+    import time
+
+    from if_repair import retrain as R
+    from if_repair import p18_eval as EVT
+    import train as TR
+
+    path = path or os.path.join(RESULTS, "p18_gate_reruns.json")
+    J = json.load(open(path))["jobs"]
+    cfg = TR.load_cfg()
+    fidx = EVT.frame_index()
+    mine = [j for k, j in enumerate(J) if k % nworkers == worker]
+    print(f"[p18/gate-rerun] worker {worker}/{nworkers}: {len(mine)} of {len(J)} jobs", flush=True)
+    t0 = time.time()
+    for k, j in enumerate(mine):
+        r = R.run_job(j, cfg, fidx, CAMP, ev=EVT)
+        if r == "skip":
+            continue
+        print(f"[p18/gate-rerun] {k + 1}/{len(mine)} {j['run_id']} loss={r['final_loss']:.4f} "
+              f"elapsed={(time.time() - t0) / 60:.1f}m", flush=True)
+    print(f"[p18/gate-rerun] worker {worker} DONE ({(time.time() - t0) / 60:.1f} m)", flush=True)
+
+
 def report(runs=None, pool_of=None):
     if runs is None:
         runs, pool_of = load_runs()
@@ -178,7 +203,13 @@ def main():
     ap.add_argument("--report", action="store_true")
     ap.add_argument("--emit-reruns", action="store_true")
     ap.add_argument("--force-thresholds", action="store_true")
+    ap.add_argument("--run-reruns", action="store_true")
+    ap.add_argument("--worker", type=int, default=0)
+    ap.add_argument("--nworkers", type=int, default=1)
     a = ap.parse_args()
+    if a.run_reruns:
+        run_reruns(a.worker, a.nworkers)
+        return
     runs, pool_of = load_runs()
     if a.force_thresholds:
         thresholds(runs, pool_of, force=True)

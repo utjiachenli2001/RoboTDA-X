@@ -1,0 +1,6 @@
+[p18/gram] H1 pool=200 surrogate=200 member=7001 train_loss=-17.460 (98s)
+[p18/gram] H1 pool=200 surrogate=200 member=7002 train_loss=-17.515 (89s)
+[p18/gram] H1 pool=200 surrogate=200 member=7003 train_loss=-17.303 (90s)
+[p18/gram] H1 pool=200 surrogate=200 member=7004 train_loss=-18.014 (90s)
+[p18/gram] H1 pool=200 surrogate=200 member=7005 train_loss=-17.573 (91s)
+[p18/gram] wrote /home/jli/code/RoboTDA-X/if_repair/results/p18_graddot_H1_pool200.npz  shape=(5, 200)

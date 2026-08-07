@@ -1,0 +1,35 @@
+[p18/gate-rerun] worker 15/24: 33 of 790 jobs
+[p18/gate-rerun] 1/33 U200_5ff085cfb8e6_i4404_o4404 loss=-23.5564 elapsed=2.4m
+[p18/gate-rerun] 2/33 U370_66cf2f1748a8_i4404_o4404 loss=-22.8724 elapsed=4.6m
+[p18/gate-rerun] 3/33 U370_664b9772b1b4_i4404_o4404 loss=-23.2097 elapsed=6.8m
+[p18/gate-rerun] 4/33 U200_66893d30df6d_i4404_o4404 loss=-22.9917 elapsed=9.0m
+[p18/gate-rerun] 5/33 U100_fd9e571e28e6_i4404_o4404 loss=-23.2995 elapsed=11.2m
+[p18/gate-rerun] 6/33 U370_9cd5ab091374_i4404_o4404 loss=-22.9009 elapsed=13.4m
+[p18/gate-rerun] 7/33 U370_3e4aa1a4e8db_i4404_o4404 loss=-23.6322 elapsed=15.6m
+[p18/gate-rerun] 8/33 U200_f3b479b218a1_i4404_o4404 loss=-23.2732 elapsed=17.8m
+[p18/gate-rerun] 9/33 U370_d97276ce1657_i4404_o4404 loss=-23.1538 elapsed=20.0m
+[p18/gate-rerun] 10/33 U50_e86495456ade_i4404_o4404 loss=-23.1219 elapsed=22.2m
+[p18/gate-rerun] 11/33 U200_99e52412d696_i4404_o4404 loss=-23.2316 elapsed=24.4m
+[p18/gate-rerun] 12/33 U370_31e997c18fd2_i4404_o4404 loss=-23.1550 elapsed=26.6m
+[p18/gate-rerun] 13/33 U200_854ff2c2c23c_i4404_o4404 loss=-22.9285 elapsed=28.8m
+[p18/gate-rerun] 14/33 U370_21c8ed8ba589_i4404_o4404 loss=-23.2788 elapsed=31.0m
+[p18/gate-rerun] 15/33 U370_79add5e796da_i4404_o4404 loss=-23.1281 elapsed=33.2m
+[p18/gate-rerun] 16/33 U200_49c6a67fefce_i4404_o4404 loss=-22.9826 elapsed=35.4m
+[p18/gate-rerun] 17/33 U370_7744cb8bcdfb_i4404_o4404 loss=-23.0948 elapsed=37.6m
+[p18/gate-rerun] 18/33 U370_09d19d9b7f51_i4404_o4404 loss=-23.2556 elapsed=39.8m
+[p18/gate-rerun] 19/33 U200_f73aa7e7469b_i4404_o4404 loss=-23.4550 elapsed=42.0m
+[p18/gate-rerun] 20/33 U370_b41bebdf1365_i4404_o4404 loss=-23.0034 elapsed=44.2m
+[p18/gate-rerun] 21/33 U200_de26c8c6efc9_i4404_o4404 loss=-23.1021 elapsed=46.4m
+[p18/gate-rerun] 22/33 U200_d875463bc357_i4404_o4404 loss=-23.1821 elapsed=48.6m
+[p18/gate-rerun] 23/33 U200_340dfd796452_i4404_o4404 loss=-23.3580 elapsed=50.8m
+[p18/gate-rerun] 24/33 U370_cb76c441c33b_i4404_o4404 loss=-22.7654 elapsed=53.0m
+[p18/gate-rerun] 25/33 U200_1ace2c22af3c_i4404_o4404 loss=-22.9083 elapsed=55.2m
+[p18/gate-rerun] 26/33 U100_bb7e80e4140b_i4404_o4404 loss=-23.0366 elapsed=57.4m
+[p18/gate-rerun] 27/33 U370_86ff0af3d992_i4404_o4404 loss=-23.2686 elapsed=59.6m
+[p18/gate-rerun] 28/33 U100_365dbee04273_i4404_o4404 loss=-22.9013 elapsed=61.8m
+[p18/gate-rerun] 29/33 U370_390819f880a3_i4404_o4404 loss=-22.9642 elapsed=64.0m
+[p18/gate-rerun] 30/33 U100_c0fe35e24ca2_i4404_o4404 loss=-23.0647 elapsed=66.2m
+[p18/gate-rerun] 31/33 U100_aa0a3a73baec_i4404_o4404 loss=-23.1369 elapsed=68.4m
+[p18/gate-rerun] 32/33 U100_049b38d15db5_i4404_o4404 loss=-23.1842 elapsed=70.6m
+[p18/gate-rerun] 33/33 U200_73a7de5990fb_i4404_o4404 loss=-23.1265 elapsed=72.8m
+[p18/gate-rerun] worker 15 DONE (72.8 m)
