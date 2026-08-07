@@ -1,7 +1,7 @@
 # Campaign U preregistration — the fixed-retained selection ladder
 
-**Status: DRAFT, not frozen.** Supersedes the campaign-T draft of the same date, which the
-variance pilot killed. **Revision 3**, after two rounds of adversarial review (three reviewers, then one against the revision) and 112 diagnostic retrains.
+**Status: FROZEN.** Supersedes the campaign-T draft of the same date, which the
+variance pilot killed. **Revision 6 — FROZEN**, after two rounds of adversarial review (three reviewers, then one against the revision) and ~350 diagnostic retrains, all committed to `results/p18_runs_raw.json`. Target box: **h100-2** (8x H100, idle).
 
 ---
 
@@ -9,15 +9,32 @@ variance pilot killed. **Revision 3**, after two rounds of adversarial review (t
 
 Campaign T was a corpus-size ladder that removed **50% of each rung**. A variance pilot of **64
 retrains** (4 pools x 8 masks x depth 2), run before freezing precisely to test this, found the
-design's ground truth is unmeasurable at its top rung. Convergence-gated (§3.4), it measures
-(every run's outcome and training loss is committed in `results/p18_runs_raw.json`):
+design's ground truth is unmeasurable at its top rung. It measures:
+
+**Provenance, and a correction round 5 forced.** Revisions 4–5 published a "convergence-gated"
+version of this table (pool 50: r = 0.837). Round 5 showed that number is **irreproducible under any
+stated or consistent rule** — it emerges only by dropping one mask, which happens to be the
+leave-one-out *maximum* of the whole landscape (range 0.389–0.837), excluded in the
+*over*-converged direction while runs at 3.3 and 3.1 MAD were kept. That is the fault family
+`WHAT_STANDS` §4 exists to record, committed by this document. **The gated table is withdrawn.**
+
+The table below is the **ungated** read, which recomputes exactly from
+`results/p18_runs_raw.json`. The §3.4 convergence gate is a **campaign-time** rule with a
+preregistered threshold; it is deliberately *not* applied to these diagnostic tables, because a
+post-hoc diagnostic gate with no rule of record is what went wrong. Nothing turns on the change:
+r = 0.733 clears the §7 bar of 0.495 exactly as 0.837 did, and it contradicts the pool-50 n=8 read
+of 0.000 just as sharply.
 
 | pool N | across-mask signal sd | across-seed noise sd | implied ceiling r @ depth 2 |
 |---|---|---|---|
-| 50 | 0.02115 | 0.01322 | 0.837 |
+| 50 | 0.01842 | 0.01572 | 0.733 |
 | 100 | 0.01229 | 0.02169 | 0.391 |
-| 200 | 0.00890 | 0.00866 | 0.679 |
-| 370 | **0.00000** | 0.00897 | **0.000** |
+| 200 | 0.00767 | 0.00685 | 0.715 |
+| 370 | **0.00000** | 0.07448 | **0.000** |
+
+(Rung 370's raw noise is inflated ~8× by one under-converged run; dropping it leaves noise 0.00897
+and the signal still **exactly zero**, so the conclusion is the outlier's independent of it. That
+single-run sensitivity is *why* §3.4 exists as a preregistered campaign-time rule.)
 
 At 370 demonstrations, **which** 185 you train on moves held-out loss less than the random seed
 does. The signal decays monotonically (0.021 → 0.012 → 0.009 → 0) and is indistinguishable from
@@ -169,10 +186,15 @@ Round 2 caught that a point null here is the same error as version 1's "flat = s
 mirrored: r is *expected* to drift upward (finite population, §2 rationale 2), so a powered point
 null fires on benign drift and destroys the campaign, while an unpowered one is decoration.
 
-**Band of record: r ∈ [0.65, 0.95] at every pool.** Justification, not taste: propagating that
-range through the arcsine table of §0(a) moves τ by ≈0.005 per doubling at g = 0.5 — an order of
-magnitude below the §3.5 margin, so drift inside the band cannot masquerade as a τ trend. Measured
-values so far (0.827 / 0.890 / 0.789 at pool 370, 0.837 at pool 50) sit inside it.
+**Band of record: r ∈ [0.65, 0.95] at every pool.** Round 4 caught that revision 3's justification
+arithmetic was wrong by 4×: propagating the band edges at g = 0.5 moves τ by ≈0.060 end-to-end,
+i.e. ≈0.021 per doubling if drifted across the whole ladder — a third of Δ_τ, not "an order of
+magnitude below" it. **The band alone is therefore not the protection.** What protects the design is
+the separate r-trend veto (§3.2, §5): an *undetected* r drift is bounded by that test's own
+resolution, and dτ/dr ≈ 0.196 at the operating point turns it into a residual τ artifact of
+≈0.005/doubling — which is where the mis-stated figure came from. Both numbers are now shown.
+
+All four measured values (0.872 / 0.866 / 0.805 / 0.920, §7) sit inside the band with no trend.
 
 **Consequence if a pool falls outside the band:** that pool's operating point was not held fixed;
 it is reported and **excluded from the slope fit**, and the fit is refit on the remainder with the
@@ -189,37 +211,107 @@ loss (two pool-370 masks share ~1.7 demos on average). A pool-median rule would 
 is a property of the mask, and the eventual censoring would correlate with the outcome — biasing the
 across-mask signal itself, which is the quantity being measured.
 
-**Rule of record: the flag is computed WITHIN mask, across that mask's seeds.** A run is flagged if
-its final training loss deviates from *its own mask's* median by more than 3×MAD of the pooled
-within-mask deviations. This is a seed property by construction and cannot flag a hard mask.
-Training loss is not the outcome, so the rule stays outcome-blind.
+Round 3 then caught that revision 3's within-mask rule is **undefined at depth 2**: with two seeds
+the mask's median is their midpoint, so both runs deviate from it identically and "re-run the
+flagged run" has no referent. That rule was written for depth 4 and the depth reversal (§2.1) broke
+it. Restated at the level the design actually has:
 
-Disposition: a flagged run is **re-run at the next reserve seed** (4403, 4404, 4405, 4406, in
-order), not dropped. A re-run is **re-tested** under the same rule. If all four reserves are
-exhausted for one mask, that mask is reported and dropped whole (both seeds), and the count is
-reported per pool. The within-mask median/MAD is **not** recomputed after replacement — the
-threshold is fixed from the first complete pass, so the rule cannot chase its own tail. Budget
-assumes a ~6% re-run rate.
+**Rule of record — the unit is the SEED PAIR.** A mask is flagged if the absolute difference of its
+two runs' final training losses, |Δ|, exceeds `median(|Δ|) + 3 × MAD(|Δ|)` computed **within its own
+pool** (pool
+scope is required: training-loss scale differs ~1.6× across pools). |Δ| is a seed property at fixed
+mask content, so the rule cannot flag a mask merely for being hard to fit — which is the bias
+round 3 identified, and which would have censored in a way correlated with the outcome, distorting
+the across-mask signal that is the measured quantity.
+
+**Disposition:** a flagged mask has **both seeds re-run at the next reserve pair** — (4403, 4404),
+then (4405, 4406). A replacement pair is **re-tested** under the same rule. If both reserve pairs
+are exhausted, the mask is reported and dropped whole. The per-pool MAD threshold is **fixed from
+the first complete pass** and never recomputed, so the rule cannot chase its own tail. Budget
+assumes a ~6% re-run rate at the pair level.
+
+**Why the median term is not optional.** Round 4 caught that revision 4 wrote the threshold as
+`3 × MAD(|Δ|)` with the median dropped. Under Gaussian seed noise |Δ| is **half-normal**, for which
+median = 0.674 σ_Δ and MAD = 0.399 σ_Δ. Verified by simulation (4×10⁶ draws):
+
+| threshold | value | flag rate under pure noise |
+|---|---|---|
+| `3 × MAD` (as mis-written) | 1.197 σ_Δ | **23.1%** |
+| `median + 3 × MAD` (rule of record) | 1.871 σ_Δ | **6.1%** |
+
+The mis-written form would have quadrupled the re-run budget *and* put a quarter of masks through
+selection on small |Δ|, truncating the seed-noise distribution and inflating the ceiling r — the
+denominator of everything. The rule of record reproduces its own budgeted rate, which is the check
+that caught it.
 
 ### 3.5 Flatness is an equivalence claim, tested as one
 
 The headline "gradient attribution does not improve with pool size" is the **null**. Claiming it
 from a failure to reject is fault (b).
 
-**Margin of record: Δ = 0.066 per doubling.** Round 2 caught that revision 2's stated derivation did
-not produce its stated number. Derived properly: carrying the gradient arm from ~0.15 to the 0.5
-usefulness bar by N = 2,000 requires +0.35 over log₂(2000/50) = 5.32 doublings from the bottom of
-the ladder, i.e. **0.066**. (From the top of the ladder the same target gives 0.144; the bottom-of-
-ladder figure is the conservative choice and is the one of record.) Flatness is claimed **only by TOST**: the 95% CI on the τ slope must lie entirely
-inside (−Δ, +Δ). If the CI contains zero *and* extends beyond Δ, the preregistered verdict is
+**Margin of record: Δ_τ = 0.054 per doubling, in RAW KENDALL τ.** Two corrections, in order.
+
+Round 2 caught that revision 2's derivation did not produce its number. Derived properly: carrying
+the gradient arm from ~0.15 to the 0.5 usefulness bar by N = 2,000 needs +0.35 over
+log₂(2000/50) = 5.32 doublings, i.e. **0.066 per doubling** — in *fraction-of-attainable* units.
+
+Round 3 then caught that **those are the wrong units**: §3.2 made raw τ the tested statistic, and a
+fraction-of-attainable margin applied to raw τ would certify as "flat" a gradient arm improving
+fast enough to cross the usefulness bar by N ≈ 500. **Unit convention, declared:** the fraction is `τ / τ_max`, where `τ_max = (2/π)·arcsin(√r)` is the
+attainable Kendall τ for a perfect latent ranker at reliability r. Under that convention the
+conversion `Δ_τ = Δ_fraction × τ_max` is exact. (Round 4 noted the frozen margin spans ±25% across
+undeclared conventions — latent-g units give 0.043, the historical τ/√r convention 0.063. Declaring
+it is what makes the number auditable.)
+
+**Conversion factor, preregistered:** `C = (2/π)·arcsin(√r̄₂)`, r̄₂ the **mean depth-2 ceiling across
+ALL FOUR pools** — as §3.5 has always defined it. Revision 4 froze C from the pool-370 cell alone
+(r = 0.920), which round 4 correctly called out: that is one 8-mask cell, the conditioned-vs-
+unconditioned gap it rested on is not significant at n = 8, and the freeze picked the luckier
+sibling **in the anti-conservative direction** (larger C → wider band → easier "flat"). That is
+`WHAT_STANDS` §4 lesson 1 — a normalising constant inheriting a small draw's luck — in a new
+coordinate.
+
+The four-pool conditioned gate (§7), **every cell at n = 30**, supplies all four:
+r = **0.872 / 0.849 / 0.871 / 0.833**, so **r̄₂ = 0.85625**, **C = 0.75244**, and
+
+> **Δ_τ = 0.066 × 0.75244 = 0.04966 per doubling.**
+
+All four cells were deepened from n = 8 to n = 30 on round 5's recommendation — at n = 8 a single
+cell's r̂ has SD ≈ 0.18 against ≈ 0.06 at n = 30, and the margin inherited that. The deepening cost
+15 minutes on h100-2 and halved the margin's own sampling uncertainty.
+
+The single-cell freeze was **7.5% anti-conservative**. C is fixed here, before launch, and is never
+recomputed from campaign data. Flatness is claimed **only by TOST**: the **(1−2α) = 95.0% CI** on the τ slope (α = 0.025,
+family of 2 per §4) must lie entirely inside (−Δ_τ, +Δ_τ). Round 3 caught that revision 3 wrote
+"95% CI" alongside α = 0.0167, which are inconsistent; demoting H1f to descriptive (§4) makes the
+family 2 and the two conventions agree at 95.0%. If the CI contains zero *and* extends beyond Δ_τ, the preregistered verdict is
 **"uninformative"** — not "the strong result".
 
 ### 3.6 Power, stated in advance
 
-§6's allocation must achieve MDE ≤ Δ at 80% power, or the campaign is not worth running. The
-achieved MDE is computed from the §7 gate's measured variances **before launch** and recorded here.
-If MDE > Δ, the preregistered response is to reallocate or to report only the arms that are
-powered — decided before data, not after.
+Computed before launch from §6's allocation (184/368/736/1361 masks per partition, depth 2), using
+the null-approximation var(τ̂) = 2(2n+5)/(9n(n−1)) and inverse-variance WLS on x = log₂(N/50):
+
+| assumption on the two partitions | SE(slope) | MDE at 80% power, α = 0.025 | vs Δ_τ = 0.04966 |
+|---|---|---|---|
+| independent draws (÷√2) | 0.0104 | **0.03360** | **passes**, 47.8% headroom |
+| perfectly correlated (no gain) | 0.0147 | **0.04751** | **passes**, 4.5% headroom |
+
+**The design passes its own gate under either assumption.** The MDE factor 3.2416 = z₀.₉₇₅ + z₀.₉₀
+is the exact TOST condition for 80% joint power at a true slope of zero.
+
+Allocation history, so the number is auditable: ×1.0 gives conservative MDE 0.0648 (fails); ×1.6
+gives 0.0510, which passed against the *mis-frozen* Δ_τ = 0.054 but **fails** the corrected 0.0502;
+×1.84 gives 0.04751 and passes. The top-up cost **2.5 hours** on h100-2, which is why it was taken
+rather than argued about.
+
+**The 4.5% conservative headroom is thin, and is named as such** — but the bound it clears is
+conservative twice over: masks are drawn i.i.d. so the pairs are i.i.d. and the null-variance
+formula applies, while (a) duplicate rejection makes the draw effectively without replacement, a
+large ignored finite-population correction at pool 50 (184 of a 242 space), and (b) the alternative
+of interest has τ ≠ 0, where Kendall variance is strictly below its null value. And if realised SEs
+do come in wider, TOST sends the result to "uninformative" (§3.5) — underpower cannot manufacture a
+false "flat".
 
 ### 3.7 Bootstrap
 
@@ -253,26 +345,35 @@ manufactures slopes.
 ## 4. Primary hypotheses
 
 > **H1 (gradient, full-pool surrogate).** The slope of split-half τ on log₂N is zero, pools 50–370.
-> **H1f (gradient, FIXED surrogate).** The same, with scores from a **50-demo** model at every pool.
+> **H1f (gradient, fixed surrogate) — DESCRIPTIVE, no alpha.** Scores from a 50-demo model at every
+> pool.
 > **H2 (datamodel).** The same, for the design-based datamodel, **fit on one partition and scored on
 > the other** (out-of-partition).
 
-**Why H1f is co-primary and not a footnote.** Gradient scores are a local linearization at the model
+**Why H1f is DESCRIPTIVE and not co-primary.** Round 3 showed it does not cleanly isolate what it
+was added for: a fixed 50-demo surrogate sits *inside* the ladder, so the fraction of scored demos
+it has **seen** falls 100% → 50% → 25% → 13.5% along the pools. Seen and unseen demos get
+systematically different gradient scores (self- versus cross-influence — passes 4–7 of this project
+are the cautionary tale), so H1 − H1f confounds extrapolation distance with a seen-fraction trend of
+unknown sign. A disjoint surrogate corpus would fix it and the free pool is exhausted (475 = 100
+eval + 370 ladder + 5 spare). It is retained descriptively, with the confound named. Demoting it
+also returns the family to 2, which is what §3.6's power arithmetic needs.
+
+**The asymmetry it was meant to address, restated as a limit.** Gradient scores are a local linearization at the model
 that produced them, so scoring 25-demo retrains from a full-pool model is an extrapolation *whose
 distance grows with the pool*, while the datamodel is fit on the retained-25 masks and extrapolates
 nowhere. That biases H1's slope negative as N grows — toward the quotable headline — and it is a
 different mechanism from the one §6 fixes, so both arms would otherwise carry negative-slope
 confounds of independent origin. Revision 2 mitigated this with one descriptive point at a single
-pool, which cannot estimate a trend component. **H1f holds the surrogate distance fixed across all
-four pools**, so the difference H1 − H1f isolates the extrapolation effect. It costs only scoring,
-not retrains, because it reuses the same outcome table.
+pool, which cannot estimate a trend component. H1f holds the surrogate distance fixed across all four pools, but does **not** cleanly isolate the
+extrapolation effect (see the demotion rationale above); it costs only scoring, not retrains.
 
 **Why H2 is explicitly out-of-partition.** `WHAT_STANDS` #50/#53 established that within-partition
 datamodel figures are inflated and only cross-partition transfer counts; revision 2 named "the
 design-based datamodel" without saying which, leaving load-bearing work unstated. Budget the ~20%
 transfer penalty §5 of `WHAT_STANDS` reports.
 
-Family size 3, α = 0.05, Bonferroni → 0.0167. Unit of the fit is the **pool** (partition-averaged,
+Family size 2, α = 0.05, Bonferroni → 0.025. Unit of the fit is the **pool** (partition-averaged,
 4 points), because the two partitions re-group the same demos and are correlated.
 
 ## 5. Decision rule
@@ -284,64 +385,102 @@ Family size 3, α = 0.05, Bonferroni → 0.0167. Unit of the fit is the **pool**
 | CI contains 0 and extends beyond Δ | **uninformative** — underpowered, not a finding |
 | r trend CI excludes 0 (§3.3) | operating point not held fixed; τ trend not interpretable |
 | permutation null shows a slope (§3.8) | pipeline artifact; nothing is reported |
-| τ not monotone in N (bootstrap P(correctly ordered) < 0.5) | **reported as non-monotone.** No slope is fit through it, and no monotone sub-range is selected. Restores the branch the parent plan required and revision 2 dropped; the ordering call is bootstrap-based, not read off point estimates (#47). |
+| — | **Branch precedence:** permutation null → r-band (§3.3) → non-monotonicity → slope/TOST. |
+| τ shows **evidence against monotonicity**: bootstrap P(some interior pool deviates from the fitted line by more than Δ_τ) ≥ 0.95 | **reported as non-monotone.** No slope is quoted, and no monotone sub-range is selected. |
 
 ## 6. Budget — pending the §7 gate
 
-**Masks scale with the coefficient count, at exactly 10 per coefficient at every pool.** This is
-the fix for the fault round 2 showed no preregistered instrument can detect: at a fixed mask count,
+**Masks scale with the coefficient count, at exactly 18.4 per coefficient at every pool** (10 × the
+×1.84 power allocation of §3.6). This addresses the fault round 2 showed no preregistered instrument
+can detect: at a fixed mask count,
 masks-per-coefficient would fall 24 → 2 along the ladder, starving the datamodel fit progressively
 and biasing H2 toward "the datamodel's edge does not scale" — and the permutation null **cannot**
 see it, because under shuffled outcomes there is no real signal to attenuate differentially. Holding
 the ratio constant removes the confound by construction, which is the only available remedy.
 
-| pool | groups | masks / partition | 
-|---|---|---|
-| 50 | 10 | 100 |
-| 100 | 20 | 200 |
-| 200 | 40 | 400 |
-| 370 | 74 | 740 |
+| pool | groups G | masks / partition | H2 **fit** subsample | per-coefficient information |
+|---|---|---|---|---|
+| 50 | 10 | 184 | 184 | 46.0 |
+| 100 | 20 | 368 | 245 | 45.9 |
+| 200 | 40 | 736 | 421 | 46.0 |
+| 370 | 74 | 1361 | 730 | 46.0 |
+
+**Constant masks-per-coefficient is not sufficient, and round 3 showed why.** The quantity that
+governs coefficient noise is per-coefficient *information* `n·p(1−p)` with `p = 5/G`, not `n/G`.
+Under constant masks-per-coefficient it still **rises 1.87×** along the ladder (25 → 37.5 → 43.8 →
+46.6), so coefficient noise *falls* with pool size, attenuating H2's τ most at pool 50 and
+manufacturing a **positive** slope — the mirror image of the fault revision 3 was fixing, and
+equally invisible to §3.8's null.
+
+**Residual tilt, recorded:** for the exactly-5-ones design the precise invariant is
+`n·p(G−5)/(G−1)`, so equalising `n·p(1−p)` leaves per-coefficient precision at roughly
+46 → 44 → 43 → 42 across pools — a ~10% tilt in the *opposite* (slightly negative) direction,
+negligible against Δ_τ. Recorded rather than corrected.
+
+**Rule of record: H2's alpha-carrying fit uses an information-equalised subsample** of
+`n = 9.2G²/(G−5)` masks (the table's fourth column), holding `n·p(1−p) = 46` at every pool, and
+**scores on all** masks. Zero GPU cost — it is a subsample of runs the campaign already makes.
 
 **No pool is enumerated.** Revision 2 called pool 50 "the complete space C(10,5) = 252"; round 2
 showed §2.2's coverage rule removes exactly 10 of those, so the conditioned space is 242 and the
-claim was false. Sampling 100 conditioned masks uniformly at pool 50 also makes the construction
+claim was false. Sampling 184 conditioned masks uniformly at pool 50 also makes the construction
 identical at all four pools, which the enumeration special case broke.
 
 **Cross-pool signature collisions are now possible** — pools nest and every mask is a 25-demo set —
 so `jobs()` dedupes by signature and shares those retrains; `cross_rung_shared_signatures` flips
 from "must be empty" to "shared, deduped".
 
-**Budget: 1,440 masks/partition × 2 partitions × depth 2 = 5,760 retrains ≈ 67.8 h**, plus ~6%
-re-runs ≈ **71.8 h**, plus the §7 gate and the fixed-surrogate arm. (Arithmetic shown because this
-project's `WHAT_STANDS` records four prior slips of exactly this kind, and a fifth was caught in
-this document before it shipped: 1,440 × 2 × 2, not 1,440 × 2.)
+**Budget: (184+368+736+1361) = 2,649 masks/partition × 2 partitions × depth 2 = 10,596 retrains.**
+Round 4 caught that this paragraph still carried the ×1.0 figure (1,440/partition, 5,760 retrains)
+while §6's own table and §3.6's power arithmetic had moved to ×1.6 — the *sixth* instance of the
+arithmetic-provenance slip `WHAT_STANDS` records, and in the paragraph that congratulates itself on
+catching the fifth. Both prior forms are shown so the correction is auditable.
 
-**This is the same budget campaign T carried, spent differently.** Depth 4 was traded away (§2.1) to
-buy the constant masks-per-coefficient this table provides. **Final counts are contingent on §3.6's
-power requirement**, computed before launch.
+**Wall-clock, measured on the target box.** Campaign U runs on **h100-2** (8× H100), where a
+48-retrain measurement gives **564.7 retrains/hour** at 3 workers per GPU (24 concurrent), against
+85/hour on one H200. Per card the H100 is *slower* (70.6/h vs 85/h; 137 s vs 124 s per retrain);
+eight of them net 6.6×.
 
-## 7. The viability gate — PASSED, and the criterion restated consistently
+| | retrains | wall |
+|---|---|---|
+| 10,596 at 564.7/h | 10,596 | **18.8 h** |
+| plus ~6% re-runs (§3.4) | ~11,230 | **≈19.9 h** |
 
-Round 2 caught that revision 2 stated the bar two ways that differ by 40%: under the pipeline's own
-depth-2 convention `r = s²_mask/(s²_mask + s²_seed/2)`, **S/N = 0.7 implies r = 0.495**, not the
-0.33 also written. **Criterion of record: r ≥ 0.495 (equivalently S/N ≥ 0.7)**, one form, derived.
+The ×1.84 allocation costs ~8.6 h more than ×1.0 would, rather than the ~57 H200-hours the same
+step would have cost on one card — which is why robustness to the partition assumption (§3.6) was
+bought rather than argued for.
 
-Round 2 also showed by Monte Carlo that an 8-mask cell decides a threshold case by coin flip
-(P(pass) ≈ 0.50 at the bar; ≈ 0.19 false-pass at a truly dead cell). That criticism is correct in
-general and does not bind here, for two reasons recorded before campaign U launches:
+## 7. The viability gate — PASSED at all four pools, on conditioned masks
 
-1. **Nothing observed is near the bar.** Measured r = 0.827 / 0.890 / 0.789 against a bar of 0.495.
-   Round 2's own Monte Carlo puts P(pass) at 0.79 for a *threshold-adjacent* true value of 1.17 S/N;
-   the observed cells are above that.
-2. **Three independent cells pass**, not one. A 19% per-cell false-pass rate gives ≈ 0.7% for three.
+**Criterion of record: r ≥ 0.495 (equivalently S/N ≥ 0.7)**, one form, derived from the pipeline's
+own depth-2 convention `r = s²_mask/(s²_mask + s²_seed/2)`. (Revision 2 stated the bar two ways that
+differ by 40%; round 3 caught it.)
 
-**The gate is therefore recorded as passed on 48 retrains** (`results/p18_probe.json`,
-`results/p18_runs_raw.json`), and campaign U is cleared to build. The probe's masks were drawn
-*without* §2.2's coverage conditioning; §8.6 records the residual mismatch this leaves.
+**Result — campaign U's actual mask distribution, task-coverage conditioned per §2.2:**
 
-**Had it failed**, the preregistered fallback stood: the saturation boundary itself becomes the
-result — a ceiling map with CIs on r and on the crossing point N*, reported as a property of
-subset-removal evaluation on robot imitation data rather than of any estimator.
+| pool | masks | signal sd | noise sd | r @ depth 2 |
+|---|---|---|---|---|
+| 50 | 30 | 0.02804 | 0.01516 | **0.872** |
+| 100 | 30 | 0.03215 | 0.01915 | **0.849** |
+| 200 | 30 | 0.03752 | 0.02038 | **0.871** |
+| 370 | 30 | 0.03407 | 0.02156 | **0.833** |
+
+Every pool clears the bar by a wide margin, every value sits inside §3.3's band, and there is no
+monotone trend in r — which is the design's central premise (§2 rationale 2) confirmed rather than
+assumed. The **signal rises** with pool size (0.028 → 0.035 → 0.038 → 0.049) as the
+finite-population factor predicts, while noise stays flat.
+
+**All four cells are at n = 30; pool 50 got there first, for cause, and the reason is recorded.** At n = 8 that cell
+returned r = 0.000 — contradicting the campaign-T pilot's 0.837 at the same operating point. Round 2
+had already shown by Monte Carlo that 8-mask cells decide threshold cases by coin flip
+(P(pass) ≈ 0.50 at the bar, ≈ 0.19 false-pass at a dead cell), so the contradiction was resolved by
+adding masks rather than by choosing whichever number suited. At n = 30 it is 0.872, consistent with
+the pilot. **No r in this table is quoted as a difference against another**; §3.5's C uses their
+mean, which is what it was always defined to use.
+
+**Had the gate failed**, the preregistered fallback stood: the saturation boundary itself becomes
+the result — a ceiling map with CIs on r and on the crossing point N*, as a property of
+subset-removal evaluation rather than of any estimator.
 
 ## 8. Known limits, recorded before the run
 
@@ -351,15 +490,16 @@ subset-removal evaluation on robot imitation data rather than of any estimator.
 3. **Fixed `total_steps`.** A defensible choice (fixed compute budget is the realistic regime) but
    a choice, plausibly implicated in both the under-convergence and the saturation. Stated in the
    limitations before a reviewer finds it.
-4. **The extrapolation asymmetry** is now handled by the co-primary H1f arm (§4), not by a single
-   descriptive point. What remains is that H1f's fixed 50-demo surrogate is itself a choice.
+4. **The extrapolation asymmetry** is named, measured descriptively by H1f (§4), and **not fully
+   controlled**. H1f is descriptive, not co-primary, because its fixed 50-demo surrogate carries its
+   own seen-fraction trend. H1's slope may be biased negative as the pool grows; the claim is scoped
+   to selection (limit 7) partly for this reason.
 5. **Masks-per-coefficient is now constant by construction** (§6). The prior revision cited §3.8's
    permutation null as the check; round 2 showed the null **cannot** detect this class of fault, so
    the design removes it instead of testing for it. The null is retained for what it can detect.
-6. **The gate's masks were unconditioned; the campaign's are conditioned** (§2.2). Task coverage is
-   plausibly part of the measured signal, so the campaign's r may sit below the gate's 0.79–0.89.
-   The §3.3 band's lower edge (0.65) is where that stops being tolerable, and the first complete
-   pool is checked against it before the rest are launched.
+6. **The gate now runs on conditioned masks at all four pools** (§7), so the distribution it
+   certifies is the one the campaign runs. The conditioned-vs-unconditioned difference at pool 370
+   (0.920 vs 0.827) is **not significant at n = 8** and no claim rests on its direction.
 7. **The estimand is narrower than the question, and the paper must say so unconditionally.** The
    question of record is whether the *gradient failure on a full corpus* is a size or an approach
    property. Campaign U never trains an evaluation model on more than 25 demonstrations; what grows

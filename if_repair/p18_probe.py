@@ -49,7 +49,9 @@ PROBE_MASKS = 8
 # (rung, retained demos). The rung-50 cell reproduces the pilot as a positive control; the
 # rung-370 cells sweep retention down to the rung-50 training-set size.
 CELLS = ((370, 25), (370, 50), (370, 100))
-CELLS_COND = ((370, 25),)   # conditioned mini-gate: campaign U's ACTUAL mask distribution
+CELLS_COND = ((50, 25), (100, 25), (200, 25), (370, 25))   # conditioned gate at EVERY pool:
+# C must be frozen from the cross-pool mean r, per its own definition in prereg 3.5 -- freezing
+# it from one 8-mask cell inherits that cell's luck (WHAT_STANDS lesson 1).
 
 
 def probe_jobs(cells=CELLS, n_masks=PROBE_MASKS, conditioned=False):
@@ -96,7 +98,7 @@ def probe_jobs(cells=CELLS, n_masks=PROBE_MASKS, conditioned=False):
     return out
 
 
-def run(worker=0, nworkers=1, steps=None, conditioned=False):
+def run(worker=0, nworkers=1, steps=None, conditioned=False, cells=None, masks=None):
     import time
 
     from if_repair import retrain as R
@@ -107,7 +109,8 @@ def run(worker=0, nworkers=1, steps=None, conditioned=False):
     if steps:
         cfg["total_steps"] = steps
     os.makedirs(OUTDIR, exist_ok=True)
-    J = probe_jobs(CELLS_COND if conditioned else CELLS, conditioned=conditioned)
+    J = probe_jobs(cells or (CELLS_COND if conditioned else CELLS),
+                   masks or PROBE_MASKS, conditioned=conditioned)
     mine = [j for k, j in enumerate(J) if k % nworkers == worker]
     fidx = EVT.frame_index()
     print(f"[p18/probe] worker {worker}/{nworkers}: {len(mine)} of {len(J)} jobs, "
@@ -179,9 +182,12 @@ def main():
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)
     ap.add_argument("--conditioned", action="store_true")
+    ap.add_argument("--pool", type=int, default=None, help="restrict to one pool")
+    ap.add_argument("--masks", type=int, default=None, help="override mask count")
     a = ap.parse_args()
     if a.run:
-        run(a.worker, a.nworkers, a.steps, a.conditioned)
+        cells = ((a.pool, 25),) if a.pool else None
+        run(a.worker, a.nworkers, a.steps, a.conditioned, cells, a.masks)
     if a.analyse:
         rows = analyse()
         print("[p18/probe] outcome sensitivity vs RETAINED COUNT at fixed pool size")

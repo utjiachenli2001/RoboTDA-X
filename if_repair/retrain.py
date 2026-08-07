@@ -407,6 +407,23 @@ def jobs(campaign):
         # from both partitions is the same model at the same seed and is retrained once.
         from if_repair import p18_masks as P18M
         return P18M.jobs()
+
+    if campaign == "U":
+        # PASS 18 -- the FIXED-RETAINED SELECTION LADDER, and the one that runs.
+        #
+        # Campaign T is dead: its variance pilot measured a ceiling of ZERO at pool 370, because
+        # training on 185 of 370 demos puts the model past the point where WHICH demos it got
+        # still matters. Campaign U holds the retained set at 25 demonstrations and grows the
+        # candidate pool instead, so every retrain sits at an operating point the four-pool
+        # conditioned gate measured healthy (r = 0.872/0.849/0.871/0.833 at n=30 each).
+        #
+        # Masks are i.i.d. uniform 5-group draws under a task-coverage condition -- there are no
+        # complementary pairs when the retained set is a small fraction of the pool, and i.i.d.
+        # draws are what make the mask bootstrap valid. Jobs are deduped by (signature, seed):
+        # pools nest, so the same 25-demo training set is reachable from more than one pool and
+        # is the same model at the same seed.
+        from if_repair import p18_campaign_u as P18U
+        return P18U.jobs()
     raise KeyError(campaign)
 
 
@@ -439,7 +456,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--campaign", required=True,
                     choices=["A", "B", "C", "I", "J", "K", "L", "M", "D", "N", "O", "P", "R", "Q",
-                             "S", "T"])
+                             "S", "T", "U"])
     ap.add_argument("--worker", type=int, default=0)
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)
@@ -461,7 +478,7 @@ def main():
     mine = [j for k, j in enumerate(J) if k % a.nworkers == a.worker]
     if a.reverse:
         mine = mine[::-1]
-    if a.campaign == "T":
+    if a.campaign in ("T", "U"):
         from if_repair import p18_eval as EVT
         ev, fidx = EVT, EVT.frame_index()
     else:
