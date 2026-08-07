@@ -748,3 +748,65 @@ Two cheap things that could ride along if that corpus appears, neither worth a p
   bar at k=3 (CI [0.537, 0.745]) but NOT at k=5 (CI [0.437, 0.642], P=0.77). It still transfers at
   4.8x and 3.4x GradDot, so it still attributes -- but the strongest form of the claim holds at one
   grain only.
+
+---
+
+# PASS 18 — the corpus-size question, resolved (campaign U)
+
+**Done 2026-08-07. Repo . No experiment running. h100-2 holds the full checkout, venv,
+data and all 11,386 campaign runs.**
+
+## The answer
+
+ §3 is amended: gradient attribution reaches **5.6–23.1% of attainable** at pool
+sizes 50/100/200/370 and is **non-monotone**, so no trend is claimable — it does not work at any
+reachable pool size. The design-based datamodel reaches **27–40%**, monotonically, and its
+advantage is **flat** in pool size (weighted slope +0.0182, CI [−0.0047, +0.0409], inside the TOST
+margin). Scoped **to subset selection**: every retrain trains on 25 demos; what grows is the pool.
+
+This reproduces  §1 on a second, independent corpus and across four pool sizes.
+
+## The part worth carrying forward
+
+**Campaign T was preregistered, implemented, tested and nearly launched, and was wrong.** It
+removed 50% of each pool. A 32-retrain variance pilot measured its ceiling at **exactly zero** at
+the top rung — training on 185 of 370 demos puts the model past the point where which demos it got
+still matters, so  was 0/0. It would have reported *attribution degrades with corpus size*
+— the headline — when the truth was *the outcome stopped moving*. **Retained count, not pool
+size, governs measurability**, and a 48-retrain probe proved it (r = 0.827/0.890/0.789 at keep
+25/50/100 against 0.000 at keep 185).
+
+Five adversarial review rounds followed, each finding real faults, several introduced by the
+previous round's own fixes:  is a Pearson identity on a Kendall statistic; a convergence gate
+undefined at depth 2; a non-monotonicity branch that fired 23/24 of the time under a flat truth;
+constant masks-per-coefficient fixing the wrong invariant (information still rose 1.87×,
+invisibly to the permutation null); a gate threshold flagging 23.1% against a 6% budget; a
+normalising constant frozen from one 8-mask cell, 7.5% anti-conservative; and a gated pilot table
+that was irreproducible under any stated rule and sat at the leave-one-out maximum — withdrawn.
+
+**Two defects survived into scoring and were caught reading the output** (recorded as amendments in
+): a ceiling/band scale mismatch, and a sign-convention error that briefly produced
+a false *gradient improves with data* verdict. The second is the cautionary one — the whole
+review process existed to prevent exactly that headline, and it was produced at the last step by
+the scoring code rather than by the design.
+
+## Entry points
+
+| file | what |
+|---|---|
+|  | frozen prereg + amendments 1 and 2 |
+|  | the scored result (write-once, consumed) |
+| ,  | corpus, pools, masks |
+|  | convergence gate, thresholds frozen from the complete pass |
+| ,  | estimators and scoring |
+|  | 352 diagnostic runs, outcomes + training losses |
+
+## Next
+
+1. **R5 pruning** — de-scoped from this prereg by design; it now has real influence scores to
+   select on and needs its own preregistration.
+2. **Agreement-vs-N** is reported at GROUP level only. Per-demo scores are group coefficients
+   copied to members, so a per-demo claim needs within-group resolution this design does not have.
+3. ** is fixed at 8000**, so epochs-per-demo vary along any ladder. Defensible (fixed
+   compute is the realistic regime) but a choice, plausibly implicated in both the under-
+   convergence and the saturation. State it in any write-up before a reviewer finds it.

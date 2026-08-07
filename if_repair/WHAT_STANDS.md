@@ -74,8 +74,35 @@ is exhausted. No purchasable design tightens that rung below a CI width of ~0.6.
 - **Whether partition draw matters.** Unresolvable at feasible cost: the data-consistent
   between-partition SD (~0.021) sits below one partition's own SE (~0.032); separating them needs
   ~20 partitions, ~50,000 retrains (#47).
-- **Whether the gradient failure reflects the corpus or the approach.** The only clean discriminator
-  is corpus-size scaling, which is off-box.
+- ~~**Whether the gradient failure reflects the corpus or the approach.**~~ **RESOLVED by campaign U
+  (pass 18), on a second corpus.** See `p18_prereg.md` and `results/confirm_useries.{csv,json}`.
+  Holding the retained training set at 25 demonstrations and growing the candidate pool
+  50 -> 100 -> 200 -> 370 on `libero_goal`, with 11,386 retrains:
+
+  | arm | tau at pools 50/100/200/370 | ceiling | fraction of attainable |
+  |---|---|---|---|
+  | gradient (GradDot) | 0.057 / 0.036 / 0.130 / 0.032 | 0.47-0.57 | **5.6-23.1%** |
+  | design-based datamodel | 0.128 / 0.203 / 0.215 / 0.226 | 0.47-0.57 | **27-40%** |
+
+  **Gradient attribution clears no useful bar at any reachable pool size, and its curve is
+  NON-MONOTONE** (interior deviation 0.065 against a 0.0497 margin), so the preregistered branch
+  precedence quotes no slope for it -- what stands is the level. **The datamodel attributes, and
+  its advantage is FLAT in pool size** (weighted slope +0.0182, CI [-0.0047, +0.0409], inside the
+  TOST margin). More candidate data does not rescue gradient attribution.
+
+  **Scope, and it is narrower than the question as originally posed.** Campaign U never trains an
+  evaluation model on more than 25 demonstrations; what grows is the candidate pool. The claim is
+  therefore **for subset selection**, unconditionally -- not "the failure is not a corpus-size
+  artifact" in general. Two preregistration defects are recorded as amendments in
+  `p18_prereg.md` (a ceiling/band scale mismatch, and a sign-convention error in scoring that
+  briefly produced a false "gradient improves with data" headline).
+
+  **What killed the first attempt, and is worth carrying forward.** Campaign T removed 50% of each
+  pool and was preregistered, implemented and nearly launched before a 32-retrain variance pilot
+  measured its ceiling at **exactly zero** at the top rung: training on 185 of 370 demos puts the
+  model past the point where WHICH demos it received still matters, so the primary statistic was
+  0/0. Had it run, it would have reported "attribution degrades with corpus size" when the truth
+  was "the outcome stopped moving". **Retained count, not pool size, governs measurability.**
 
 ---
 
