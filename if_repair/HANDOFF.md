@@ -781,12 +781,12 @@ previous round's own fixes:  is a Pearson identity on a Kendall statistic; a con
 undefined at depth 2; a non-monotonicity branch that fired 23/24 of the time under a flat truth;
 constant masks-per-coefficient fixing the wrong invariant (information still rose 1.87×,
 invisibly to the permutation null); a gate threshold flagging 23.1% against a 6% budget; a
-normalising constant frozen from one 8-mask cell, 7.5% anti-conservative; and a gated pilot table
+normalising constant frozen from one 8-mask cell, 7.5% anti-conservative; and a "gated" pilot table
 that was irreproducible under any stated rule and sat at the leave-one-out maximum — withdrawn.
 
 **Two defects survived into scoring and were caught reading the output** (recorded as amendments in
-): a ceiling/band scale mismatch, and a sign-convention error that briefly produced
-a false *gradient improves with data* verdict. The second is the cautionary one — the whole
+`if_repair/p18_prereg.md`): a ceiling/band scale mismatch, and a sign-convention error that briefly produced
+a false *"gradient improves with data"* verdict. The second is the cautionary one — the whole
 review process existed to prevent exactly that headline, and it was produced at the last step by
 the scoring code rather than by the design.
 
@@ -794,12 +794,13 @@ the scoring code rather than by the design.
 
 | file | what |
 |---|---|
-|  | frozen prereg + amendments 1 and 2 |
-|  | the scored result (write-once, consumed) |
-| ,  | corpus, pools, masks |
-|  | convergence gate, thresholds frozen from the complete pass |
-| ,  | estimators and scoring |
-|  | 352 diagnostic runs, outcomes + training losses |
+| `if_repair/p18_prereg.md` | frozen prereg + amendments 1 and 2 |
+| `if_repair/results/confirm_useries.{csv,json}` | the scored result (write-once, consumed) |
+| `if_repair/p18_corpus.py`, `if_repair/p18_campaign_u.py` | corpus, pools, masks |
+| `if_repair/p18_gate.py` | convergence gate; thresholds frozen from the complete pass |
+| `if_repair/p18_gram.py`, `if_repair/p18_score.py` | estimators and scoring |
+| `if_repair/results/p18_runs_raw.json` | 352 diagnostic runs, outcomes + training losses |
+| `if_repair/results/p18_probe.json` | the four-pool conditioned gate (n=30 per cell) |
 
 ## Next
 
@@ -807,6 +808,6 @@ the scoring code rather than by the design.
    select on and needs its own preregistration.
 2. **Agreement-vs-N** is reported at GROUP level only. Per-demo scores are group coefficients
    copied to members, so a per-demo claim needs within-group resolution this design does not have.
-3. ** is fixed at 8000**, so epochs-per-demo vary along any ladder. Defensible (fixed
+3. **`total_steps` is fixed at 8000**, so epochs-per-demo vary along any ladder. Defensible (fixed
    compute is the realistic regime) but a choice, plausibly implicated in both the under-
    convergence and the saturation. State it in any write-up before a reviewer finds it.
