@@ -1,0 +1,58 @@
+{
+ "rungs": [
+  50,
+  370
+ ],
+ "n_masks": 8,
+ "partition": "A",
+ "seeds": [
+  4401,
+  4402
+ ],
+ "rows": [
+  {
+   "rung": 50,
+   "n_masks": 8,
+   "status": "ok",
+   "outcome_mean": 0.49322156119766797,
+   "sd_across_masks_depth2": 0.021515459292811703,
+   "sd_across_seeds_single": 0.01572337900747468,
+   "sd_mask_signal": 0.018420170055520383,
+   "signal_to_noise": 1.1715147263678938,
+   "implied_ceiling_r_depth2": 0.7329697098697096
+  },
+  {
+   "rung": 100,
+   "n_masks": 8,
+   "status": "ok",
+   "outcome_mean": 0.3699980152460602,
+   "sd_across_masks_depth2": 0.019650723054241235,
+   "sd_across_seeds_single": 0.021687107027192794,
+   "sd_mask_signal": 0.012287620231356048,
+   "signal_to_noise": 0.5665864154194924,
+   "implied_ceiling_r_depth2": 0.39100156047078954
+  },
+  {
+   "rung": 200,
+   "n_masks": 8,
+   "status": "ok",
+   "outcome_mean": 0.2829049710072062,
+   "sd_across_masks_depth2": 0.009074770351681548,
+   "sd_across_seeds_single": 0.006853728022663335,
+   "sd_mask_signal": 0.007672331003771807,
+   "signal_to_noise": 1.119439081679574,
+   "implied_ceiling_r_depth2": 0.7147980767038262
+  },
+  {
+   "rung": 370,
+   "n_masks": 8,
+   "status": "ok",
+   "outcome_mean": 0.2401372684515268,
+   "sd_across_masks_depth2": 0.04904675145313714,
+   "sd_across_seeds_single": 0.07448279016871244,
+   "sd_mask_signal": 0.0,
+   "signal_to_noise": 0.0,
+   "implied_ceiling_r_depth2": 0.0
+  }
+ ]
+}

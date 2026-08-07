@@ -49,11 +49,11 @@ PILOT_MASKS = 8
 PILOT_PARTITION = "A"
 
 
-def pilot_jobs():
+def pilot_jobs(rungs=None):
     """8 masks per rung, both seeds. Seed-major, so a half-finished pilot is still balanced."""
     out = []
     for sd in M.SEEDS:
-        for n in PILOT_RUNGS:
+        for n in (rungs or PILOT_RUNGS):
             for m in M.build(n, PILOT_PARTITION)[0][:PILOT_MASKS]:
                 out.append({"run_id": f"TP{n}_{m['sig']}_i{sd}_o{sd}", "mask_id": m["mask_id"],
                             "rung": n, "partition": PILOT_PARTITION, "sig": m["sig"],
@@ -61,7 +61,7 @@ def pilot_jobs():
     return out
 
 
-def run(worker=0, nworkers=1, steps=None):
+def run(worker=0, nworkers=1, steps=None, rungs=None):
     import time
 
     import torch  # noqa: F401
@@ -73,7 +73,7 @@ def run(worker=0, nworkers=1, steps=None):
     if steps:
         cfg["total_steps"] = steps
     os.makedirs(OUTDIR, exist_ok=True)
-    J = pilot_jobs()
+    J = pilot_jobs(rungs)
     mine = [j for k, j in enumerate(J) if k % nworkers == worker]
     fidx = EVT.frame_index()
     print(f"[p18/pilot] worker {worker}/{nworkers}: {len(mine)} of {len(J)} jobs, "
@@ -146,9 +146,11 @@ def main():
     ap.add_argument("--worker", type=int, default=0)
     ap.add_argument("--nworkers", type=int, default=1)
     ap.add_argument("--steps", type=int, default=None)
+    ap.add_argument("--rungs", type=int, nargs="+", default=None,
+                    help="override the piloted rungs (default 50 and 370)")
     a = ap.parse_args()
     if a.run:
-        run(a.worker, a.nworkers, a.steps)
+        run(a.worker, a.nworkers, a.steps, a.rungs)
     if a.analyse:
         rows = analyse()
         print(f"[p18/pilot] {len(rows)} rungs, partition {PILOT_PARTITION}, "

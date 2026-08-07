@@ -1,0 +1,75 @@
+{
+ "cells": [
+  [
+   370,
+   25
+  ],
+  [
+   370,
+   50
+  ],
+  [
+   370,
+   100
+  ]
+ ],
+ "n_masks": 8,
+ "seeds": [
+  4401,
+  4402
+ ],
+ "rows": [
+  {
+   "rung": 370,
+   "keep": 25,
+   "conditioned": false,
+   "removed_frac": 0.932,
+   "n_masks": 8,
+   "status": "ok",
+   "outcome_mean": 0.48656462571006454,
+   "sd_across_masks": 0.04576655092146909,
+   "sd_across_seeds": 0.02692842306427475,
+   "sd_signal": 0.04161739058234119,
+   "implied_ceiling_r_depth2": 0.8269006330899895
+  },
+  {
+   "rung": 370,
+   "keep": 25,
+   "conditioned": true,
+   "removed_frac": 0.932,
+   "n_masks": 8,
+   "status": "ok",
+   "outcome_mean": 0.46681465760379726,
+   "sd_across_masks": 0.05129550133858163,
+   "sd_across_seeds": 0.020460099129916556,
+   "sd_signal": 0.04921301280528783,
+   "implied_ceiling_r_depth2": 0.9204524306506646
+  },
+  {
+   "rung": 370,
+   "keep": 50,
+   "conditioned": false,
+   "removed_frac": 0.865,
+   "n_masks": 8,
+   "status": "ok",
+   "outcome_mean": 0.3541225528965368,
+   "sd_across_masks": 0.025323415754303167,
+   "sd_across_seeds": 0.0118903061125204,
+   "sd_signal": 0.023886935670792305,
+   "implied_ceiling_r_depth2": 0.889767030940335
+  },
+  {
+   "rung": 370,
+   "keep": 100,
+   "conditioned": false,
+   "removed_frac": 0.73,
+   "n_masks": 7,
+   "status": "ok",
+   "outcome_mean": 0.2748527206908554,
+   "sd_across_masks": 0.012807857495800115,
+   "sd_across_seeds": 0.008318780650995554,
+   "sd_signal": 0.011377177060810569,
+   "implied_ceiling_r_depth2": 0.7890709597091963
+  }
+ ]
+}
