@@ -1,0 +1,8 @@
+[r5b] worker 7/8: 6 new of 14
+[r5b] RANDOM-11 s8102 loss=0.40510 (1.5m)
+[r5b] RANDOM-12 s8105 loss=0.44765 (2.9m)
+[r5b] RANDOM-14 s8103 loss=0.44392 (4.3m)
+[r5b] RANDOM-16 s8101 loss=0.44508 (5.7m)
+[r5b] RANDOM-17 s8104 loss=0.45259 (7.2m)
+[r5b] RANDOM-19 s8102 loss=0.51397 (8.6m)
+[r5b] worker 7 train DONE (8.6 m)
