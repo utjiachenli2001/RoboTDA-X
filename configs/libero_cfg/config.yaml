@@ -1,5 +1,5 @@
-benchmark_root: /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/libero/libero
-bddl_files: /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/libero/libero/bddl_files
-init_states: /home/ljc/miniconda/envs/robotda_x/lib/python3.12/site-packages/libero/libero/init_files
-datasets: /mnt/sdb/ljc/RoboTDA-X/data/libero
-assets: /home/ljc/.cache/libero/assets
+benchmark_root: /home/jli/code/RoboTDA-X/.venv/lib/python3.12/site-packages/libero/libero
+bddl_files: /home/jli/code/RoboTDA-X/.venv/lib/python3.12/site-packages/libero/libero/bddl_files
+init_states: /home/jli/code/RoboTDA-X/.venv/lib/python3.12/site-packages/libero/libero/init_files
+datasets: /home/jli/code/RoboTDA-X/data/libero
+assets: /home/jli/.cache/libero/assets

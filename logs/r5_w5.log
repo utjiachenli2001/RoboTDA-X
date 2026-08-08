@@ -1,0 +1,10 @@
+[r5] worker 5/8: 8 of 65 policies
+[r5] DM-bottom s8101 loss=0.70926 (1.6m)
+[r5] GD-top s8104 loss=0.52296 (2.9m)
+[r5] RANDOM-01 s8102 loss=0.45984 (4.3m)
+[r5] RANDOM-02 s8105 loss=0.48509 (5.7m)
+[r5] RANDOM-04 s8103 loss=0.44994 (7.0m)
+[r5] RANDOM-06 s8101 loss=0.43016 (8.4m)
+[r5] RANDOM-07 s8104 loss=0.51576 (9.8m)
+[r5] RANDOM-09 s8102 loss=0.45858 (11.2m)
+[r5] worker 5 DONE (11.2 m)
